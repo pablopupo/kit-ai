@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { initEngine, chat, unloadEngine, hasWebGPU, checkWebGPUInWorker } from '../services/webllmService'
 import { getRelevantMedicalContext } from '../services/medicalCacheService'
+import { devWarn } from '../utils/devLog'
 
 const BASE_DISCLAIMER = `You are KIT AI, an offline First-Aid and Medical Reference Tool.
 You were specifically built to provide medical and first-aid guidance.
@@ -95,7 +96,7 @@ export function useWebLLM() {
       // Catch any errors from the async unload so they don't become
       // uncaught promise rejections in the console.
       unloadEngine().catch((err) => {
-        console.warn('[useWebLLM] cleanup error (safe to ignore):', err)
+        devWarn('[useWebLLM] cleanup error (safe to ignore):', err)
       })
     }
   }, [])
