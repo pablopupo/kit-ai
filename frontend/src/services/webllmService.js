@@ -4,6 +4,7 @@ import {
   modelLibURLPrefix,
   modelVersion,
 } from '@mlc-ai/web-llm'
+import { devLog, devWarn } from '../utils/devLog'
 
 const LLAMA_32_3B_WASM =
   modelLibURLPrefix + modelVersion + '/Llama-3.2-3B-Instruct-q4f32_1-ctx4k_cs1k-webgpu.wasm'
@@ -27,22 +28,22 @@ let worker = null
 let initPromise = null // Guards against concurrent init calls (e.g. StrictMode)
 
 export async function initEngine(modelId = DEFAULT_MODEL, onProgress) {
-  console.log('[WebLLM] initEngine called', { modelId, hasExistingEngine: !!engine })
+  devLog('[WebLLM] initEngine called', { modelId, hasExistingEngine: !!engine })
 
   // If already initialized, return the existing engine
   if (engine) {
-    console.log('[WebLLM] Engine already exists, returning existing engine')
+    devLog('[WebLLM] Engine already exists, returning existing engine')
     return engine
   }
 
   // If init is already in progress, return the same promise to avoid duplicates
   if (initPromise) {
-    console.log('[WebLLM] Init already in progress, waiting for existing promise')
+    devLog('[WebLLM] Init already in progress, waiting for existing promise')
     return initPromise
   }
 
   initPromise = (async () => {
-    console.log('[WebLLM] Creating new worker...')
+    devLog('[WebLLM] Creating new worker...')
     worker = new Worker(
       new URL('../worker/webllm-worker.js', import.meta.url),
       { type: 'module' }
@@ -67,10 +68,10 @@ export async function initEngine(modelId = DEFAULT_MODEL, onProgress) {
       logLevel: 'WARN',
     }
 
-    console.log('[WebLLM] Creating engine...')
+    devLog('[WebLLM] Creating engine...')
     try {
       engine = await CreateWebWorkerMLCEngine(worker, modelId, engineConfig)
-      console.log('[WebLLM] Engine created successfully!', { hasEngine: !!engine })
+      devLog('[WebLLM] Engine created successfully!', { hasEngine: !!engine })
       return engine
     } catch (error) {
       // Clean up on failure so a retry can start fresh
@@ -91,7 +92,7 @@ export async function initEngine(modelId = DEFAULT_MODEL, onProgress) {
 
 export async function chat(messages, options = {}) {
   if (!engine) {
-    console.warn('WebLLM engine is null, attempting to reinitialize...')
+    devWarn('WebLLM engine is null, attempting to reinitialize...')
     try {
       await initEngine()
     } catch (initError) {
@@ -137,7 +138,7 @@ export async function unloadEngine() {
     try {
       await engine.unload()
     } catch (err) {
-      console.warn('[WebLLM] Error during engine.unload():', err)
+      devWarn('[WebLLM] Error during engine.unload():', err)
     }
     engine = null
   }

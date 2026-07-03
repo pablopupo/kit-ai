@@ -1,3 +1,5 @@
+import { devWarn } from '../utils/devLog'
+
 const DB_NAME = 'kit-ai-medical'
 const STORE_NAME = 'medical-knowledge'
 const META_KEY = 'meta'
@@ -234,7 +236,7 @@ export async function fetchAndUpdate() {
       updatedInRun = true
 
     } catch (err) {
-      console.warn(`Failed to load pack ${url}:`, err)
+      devWarn(`Failed to load pack ${url}:`, err)
     }
   }
 
@@ -255,6 +257,6 @@ export async function ensureMedicalData() {
     // Cache is empty — load from the static bundled file
     await fetchAndUpdate()
   } catch (err) {
-    console.warn('Failed to ensure medical data:', err)
+    devWarn('Failed to ensure medical data:', err)
   }
 }

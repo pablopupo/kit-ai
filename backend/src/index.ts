@@ -24,10 +24,7 @@ app.use("/api/tts", ttsRoutes);
 
 async function start() {
   try {
-    // Attempt DB connection but don't crash if it fails (optional, but safer for merge)
-    // Actually, teammates expect it to crash if DB fails? 
-    // Their code: await connectDB(); await ensureMeta();
-    // I will do the same.
+    // Server starts even if this fails, so offline-only mode still works without Mongo.
     console.log("Connecting to MongoDB...");
     await connectDB();
     await ensureMeta();
