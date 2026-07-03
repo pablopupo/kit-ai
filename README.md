@@ -52,7 +52,7 @@ KIT AI is built to:
 ### Local AI
 - `@mlc-ai/web-llm` in a Web Worker
 - WebGPU / WASM inference
-- Model: Llama-3.2-3B-Instruct (configurable)
+- Model: Llama-3.2-1B-Instruct by default (swapped from 3B for faster load time), with a larger model available via `VITE_WEBLLM_MODEL_URL`
 
 ### Backend (Online Only)
 - Node.js + Express
