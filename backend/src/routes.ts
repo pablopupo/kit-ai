@@ -54,15 +54,8 @@ router.get("/latest", async (_req: Request, res: Response) => {
 router.post("/update", validateUpdateSecret, async (_req: Request, res: Response) => {
   try {
     const entries: GuidelineEntry[] = [];
-    
-    // Note: This endpoint will time out on Cloud Run if we do the slow loop.
-    // Ideally this should trigger a background task.
-    // For now, we will just generate the first one as a test or change logic later.
-    // Or we assume this is handled by manual-update locally.
-    
-    // Let's implement a faster "batch" attempt here but if it fails it fails.
-    // WARNING: This route is deprecated in favor of manual-update.ts for now.
-    
+
+    // This loop can exceed the Cloud Run request timeout for the full scenario set.
     for (const scenario of SUPPORTED_SCENARIOS) {
          const entry = await generateGuideline(scenario);
          entries.push(entry);
