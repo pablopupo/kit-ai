@@ -4,8 +4,14 @@ import { getCollection, ensureMeta } from '../db.js'
 const router = Router()
 const API_KEY = process.env.MEDICAL_API_KEY
 
+if (!API_KEY) {
+  console.warn('[medical] MEDICAL_API_KEY is not set; POST /api/medical is disabled')
+}
+
 function requireApiKey(req, res, next) {
-  if (!API_KEY) return next()
+  if (!API_KEY) {
+    return res.status(503).json({ error: 'Medical content updates are disabled: MEDICAL_API_KEY is not configured' })
+  }
   const key = req.headers['x-api-key']
   if (key !== API_KEY) {
     return res.status(401).json({ error: 'Invalid or missing API key' })
