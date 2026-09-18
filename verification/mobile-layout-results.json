@@ -1,0 +1,825 @@
+{
+  "url": "http://127.0.0.1:4184/",
+  "runAt": "2026-09-18T23:44:15.569Z",
+  "result": "pass",
+  "checks": 80,
+  "limitations": "Desktop Chrome synthesized touch gestures. Desktop WebKit at phone widths used wheel input, because Playwright mobile WebKit does not support wheel input. Visual keyboard viewport and streamed content growth were simulated. No physical phone or model inference was tested.",
+  "cases": [
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "native-guide-scroll",
+      "documentScrollTop": 454,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1241
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "article-scroll",
+      "documentScrollTop": 459,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1234
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "settings-scroll",
+      "documentScrollTop": 453,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1740
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "history-scroll",
+      "documentScrollTop": 458,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 3307
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "reading-position-preserved",
+      "documentScrollTop": 0,
+      "mainScrollTop": 17674,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 620
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "following-bottom",
+      "documentScrollTop": 0,
+      "mainScrollTop": 19263,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 620
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "chat-320x568",
+      "documentScrollTop": 0,
+      "mainScrollTop": 18111,
+      "width": 320,
+      "documentWidth": 320,
+      "height": 568,
+      "mainVisibleHeight": 344
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "chat-844x390",
+      "documentScrollTop": 0,
+      "mainScrollTop": 16031,
+      "width": 844,
+      "documentWidth": 844,
+      "height": 390,
+      "mainVisibleHeight": 216
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "chat-390x440",
+      "documentScrollTop": 0,
+      "mainScrollTop": 11163,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 440,
+      "mainVisibleHeight": 216
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "simulated-visual-keyboard",
+      "navDisplay": "none",
+      "inputBottom": 411
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "simulated-keyboard-offset",
+      "shellTop": 70,
+      "inputBottom": 481
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "zoom-not-keyboard"
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "simulated-landscape-keyboard",
+      "shellHeight": 210,
+      "inputBottom": 181,
+      "documentScrollTop": 0,
+      "mainScrollTop": 11163,
+      "width": 844,
+      "documentWidth": 844,
+      "height": 390,
+      "mainVisibleHeight": 56
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "small-phone-new-conversation",
+      "documentScrollTop": 0,
+      "mainScrollTop": 0,
+      "width": 320,
+      "documentWidth": 320,
+      "height": 568,
+      "mainVisibleHeight": 320
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "focused-search-native-scroll",
+      "documentScrollTop": 250,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1241
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "focused-settings-native-scroll",
+      "documentScrollTop": 250,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1740
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "guides-320x568",
+      "documentScrollTop": 0,
+      "mainScrollTop": 0,
+      "width": 320,
+      "documentWidth": 320,
+      "height": 568,
+      "mainVisibleHeight": 1434
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "guides-844x390",
+      "documentScrollTop": 0,
+      "mainScrollTop": 0,
+      "width": 844,
+      "documentWidth": 844,
+      "height": 390,
+      "mainVisibleHeight": 310
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "guides-1440x1000",
+      "documentScrollTop": 0,
+      "mainScrollTop": 0,
+      "width": 1440,
+      "documentWidth": 1440,
+      "height": 1000,
+      "mainVisibleHeight": 920
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "check": "console-and-downloads",
+      "errors": [],
+      "heavyRequests": 0
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "native-guide-scroll",
+      "documentScrollTop": 464,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1401
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "article-scroll",
+      "documentScrollTop": 463,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1358
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "settings-scroll",
+      "documentScrollTop": 454,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1868
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "history-scroll",
+      "documentScrollTop": 457,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 3307
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "reading-position-preserved",
+      "documentScrollTop": 0,
+      "mainScrollTop": 17672,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 620
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "following-bottom",
+      "documentScrollTop": 0,
+      "mainScrollTop": 19263,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 620
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "chat-320x568",
+      "documentScrollTop": 0,
+      "mainScrollTop": 22854,
+      "width": 320,
+      "documentWidth": 320,
+      "height": 568,
+      "mainVisibleHeight": 328
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "chat-844x390",
+      "documentScrollTop": 0,
+      "mainScrollTop": 16079,
+      "width": 844,
+      "documentWidth": 844,
+      "height": 390,
+      "mainVisibleHeight": 208
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "chat-390x440",
+      "documentScrollTop": 0,
+      "mainScrollTop": 11163,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 440,
+      "mainVisibleHeight": 216
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "simulated-visual-keyboard",
+      "navDisplay": "none",
+      "inputBottom": 411
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "simulated-keyboard-offset",
+      "shellTop": 70,
+      "inputBottom": 481
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "zoom-not-keyboard"
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "simulated-landscape-keyboard",
+      "shellHeight": 210,
+      "inputBottom": 181,
+      "documentScrollTop": 0,
+      "mainScrollTop": 11163,
+      "width": 844,
+      "documentWidth": 844,
+      "height": 390,
+      "mainVisibleHeight": 48
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "small-phone-new-conversation",
+      "documentScrollTop": 0,
+      "mainScrollTop": 0,
+      "width": 320,
+      "documentWidth": 320,
+      "height": 568,
+      "mainVisibleHeight": 304
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "focused-search-native-scroll",
+      "documentScrollTop": 250,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1401
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "focused-settings-native-scroll",
+      "documentScrollTop": 250,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1868
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "guides-320x568",
+      "documentScrollTop": 0,
+      "mainScrollTop": 0,
+      "width": 320,
+      "documentWidth": 320,
+      "height": 568,
+      "mainVisibleHeight": 1673
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "guides-844x390",
+      "documentScrollTop": 0,
+      "mainScrollTop": 0,
+      "width": 844,
+      "documentWidth": 844,
+      "height": 390,
+      "mainVisibleHeight": 302
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "guides-1440x1000",
+      "documentScrollTop": 0,
+      "mainScrollTop": 0,
+      "width": 1440,
+      "documentWidth": 1440,
+      "height": 1000,
+      "mainVisibleHeight": 912
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "check": "console-and-downloads",
+      "errors": [],
+      "heavyRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "native-guide-scroll",
+      "documentScrollTop": 390,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1241
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "article-scroll",
+      "documentScrollTop": 390,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1234
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "settings-scroll",
+      "documentScrollTop": 390,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1740
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "history-scroll",
+      "documentScrollTop": 390,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 3307
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "reading-position-preserved",
+      "documentScrollTop": 0,
+      "mainScrollTop": 17251,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 620
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "following-bottom",
+      "documentScrollTop": 0,
+      "mainScrollTop": 19053,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 620
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "chat-320x568",
+      "documentScrollTop": 0,
+      "mainScrollTop": 22564,
+      "width": 320,
+      "documentWidth": 320,
+      "height": 568,
+      "mainVisibleHeight": 344
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "chat-844x390",
+      "documentScrollTop": 0,
+      "mainScrollTop": 15821,
+      "width": 844,
+      "documentWidth": 844,
+      "height": 390,
+      "mainVisibleHeight": 216
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "chat-390x440",
+      "documentScrollTop": 0,
+      "mainScrollTop": 18305,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 440,
+      "mainVisibleHeight": 216
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "simulated-visual-keyboard",
+      "navDisplay": "none",
+      "inputBottom": 411
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "simulated-keyboard-offset",
+      "shellTop": 70,
+      "inputBottom": 481
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "zoom-not-keyboard"
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "simulated-landscape-keyboard",
+      "shellHeight": 210,
+      "inputBottom": 181,
+      "documentScrollTop": 0,
+      "mainScrollTop": 15981,
+      "width": 844,
+      "documentWidth": 844,
+      "height": 390,
+      "mainVisibleHeight": 56
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "small-phone-new-conversation",
+      "documentScrollTop": 0,
+      "mainScrollTop": 0,
+      "width": 320,
+      "documentWidth": 320,
+      "height": 568,
+      "mainVisibleHeight": 330
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "focused-search-native-scroll",
+      "documentScrollTop": 250,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1241
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "focused-settings-native-scroll",
+      "documentScrollTop": 250,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1740
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "guides-320x568",
+      "documentScrollTop": 0,
+      "mainScrollTop": 0,
+      "width": 320,
+      "documentWidth": 320,
+      "height": 568,
+      "mainVisibleHeight": 1434
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "guides-844x390",
+      "documentScrollTop": 0,
+      "mainScrollTop": 0,
+      "width": 844,
+      "documentWidth": 844,
+      "height": 390,
+      "mainVisibleHeight": 310
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "guides-1440x1000",
+      "documentScrollTop": 0,
+      "mainScrollTop": 0,
+      "width": 1440,
+      "documentWidth": 1440,
+      "height": 1000,
+      "mainVisibleHeight": 920
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "check": "console-and-downloads",
+      "errors": [],
+      "heavyRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "native-guide-scroll",
+      "documentScrollTop": 390,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1401
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "article-scroll",
+      "documentScrollTop": 390,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1358
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "settings-scroll",
+      "documentScrollTop": 390,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1868
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "history-scroll",
+      "documentScrollTop": 390,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 3307
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "reading-position-preserved",
+      "documentScrollTop": 0,
+      "mainScrollTop": 17251,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 620
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "following-bottom",
+      "documentScrollTop": 0,
+      "mainScrollTop": 19053,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 620
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "chat-320x568",
+      "documentScrollTop": 0,
+      "mainScrollTop": 22644,
+      "width": 320,
+      "documentWidth": 320,
+      "height": 568,
+      "mainVisibleHeight": 328
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "chat-844x390",
+      "documentScrollTop": 0,
+      "mainScrollTop": 15869,
+      "width": 844,
+      "documentWidth": 844,
+      "height": 390,
+      "mainVisibleHeight": 208
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "chat-390x440",
+      "documentScrollTop": 0,
+      "mainScrollTop": 18305,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 440,
+      "mainVisibleHeight": 216
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "simulated-visual-keyboard",
+      "navDisplay": "none",
+      "inputBottom": 411
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "simulated-keyboard-offset",
+      "shellTop": 70,
+      "inputBottom": 481
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "zoom-not-keyboard"
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "simulated-landscape-keyboard",
+      "shellHeight": 210,
+      "inputBottom": 181,
+      "documentScrollTop": 0,
+      "mainScrollTop": 16029,
+      "width": 844,
+      "documentWidth": 844,
+      "height": 390,
+      "mainVisibleHeight": 48
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "small-phone-new-conversation",
+      "documentScrollTop": 0,
+      "mainScrollTop": 0,
+      "width": 320,
+      "documentWidth": 320,
+      "height": 568,
+      "mainVisibleHeight": 314
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "focused-search-native-scroll",
+      "documentScrollTop": 250,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1401
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "focused-settings-native-scroll",
+      "documentScrollTop": 250,
+      "mainScrollTop": 0,
+      "width": 390,
+      "documentWidth": 390,
+      "height": 844,
+      "mainVisibleHeight": 1868
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "guides-320x568",
+      "documentScrollTop": 0,
+      "mainScrollTop": 0,
+      "width": 320,
+      "documentWidth": 320,
+      "height": 568,
+      "mainVisibleHeight": 1673
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "guides-844x390",
+      "documentScrollTop": 0,
+      "mainScrollTop": 0,
+      "width": 844,
+      "documentWidth": 844,
+      "height": 390,
+      "mainVisibleHeight": 302
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "guides-1440x1000",
+      "documentScrollTop": 0,
+      "mainScrollTop": 0,
+      "width": 1440,
+      "documentWidth": 1440,
+      "height": 1000,
+      "mainVisibleHeight": 912
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "check": "console-and-downloads",
+      "errors": [],
+      "heavyRequests": 0
+    }
+  ]
+}

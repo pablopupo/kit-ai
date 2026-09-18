@@ -1,10 +1,18 @@
-.kit-primary { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 44px; padding: .7rem 1.1rem; color: white; background: #17695f; border-radius: .75rem; font-weight: 700; }
+.kit-primary { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 44px; padding: .7rem 1.1rem; color: white; background: #17695f; border-radius: 999px; font-weight: 700; }
 .kit-primary:hover { background: #115249; }
 .kit-text-button { display: flex; align-items: center; gap: .5rem; min-height: 44px; color: #17695f; font-weight: 700; }
 .dark .kit-text-button { color: #9adbd2; }
-.kit-mode { min-height: 44px; padding: .65rem 1rem; border: 1px solid #cbd5e1; border-radius: .75rem; font-size: .875rem; font-weight: 700; }
+.kit-mode { min-height: 44px; padding: .65rem 1rem; border: 1px solid #cadfd9; border-radius: 999px; font-size: .875rem; font-weight: 700; }
 .kit-mode.selected { border-color: #17695f; background: #e0f5f3; color: #14594f; }
 .dark .kit-mode { border-color: #52616e; }
 .dark .kit-mode.selected { color: #bcf2e9; background: #153d38; border-color: #73b9ad; }
 button:disabled { opacity: .55; cursor: not-allowed; }
 button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
+
+.kit-primary, .kit-mode, .kit-text-button { transition: background-color 150ms ease, transform 120ms ease-out; }
+.kit-text-button { border-radius: 999px; }
+button:active:not(:disabled) { transform: scale(.98); }
+@media (prefers-reduced-motion: reduce) {
+  .kit-primary, .kit-mode, .kit-text-button { transition: none; }
+  button:active:not(:disabled) { transform: none; }
+}
