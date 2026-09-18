@@ -22,6 +22,7 @@ Generated answers remain enabled; reference excerpts are clearly identified.
 | Browser assistant | Experimental general-purpose Llama 3.2 1B; **not the same weights as the fine-tuned medical model** |
 | Offline retrieval | Bilingual keyword matching over six whole source-linked guides; relevant complete guidance is included in model prompts |
 | Web search | Not implemented; online model inference does not browse the internet |
+| Device check | Settings → Check this device, or `/#device-check`; local synthetic generation, guided offline reopen, and a local diagnostic report |
 
 The first browser-model cache measured about 718 MB on the test machine. The
 app precaches about 11 MB of runtime/worker JavaScript so it can reopen offline
@@ -43,6 +44,17 @@ The old frontend used general-purpose `Llama-3.2-1B-Instruct`, not the published
 The existing Space also used a Hub dependency incompatible with its exported Transformers 5 tokenizer, bypassed the tokenizer's chat template, and cut answers to a fixed number of sentences. The replacement Space uses compatible dependencies and the saved chat template, preserving complete generated responses and identifying token-limit cutoffs.
 
 Changing prompts does not establish medical reliability. The model has not had formal clinical evaluation; its model card still needs training-data and methodology details.
+
+**Latest model experiment (2026-09-18):** the original NF4 checkpoint was locally
+dequantized and exported to MLC without retraining. Twenty EN/ES cases ran on the
+float export. An infant-choking failure was independently reproduced on the
+original NF4 checkpoint and matched the float export token for token on CPU.
+Other findings include missing steps, source contradictions and a Spanish refusal.
+The recovered historical prompt also produced serious errors. The conversion is
+an evaluation artifact, not a production model selection or medical-quality pass.
+It generated in desktop Chrome on Apple Metal and after a full offline browser
+restart, using about 1.86 GB of browser storage. Real phone testing remains open.
+See [evaluation results](evaluations/README.md) and [conversion tooling](model-tools/README.md).
 
 ## Run locally
 
@@ -97,6 +109,7 @@ This deploys the web app, not the GPU model. The medical model runs on Hugging F
 - Offline app shell and source-linked guide text after a successful initial cache; linked source websites still require internet.
 - Offline generated answers need working WebGPU in a worker and substantial device memory. Safari 26 and some Android browsers support it; support and memory differ by device. Firefox, older phones and unsupported GPUs retain guides and online access. A successful API probe alone does not guarantee the model fits.
 - Browser storage can be cleared or evicted. Test offline access before relying on saved content.
+- The device-check page uses a fixed harmless prompt, empty chat history, and the existing local engine with no cloud fallback. A nonempty generated answer passes only the runtime check. Offline claims distinguish the browser's network flag from the user's confirmation of closing/reopening; neither establishes universal device support.
 - Conversation history is stored in the current browser; only online turns are eligible for later online request context. Errors saving history are visible, and deleting another conversation does not change the open conversation.
 
 ## Source structure
@@ -107,6 +120,8 @@ This deploys the web app, not the GPU model. The medical model runs on Hugging F
 - `frontend/src/services/onlineMedicalService.js`: lazy Gradio client, timeout/cancellation, explicit errors.
 - `frontend/src/services/webllmService.js`: automatically prepared browser engine, cache reuse, interrupted-stream draining and failed-worker recovery.
 - `huggingface-space/`: GPU service repair and GPU-free prompt/output regression tests.
+- `evaluations/`: frozen bilingual cases, exact model inputs, reproducible runners, raw outputs and a portable review worksheet generator.
+- `model-tools/`: pinned checkpoint reconstruction/conversion, metadata and tokenizer checks, and original/float parity checks. Large weights remain outside Git.
 - `backend/`: legacy optional Express/MongoDB/Gemini/TTS pipeline, not deployed by this frontend project.
 
 The historical `frontend/public/medical-knowledge.json` and `packs/learned.json` are generated prototype content. They are not used by the new guide library or chat grounding and are not clinician-reviewed.

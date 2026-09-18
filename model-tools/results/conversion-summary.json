@@ -1,0 +1,17 @@
+{
+  "source_model": "Pablo305/llama3-medical-3b-4bit",
+  "source_revision": "df5aa311d5b017bdd4d1719c50c5d7a1dd1fa37b",
+  "source_weight_sha256": "3b4d7cfdd49bd8beec234a293dc685233ea556f48414012b499ab4b7694388a8",
+  "conversion_completed": true,
+  "quantization": "q4f16_1",
+  "weight_shards": 58,
+  "tensor_count": 283,
+  "weight_bytes": 1807423488,
+  "original_vs_float_generated_tokens_equal": true,
+  "original_vs_float_generated_token_count": 115,
+  "original_vs_float_max_first_step_logit_difference": 0.0,
+  "browser_inference_status": "Recorded separately by evaluations; not established by these conversion tools",
+  "medical_quality_status": "Failed critical synthetic infant test in original NF4 and FP16; evaluation only",
+  "original_repository_modified": false,
+  "remote_publication": false
+}

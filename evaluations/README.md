@@ -1,5 +1,75 @@
 # KIT AI: learning and evaluation plan
 
+## Executed experiment — 2026-09-18
+
+- `cases.json` freezes 20 synthetic cases (10 English/Spanish pairs), with primary
+  source-based review criteria in `rubric.md`. Clinical and translation review
+  remain pending; this is a development set, not a clinical certification.
+- Hosted inference stopped immediately at the public ZeroGPU quota limit. The
+  failure is recorded in `results/medical-3b-app-2026-09-18.json`; it contains no
+  successful model answers and must not be used as an accuracy result.
+- A verified FP16 reconstruction of the owner's pinned NF4 checkpoint ran all
+  20 cases locally on Apple MPS. `results/medical-3b-float-before-retrieval.json`
+  records exact inputs, source hashes, runtime, full answers and token counts.
+  This runtime differs from the hosted Space; results are not phone benchmarks.
+- The original NF4 and reconstructed FP16 checkpoint generated exactly the same
+  115-token infant-choking answer on CPU (including EOS), with identical first-step logits. It
+  contained unsafe infant instructions. That specific failure originates in the
+  saved checkpoint, not the unpacking step. Parity on one case is not universal
+  equivalence or a clinical pass.
+- `results/exploratory-review.json` records source-linked concerns without a
+  misleading overall accuracy score. Spanish ankle heat instructions contradicted
+  the supplied guide, and the English adult-choking answer omitted essential
+  steps. The unsupported infant questions exposed missing pediatric references
+  and unsafe generation.
+- A targeted lexical fix improved relevant-guide coverage from 12/16 to 16/16 on
+  the known eligible cases; four infant/nonmedical exclusions remained unchanged.
+  It is not semantic search or an independent generalization result.
+- Six cases were rerun with the updated references in
+  `results/medical-3b-float-after-retrieval.json`. Spanish burn guidance improved,
+  but bleeding answers still had concerning instructions. Retrieval alone does
+  not solve source adherence. Burn references also changed, so differences cannot
+  be attributed solely to matching.
+- `results/medical-3b-historical-prompt.json` runs four difficult cases through the
+  recovered raw historical prompt (before its old sentence truncation). It answers
+  but still produces serious errors. Sampling is seeded; this is exploratory,
+  not a statistically powered prompt comparison.
+- The converted medical model generated four test answers in desktop Chrome on
+  the actual Apple Metal GPU. After closing the entire browser and stopping the
+  local model server, it reopened offline, initialized from cache in 3.41 seconds,
+  and generated a fresh Spanish answer without requesting model shards.
+  `results/medical-3b-mlc-browser.json` records the adapter, launch arguments,
+  cache, timings and raw answers. The cache used about 1.86 GB. Initial setup
+  loaded from localhost, so its timing is not an internet download estimate.
+  This proves desktop browser mechanics; infant answers remained unsafe and
+  physical iPhone/Android performance has not been established.
+
+The large float and MLC artifacts live outside Git. Reproduction and hashes are in
+[`model-tools`](../model-tools/README.md). The production browser model has not
+been switched to this checkpoint. No training job has been started.
+
+### Reproduce and review
+
+Install the frontend dependencies and use the isolated Python environment from
+the conversion instructions for local reference inference.
+
+```sh
+node evaluations/prepare-inputs.mjs /path/to/frozen-inputs.json
+node evaluations/run-baseline.mjs --out /path/to/hosted-results.json
+python evaluations/run-local-reference.py --model /path/to/float-export \
+  --inputs /path/to/frozen-inputs.json --out /path/to/local-results.json
+node evaluations/build-review.mjs \
+  evaluations/results/medical-3b-float-before-retrieval.json /path/to/review.html \
+  evaluations/results/medical-3b-float-after-retrieval.json
+```
+
+The standalone worksheet loads offline, shows source criteria and exploratory
+findings, preserves review notes locally where possible, and exports them as JSON.
+Start by reviewing the infant-choking, Spanish ankle, and Spanish burn examples
+together. Use those observations to choose scope, reference coverage and the
+first reviewed training examples; create a new held-out evaluation set before
+claiming improvement from training.
+
 Before more fine-tuning, establish what a good answer looks like and compare the
 current checkpoints on the same examples. A model that answers confidently is
 not necessarily more accurate than one that refuses.
