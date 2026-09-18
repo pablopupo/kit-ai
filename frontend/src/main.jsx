@@ -1,11 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { registerSW } from 'virtual:pwa-register'
+import { startOfflineApp } from './services/offlineAppService'
 import './index.css'
 import './ui.css'
 import App from './App.jsx'
 
-registerSW({ immediate: true })
+startOfflineApp()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

@@ -1,0 +1,43 @@
+{
+  "checkedAt": "2026-09-18T23:00:52.458Z",
+  "browser": "Desktop WebKit26.5 on macOS ARM64; not physical iPhone Safari or Chrome",
+  "networkMethod": "Stop the HTTP origin server after setup. navigator.onLine stays true; browser offline emulation is broken even for a minimal cached HTML fixture.",
+  "runs": [
+    {
+      "language": "en",
+      "requestedModelUrls": [],
+      "requestedAssistantAssets": [],
+      "errors": [],
+      "failedRequests": [],
+      "http": 200,
+      "saved": {
+        "protocol": "kit-offline-v1",
+        "appSaved": true,
+        "runtimeSaved": false
+      },
+      "reloadWithoutOrigin": true,
+      "translatedGuideVisible": true,
+      "overflow": false,
+      "visibleText": "Kit AI\nki\n.ai\nGuides saved for offline\nImmediate danger? Call your local emergency number. Don’t wait for Kit.\n\nYour pocket first-aid kit\n\nKnow the next step.\n\nFirst-aid steps you can read and follow.\n\nMinor cuts and grazes\nControl bleeding, rinse a small wound, then protect it with a clean dressing.\nBurns and scalds\nCool a heat burn promptly with cool running water for 20 minutes.\nAdult choking\nAct immediately when a choking adult cannot cough, speak or breathe effectively.\nSevere bleeding\nCall for emergency help and apply firm, continuous pressure to visible severe bleeding.\nAdult hands-only CPR\nFor an adult who suddenly collapses, is unresponsive and is not breathing normally: call, compress, use an AED.\nSprains and strains\nProtect and rest the injury initially, use wrapped cold packs, and seek help for signs of a fracture.\nGuides\nAsk Kit\nHistory\nSettings",
+      "pass": true
+    },
+    {
+      "language": "es",
+      "requestedModelUrls": [],
+      "requestedAssistantAssets": [],
+      "errors": [],
+      "failedRequests": [],
+      "http": 200,
+      "saved": {
+        "protocol": "kit-offline-v1",
+        "appSaved": true,
+        "runtimeSaved": false
+      },
+      "reloadWithoutOrigin": true,
+      "translatedGuideVisible": true,
+      "overflow": false,
+      "visibleText": "Kit AI\nki\n.ai\nGuías guardadas para usar sin conexión\n¿Hay peligro inmediato? Llama al número de emergencias de tu zona. No esperes a Kit.\n\nSu botiquín de bolsillo\n\nSepa qué hacer a continuación.\n\nPasos de primeros auxilios para consultar y seguir.\n\nCortes y raspaduras leves\nDetenga el sangrado, enjuague la herida pequeña y protéjala con un apósito limpio.\nQuemaduras y escaldaduras\nEnfríe cuanto antes una quemadura por calor con agua corriente fresca durante 20 minutos.\nAtragantamiento en adultos\nActúe de inmediato si un adulto que se atraganta no puede toser, hablar o respirar de forma eficaz.\nSangrado abundante\nLlame a emergencias y aplique presión firme y continua sobre un sangrado abundante visible.\nRCP solo con las manos en adultos\nSi un adulto se desploma de repente, no responde y no respira normalmente: llame, haga compresiones y use un DEA.\nEsguinces y distensiones\nProteja y deje descansar la zona al principio, use compresas frías envueltas y busque ayuda si hay signos de fractura.\nGuías\nPregunta a Kit\nHistorial\nAjustes",
+      "pass": true
+    }
+  ]
+}

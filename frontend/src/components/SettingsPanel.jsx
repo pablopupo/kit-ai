@@ -16,11 +16,11 @@ export default function SettingsPanel({ local, onCheckDevice }) {
       <label className="block py-5"><span className="font-bold">{t('voiceSpeed')}: {speed}×</span><input aria-label={t('voiceSpeed')} type="range" min="0.5" max="2" step="0.1" value={speed} onChange={e => setSpeed(Number(e.target.value))} className="block w-full mt-4 accent-teal-700" /></label>
       <div className="pt-5"><h2 className="font-bold mb-3">{t('offlineSettings')}</h2><OfflineSetup local={local} /><p className="text-sm text-slate-500 mb-4">{t('storageDetail')}</p></div>
       <div className="py-3"><button onClick={onCheckDevice} className="kit-text-button">{phoneCheckTitle(language)} <ArrowUpRight size={16} /></button></div>
-      <Toggle title={t('autoSetup')} description={t('autoSetupDetail')} checked={autoPrepare} onChange={value => value ? local.resume() : local.pause()} />
+      {!local.needsDownloadConsent && <Toggle title={t('autoSetup')} description={t('autoSetupDetail')} checked={autoPrepare} onChange={value => value ? local.resume() : local.pause()} />}
       <Toggle title={t('onlineHelp')} description={t('onlineHelpDetail')} checked={allowOnline} onChange={setAllowOnline} />
+      <details className="py-5 text-sm"><summary className="font-bold cursor-pointer min-h-11 flex items-center">{t('privacy')}</summary><p className="leading-relaxed text-slate-600 dark:text-slate-300">{t('privacyDetail')}</p></details>
       <div className="py-5"><h2 className="font-bold mb-2">{t('takeWithYou')}</h2><p className="text-sm text-slate-600 dark:text-slate-300">{t('installDetail')}</p></div>
-      <div className="py-5"><h2 className="font-bold mb-2">{t('aboutGuides')}</h2><p className="text-sm text-slate-600 dark:text-slate-300">{t('aboutDetail')}</p><a href="https://github.com/pablopupo/kit-ai" target="_blank" rel="noreferrer" className="kit-text-button mt-4">{t('viewProject')} <ArrowUpRight size={16} /></a></div>
-      <details className="py-5 text-sm"><summary className="font-bold cursor-pointer min-h-11 flex items-center">{t('modelDetails')}</summary><p className="leading-relaxed text-slate-500">{t('modelDetailText')}</p></details>
+      <div className="py-5"><h2 className="font-bold mb-2">{t('aboutGuides')}</h2><p className="text-sm text-slate-600 dark:text-slate-300">{t('aboutDetail')}</p></div>
     </div>
   </section>
 }

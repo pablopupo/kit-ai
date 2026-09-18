@@ -20,7 +20,6 @@ const tabs = [
   { id: 'guides', icon: BookOpen }, { id: 'chat', icon: MessageCircle },
   { id: 'history', icon: History }, { id: 'settings', icon: Settings },
 ]
-const sourceKeys = { device: 'sourceDevice', online: 'sourceOnline', guides: 'savedReference' }
 
 function referenceAnswer(question, language, t) {
   const guides = searchGuides(question, language).slice(0, 1)
@@ -44,11 +43,11 @@ export default function Home() {
   const [requestStatus, setRequestStatus] = useState('')
   const [requestError, setRequestError] = useState('')
   const [pendingConversation, setPendingConversation] = useState(null)
-  const [offlineReady, setOfflineReady] = useState(false)
   const abortRef = useRef(null)
   const endRef = useRef(null)
   const mainRef = useRef(null)
   const local = useWebLLM()
+  const offlineReady = local.offlineApp.status === 'ready'
   const { t, language, allowOnline } = useSettings()
   const { currentMessages, conversationsList, createNewConversation, loadConversation, deleteConversation, updateMessages, currentConversationId, storageError } = useChatHistory()
   const source = chooseAnswerSource({ localReady: local.status === 'ready', online, allowOnline })
@@ -57,15 +56,12 @@ export default function Home() {
     const updateNetwork = () => setOnline(navigator.onLine)
     window.addEventListener('online', updateNetwork)
     window.addEventListener('offline', updateNetwork)
-    let active = true
-    if ('serviceWorker' in navigator) navigator.serviceWorker.ready.then(() => { if (active) setOfflineReady(true) })
     const viewport = window.visualViewport
     const resize = () => document.documentElement.style.setProperty('--app-height', `${viewport?.height || window.innerHeight}px`)
     resize()
     viewport?.addEventListener('resize', resize)
     window.addEventListener('resize', resize)
     return () => {
-      active = false
       window.removeEventListener('online', updateNetwork)
       window.removeEventListener('offline', updateNetwork)
       viewport?.removeEventListener('resize', resize)
@@ -149,15 +145,15 @@ export default function Home() {
         {storageError && <p role="status" className="px-5 py-2 text-amber-800 bg-amber-50 text-sm">{storageError}</p>}
         <main ref={mainRef} id="main-content" className="flex-1 overflow-y-auto min-h-0 px-5 md:px-10 py-7 md:py-10">
           <div className="max-w-3xl mx-auto">
-            {tab === 'guides' && <>{!['ready', 'unsupported'].includes(local.status) && <OfflineSetup local={local} compact />}<GuideLibrary /></>}
+            {tab === 'guides' && <>{(!offlineReady || (!local.needsDownloadConsent && !['ready', 'unsupported', 'paused'].includes(local.status))) && <OfflineSetup local={local} compact />}<GuideLibrary /></>}
             {tab === 'chat' && <>
               <div className="flex flex-wrap items-center justify-between gap-3 mb-4"><h1 className="text-2xl font-extrabold">{t('chat')}</h1><button onClick={newChat} className="kit-text-button"><Plus size={17} />{t('newChat')}</button></div>
-              <OfflineSetup local={local} compact />
+              {(!offlineReady || (!local.needsDownloadConsent && local.status !== 'ready')) && <OfflineSetup local={local} compact />}
               <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400 mb-6">{t(source === 'online' ? 'onlineNotice' : source === 'device' ? 'deviceNotice' : 'guideNotice')}</p>
               {currentMessages.length === 0 && <div className="py-7 border-t border-slate-200 dark:border-slate-700"><h2 className="text-xl font-bold mb-3">{t('welcomeTitle')}</h2><p className="text-slate-600 dark:text-slate-300 mb-5">{t('welcomeDetail')}</p><div className="flex flex-wrap gap-2">{['starterCut', 'starterBurn'].map(key => <button key={key} disabled={busy || diagnosticBusy} onClick={() => handleSend(t(key))} className="kit-mode text-left">{t(key)}</button>)}</div></div>}
-              {diagnosticBusy && <p role="status" className="text-sm py-3">{language === 'es' ? 'Terminando la prueba local…' : 'Finishing the local test…'}</p>}
+              {diagnosticBusy && <p role="status" className="text-sm py-3">{language === 'es' ? 'Terminando la comprobación…' : 'Finishing the check…'}</p>}
               <div role="log" aria-label={t('conversation')} aria-live="polite">
-                {currentMessages.map((message, index) => <div key={`${message.timestamp}-${index}`}><ChatMessage role={message.role} content={message.content} />{message.role === 'assistant' && <p className="text-xs text-slate-500 mb-5 ml-12">{t(sourceKeys[message.source] || 'previousConversation')}{message.sources?.length > 0 && <> · {t('referenceMaterial')}: {[...new Map(message.sources.map(item => [item.url, item])).values()].map(item => <a key={item.url} href={item.url} target="_blank" rel="noreferrer" className="underline mr-2">{item.title}</a>)}</>}</p>}</div>)}
+                {currentMessages.map((message, index) => <div key={`${message.timestamp}-${index}`}><ChatMessage role={message.role} content={message.content} />{message.role === 'assistant' && (message.source === 'guides' || message.sources?.length > 0) && <p className="text-xs text-slate-500 mb-5 ml-12">{t(message.source === 'guides' ? 'savedReference' : 'sources')}{message.sources?.length > 0 && <>: {[...new Map(message.sources.map(item => [item.url, item])).values()].map(item => <a key={item.url} href={item.url} target="_blank" rel="noreferrer" className="underline mr-2">{item.title}</a>)}</>}</p>}</div>)}
                 {busy && sameConversation && (streaming ? <ChatMessage role="assistant" content={streaming} /> : <p role="status" className="py-5 text-sm text-teal-800 dark:text-teal-200">{requestStatus}</p>)}
               </div>
               {requestError && <div role="alert" className="my-4 border-l-4 border-rose-400 p-4 bg-rose-50 dark:bg-rose-950/20 text-sm"><p>{requestError}</p><button onClick={() => setTab('guides')} className="kit-text-button mt-3">{t('openGuides')}</button></div>}
@@ -165,7 +161,7 @@ export default function Home() {
             </>}
             {tab === 'history' && <section><h1 className="text-3xl font-extrabold mb-3">{t('historyTitle')}</h1><p className="text-slate-600 dark:text-slate-400 mb-7">{t('historyDetail')}</p>{conversationsList.length === 0 ? <p>{t('noConversations')} <button onClick={() => setTab('chat')} className="underline text-teal-800 dark:text-teal-300">{t('askQuestion')}</button></p> : <div className="divide-y divide-slate-200 dark:divide-slate-700">{conversationsList.map(conversation => <div key={conversation.id} className="flex gap-3 items-center py-3"><button disabled={busy} onClick={() => { loadConversation(conversation.id); setRequestError(''); setTab('chat') }} className="flex-1 text-left p-2 min-w-0"><span className="block font-bold truncate">{conversation.title || t('conversation')}</span><span className="text-xs text-slate-500">{new Date(conversation.updatedAt).toLocaleDateString(language)}</span></button><button disabled={busy} aria-label={t('deleteConversation', { title: conversation.title || t('conversation') })} onClick={() => deleteConversation(conversation.id)} className="p-3 text-slate-500 hover:text-rose-700"><Trash2 size={19} /></button></div>)}</div>}</section>}
             {tab === 'settings' && <SettingsPanel local={local} onCheckDevice={() => setTab('device-check')} />}
-            {tab === 'device-check' && <PhoneCheck local={local} chatBusy={busy || diagnosticBusy} onBusyChange={setDiagnosticBusy} onBack={() => setTab('settings')} />}
+            {tab === 'device-check' && <PhoneCheck local={local} chatBusy={busy || diagnosticBusy} onBusyChange={setDiagnosticBusy} onBack={() => setTab('settings')} onOpenGuides={() => setTab('guides')} />}
           </div>
         </main>
         {tab === 'chat' && <div className="shrink-0 border-t border-slate-100 dark:border-slate-800">{busy && <button onClick={stop} className="kit-text-button mx-auto mt-2 text-sm"><Square size={14} />{t('stopResponse')}</button>}<ChatInput key={currentConversationId || 'new'} onSend={handleSend} disabled={busy || diagnosticBusy} placeholder={t('inputPlaceholder')} /></div>}

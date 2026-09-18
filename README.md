@@ -17,19 +17,26 @@ Generated answers remain enabled; reference excerpts are clearly identified.
 | Capability | What is available |
 | --- | --- |
 | English and Spanish | Interface, complete guides, bilingual search, requested AI answer language and browser speech language |
-| Automatic offline preparation | Downloads the current browser model on supported devices, shows progress/pause/retry, reuses cached files on later visits, requests persistent storage |
+| Offline preparation | Saves the small app/guides automatically; asks once before the roughly 750 MB assistant download, then reopens saved files automatically unless paused |
 | Online assistant | `Pablo305/llama3-medical-3b-4bit` through the owner's existing Space |
 | Browser assistant | Experimental general-purpose Llama 3.2 1B; **not the same weights as the fine-tuned medical model** |
 | Offline retrieval | Bilingual keyword matching over six whole source-linked guides; relevant complete guidance is included in model prompts |
 | Web search | Not implemented; online model inference does not browse the internet |
-| Device check | Settings → Check this device, or `/#device-check`; local synthetic generation, guided offline reopen, and a local diagnostic report |
+| Offline check | Settings → Try without internet, or `/#device-check`; guided offline reopen, guide access, an optional sample answer, and a collapsed support report |
 
 The first browser-model cache measured about 718 MB on the test machine. The
-app precaches about 11 MB of runtime/worker JavaScript so it can reopen offline
-even when initial preparation starts before service-worker control. Known
-cellular/Data Saver connections defer the first model download; browser network
-information is not available everywhere. Pause and online-answer preferences live
-in Settings. Browser storage may be evicted or cleared.
+app now precaches its small shell independently of the large assistant JavaScript.
+Assistant preparation begins only after the user agrees to the download and the
+app cache/control check passes. A ready engine alone no longer means offline
+files are saved. Known cellular/Data Saver connections defer automatic downloads;
+network type is not available everywhere. A new consent setting also asks existing
+users once; already saved model files are reused. Pause and online-answer
+preferences live in Settings. Browser storage may be evicted or cleared.
+
+The previous coupled precache could fail when one assistant file failed, leaving
+the online page usable but offline refresh broken. This was reproduced and fixed;
+it does not establish the exact failure cause on the reported iPhone.
+See [offline-refresh verification](verification/offline-refresh.md).
 
 Online questions and prior **online** turns are sent to Hugging Face. Earlier
 device-only and guide-only turns are excluded from cloud history. Turning off
@@ -64,7 +71,7 @@ npm ci
 npm run dev
 ```
 
-The app starts with bundled guides and automatically checks whether it can prepare its browser assistant. No keys, backend, or database are needed. An internet connection and an operational public HF Space are needed for online chat.
+The app starts with bundled guides. Use the production preview below to test saving and assistant preparation; those depend on the built service worker. No keys, backend, or database are needed. An internet connection and an operational public HF Space are needed for online chat.
 
 ```sh
 npm test
@@ -119,6 +126,7 @@ This deploys the web app, not the GPU model. The medical model runs on Hugging F
 - `frontend/src/services/chatPrompt.js`: bounded recent history and relevant complete reference blocks.
 - `frontend/src/services/onlineMedicalService.js`: lazy Gradio client, timeout/cancellation, explicit errors.
 - `frontend/src/services/webllmService.js`: automatically prepared browser engine, cache reuse, interrupted-stream draining and failed-worker recovery.
+- `frontend/src/sw.js` and `services/offlineAppService.js`: independent app/runtime saving, verified readiness, cancelable download preparation and missing-cache recovery.
 - `huggingface-space/`: GPU service repair and GPU-free prompt/output regression tests.
 - `evaluations/`: frozen bilingual cases, exact model inputs, reproducible runners, raw outputs and a portable review worksheet generator.
 - `model-tools/`: pinned checkpoint reconstruction/conversion, metadata and tokenizer checks, and original/float parity checks. Large weights remain outside Git.

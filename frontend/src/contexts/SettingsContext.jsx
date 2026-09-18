@@ -25,6 +25,7 @@ export function SettingsProvider({ children }) {
 
   const [language, setLanguageState] = useState(initialLanguage)
   const [autoPrepare, setAutoPrepare] = useState(() => readBoolean('kit-ai-auto-prepare', true))
+  const [downloadAllowed, setDownloadAllowed] = useState(() => readBoolean('kit-ai-offline-download-approved', false))
   const [allowOnline, setAllowOnline] = useState(() => readBoolean('kit-ai-allow-online', true))
 
   const setLanguage = useCallback(nextLanguage => {
@@ -55,6 +56,9 @@ export function SettingsProvider({ children }) {
   useEffect(() => {
     writePreference('kit-ai-auto-prepare', String(autoPrepare))
   }, [autoPrepare])
+  useEffect(() => {
+    writePreference('kit-ai-offline-download-approved', String(downloadAllowed))
+  }, [downloadAllowed])
 
   useEffect(() => {
     writePreference('kit-ai-allow-online', String(allowOnline))
@@ -72,10 +76,12 @@ export function SettingsProvider({ children }) {
     setLanguage,
     autoPrepare,
     setAutoPrepare,
+    downloadAllowed,
+    setDownloadAllowed,
     allowOnline,
     setAllowOnline,
     t,
-  }), [darkMode, language, setLanguage, autoPrepare, allowOnline, t])
+  }), [darkMode, language, setLanguage, autoPrepare, downloadAllowed, allowOnline, t])
 
   return (
     <SettingsContext.Provider value={value}>

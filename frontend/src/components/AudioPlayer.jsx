@@ -41,7 +41,7 @@ function AudioPlayer({ messageContent, messageId }) {
    */
   const useBrowserFallback = async () => {
     if (!hasBrowserTTS) {
-      setErrorMessage('No TTS available')
+      setErrorMessage(t('audioUnavailable'))
       setState('error')
       return
     }
@@ -56,7 +56,7 @@ function AudioPlayer({ messageContent, messageId }) {
       setUsingBrowserTTS(false)
     } catch (error) {
       console.error('Browser TTS error:', error)
-      setErrorMessage(error.message || 'Browser TTS failed')
+      setErrorMessage(t('audioUnavailable'))
       setState('error')
       setUsingBrowserTTS(false)
     }
@@ -64,7 +64,7 @@ function AudioPlayer({ messageContent, messageId }) {
 
   const handleGenerate = async () => {
     if (!ttsEnabled) {
-      setErrorMessage('TTS is disabled')
+      setErrorMessage(t('audioUnavailable'))
       setState('error')
       return
     }
@@ -110,7 +110,7 @@ function AudioPlayer({ messageContent, messageId }) {
 
       audio.addEventListener('error', (e) => {
         console.error('Audio playback error:', e)
-        setErrorMessage('Playback failed')
+        setErrorMessage(t('audioUnavailable'))
         setState('error')
       })
 
@@ -178,7 +178,7 @@ function AudioPlayer({ messageContent, messageId }) {
           onKeyDown={handleKeyPress}
           aria-label={t('ttsPlay') || 'Play audio'}
           className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-kit-dark-bg-lighter transition-colors duration-300 group"
-          title={!isOnline && hasBrowserTTS ? (t('ttsBrowserVoice') || 'Play with browser voice (offline)') : (t('ttsPlay') || 'Play audio')}
+          title={t('ttsPlay')}
         >
           <svg
             className="w-5 h-5 text-gray-600 dark:text-kit-dark-text-muted group-hover:text-kit-teal dark:group-hover:text-kit-teal transition-colors duration-300"

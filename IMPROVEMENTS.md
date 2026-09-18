@@ -9,7 +9,8 @@ answer; conversion did not introduce that failure. Further model work must addre
 accuracy and source adherence, not just willingness to answer. The recovered
 historical prompt also failed the selected difficult cases.
 
-The current release has automatic offline preparation, one Ask Kit flow and full
+The current release saves its small app/guides automatically and asks once before
+the large assistant download. It has one Ask Kit flow and full
 English/Spanish UI, guides and search. It prefers the owner's fine-tuned online
 model when connected. The browser model is still a separate experimental model.
 The owner chose to retain generated answers rather than replace offline chat with
@@ -41,7 +42,7 @@ The latter request took 17.24 seconds. Neither returned a blanket refusal.
 
 - **Reliable references first:** expand beyond the initial six guides using authoritative sources, age-specific scope, date checks and review ownership. The current summaries are source-checked, not clinically validated. Add retrieval tests for ambiguous queries and follow-ups; current matching is lexical, not semantic.
 - **Offline preparation:** show storage availability, cache completion, model download size/progress, and a single readiness check before travel. Browsers can evict cached data.
-- **Device check shipped:** `/#device-check` guides setup and a real offline reopen, runs a fresh synthetic local response, and exports metadata without conversations. Physical iPhone Safari/Chrome and Android Chrome testing is still needed.
+- **Offline refresh and plain-language UX:** app saving is independent from assistant downloads; readiness checks require actual cached app files and page control. Failed saves have a retry action. Settings → Try without internet lets people check guides without downloading the assistant. Optional test/report details stay under support. Physical phone retesting is still needed.
 - **Mobile device testing:** test real iPhone Safari and Android Chrome with the keyboard open, weak connectivity, low memory, installed PWA mode and a cold offline launch.
 - **Model conversion completed for evaluation:** the saved medical checkpoint now has an MLC conversion using a matching existing runtime. Recover the original adapters/merged float training artifacts if possible, and benchmark memory/latency on target phones before considering this model as a default. The current evaluation found serious answer-quality failures.
 - **Reliable online serving:** measure ZeroGPU cold starts, quota failures and generation time. If those prevent the desired experience, price a dedicated inference endpoint before committing to paid hosting.
@@ -67,4 +68,4 @@ Clinical accuracy, real-device performance across phones, production deployment
 of the converted medical checkpoint, or deployment of the legacy backend remain
 unestablished. MLC conversion now exists as a separate evaluation artifact.
 
-- Current checks: 49 frontend tests, four Hugging Face prompt tests and four conversion-configuration tests pass. Browser tests cover offline EN/ES guides and chat fallback, pause/resume, preferences, responsive layouts and the device-check flow. The deployed device-check page passed English/Spanish offline reload and report checks at a 390-pixel viewport. Desktop checks do not establish physical phone support.
+- Current checks: 55 frontend tests, the earlier four Hugging Face prompt tests and four conversion-configuration tests pass. Desktop Chrome covers consent, failed assistant downloads, failed registration, missing-cache repair and EN/ES offline refresh. Desktop WebKit reopens EN/ES guides with the HTTP origin stopped. These do not establish physical phone support; see verification/offline-refresh.md.

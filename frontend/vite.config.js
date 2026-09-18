@@ -9,8 +9,12 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.js',
+      injectRegister: false,
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'robots.txt', 'pwa-192x192.png', 'pwa-512x512.png', 'pwa-maskable-512x512.png', 'apple-touch-icon.png', 'fonts/*.woff2', 'medical-knowledge.json'],
+      includeAssets: ['favicon.svg', 'robots.txt', 'pwa-192x192.png', 'pwa-512x512.png', 'pwa-maskable-512x512.png', 'apple-touch-icon.png', 'fonts/*.woff2'],
       manifest: {
         name: 'KIT AI',
         short_name: 'KIT AI',
@@ -47,21 +51,11 @@ export default defineConfig({
           }
         ]
       },
-      workbox: {
+      injectManifest: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2,wasm,json}'],
-        // Include the engine and worker JS in the offline shell. Automatic first-
-        // visit loading can begin before the service worker controls the page.
-        // Model weights/config/tokenizer/Wasm use WebLLM's IndexedDB caches.
-        runtimeCaching: [{
-          urlPattern: ({ url }) => url.origin === self.location.origin && /\/assets\/webllm(?:Service|-worker)-.*\.js$/.test(url.pathname),
-          handler: 'CacheFirst',
-          options: {
-            cacheName: 'kit-ai-model-runtime',
-            expiration: { maxEntries: 8, maxAgeSeconds: 30 * 24 * 60 * 60, purgeOnQuotaError: true },
-            cacheableResponse: { statuses: [200] },
-          },
-        }],
-        navigateFallback: '/index.html',
+        globIgnores: ['**/medical-knowledge.json', '**/packs/**'],
+        // The custom worker saves the small app first. Assistant code is saved
+        // separately before its weights are downloaded; it cannot block guides.
         maximumFileSizeToCacheInBytes: 10 * 1024 * 1024
       }
     })
