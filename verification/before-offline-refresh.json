@@ -1,0 +1,68 @@
+{
+  "site": "https://kit-ai-pablopupo.vercel.app/",
+  "checkedAt": "2026-09-18T22:49:02.762Z",
+  "platform": "Desktop Chrome; not an iPhone reproduction",
+  "cases": [
+    {
+      "scenario": "normal",
+      "blocked": [],
+      "state": {
+        "controller": true,
+        "registrations": [
+          {
+            "scope": "https://kit-ai-pablopupo.vercel.app/",
+            "active": "activated",
+            "installing": null
+          }
+        ],
+        "caches": [
+          "workbox-precache-v2-https://kit-ai-pablopupo.vercel.app/"
+        ],
+        "visibleText": "Kit AI\nki\n.ai\nGuides saved for offline\nImmediate danger? Call your local emergency number. Don’t wait for AI.\n\nOffline setup paused\n\nResume setup\n\nKit automatically saves an assistant here (about 750 MB on the first visit). Keep this tab open until setup finishes. You can keep using Kit meanwhile.\n\nYour pocket first-aid kit\n\nKnow the next step.\n\nClear first-aid guides, ready without an AI download. Saved for offline use after your first visit finishes loading.\n\nMinor cuts and grazes\nControl bleeding, rinse a small wound, then protect it with a clean dressing.\nBurns and scalds\nCool a heat burn promptly with cool running water for 20 minutes.\nAdult choking\nAct immediately when a choking adult cannot cough, speak or breathe effectively.\nSevere bleeding\nCall for emergency help and apply firm, continuous pressure to visible severe bleeding.\nAdult hands-only CPR\nFor an adult who suddenly colla"
+      },
+      "offlineReloadPassed": true,
+      "offlineError": null,
+      "errors": []
+    },
+    {
+      "scenario": "blocked-assistant-runtime",
+      "blocked": [
+        {
+          "url": "https://kit-ai-pablopupo.vercel.app/assets/webllmService-CjEnUXkm.js",
+          "serviceWorkerOwned": true
+        }
+      ],
+      "state": {
+        "controller": false,
+        "registrations": [],
+        "caches": [
+          "workbox-precache-v2-https://kit-ai-pablopupo.vercel.app/"
+        ],
+        "visibleText": "Kit AI\nki\n.ai\nFirst-aid companion\nImmediate danger? Call your local emergency number. Don’t wait for AI.\n\nOffline setup paused\n\nResume setup\n\nKit automatically saves an assistant here (about 750 MB on the first visit). Keep this tab open until setup finishes. You can keep using Kit meanwhile.\n\nYour pocket first-aid kit\n\nKnow the next step.\n\nClear first-aid guides, ready without an AI download. Saved for offline use after your first visit finishes loading.\n\nMinor cuts and grazes\nControl bleeding, rinse a small wound, then protect it with a clean dressing.\nBurns and scalds\nCool a heat burn promptly with cool running water for 20 minutes.\nAdult choking\nAct immediately when a choking adult cannot cough, speak or breathe effectively.\nSevere bleeding\nCall for emergency help and apply firm, continuous pressure to visible severe bleeding.\nAdult hands-only CPR\nFor an adult who suddenly collapses,"
+      },
+      "offlineReloadPassed": false,
+      "offlineError": "page.reload: net::ERR_INTERNET_DISCONNECTED",
+      "errors": []
+    },
+    {
+      "scenario": "blocked-service-worker",
+      "blocked": [
+        {
+          "url": "https://kit-ai-pablopupo.vercel.app/sw.js",
+          "serviceWorkerOwned": true
+        }
+      ],
+      "state": {
+        "controller": false,
+        "registrations": [],
+        "caches": [],
+        "visibleText": "Kit AI\nki\n.ai\nFirst-aid companion\nImmediate danger? Call your local emergency number. Don’t wait for AI.\n\nOffline setup paused\n\nResume setup\n\nKit automatically saves an assistant here (about 750 MB on the first visit). Keep this tab open until setup finishes. You can keep using Kit meanwhile.\n\nYour pocket first-aid kit\n\nKnow the next step.\n\nClear first-aid guides, ready without an AI download. Saved for offline use after your first visit finishes loading.\n\nMinor cuts and grazes\nControl bleeding, rinse a small wound, then protect it with a clean dressing.\nBurns and scalds\nCool a heat burn promptly with cool running water for 20 minutes.\nAdult choking\nAct immediately when a choking adult cannot cough, speak or breathe effectively.\nSevere bleeding\nCall for emergency help and apply firm, continuous pressure to visible severe bleeding.\nAdult hands-only CPR\nFor an adult who suddenly collapses,"
+      },
+      "offlineReloadPassed": false,
+      "offlineError": "page.reload: net::ERR_INTERNET_DISCONNECTED",
+      "errors": [
+        "An unknown error occurred when fetching the script."
+      ]
+    }
+  ]
+}

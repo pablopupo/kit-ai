@@ -1,0 +1,60 @@
+{
+  "source_model": "Pablo305/llama3-medical-3b-4bit",
+  "source_revision": "df5aa311d5b017bdd4d1719c50c5d7a1dd1fa37b",
+  "source_weight_sha256": "3b4d7cfdd49bd8beec234a293dc685233ea556f48414012b499ab4b7694388a8",
+  "method": "Official bitsandbytes NF4 CPU dequantization through Transformers; FP16 export",
+  "limitations": "Lossy NF4 reconstruction, not original pre-quantization weights; medical quality and browser inference not validated",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "seconds": 3.59,
+  "tensor_count": 254,
+  "packages": {
+    "torch": "2.14.0",
+    "bitsandbytes": "0.50.2",
+    "transformers": "5.17.0",
+    "safetensors": "0.8.0",
+    "huggingface_hub": "1.32.0",
+    "accelerate": "1.15.0"
+  },
+  "files": {
+    "chat_template.jinja": {
+      "bytes": 9181,
+      "sha256": "b066da4c31f7cafb985ade18eac77400e86cd14318e782151eacebebe5115e7c"
+    },
+    "config.json": {
+      "bytes": 943,
+      "sha256": "558bba07223907ed64705411c587e8cb43a903f3a2f73da21ca7da06ddcfa2cd"
+    },
+    "generation_config.json": {
+      "bytes": 167,
+      "sha256": "f3ae34a296c6061dd830fa0def83d6cae2644b492185528b151fc94a0e08553b"
+    },
+    "model-00001-of-00004.safetensors": {
+      "bytes": 1996044440,
+      "sha256": "567e675b7a1ec30042bf126030f4554c2037ff068edced5978481ec0d48d59f0"
+    },
+    "model-00002-of-00004.safetensors": {
+      "bytes": 1963054808,
+      "sha256": "42a2363e692a8efb7318be4851a0abd9695b2bcaa548742495f6288960d6c156"
+    },
+    "model-00003-of-00004.safetensors": {
+      "bytes": 1963067368,
+      "sha256": "d072cb8aaa68d543dbb92cede196c9a700207b906a9b7a7e688a9ad6882aa5d4"
+    },
+    "model-00004-of-00004.safetensors": {
+      "bytes": 503362088,
+      "sha256": "d305db5afafa047328dda137f00cdb28668e71920451dc440c682274206fb9d7"
+    },
+    "model.safetensors.index.json": {
+      "bytes": 20969,
+      "sha256": "1e14ce7f7e85cbf9833669df4aa9d557a1b79187be37a0011a18143c80cb9d15"
+    },
+    "tokenizer.json": {
+      "bytes": 17209920,
+      "sha256": "6b9e4e7fb171f92fd137b777cc2714bf87d11576700a1dcd7a399e7bbe39537b"
+    },
+    "tokenizer_config.json": {
+      "bytes": 426,
+      "sha256": "e4b91e9a8f1753ac8fa3e3c4d996edf69ea658bec2668944283ea829ad313655"
+    }
+  }
+}

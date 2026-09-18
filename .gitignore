@@ -15,4 +15,6 @@ backend/data/
 
 # Logs
 *.log 
-
+.vercel/
+__pycache__/
+*.pyc

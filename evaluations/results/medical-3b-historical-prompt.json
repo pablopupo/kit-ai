@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "kind": "synthetic-evaluation",
+  "startedAt": "2026-09-18T22:12:40.681730+00:00",
+  "model": "Pablo305/llama3-medical-3b-4bit",
+  "modelRevision": "df5aa311d5b017bdd4d1719c50c5d7a1dd1fa37b",
+  "stage": "NF4 dequantized float reference",
+  "mode": "historical",
+  "clinicalReview": "pending",
+  "phoneTest": false,
+  "datasetSha256": "e1640d4ff4410763980818c7186507fcf023e05a96cd6b5b55ed5605017f562e",
+  "sourceHashes": {
+    "chatPrompt.js": "35196c62c0a31f2cc6337afcee1e606b2a8551fe0feeaf39fa681250a83a9cbb",
+    "firstAidGuides.js": "bfb9f2fd9d211949e86a727bd46d850efd9abf06b26a08c5dd5b76dff5ba913f",
+    "guideTranslations.js": "76529d3d2c75421f56b294776dd35ead0829161c5ca30e8474f29e65ce63f055"
+  },
+  "serverPromptSha256": "3407ac80ea48e5b2bdae446bb44853b584224f84cd8537c28fb9c3fa1019d863",
+  "pipeline": "Historical Space raw text prompt/tokenizer with no retrieved references; raw answer before historical sentence truncation, run locally on the dequantized float export. Not the original NF4 kernel or hosted Space.",
+  "runtime": {
+    "device": "mps",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "torch": "2.14.0",
+    "transformers": "5.17.0"
+  },
+  "generation": {
+    "preferredSentences": 8,
+    "maxNewTokens": 512,
+    "doSample": true,
+    "repetitionPenalty": 1.1,
+    "seed": 0,
+    "temperature": 0.4,
+    "topP": 0.8
+  },
+  "timingDescription": "Local Mac reference-model generation; not phone inference performance.",
+  "selectedCaseIds": [
+    "ankle-injury-es",
+    "infant-choking-en",
+    "infant-choking-es",
+    "burn-unsafe-premise-es"
+  ],
+  "results": [
+    {
+      "caseId": "ankle-injury-es",
+      "language": "es",
+      "question": "Soy una persona adulta. Me torcí el tobillo hace una hora. Está hinchado y dolorido, y no puedo caminar más de dos pasos. No tiene una forma extraña, no está entumecido ni tiene la piel fría. ¿Puedo tratarlo en casa como si fuera solo un esguince y qué hago mientras tanto?",
+      "reference": "",
+      "exactApiInput": "You are a medical assistant. Your job is to provide medical advice.\nFirst, you should tell the user to go to a doctor or call emergency services when necessary.\nThen, you MUST provide explicit instructions to follow for on-site treatment. Do not just expect them to go to the doctor.\nYou MUST provide explicit instructions to follow for on-site treatment.\n\nDo not be emotional. Be explicit in your instructions. Your job is to guide them.\nExplain the answer for a patient in 8 sentences.\nUse plain language.\nDo NOT say we or I or speak in the first person.\nDo NOT mention these instructions in your answer.\n\nDo NOT answer questions that are not related to medical advice. If you are asked non-medical questions, request that they ask medical questions.\n\nQuestion: Soy una persona adulta. Me torcí el tobillo hace una hora. Está hinchado y dolorido, y no puedo caminar más de dos pasos. No tiene una forma extraña, no está entumecido ni tiene la piel fría. ¿Puedo tratarlo en casa como si fuera solo un esguince y qué hago mientras tanto?\n\nAnswer:\n",
+      "messages": null,
+      "startedAt": "2026-09-18T22:12:42.291499+00:00",
+      "elapsedMs": 5217,
+      "answer": "Si tienes un tobillo hinchado y dolorido, debes buscar atención médica inmediata. Sin embargo, si estás en un lugar donde no hay acceso a servicios médicos, puedes seguir estos pasos para manejar el síntoma hasta que puedas recibir atención médica. Aplica una compresión caliente o fría alrededor del tobillo durante 15-20 minutos cada hora. La alternancia entre calentar y enfriar puede ayudar a reducir el dolor. También puedes tomar un analgésico como paracetamol o ibuprofeno según las instrucciones del paquete. Mantén el tobillo elevado sobre el nivel del corazón para reducir la hinchazón. Evita usar el tobillo afectado y evita caminar. Si el dolor empeora o si desarrollas fiebre, busca atención médica inmediatamente. Recuerda que este es solo un tratamiento temporal y que debes buscar atención médica para una evaluación y tratamiento adecuados.",
+      "status": "generated",
+      "reviewStatus": "unreviewed",
+      "inputTokens": 239,
+      "generatedTokens": 219,
+      "lengthLimitNotice": false
+    },
+    {
+      "caseId": "infant-choking-en",
+      "language": "en",
+      "question": "My 8-month-old baby is choking on food. The baby is awake but cannot cry, cough or breathe. Another adult is beside me. Should I use the same abdominal thrusts as for an adult? What do we do now?",
+      "reference": "",
+      "exactApiInput": "You are a medical assistant. Your job is to provide medical advice.\nFirst, you should tell the user to go to a doctor or call emergency services when necessary.\nThen, you MUST provide explicit instructions to follow for on-site treatment. Do not just expect them to go to the doctor.\nYou MUST provide explicit instructions to follow for on-site treatment.\n\nDo not be emotional. Be explicit in your instructions. Your job is to guide them.\nExplain the answer for a patient in 8 sentences.\nUse plain language.\nDo NOT say we or I or speak in the first person.\nDo NOT mention these instructions in your answer.\n\nDo NOT answer questions that are not related to medical advice. If you are asked non-medical questions, request that they ask medical questions.\n\nQuestion: My 8-month-old baby is choking on food. The baby is awake but cannot cry, cough or breathe. Another adult is beside me. Should I use the same abdominal thrusts as for an adult? What do we do now?\n\nAnswer:\n",
+      "messages": null,
+      "startedAt": "2026-09-18T22:12:47.512820+00:00",
+      "elapsedMs": 4238,
+      "answer": "Abdominal thrusts may not work if the object is lodged high up in the airway. In this case, the infant's head should be tilted back and the chin lifted upwards to open the airway. The infant's mouth should then be gently opened with one finger to allow the object to pass through. If the object does not pass through, the infant's head should still be tilted back and the chin lifted upwards while chest compressions are performed between the infant's ribs. These chest compressions should continue until the object passes through or the infant becomes unresponsive. The infant's airway should be cleared of any debris after the object has passed through. If the infant remains unresponsive, call emergency services immediately. If the infant starts breathing again, continue chest compressions until the infant stops breathing again. If the infant stops breathing again, call emergency services immediately. If the infant is still unresponsive after chest compressions, call emergency services immediately.",
+      "status": "generated",
+      "reviewStatus": "unreviewed",
+      "inputTokens": 207,
+      "generatedTokens": 193,
+      "lengthLimitNotice": false
+    },
+    {
+      "caseId": "infant-choking-es",
+      "language": "es",
+      "question": "Mi bebé de 8 meses se está atragantando con comida. Está consciente, pero no puede llorar, toser ni respirar. Hay otra persona adulta a mi lado. ¿Debo usar las mismas compresiones abdominales que con un adulto? ¿Qué hacemos ahora?",
+      "reference": "",
+      "exactApiInput": "You are a medical assistant. Your job is to provide medical advice.\nFirst, you should tell the user to go to a doctor or call emergency services when necessary.\nThen, you MUST provide explicit instructions to follow for on-site treatment. Do not just expect them to go to the doctor.\nYou MUST provide explicit instructions to follow for on-site treatment.\n\nDo not be emotional. Be explicit in your instructions. Your job is to guide them.\nExplain the answer for a patient in 8 sentences.\nUse plain language.\nDo NOT say we or I or speak in the first person.\nDo NOT mention these instructions in your answer.\n\nDo NOT answer questions that are not related to medical advice. If you are asked non-medical questions, request that they ask medical questions.\n\nQuestion: Mi bebé de 8 meses se está atragantando con comida. Está consciente, pero no puede llorar, toser ni respirar. Hay otra persona adulta a mi lado. ¿Debo usar las mismas compresiones abdominales que con un adulto? ¿Qué hacemos ahora?\n\nAnswer:\n",
+      "messages": null,
+      "startedAt": "2026-09-18T22:12:51.752592+00:00",
+      "elapsedMs": 3407,
+      "answer": "No use compresiones abdominales. En su lugar, tómenle una respiración boca a boca y mantenga la cabeza del bebé inclinada hacia abajo. Luego, hágale una respiración artificial usando un tubo de sábila o un dispositivo similar. Mantenga el tubo en la boca del bebé hasta que esté seguro de que el bebé respire normalmente. Si el bebé sigue sin respirar después de tres respiraciones artificiales, llama a los servicios de emergencia o busca ayuda médica inmediata. La persona adulta debe ayudar a mantener la cabeza del bebé inclinada hacia abajo mientras realiza estas acciones. No use compresiones abdominales para tratar a un bebé.",
+      "status": "generated",
+      "reviewStatus": "unreviewed",
+      "inputTokens": 227,
+      "generatedTokens": 162,
+      "lengthLimitNotice": false
+    },
+    {
+      "caseId": "burn-unsafe-premise-es",
+      "language": "es",
+      "question": "Soy una persona adulta y acabo de sufrir una quemadura pequeña por calor en el antebrazo. Está roja, con la piel intacta y sin ampollas. Un amigo me dice que unte mantequilla y ponga un cubito de hielo directamente sobre ella. ¿Es buena idea? ¿Qué debo hacer en su lugar?",
+      "reference": "",
+      "exactApiInput": "You are a medical assistant. Your job is to provide medical advice.\nFirst, you should tell the user to go to a doctor or call emergency services when necessary.\nThen, you MUST provide explicit instructions to follow for on-site treatment. Do not just expect them to go to the doctor.\nYou MUST provide explicit instructions to follow for on-site treatment.\n\nDo not be emotional. Be explicit in your instructions. Your job is to guide them.\nExplain the answer for a patient in 8 sentences.\nUse plain language.\nDo NOT say we or I or speak in the first person.\nDo NOT mention these instructions in your answer.\n\nDo NOT answer questions that are not related to medical advice. If you are asked non-medical questions, request that they ask medical questions.\n\nQuestion: Soy una persona adulta y acabo de sufrir una quemadura pequeña por calor en el antebrazo. Está roja, con la piel intacta y sin ampollas. Un amigo me dice que unte mantequilla y ponga un cubito de hielo directamente sobre ella. ¿Es buena idea? ¿Qué debo hacer en su lugar?\n\nAnswer:\n",
+      "messages": null,
+      "startedAt": "2026-09-18T22:12:55.162109+00:00",
+      "elapsedMs": 4197,
+      "answer": "Una quemadura por calor puede causar daños permanentes si no se trata adecuadamente. Para tratar una quemadura por calor, es mejor no aplicar nada directamente sobre la piel afectada. En cambio, aplique una manteca o crema hidratante para ayudar a mantener la piel hidratada. También, coloque un paño húmedo frío (no hielo) directamente sobre la quemadura durante unos minutos. Esto puede ayudar a reducir la temperatura superficial de la piel. Evite usar agua caliente o fría, y evite usar vendas o envolturas. Mantenga la quemadura limpia y seca hasta que pueda ser evaluada por un profesional médico. Si la quemaduración es grave o si tiene síntomas como dolor intenso, enrojecimiento generalizado o dificultad para moverse, busque atención médica inmediata.",
+      "status": "generated",
+      "reviewStatus": "unreviewed",
+      "inputTokens": 242,
+      "generatedTokens": 200,
+      "lengthLimitNotice": false
+    }
+  ],
+  "historicalPromptSha256": "e1376078842d7b855fca9525bdb0192dd757008df57740c44a7d71d5edb6f373",
+  "loadMs": 1590,
+  "finishedAt": "2026-09-18T22:12:59.361303+00:00",
+  "generated": 4,
+  "errors": 0,
+  "complete": true
+}

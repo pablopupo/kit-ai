@@ -1,221 +1,156 @@
 # KIT AI
 
-**KIT AI** is an **offline-first emergency health assistant** for situations where internet access is unreliable or unavailable, like airplanes, hiking trails, or low-connectivity regions.
-It provides **objective, widely accepted first-aid information** using a **locally running AI model**, without requiring network access at the time of use.
+A mobile-friendly first-aid reference and experimental health assistant.
 
-Live demo: https://kit-ai-smoky.vercel.app
+**Personal deployment:** https://kit-ai-pablopupo.vercel.app
 
-> **Disclaimer:** KIT AI is **not a doctor**, does **not diagnose**, and does **not replace professional medical care**. It shares general first-aid guidance only. In emergencies, seek professional help whenever possible.
+KIT AI provides general information. It cannot diagnose a condition or replace professional care. In an emergency, contact the local emergency number without waiting for an AI answer.
 
----
+## One Ask Kit experience
 
-## Why KIT AI Exists
+Ask Kit chooses the available assistant automatically. It prefers the owner's
+fine-tuned Hugging Face model when connected, uses the prepared browser model
+when offline (or when online answers are disabled), and can show matching saved
+guides if the device cannot run AI. There is no model-mode selector in chat.
+Generated answers remain enabled; reference excerpts are clearly identified.
 
-Most AI health tools require constant internet access. In real emergencies, that's often impossible.
+| Capability | What is available |
+| --- | --- |
+| English and Spanish | Interface, complete guides, bilingual search, requested AI answer language and browser speech language |
+| Offline preparation | Saves the small app/guides automatically; asks once before the roughly 750 MB assistant download, then reopens saved files automatically unless paused |
+| Online assistant | `Pablo305/llama3-medical-3b-4bit` through the owner's existing Space |
+| Browser assistant | Experimental general-purpose Llama 3.2 1B; **not the same weights as the fine-tuned medical model** |
+| Offline retrieval | Bilingual keyword matching over six whole source-linked guides; relevant complete guidance is included in model prompts |
+| Web search | Not implemented; online model inference does not browse the internet |
+| Offline check | Settings → Try without internet, or `/#device-check`; guided offline reopen, guide access, an optional sample answer, and a collapsed support report |
 
-KIT AI is built to:
-- Work **fully offline**
-- Run directly **on the user's device**
-- Share **clear, factual first-aid steps**
-- Avoid hallucinations, diagnoses, or personalized medical advice
-- Update medical content safely when internet *is* available
+The first browser-model cache measured about 718 MB on the test machine. The
+app now precaches its small shell independently of the large assistant JavaScript.
+Assistant preparation begins only after the user agrees to the download and the
+app cache/control check passes. A ready engine alone no longer means offline
+files are saved. Known cellular/Data Saver connections defer automatic downloads;
+network type is not available everywhere. A new consent setting also asks existing
+users once; already saved model files are reused. Pause and online-answer
+preferences live in Settings. Browser storage may be evicted or cleared.
 
----
+The previous coupled precache could fail when one assistant file failed, leaving
+the online page usable but offline refresh broken. This was reproduced and fixed;
+it does not establish the exact failure cause on the reported iPhone.
+See [offline-refresh verification](verification/offline-refresh.md).
 
-## What KIT AI Does
+Online questions and prior **online** turns are sent to Hugging Face. Earlier
+device-only and guide-only turns are excluded from cloud history. Turning off
+online answers keeps new questions on the device. Avoid identifying information.
 
-- Uses a **local LLM** (WebLLM) running entirely on-device via WebGPU
-- Stores vetted first-aid knowledge in **IndexedDB** (syncs from backend when online)
-- Provides a chat-style interface for health questions
-- Never prescribes medication or gives diagnoses
-- Syncs updated medical guidelines *only when online*
+**Current online-model status:** the repaired Space is deployed and real inference passed on 2026-09-18. A synthetic scrape-care question succeeded through the live Vercel frontend, and a first-aid-kit question succeeded through the official Gradio client (17.24 seconds). Runtime commit `adb12bb2fcb5c477e09acb140cc195bf44947e4e` uses the intended pinned medical checkpoint. These are functional smoke checks, not clinical accuracy validation.
 
----
+## Why a model URL alone did not fix chat
 
-## What KIT AI Does NOT Do
+The old frontend used general-purpose `Llama-3.2-1B-Instruct`, not the published medical model. The medical checkpoint is a 2.24 GB bitsandbytes NF4 Transformers model. WebLLM requires converted MLC weights and a matching compiled WebGPU runtime; these formats are not interchangeable.
 
-- No user accounts or logins
-- No real-time cloud AI calls during inference
-- No diagnosis or treatment plans
-- No medication recommendations or dosages
-- No replacement for emergency services
+The existing Space also used a Hub dependency incompatible with its exported Transformers 5 tokenizer, bypassed the tokenizer's chat template, and cut answers to a fixed number of sentences. The replacement Space uses compatible dependencies and the saved chat template, preserving complete generated responses and identifying token-limit cutoffs.
 
----
+Changing prompts does not establish medical reliability. The model has not had formal clinical evaluation; its model card still needs training-data and methodology details.
 
-## Architecture
+**Latest model experiment (2026-09-18):** the original NF4 checkpoint was locally
+dequantized and exported to MLC without retraining. Twenty EN/ES cases ran on the
+float export. An infant-choking failure was independently reproduced on the
+original NF4 checkpoint and matched the float export token for token on CPU.
+Other findings include missing steps, source contradictions and a Spanish refusal.
+The recovered historical prompt also produced serious errors. The conversion is
+an evaluation artifact, not a production model selection or medical-quality pass.
+It generated in desktop Chrome on Apple Metal and after a full offline browser
+restart, using about 1.86 GB of browser storage. Real phone testing remains open.
+See [evaluation results](evaluations/README.md) and [conversion tooling](model-tools/README.md).
 
-```mermaid
-flowchart LR
-    subgraph Browser
-        UI[React PWA]
-        Worker[Web Worker: WebLLM]
-        IDB[(IndexedDB\nmodel cache + medical cache)]
-        UI -->|chat messages| Worker
-        Worker -->|model weights, cached content| IDB
-        IDB --> UI
-    end
+## Run locally
 
-    subgraph Backend[Backend, online only]
-        API[Node/Express API]
-        Gemini[Gemini content pipeline]
-        Mongo[(MongoDB Atlas)]
-        TTS[ElevenLabs TTS proxy]
-        Gemini --> Mongo
-        API --> Mongo
-    end
-
-    UI -.->|GET/POST /api/medical, when online| API
-    UI -.->|POST /api/tts/convert, when online| TTS
-```
-
-The frontend is a PWA that runs the model and the medical knowledge cache entirely in the browser. The backend is optional infrastructure for content generation and TTS. It is not required for the core offline chat experience to work.
-
-### Frontend (PWA)
-- React + Vite
-- Progressive Web App with service worker
-- IndexedDB for:
-  - LLM model weights (WebLLM cache)
-  - Medical knowledge (synced from backend when online)
-
-### Local AI
-- `@mlc-ai/web-llm` in a Web Worker
-- WebGPU / WASM inference
-- Model: `Llama-3.2-1B-Instruct` by default (swapped from 3B for faster load time on Vercel). A larger model can be configured via `VITE_WEBLLM_MODEL_URL`.
-- A separate fine-tuned medical model, [Pablo305/llama3-medical-3b-4bit](https://huggingface.co/Pablo305/llama3-medical-3b-4bit), exists but is not yet wired into the PWA (see Known Limitations).
-
-### Backend (Online Only)
-- Node.js + Express
-- Gemini-based pipeline that generates first-aid guideline content
-- MongoDB Atlas stores that content
-- `GET /api/medical` — frontend fetches and caches when online
-- `POST /api/medical` — ingest script updates content, gated behind `MEDICAL_API_KEY`
-- ElevenLabs TTS proxy (`POST /api/tts/convert`) for higher-quality voice, with the browser's built-in speech synthesis as a fallback
-
----
-
-## Tech Stack
-
-| Layer | Technologies |
-|-------|--------------|
-| Frontend | React, Vite, Tailwind CSS, PWA |
-| Local AI | @mlc-ai/web-llm, WebGPU |
-| Backend | Node.js, Express, MongoDB, Gemini API |
-| Voice | ElevenLabs (online), browser SpeechSynthesis (offline fallback) |
-| Storage | IndexedDB (frontend), MongoDB Atlas (backend) |
-
----
-
-## Getting Started
-
-### Prerequisites
-- Node.js 18+
-- MongoDB Atlas account (or local MongoDB), only needed if you're running the backend
-- Browser with WebGPU (Chrome 113+, Edge 113+, Safari 26+, Firefox 141+)
-
-### Backend
-
-```bash
-cd backend
-cp .env.example .env
-# Edit .env with your MONGODB_URI, PORT, FRONTEND_ORIGIN, MEDICAL_API_KEY
-npm install
-npm run dev
-```
-
-Ingest initial medical content (with backend running):
-
-```bash
-npm run ingest
-# Or: npm run ingest path/to/medical-knowledge.json
-```
-
-### Frontend
-
-```bash
+```sh
 cd frontend
-cp .env.example .env
-# For API mode: set VITE_MEDICAL_SOURCE=api and VITE_MEDICAL_API_URL
-npm install
+npm ci
 npm run dev
 ```
 
-Visit `http://localhost:5173`. On first load (while online), the model downloads and medical content syncs. After that, the app works offline.
+The app starts with bundled guides. Use the production preview below to test saving and assistant preparation; those depend on the built service worker. No keys, backend, or database are needed. An internet connection and an operational public HF Space are needed for online chat.
 
----
-
-## Configuration
-
-### Frontend (`.env`)
-| Variable | Description |
-|----------|-------------|
-| `VITE_MEDICAL_SOURCE` | `api` or `static` |
-| `VITE_MEDICAL_API_URL` | Backend URL, e.g. `http://localhost:3001/api/medical` |
-| `VITE_WEBLLM_MODEL_URL` | Optional. Points at a larger or custom model instead of the default 1B model |
-
-### Backend (`.env`)
-| Variable | Description |
-|----------|-------------|
-| `MONGODB_URI` | MongoDB Atlas connection string |
-| `PORT` | Server port (default 3001) |
-| `FRONTEND_ORIGIN` | CORS origin (default `http://localhost:5173`) |
-| `MEDICAL_API_KEY` | Required to call `POST /api/medical`. If unset, that endpoint is disabled rather than open. |
-
----
-
-## Medical Content Format
-
-```json
-{
-  "version": 1,
-  "entries": [
-    { "id": "topic-id", "content": "Medical content..." }
-  ]
-}
+```sh
+npm test
+npm run build
+npm run preview
 ```
 
-Use `npm run ingest` in the backend to push this format to MongoDB.
+Use the production preview to verify service-worker/offline behavior; the development server intentionally does not register the production cache.
 
----
+## Configure models
 
-## Known Limitations
+Copy `frontend/.env.example` only when overriding defaults.
 
-- **WebGPU is a hard requirement, with no fallback yet.** If the browser or device doesn't support WebGPU, the app currently shows an error instead of degrading to a slower CPU path or a hosted model.
-- **The backend and TTS pipeline aren't connected in the live deploy.** The Vercel demo runs frontend-only, against the static bundled medical content, with browser speech synthesis for voice. The Express/MongoDB/Gemini/ElevenLabs backend exists and works locally, but isn't deployed alongside it.
-- **The fine-tuned medical model isn't integrated into the PWA yet.** [Pablo305/llama3-medical-3b-4bit](https://huggingface.co/Pablo305/llama3-medical-3b-4bit) is trained and published, but the app still ships with the general-purpose Llama-3.2-1B-Instruct model.
+| Variable | Purpose |
+| --- | --- |
+| `VITE_MEDICAL_SPACE` | Public Gradio Space, default `Pablo305/offline-medical-assistant`; `/ask(question, n, max_tokens)` |
+| `VITE_WEBLLM_MODEL_URL` | Optional **MLC** model repository; never a raw bitsandbytes checkpoint |
+| `VITE_WEBLLM_MODEL_ID` | Identifier for the custom browser model |
+| `VITE_WEBLLM_MODEL_LIB` | Required with a custom model: architecture/quantization-compatible WebGPU WASM URL |
+| `VITE_BACKEND_URL` | Optional legacy TTS backend; unset uses browser speech |
 
----
+`VITE_` settings are public client configuration. Never put API keys or HF tokens in them. A private Space needs a separate authenticated server integration; the default browser client deliberately has no token.
 
-## Example Use Cases
+See [Space repair and deployment](huggingface-space/README.md).
 
-- In-flight medical situations
-- Hiking or camping emergencies
-- Regions with limited internet access
-- Disaster or outage scenarios
+## Deploy on Vercel
 
----
+The Vercel project root is **frontend**. `frontend/vercel.json` defines the Vite build and response headers.
 
-## Ethics & Safety
+```sh
+cd frontend
+vercel link --project kit-ai-pablopupo
+vercel --prod
+```
 
-KIT AI is intentionally **conservative**:
-- When uncertain, it escalates to "seek professional help"
-- It avoids personalized or speculative advice
-- It prioritizes clarity, calmness, and safety
+This deploys the web app, not the GPU model. The medical model runs on Hugging Face; Vercel does not host its weights or GPU inference. ZeroGPU can sleep, queue requests, or exhaust quota. The UI provides a stop action, bounded wait, and access to guides when this happens.
 
----
+## Mobile and offline
+
+- Responsive navigation and multiline composer, touch targets, safe-area padding, keyboard-aware viewport sizing, and zoom support.
+- Installable PWA with standalone display and 192/512 pixel icons.
+- Offline app shell and source-linked guide text after a successful initial cache; linked source websites still require internet.
+- Offline generated answers need working WebGPU in a worker and substantial device memory. Safari 26 and some Android browsers support it; support and memory differ by device. Firefox, older phones and unsupported GPUs retain guides and online access. A successful API probe alone does not guarantee the model fits.
+- Browser storage can be cleared or evicted. Test offline access before relying on saved content.
+- The device-check page uses a fixed harmless prompt, empty chat history, and the existing local engine with no cloud fallback. A nonempty generated answer passes only the runtime check. Offline claims distinguish the browser's network flag from the user's confirmation of closing/reopening; neither establishes universal device support.
+- Conversation history is stored in the current browser; only online turns are eligible for later online request context. Errors saving history are visible, and deleting another conversation does not change the open conversation.
+
+## Source structure
+
+- `frontend/src/components/`: guides, chat, history, settings, speech controls.
+- `frontend/src/services/firstAidGuides.js`: active guide library with scope, source links, and check dates.
+- `frontend/src/services/chatPrompt.js`: bounded recent history and relevant complete reference blocks.
+- `frontend/src/services/onlineMedicalService.js`: lazy Gradio client, timeout/cancellation, explicit errors.
+- `frontend/src/services/webllmService.js`: automatically prepared browser engine, cache reuse, interrupted-stream draining and failed-worker recovery.
+- `frontend/src/sw.js` and `services/offlineAppService.js`: independent app/runtime saving, verified readiness, cancelable download preparation and missing-cache recovery.
+- `huggingface-space/`: GPU service repair and GPU-free prompt/output regression tests.
+- `evaluations/`: frozen bilingual cases, exact model inputs, reproducible runners, raw outputs and a portable review worksheet generator.
+- `model-tools/`: pinned checkpoint reconstruction/conversion, metadata and tokenizer checks, and original/float parity checks. Large weights remain outside Git.
+- `backend/`: legacy optional Express/MongoDB/Gemini/TTS pipeline, not deployed by this frontend project.
+
+The historical `frontend/public/medical-knowledge.json` and `packs/learned.json` are generated prototype content. They are not used by the new guide library or chat grounding and are not clinician-reviewed.
+
+## Validation and next work
+
+Automated checks cover guide matching, excluding adult instructions for explicitly pediatric requests, complete source/context bounds, conversation persistence and deletion, and Space prompt/output behavior. Browser checks cover phone layouts, unavailable WebGPU, navigation, and offline reload. Responsive emulation is not a physical-device certification.
+
+Real hardware checks on Apple Metal verified automatic loading, cached offline
+reload (about five seconds), and generation without model-network requests. This
+is not a physical iPhone/Android certification. The current browser Llama refused
+basic cut/burn questions during evaluation. Qwen 0.6B and 1.7B comparisons answered
+but omitted or contradicted source guidance, so they were not silently substituted
+for the owner's model. Functional offline AI is established; reliable offline
+medical answer quality remains work to do.
+
+See [IMPROVEMENTS.md](IMPROVEMENTS.md) and the [learning plan](evaluations/README.md)
+for next steps. The historical Space prompt is preserved in
+[evaluations/original-space-prompt.txt](evaluations/original-space-prompt.txt).
+No new fine-tuning job has been launched.
 
 ## Team
 
-KIT AI was built by a 5-person team at a hackathon. My (Pablo's) parts:
-- The IndexedDB retrieval and medical-cache layer that lets the app work fully offline after first load
-- The online/offline TTS fallback (ElevenLabs when the backend is reachable, browser speech synthesis when it isn't)
-- Vercel deploy fixes to get the PWA actually loading in production
-- A fine-tuned medical model, [Pablo305/llama3-medical-3b-4bit](https://huggingface.co/Pablo305/llama3-medical-3b-4bit), fine-tuned during the hackathon and not yet wired into the app
-
----
-
-## Project Status
-
-Active development. Current features:
-- WebLLM-based offline chat
-- Medical knowledge cache with backend sync
-- PWA with IndexedDB caching
+Originally built by a five-person hackathon team. Pablo's original contributions included IndexedDB medical retrieval, online/offline speech fallback, Vercel deployment fixes, and the published medical checkpoint. This cleanup preserves the existing project and makes its runtime modes and limitations explicit.

@@ -1,0 +1,8 @@
+{
+  "baseline_model": "mlc-ai/Llama-3.2-3B-Instruct-q4f16_1-MLC",
+  "baseline_revision": "1e80abf71e3d17cd564e2d2b63caa15cb226018e",
+  "baseline_manifest_sha256": "8fb7e7ee34aa65d2a06312c2ab8fda894e40e37a1f218b511dfbc8e3b88937c5",
+  "tensor_count": 283,
+  "same_names_shapes_dtypes_formats_bytes": true,
+  "all_58_shard_sizes_and_md5_valid": true
+}

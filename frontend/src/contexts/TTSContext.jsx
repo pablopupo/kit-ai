@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import { textToSpeech, getAvailableVoices, isOnline, hasBrowserTTS, speakWithBrowserTTS, stopBrowserTTS } from '../services/elevenlabsService'
+import { readPreference, readBoolean, writePreference } from '../utils/preferences'
 import { useSettings } from './SettingsContext'
 
 const TTSContext = createContext()
@@ -23,12 +24,11 @@ export function TTSProvider({ children }) {
 
   // Load settings from localStorage
   const [ttsEnabled, setTtsEnabled] = useState(() => {
-    const saved = localStorage.getItem('kit-ai-tts-enabled')
-    return saved ? JSON.parse(saved) : true
+    return readBoolean('kit-ai-tts-enabled', true)
   })
 
   const [voice, setVoice] = useState(() => {
-    const saved = localStorage.getItem('kit-ai-tts-voice')
+    const saved = readPreference('kit-ai-tts-voice')
     // Reset to new default if saved voice is not free-tier compatible
     const freeTierVoices = ['JBFqnCBsd6RMkjVDRZzb', '21m00Tcm4TlvDq8ikWAM', 'onwK4e9ZLuTAKqWW03F9', 'XB0fDUnXU5powFXDhCwa', 'pFZP5JQG7iQjIQuC4Bku']
     if (saved && freeTierVoices.includes(saved)) {
@@ -38,40 +38,40 @@ export function TTSProvider({ children }) {
   })
 
   const [speed, setSpeed] = useState(() => {
-    const saved = localStorage.getItem('kit-ai-tts-speed')
-    return saved ? parseFloat(saved) : 1.0
+    const saved = readPreference('kit-ai-tts-speed')
+    const value = Number(saved)
+    return Number.isFinite(value) && value >= 0.5 && value <= 2 ? value : 1
   })
 
   const [autoPlay, setAutoPlay] = useState(() => {
-    const saved = localStorage.getItem('kit-ai-tts-autoplay')
-    return saved ? JSON.parse(saved) : false
+    return readBoolean('kit-ai-tts-autoplay', false)
   })
 
   const [voices, setVoices] = useState([])
   const [currentlyPlaying, setCurrentlyPlaying] = useState(null)
   // 'elevenlabs' | 'browser' - tracks which TTS engine is active
-  const [ttsMode, setTtsMode] = useState(online ? 'elevenlabs' : 'browser')
+  const [ttsMode, setTtsMode] = useState(online && import.meta.env.VITE_BACKEND_URL ? 'elevenlabs' : 'browser')
 
   // Update TTS mode when online status changes
   useEffect(() => {
-    setTtsMode(online ? 'elevenlabs' : 'browser')
+    setTtsMode(online && import.meta.env.VITE_BACKEND_URL ? 'elevenlabs' : 'browser')
   }, [online])
 
   // Persist settings to localStorage
   useEffect(() => {
-    localStorage.setItem('kit-ai-tts-enabled', JSON.stringify(ttsEnabled))
+    writePreference('kit-ai-tts-enabled', JSON.stringify(ttsEnabled))
   }, [ttsEnabled])
 
   useEffect(() => {
-    localStorage.setItem('kit-ai-tts-voice', voice)
+    writePreference('kit-ai-tts-voice', voice)
   }, [voice])
 
   useEffect(() => {
-    localStorage.setItem('kit-ai-tts-speed', speed.toString())
+    writePreference('kit-ai-tts-speed', speed.toString())
   }, [speed])
 
   useEffect(() => {
-    localStorage.setItem('kit-ai-tts-autoplay', JSON.stringify(autoPlay))
+    writePreference('kit-ai-tts-autoplay', JSON.stringify(autoPlay))
   }, [autoPlay])
 
   // Load available voices on mount
@@ -85,7 +85,7 @@ export function TTSProvider({ children }) {
       }
     }
 
-    if (ttsEnabled && online) {
+    if (ttsEnabled && online && import.meta.env.VITE_BACKEND_URL) {
       loadVoices()
     }
   }, [ttsEnabled, online])

@@ -1,17 +1,18 @@
+import { memo } from 'react'
 import AudioPlayer from './AudioPlayer'
 
 function ChatMessage({ role, content }) {
   const isUser = role === 'user'
 
   return (
-    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4 animate-slideIn`}>
-      <div className={`flex items-end gap-2 md:gap-3 max-w-[92%] md:max-w-[80%] ${isUser ? 'flex-row-reverse' : ''}`}>
+    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-5`}>
+      <div className={`flex min-w-0 items-end gap-2 md:gap-3 max-w-[96%] md:max-w-[90%] ${isUser ? 'flex-row-reverse' : ''}`}>
         {/* Avatar */}
-        <div className={`shrink-0 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center shadow-sm transition-colors duration-300 ${
-          isUser ? 'bg-kit-teal dark:bg-kit-teal' : 'bg-kit-red dark:bg-kit-red'
+        <div className={`shrink-0 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center ${
+          isUser ? 'bg-kit-teal-light dark:bg-kit-teal-dark/30' : 'bg-kit-red dark:bg-kit-red'
         }`}>
           {isUser ? (
-            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-teal-800 dark:text-teal-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
           ) : (
@@ -23,18 +24,18 @@ function ChatMessage({ role, content }) {
         </div>
 
         {/* Message Bubble */}
-        <div className={`px-4 py-2.5 md:px-5 md:py-3 shadow-card transition-colors duration-300 ${
+        <div className={`min-w-0 px-4 py-3 md:px-5 md:py-4 ${
           isUser
-            ? 'bg-white dark:bg-kit-dark-bg-light text-slate-700 dark:text-kit-dark-text rounded-2xl rounded-br-md border border-gray-200 dark:border-kit-dark-bg-lighter'
-            : 'bg-white dark:bg-kit-dark-bg-light text-slate-700 dark:text-kit-dark-text rounded-2xl rounded-bl-md border border-gray-200 dark:border-kit-dark-bg-lighter'
+            ? 'bg-kit-teal-light dark:bg-kit-teal-dark/20 text-slate-800 dark:text-kit-dark-text rounded-3xl rounded-br-lg'
+            : 'bg-[#FFF5F3] dark:bg-kit-dark-bg-light text-slate-800 dark:text-kit-dark-text rounded-3xl rounded-bl-lg border border-[#F9E6E2] dark:border-kit-dark-bg-lighter'
         }`}>
-          <p className="text-[15px] leading-relaxed whitespace-pre-wrap">{content}</p>
+          <p className="text-[15px] leading-relaxed whitespace-pre-wrap break-words [overflow-wrap:anywhere]">{content}</p>
 
           {/* Audio Player - only for assistant messages */}
           {!isUser && (
             <AudioPlayer
               messageContent={content}
-              messageId={`msg-${Date.now()}-${content.substring(0, 20)}`}
+              messageId={`msg-${content.substring(0, 40)}`}
             />
           )}
         </div>
@@ -43,4 +44,4 @@ function ChatMessage({ role, content }) {
   )
 }
 
-export default ChatMessage
+export default memo(ChatMessage)

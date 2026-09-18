@@ -64,8 +64,6 @@ export function speakWithBrowserTTS(text, languageCode = 'en', rate = 1.0) {
 
     window.speechSynthesis.speak(utterance)
 
-    // Resolve immediately with the utterance so caller can control it
-    resolve(utterance)
   })
 }
 

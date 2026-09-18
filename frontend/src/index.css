@@ -40,10 +40,29 @@
 @tailwind utilities;
 
 @layer base {
+  html, body, #root {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+  }
+
   body {
     @apply font-sans antialiased;
-    /* Prevent pull-to-refresh and overscroll bounce on mobile */
-    overscroll-behavior: none;
+    background: #e0f5f3;
+    color: #253d3a;
+  }
+
+  button, a, input, textarea, select {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus-visible {
+    outline: 3px solid #278579;
+    outline-offset: 3px;
+  }
+
+  input, textarea, select {
+    font-size: max(1rem, 16px);
   }
 
   /* Safe area padding for notched devices (iPhone X+) */
@@ -64,20 +83,152 @@
 }
 
 @layer components {
-  /* Mobile sidebar overlay backdrop */
-  .mobile-sidebar-backdrop {
-    @apply fixed inset-0 bg-black/40 z-40 transition-opacity duration-300;
+  .app-shell {
+    min-width: 0;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 0 var(--sar) 0 var(--sal);
+    background: #e0f5f3;
   }
 
-  /* Mobile sidebar slide-in */
-  .mobile-sidebar {
-    @apply fixed inset-y-0 left-0 z-50 w-72 transform transition-transform duration-300 ease-out;
+  .kit-panel {
+    background: white;
   }
-  .mobile-sidebar.open {
-    @apply translate-x-0;
+
+  .kit-header {
+    background: #e0f5f3;
   }
-  .mobile-sidebar.closed {
-    @apply -translate-x-full;
+
+  .kit-main {
+    padding-top: 1.25rem;
+    border-radius: 2rem 2rem 0 0;
+    background: white;
+  }
+
+  /* On phones, reading pages use the document's native scrolling. The only
+     bounded scroll area is the conversation, beside its reachable composer. */
+  .app-shell:not(.is-chat) .kit-panel {
+    padding-bottom: calc(5rem + var(--sab));
+  }
+
+  .kit-mobile-nav {
+    position: fixed;
+    z-index: 20;
+    bottom: 0;
+    left: var(--sal);
+    right: var(--sar);
+    padding-bottom: max(.5rem, var(--sab));
+    background: white;
+    border-top: 1px solid #e0efeb;
+    border-radius: 1.5rem 1.5rem 0 0;
+    box-shadow: 0 -4px 20px rgb(23 105 95 / 4%);
+  }
+
+  .app-shell.is-chat {
+    position: fixed;
+    inset: 0;
+    top: var(--keyboard-top, 0px);
+    height: 100vh;
+    height: var(--keyboard-height, 100dvh);
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .is-chat .kit-main {
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    overflow-anchor: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .is-chat .kit-mobile-nav {
+    position: static;
+  }
+
+  .kit-composer {
+    background: white;
+  }
+
+  .app-shell p {
+    overflow-wrap: anywhere;
+  }
+
+  .dark .app-shell, .dark .kit-header {
+    background: #23272f;
+  }
+
+  .dark .kit-panel, .dark .kit-main, .dark .kit-composer, .dark .kit-mobile-nav {
+    background: #1a1d23;
+  }
+
+  .dark .kit-mobile-nav {
+    border-color: #334155;
+  }
+
+  @media (max-width: 767px) {
+    .kit-panel {
+      background: #e0f5f3;
+    }
+
+  }
+
+  @media (min-width: 768px) {
+    .app-shell, .app-shell.is-chat {
+      position: static;
+      height: 100vh;
+      height: 100dvh;
+      min-height: 0;
+      overflow: hidden;
+      padding-top: .75rem;
+      padding-bottom: .75rem;
+      padding-right: max(.75rem, var(--sar));
+    }
+
+    .app-shell:not(.is-chat) .kit-panel {
+      padding-bottom: 0;
+    }
+
+    .kit-sidebar {
+      min-height: 0;
+      overflow-y: auto;
+    }
+
+    .kit-panel {
+      border-radius: 2rem;
+      overflow: hidden;
+    }
+
+    .kit-header, .dark .kit-header {
+      background: transparent;
+    }
+
+    .kit-main {
+      overflow-y: auto;
+      overscroll-behavior-y: contain;
+      padding-top: .5rem;
+      border-radius: 0;
+    }
+  }
+
+  /* Touch phones can be wider than the desktop breakpoint in landscape. */
+  .app-shell.is-chat[data-keyboard-open] {
+    position: fixed;
+    top: var(--keyboard-top, 0px);
+    height: var(--keyboard-height);
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .is-chat[data-keyboard-open] .kit-mobile-nav {
+    display: none;
+  }
+
+  .is-chat[data-keyboard-open] .kit-composer {
+    padding-bottom: .25rem;
+  }
+
+  .is-chat[data-keyboard-open] textarea {
+    max-height: min(7rem, calc(var(--keyboard-height) * .3));
   }
 }
 

@@ -1,0 +1,654 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-18T22:09:03.547Z",
+  "experiment": "Targeted bilingual lexical retrieval regression comparison; not semantic retrieval, not model-answer evaluation.",
+  "datasetSha256": "e1640d4ff4410763980818c7186507fcf023e05a96cd6b5b55ed5605017f562e",
+  "baselineInputFile": "evaluations/results/app-inputs-before-retrieval.json",
+  "baselineInputSha256": "cd8a480f1d2019e089663982ecc309616c8f149b5617b529b83506e2517b3665",
+  "sourceHashes": {
+    "before": {
+      "chatPrompt.js": "35196c62c0a31f2cc6337afcee1e606b2a8551fe0feeaf39fa681250a83a9cbb",
+      "firstAidGuides.js": "bfb9f2fd9d211949e86a727bd46d850efd9abf06b26a08c5dd5b76dff5ba913f",
+      "guideTranslations.js": "76529d3d2c75421f56b294776dd35ead0829161c5ca30e8474f29e65ce63f055"
+    },
+    "after": {
+      "chatPrompt.js": "35196c62c0a31f2cc6337afcee1e606b2a8551fe0feeaf39fa681250a83a9cbb",
+      "firstAidGuides.js": "08162dd09a4d22a60247dc88097d73fd56fbc6c94adaee232d00a9ee3441043f",
+      "guideTranslations.js": "304088a317aff20f0ae3645e387ea33ffa8143e5bb409e9a9b715ea2db2e5251"
+    }
+  },
+  "changes": [
+    "Require contact, heat-source and skin-area terms for additional thermal-injury descriptions.",
+    "Recognize selected English/Spanish descriptions of ongoing heavy blood flow.",
+    "Burn references now explicitly prohibit ice and include the American Red Cross source in both languages."
+  ],
+  "notes": [
+    "The same 20 frozen prompts are used before and after; cases.json is unchanged.",
+    "This known-case regression set helped guide the fix, so improvement is not an unbiased general retrieval accuracy estimate.",
+    "Expected coverage means an appropriate existing guide is included, not that it completely answers the case; wrist assessment remains outside the narrow sprain guide.",
+    "Infant choking intentionally receives no adult-only guide; this does not mean adequate infant reference coverage exists.",
+    "References are complete and buildMessages keeps every prompt within its existing UTF-8 byte budget.",
+    "Burn reference changes include an ice warning and source addition, so a subsequent answer difference cannot be attributed solely to retrieval."
+  ],
+  "summary": {
+    "totalCases": 20,
+    "expectedGuideCases": 16,
+    "guideCasesCoveredBefore": 12,
+    "guideCasesCoveredAfter": 16,
+    "expectedEmptyCases": 4,
+    "emptyCasesCorrectBefore": 4,
+    "emptyCasesCorrectAfter": 4,
+    "newlyCoveredCaseIds": [
+      "heat-burn-en",
+      "heat-burn-es",
+      "severe-bleeding-object-en",
+      "severe-bleeding-object-es"
+    ],
+    "unexpectedAfterCaseIds": [],
+    "maximumAfterPromptBytes": 3165,
+    "promptByteLimit": 3264
+  },
+  "cases": [
+    {
+      "id": "minor-cut-en",
+      "pairId": "minor-cut",
+      "language": "en",
+      "expectedGuideIds": [
+        "minor-cuts"
+      ],
+      "before": {
+        "includedGuideIds": [
+          "minor-cuts"
+        ],
+        "reference": "Guide: Minor cuts and grazes\nScope: Small, superficial skin wounds. Deep wounds, embedded objects and uncontrolled bleeding need medical care.\nControl bleeding, rinse a small wound, then protect it with a clean dressing.\nGet help: Get emergency help for uncontrolled or spurting bleeding, a deep wound, an embedded object, numbness or difficulty moving. Get prompt medical advice for bites, persistent dirt, increasing redness, swelling, pain, pus or fever.\n1. Wash and dry your hands; use disposable gloves if available.\n2. Press a clean folded cloth or dressing firmly on bleeding skin. If an object is embedded, leave it in place and press around it.\n3. Once bleeding has stopped, rinse a small wound with clean tap or bottled water. Clean the surrounding skin with soap and water.\n4. Gently dry and cover with a sterile dressing. Keep it clean and dry; replace it when needed.\nSources: NHS: Cuts and grazes (https://www.nhs.uk/conditions/cuts-and-grazes/)\nSources checked: 2026-09-18. Summary and translation have not been clinically reviewed.",
+        "referenceSha256": "e4a814905bcf2e0c77da386e7a61b3d80218dd1d0edbeae72738fd1c95d62c16",
+        "messagesSha256": "fe767270e2cab19e0d3a06737bab1efdc2c8a6af3360f8698e53a2e7c15d9767",
+        "promptBytes": 2276,
+        "expectedCoverage": true
+      },
+      "after": {
+        "matchedGuideIds": [
+          "minor-cuts",
+          "severe-bleeding"
+        ],
+        "includedGuideIds": [
+          "minor-cuts"
+        ],
+        "reference": "Guide: Minor cuts and grazes\nScope: Small, superficial skin wounds. Deep wounds, embedded objects and uncontrolled bleeding need medical care.\nControl bleeding, rinse a small wound, then protect it with a clean dressing.\nGet help: Get emergency help for uncontrolled or spurting bleeding, a deep wound, an embedded object, numbness or difficulty moving. Get prompt medical advice for bites, persistent dirt, increasing redness, swelling, pain, pus or fever.\n1. Wash and dry your hands; use disposable gloves if available.\n2. Press a clean folded cloth or dressing firmly on bleeding skin. If an object is embedded, leave it in place and press around it.\n3. Once bleeding has stopped, rinse a small wound with clean tap or bottled water. Clean the surrounding skin with soap and water.\n4. Gently dry and cover with a sterile dressing. Keep it clean and dry; replace it when needed.\nSources: NHS: Cuts and grazes (https://www.nhs.uk/conditions/cuts-and-grazes/)\nSources checked: 2026-09-18. Summary and translation have not been clinically reviewed.",
+        "referenceSha256": "e4a814905bcf2e0c77da386e7a61b3d80218dd1d0edbeae72738fd1c95d62c16",
+        "messagesSha256": "fe767270e2cab19e0d3a06737bab1efdc2c8a6af3360f8698e53a2e7c15d9767",
+        "promptBytes": 2276,
+        "expectedCoverage": true
+      },
+      "referenceChanged": false
+    },
+    {
+      "id": "minor-cut-es",
+      "pairId": "minor-cut",
+      "language": "es",
+      "expectedGuideIds": [
+        "minor-cuts"
+      ],
+      "before": {
+        "includedGuideIds": [
+          "minor-cuts"
+        ],
+        "reference": "Guía: Cortes y raspaduras leves\nAlcance: Heridas pequeñas y superficiales de la piel. Las heridas profundas, los objetos incrustados y el sangrado que no se controla necesitan atención médica.\nDetenga el sangrado, enjuague la herida pequeña y protéjala con un apósito limpio.\nBusque ayuda: Busque ayuda de emergencia si el sangrado no se controla o sale a chorros, la herida es profunda, hay un objeto incrustado, entumecimiento o dificultad para mover la zona. Consulte pronto a un profesional por mordeduras, suciedad que no sale, enrojecimiento, hinchazón o dolor que aumentan, pus o fiebre.\n1. Lávese y séquese las manos; use guantes desechables si dispone de ellos.\n2. Presione firmemente la zona que sangra con una tela limpia doblada o un apósito. Si hay un objeto incrustado, déjelo en su sitio y presione alrededor.\n3. Cuando deje de sangrar, enjuague la herida pequeña con agua limpia del grifo o embotellada. Limpie la piel de alrededor con agua y jabón.\n4. Seque con suavidad y cubra con un apósito estéril. Manténgalo limpio y seco; cámbielo cuando sea necesario.\nFuentes: NHS: Cortes y raspaduras (https://www.nhs.uk/conditions/cuts-and-grazes/)\nFuentes consultadas: 2026-09-18. El resumen y la traducción no han sido revisados clínicamente.",
+        "referenceSha256": "5002c59fed88fbddcc2404cad9a6cc63c72caa9ecd6c7dad70115cbb090476dd",
+        "messagesSha256": "65343c5023e9bff960fb0aedbca7967bfcfd43009f8c45451172ce5309970615",
+        "promptBytes": 2536,
+        "expectedCoverage": true
+      },
+      "after": {
+        "matchedGuideIds": [
+          "minor-cuts"
+        ],
+        "includedGuideIds": [
+          "minor-cuts"
+        ],
+        "reference": "Guía: Cortes y raspaduras leves\nAlcance: Heridas pequeñas y superficiales de la piel. Las heridas profundas, los objetos incrustados y el sangrado que no se controla necesitan atención médica.\nDetenga el sangrado, enjuague la herida pequeña y protéjala con un apósito limpio.\nBusque ayuda: Busque ayuda de emergencia si el sangrado no se controla o sale a chorros, la herida es profunda, hay un objeto incrustado, entumecimiento o dificultad para mover la zona. Consulte pronto a un profesional por mordeduras, suciedad que no sale, enrojecimiento, hinchazón o dolor que aumentan, pus o fiebre.\n1. Lávese y séquese las manos; use guantes desechables si dispone de ellos.\n2. Presione firmemente la zona que sangra con una tela limpia doblada o un apósito. Si hay un objeto incrustado, déjelo en su sitio y presione alrededor.\n3. Cuando deje de sangrar, enjuague la herida pequeña con agua limpia del grifo o embotellada. Limpie la piel de alrededor con agua y jabón.\n4. Seque con suavidad y cubra con un apósito estéril. Manténgalo limpio y seco; cámbielo cuando sea necesario.\nFuentes: NHS: Cortes y raspaduras (https://www.nhs.uk/conditions/cuts-and-grazes/)\nFuentes consultadas: 2026-09-18. El resumen y la traducción no han sido revisados clínicamente.",
+        "referenceSha256": "5002c59fed88fbddcc2404cad9a6cc63c72caa9ecd6c7dad70115cbb090476dd",
+        "messagesSha256": "65343c5023e9bff960fb0aedbca7967bfcfd43009f8c45451172ce5309970615",
+        "promptBytes": 2536,
+        "expectedCoverage": true
+      },
+      "referenceChanged": false
+    },
+    {
+      "id": "heat-burn-en",
+      "pairId": "heat-burn",
+      "language": "en",
+      "expectedGuideIds": [
+        "burns"
+      ],
+      "before": {
+        "includedGuideIds": [],
+        "reference": "",
+        "referenceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "messagesSha256": "09722d36a8b42d42a4d5684ca857dfb64f9c4a0225e910d382442372666005f9",
+        "promptBytes": 1292,
+        "expectedCoverage": false
+      },
+      "after": {
+        "matchedGuideIds": [
+          "burns"
+        ],
+        "includedGuideIds": [
+          "burns"
+        ],
+        "reference": "Guide: Burns and scalds\nScope: Immediate care for heat burns. Chemical and electrical burns need emergency care; seek medical advice for children under 5.\nCool a heat burn promptly with cool running water for 20 minutes.\nGet help: Get emergency care for a large or deep burn, burns to the face, genitals or buttocks, or any chemical or electrical burn. Seek urgent medical advice if the person is under 5 or you are unsure how serious the burn is.\n1. Cool the affected skin under cool running water for 20 minutes as soon as possible, within 3 hours of the injury.\n2. Remove nearby clothing and jewellery unless stuck to the skin.\n3. After cooling, loosely lay clean cling film over the burn. Do not wrap it around a limb.\n4. Do not use ice, butter, oils, creams or sticky dressings, or burst blisters.\nSources: NHS: Burns and scalds (https://www.nhs.uk/conditions/burns-and-scalds/); American Red Cross: Burns (https://www.redcross.org/take-a-class/resources/learn-first-aid/burns)\nSources checked: 2026-09-18. Summary and translation have not been clinically reviewed.",
+        "referenceSha256": "dd157a32101925085936c276dbe6df2a526b88a31645f4f3f3b4b54303bbf574",
+        "messagesSha256": "54c38a9655b850f280fdd37f942886f3b9a4dd7c5e31fd032a6c11528bc87c73",
+        "promptBytes": 2322,
+        "expectedCoverage": true
+      },
+      "referenceChanged": true
+    },
+    {
+      "id": "heat-burn-es",
+      "pairId": "heat-burn",
+      "language": "es",
+      "expectedGuideIds": [
+        "burns"
+      ],
+      "before": {
+        "includedGuideIds": [],
+        "reference": "",
+        "referenceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "messagesSha256": "f4d14375966efbc931989be097624003f7c340a40ba01ebfef2fea8109ec5f77",
+        "promptBytes": 1337,
+        "expectedCoverage": false
+      },
+      "after": {
+        "matchedGuideIds": [
+          "burns"
+        ],
+        "includedGuideIds": [
+          "burns"
+        ],
+        "reference": "Guía: Quemaduras y escaldaduras\nAlcance: Atención inmediata de quemaduras por calor. Las quemaduras químicas o eléctricas necesitan atención de emergencia; consulte a un profesional si el menor tiene menos de 5 años.\nEnfríe cuanto antes una quemadura por calor con agua corriente fresca durante 20 minutos.\nBusque ayuda: Busque atención de emergencia si la quemadura es grande o profunda, afecta la cara, los genitales o los glúteos, o se debe a productos químicos o electricidad. Consulte con urgencia si la persona tiene menos de 5 años o no sabe qué tan grave es la quemadura.\n1. Enfríe la piel afectada con agua corriente fresca durante 20 minutos lo antes posible, dentro de las 3 horas siguientes a la lesión.\n2. Retire la ropa y las joyas cercanas, salvo que estén pegadas a la piel.\n3. Después de enfriar, coloque film transparente limpio sin apretarlo sobre la quemadura. No lo enrolle alrededor de una extremidad.\n4. No use hielo, mantequilla, aceites ni cremas; no use apósitos adhesivos ni reviente las ampollas.\nFuentes: NHS: Quemaduras y escaldaduras (https://www.nhs.uk/conditions/burns-and-scalds/); Cruz Roja Americana: Quemaduras (https://www.redcross.org/take-a-class/resources/learn-first-aid/burns)\nFuentes consultadas: 2026-09-18. El resumen y la traducción no han sido revisados clínicamente.",
+        "referenceSha256": "68c5ef1c6659cdf6392185c2b2266e1f25e4b065d6642a7caec80bbc0a0ba831",
+        "messagesSha256": "206fad070c0e30731627462021da56fced56fb9f0e161f5ef7b18bcde4204a3e",
+        "promptBytes": 2631,
+        "expectedCoverage": true
+      },
+      "referenceChanged": true
+    },
+    {
+      "id": "adult-choking-en",
+      "pairId": "adult-choking",
+      "language": "en",
+      "expectedGuideIds": [
+        "adult-choking"
+      ],
+      "before": {
+        "includedGuideIds": [
+          "adult-choking"
+        ],
+        "reference": "Guide: Adult choking\nScope: Adults only. Children and infants need age-appropriate instructions. Follow the emergency dispatcher.\nAct immediately when a choking adult cannot cough, speak or breathe effectively.\nGet help: Weak or absent coughing, inability to speak, blue or pale skin, or unresponsiveness require emergency help.\n1. If they can cough effectively, encourage coughing and stay with them.\n2. For an ineffective cough or inability to speak or breathe, have someone call the local emergency number now.\n3. Support their chest, lean them forward and give up to 5 separate blows between the shoulder blades with your hand heel.\n4. If still choking, stand behind them. Put a fist just above the navel, grasp it, and give up to 5 inward-and-upward abdominal thrusts. Use chest thrusts instead during pregnancy or if you cannot reach around them.\n5. Alternate these sets until the blockage clears or they become unresponsive. If unresponsive, lower them onto a firm, flat surface and start CPR, beginning with compressions, following dispatcher instructions. Never sweep the mouth blindly.\nSources: American Red Cross: Choking (https://www.redcross.org/take-a-class/resources/learn-first-aid/adult-child-choking)\nSources checked: 2026-09-18. Summary and translation have not been clinically reviewed.",
+        "referenceSha256": "0b53b5a4ced4d970da2c2ef74f9e6b90f803f5306a55eba1b53f69840ce8ea9d",
+        "messagesSha256": "adecb0c32532f0acef93adde4b6c7c3624a8126db700a7abe983c46b0f93ad55",
+        "promptBytes": 2535,
+        "expectedCoverage": true
+      },
+      "after": {
+        "matchedGuideIds": [
+          "adult-choking"
+        ],
+        "includedGuideIds": [
+          "adult-choking"
+        ],
+        "reference": "Guide: Adult choking\nScope: Adults only. Children and infants need age-appropriate instructions. Follow the emergency dispatcher.\nAct immediately when a choking adult cannot cough, speak or breathe effectively.\nGet help: Weak or absent coughing, inability to speak, blue or pale skin, or unresponsiveness require emergency help.\n1. If they can cough effectively, encourage coughing and stay with them.\n2. For an ineffective cough or inability to speak or breathe, have someone call the local emergency number now.\n3. Support their chest, lean them forward and give up to 5 separate blows between the shoulder blades with your hand heel.\n4. If still choking, stand behind them. Put a fist just above the navel, grasp it, and give up to 5 inward-and-upward abdominal thrusts. Use chest thrusts instead during pregnancy or if you cannot reach around them.\n5. Alternate these sets until the blockage clears or they become unresponsive. If unresponsive, lower them onto a firm, flat surface and start CPR, beginning with compressions, following dispatcher instructions. Never sweep the mouth blindly.\nSources: American Red Cross: Choking (https://www.redcross.org/take-a-class/resources/learn-first-aid/adult-child-choking)\nSources checked: 2026-09-18. Summary and translation have not been clinically reviewed.",
+        "referenceSha256": "0b53b5a4ced4d970da2c2ef74f9e6b90f803f5306a55eba1b53f69840ce8ea9d",
+        "messagesSha256": "adecb0c32532f0acef93adde4b6c7c3624a8126db700a7abe983c46b0f93ad55",
+        "promptBytes": 2535,
+        "expectedCoverage": true
+      },
+      "referenceChanged": false
+    },
+    {
+      "id": "adult-choking-es",
+      "pairId": "adult-choking",
+      "language": "es",
+      "expectedGuideIds": [
+        "adult-choking"
+      ],
+      "before": {
+        "includedGuideIds": [
+          "adult-choking"
+        ],
+        "reference": "Guía: Atragantamiento en adultos\nAlcance: Solo para adultos. Los niños y bebés necesitan instrucciones apropiadas para su edad. Siga las indicaciones del operador de emergencias.\nActúe de inmediato si un adulto que se atraganta no puede toser, hablar o respirar de forma eficaz.\nBusque ayuda: La tos débil o ausente, no poder hablar, la piel azulada o pálida, o no responder requieren ayuda de emergencia.\n1. Si puede toser de forma eficaz, anímelo a seguir tosiendo y permanezca a su lado.\n2. Si la tos no es eficaz o no puede hablar o respirar, pida a alguien que llame ahora al número local de emergencias.\n3. Sostenga su pecho, inclínelo hacia delante y dé hasta 5 golpes separados entre los omóplatos con la base de la palma de la mano.\n4. Si sigue atragantado, colóquese detrás. Ponga un puño justo por encima del ombligo, sujételo y dé hasta 5 compresiones abdominales hacia dentro y arriba. Use compresiones torácicas si la persona está embarazada o no puede rodearla con los brazos.\n5. Alterne estas series hasta que se libere la obstrucción o deje de responder. Si deja de responder, bájelo a una superficie firme y plana e inicie RCP, empezando por compresiones, siguiendo al operador de emergencias. Nunca introduzca los dedos a ciegas en la boca.\nFuentes: Cruz Roja Americana: Atragantamiento (https://www.redcross.org/take-a-class/resources/learn-first-aid/adult-child-choking)\nFuentes consultadas: 2026-09-18. El resumen y la traducción no han sido revisados clínicamente.",
+        "referenceSha256": "e17181e9c063169d25889f0279c69ecd0571e78ca970db00343da8bc1449b1df",
+        "messagesSha256": "562ec1030564c0b8a0be004bcfc0498a4d79c278627740b6a57f538084e97105",
+        "promptBytes": 2778,
+        "expectedCoverage": true
+      },
+      "after": {
+        "matchedGuideIds": [
+          "adult-choking"
+        ],
+        "includedGuideIds": [
+          "adult-choking"
+        ],
+        "reference": "Guía: Atragantamiento en adultos\nAlcance: Solo para adultos. Los niños y bebés necesitan instrucciones apropiadas para su edad. Siga las indicaciones del operador de emergencias.\nActúe de inmediato si un adulto que se atraganta no puede toser, hablar o respirar de forma eficaz.\nBusque ayuda: La tos débil o ausente, no poder hablar, la piel azulada o pálida, o no responder requieren ayuda de emergencia.\n1. Si puede toser de forma eficaz, anímelo a seguir tosiendo y permanezca a su lado.\n2. Si la tos no es eficaz o no puede hablar o respirar, pida a alguien que llame ahora al número local de emergencias.\n3. Sostenga su pecho, inclínelo hacia delante y dé hasta 5 golpes separados entre los omóplatos con la base de la palma de la mano.\n4. Si sigue atragantado, colóquese detrás. Ponga un puño justo por encima del ombligo, sujételo y dé hasta 5 compresiones abdominales hacia dentro y arriba. Use compresiones torácicas si la persona está embarazada o no puede rodearla con los brazos.\n5. Alterne estas series hasta que se libere la obstrucción o deje de responder. Si deja de responder, bájelo a una superficie firme y plana e inicie RCP, empezando por compresiones, siguiendo al operador de emergencias. Nunca introduzca los dedos a ciegas en la boca.\nFuentes: Cruz Roja Americana: Atragantamiento (https://www.redcross.org/take-a-class/resources/learn-first-aid/adult-child-choking)\nFuentes consultadas: 2026-09-18. El resumen y la traducción no han sido revisados clínicamente.",
+        "referenceSha256": "e17181e9c063169d25889f0279c69ecd0571e78ca970db00343da8bc1449b1df",
+        "messagesSha256": "562ec1030564c0b8a0be004bcfc0498a4d79c278627740b6a57f538084e97105",
+        "promptBytes": 2778,
+        "expectedCoverage": true
+      },
+      "referenceChanged": false
+    },
+    {
+      "id": "severe-bleeding-object-en",
+      "pairId": "severe-bleeding-object",
+      "language": "en",
+      "expectedGuideIds": [
+        "severe-bleeding"
+      ],
+      "before": {
+        "includedGuideIds": [],
+        "reference": "",
+        "referenceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "messagesSha256": "b141157264b5975ab125ea2d0494b531ab6e37159dbc755721cfe887290b60e2",
+        "promptBytes": 1289,
+        "expectedCoverage": false
+      },
+      "after": {
+        "matchedGuideIds": [
+          "severe-bleeding"
+        ],
+        "includedGuideIds": [
+          "severe-bleeding"
+        ],
+        "reference": "Guide: Severe bleeding\nScope: External bleeding. Children can lose a dangerous amount of blood more quickly; do not wait to estimate blood volume.\nCall for emergency help and apply firm, continuous pressure to visible severe bleeding.\nGet help: Continuous heavy flow, spurting blood, or signs of shock such as pale, cold, moist skin or reduced responsiveness are emergencies.\n1. Make sure the scene is safe. Call the local emergency number or ask someone else to call. Use gloves or a barrier if available.\n2. Place a dressing or clean cloth directly on the wound and press firmly and steadily. Continue until bleeding stops, someone takes over or a tourniquet controls the bleeding.\n3. Leave embedded objects in place and press around them.\n4. For life-threatening limb bleeding, use a tourniquet if available and you are trained. Follow the emergency dispatcher; wound packing also requires training.\n5. Stay with the person, prevent chilling, and watch breathing and responsiveness until help takes over.\nSources: American Red Cross: Life-threatening bleeding (https://www.redcross.org/take-a-class/resources/learn-first-aid/bleeding-life-threatening-external)\nSources checked: 2026-09-18. Summary and translation have not been clinically reviewed.",
+        "referenceSha256": "42c22b52c6ac5b4e5b1c8eedff6360f58a3aa3db07a1f5b46c8f74ce1f754eb5",
+        "messagesSha256": "765168d0ef0b958ab0e6d9c4bace36da1d37736e3a03302168097ac7436de3fe",
+        "promptBytes": 2500,
+        "expectedCoverage": true
+      },
+      "referenceChanged": true
+    },
+    {
+      "id": "severe-bleeding-object-es",
+      "pairId": "severe-bleeding-object",
+      "language": "es",
+      "expectedGuideIds": [
+        "severe-bleeding"
+      ],
+      "before": {
+        "includedGuideIds": [],
+        "reference": "",
+        "referenceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "messagesSha256": "751723038623d73805137a289bd8098d5cd052eb9d58002dd53e3c1d1deac254",
+        "promptBytes": 1288,
+        "expectedCoverage": false
+      },
+      "after": {
+        "matchedGuideIds": [
+          "severe-bleeding"
+        ],
+        "includedGuideIds": [
+          "severe-bleeding"
+        ],
+        "reference": "Guía: Sangrado abundante\nAlcance: Sangrado externo. Los niños pueden perder una cantidad peligrosa de sangre más rápidamente; no espere a calcular cuánto han perdido.\nLlame a emergencias y aplique presión firme y continua sobre un sangrado abundante visible.\nBusque ayuda: El flujo abundante y continuo, la sangre a chorros o signos de choque, como piel pálida, fría y húmeda o menor respuesta, son emergencias.\n1. Compruebe que el lugar sea seguro. Llame al número local de emergencias o pida a alguien que llame. Use guantes o una barrera si dispone de ellos.\n2. Coloque un apósito o una tela limpia directamente sobre la herida y presione con firmeza y sin interrupción. Continúe hasta que deje de sangrar, otra persona lo releve o un torniquete controle el sangrado.\n3. Deje los objetos incrustados en su sitio y presione alrededor.\n4. Si el sangrado de una extremidad pone en peligro la vida, use un torniquete si dispone de él y está capacitado. Siga al operador de emergencias; el taponamiento de heridas también requiere capacitación.\n5. Permanezca con la persona, evite que se enfríe y vigile su respiración y respuesta hasta que llegue ayuda y se haga cargo.\nFuentes: Cruz Roja Americana: Sangrado potencialmente mortal (https://www.redcross.org/take-a-class/resources/learn-first-aid/bleeding-life-threatening-external)\nFuentes consultadas: 2026-09-18. El resumen y la traducción no han sido revisados clínicamente.",
+        "referenceSha256": "28513ed6abe4be6c4193ea9ae7c4a44230c80e21a18dbc221ba255db21812806",
+        "messagesSha256": "1a26ec4b5cc85b9a9cc02f8cb29a93cf280a3fc66e2ee4235d869dfdd8b26ccc",
+        "promptBytes": 2695,
+        "expectedCoverage": true
+      },
+      "referenceChanged": true
+    },
+    {
+      "id": "adult-collapse-gasping-en",
+      "pairId": "adult-collapse-gasping",
+      "language": "en",
+      "expectedGuideIds": [
+        "adult-cpr"
+      ],
+      "before": {
+        "includedGuideIds": [
+          "adult-cpr"
+        ],
+        "reference": "Guide: Adult hands-only CPR\nScope: Adult sudden collapse. This guide does not cover infant/child CPR, drowning or overdose; those may need breaths. Follow the emergency dispatcher.\nFor an adult who suddenly collapses, is unresponsive and is not breathing normally: call, compress, use an AED.\nGet help: Unresponsiveness with absent or abnormal breathing is an emergency. Do not wait for an AI response.\n1. Check scene safety. Tap their shoulders and shout to check responsiveness. Gasping is not normal breathing.\n2. Call the local emergency number immediately. Ask someone to bring an AED (automated external defibrillator). Follow dispatcher instructions.\n3. If unresponsive and not breathing normally, push hard and fast in the centre of the chest: 100–120 compressions per minute, at least 2 inches (5 cm) deep, avoiding depths over 2.4 inches (6 cm). Let the chest rise fully after each push.\n4. Switch on the AED as soon as it arrives and follow its spoken instructions.\n5. Continue until normal breathing or movement returns, or trained responders take over.\nSources: American Heart Association: Cardiac arrest treatment (https://www.heart.org/en/health-topics/cardiac-arrest/emergency-treatment-of-cardiac-arrest); American Heart Association: Adult basic life support (https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-basic-life-support); American Heart Association: Hands-only CPR and CPR with breaths (https://cpr.heart.org/-/media/CPR-Files/Courses-and-Kits/Hands-Only-CPR/2024-HOCPR-Resources/DS17758_CPRWeek_HOCPRvsCPR_2024_052124.pdf?sc_lang=en)\nSources checked: 2026-09-18. Summary and translation have not been clinically reviewed.",
+        "referenceSha256": "1c5d4f068b64ff659f7b4461b9bb72a9397857489fefe123f1e77bdd03a1ef3f",
+        "messagesSha256": "732991444ce22b782b99bee8623d2aeedbff8a90a6541175503847ae449f8968",
+        "promptBytes": 2946,
+        "expectedCoverage": true
+      },
+      "after": {
+        "matchedGuideIds": [
+          "adult-cpr"
+        ],
+        "includedGuideIds": [
+          "adult-cpr"
+        ],
+        "reference": "Guide: Adult hands-only CPR\nScope: Adult sudden collapse. This guide does not cover infant/child CPR, drowning or overdose; those may need breaths. Follow the emergency dispatcher.\nFor an adult who suddenly collapses, is unresponsive and is not breathing normally: call, compress, use an AED.\nGet help: Unresponsiveness with absent or abnormal breathing is an emergency. Do not wait for an AI response.\n1. Check scene safety. Tap their shoulders and shout to check responsiveness. Gasping is not normal breathing.\n2. Call the local emergency number immediately. Ask someone to bring an AED (automated external defibrillator). Follow dispatcher instructions.\n3. If unresponsive and not breathing normally, push hard and fast in the centre of the chest: 100–120 compressions per minute, at least 2 inches (5 cm) deep, avoiding depths over 2.4 inches (6 cm). Let the chest rise fully after each push.\n4. Switch on the AED as soon as it arrives and follow its spoken instructions.\n5. Continue until normal breathing or movement returns, or trained responders take over.\nSources: American Heart Association: Cardiac arrest treatment (https://www.heart.org/en/health-topics/cardiac-arrest/emergency-treatment-of-cardiac-arrest); American Heart Association: Adult basic life support (https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-basic-life-support); American Heart Association: Hands-only CPR and CPR with breaths (https://cpr.heart.org/-/media/CPR-Files/Courses-and-Kits/Hands-Only-CPR/2024-HOCPR-Resources/DS17758_CPRWeek_HOCPRvsCPR_2024_052124.pdf?sc_lang=en)\nSources checked: 2026-09-18. Summary and translation have not been clinically reviewed.",
+        "referenceSha256": "1c5d4f068b64ff659f7b4461b9bb72a9397857489fefe123f1e77bdd03a1ef3f",
+        "messagesSha256": "732991444ce22b782b99bee8623d2aeedbff8a90a6541175503847ae449f8968",
+        "promptBytes": 2946,
+        "expectedCoverage": true
+      },
+      "referenceChanged": false
+    },
+    {
+      "id": "adult-collapse-gasping-es",
+      "pairId": "adult-collapse-gasping",
+      "language": "es",
+      "expectedGuideIds": [
+        "adult-cpr"
+      ],
+      "before": {
+        "includedGuideIds": [
+          "adult-cpr"
+        ],
+        "reference": "Guía: RCP solo con las manos en adultos\nAlcance: Colapso repentino en adultos. Esta guía no cubre RCP en bebés o niños, ahogamiento ni sobredosis; pueden necesitar ventilaciones. Siga al operador de emergencias.\nSi un adulto se desploma de repente, no responde y no respira normalmente: llame, haga compresiones y use un DEA.\nBusque ayuda: No responder y no respirar, o respirar de forma anormal, es una emergencia. No espere una respuesta de la IA.\n1. Compruebe que el lugar sea seguro. Dé golpecitos en los hombros y háblele en voz alta para ver si responde. Jadear no es respirar normalmente.\n2. Llame de inmediato al número local de emergencias. Pida a alguien que traiga un DEA (desfibrilador externo automático). Siga las indicaciones del operador.\n3. Si no responde ni respira normalmente, presione fuerte y rápido en el centro del pecho: 100–120 compresiones por minuto, al menos 2 pulgadas (5 cm) de profundidad, sin superar 2,4 pulgadas (6 cm). Deje que el pecho se eleve completamente entre compresiones.\n4. Encienda el DEA en cuanto llegue y siga sus instrucciones de voz.\n5. Continúe hasta que vuelva la respiración normal o el movimiento, o hasta que personal capacitado se haga cargo.\nFuentes: American Heart Association: Atención del paro cardíaco (https://www.heart.org/en/health-topics/cardiac-arrest/emergency-treatment-of-cardiac-arrest); American Heart Association: Soporte vital básico en adultos (https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-basic-life-support); American Heart Association: RCP solo con las manos y RCP con ventilaciones (https://cpr.heart.org/-/media/CPR-Files/Courses-and-Kits/Hands-Only-CPR/2024-HOCPR-Resources/DS17758_CPRWeek_HOCPRvsCPR_2024_052124.pdf?sc_lang=en)\nFuentes consultadas: 2026-09-18. El resumen y la traducción no han sido revisados clínicamente.",
+        "referenceSha256": "6d338a1f4fabfc56b1b738002664b39b43b4442e8d593217d70df551292978aa",
+        "messagesSha256": "646d1abaee7da032b4ac0e2a66efac273b2552bc205f861e4dfcdc016110b867",
+        "promptBytes": 3165,
+        "expectedCoverage": true
+      },
+      "after": {
+        "matchedGuideIds": [
+          "adult-cpr"
+        ],
+        "includedGuideIds": [
+          "adult-cpr"
+        ],
+        "reference": "Guía: RCP solo con las manos en adultos\nAlcance: Colapso repentino en adultos. Esta guía no cubre RCP en bebés o niños, ahogamiento ni sobredosis; pueden necesitar ventilaciones. Siga al operador de emergencias.\nSi un adulto se desploma de repente, no responde y no respira normalmente: llame, haga compresiones y use un DEA.\nBusque ayuda: No responder y no respirar, o respirar de forma anormal, es una emergencia. No espere una respuesta de la IA.\n1. Compruebe que el lugar sea seguro. Dé golpecitos en los hombros y háblele en voz alta para ver si responde. Jadear no es respirar normalmente.\n2. Llame de inmediato al número local de emergencias. Pida a alguien que traiga un DEA (desfibrilador externo automático). Siga las indicaciones del operador.\n3. Si no responde ni respira normalmente, presione fuerte y rápido en el centro del pecho: 100–120 compresiones por minuto, al menos 2 pulgadas (5 cm) de profundidad, sin superar 2,4 pulgadas (6 cm). Deje que el pecho se eleve completamente entre compresiones.\n4. Encienda el DEA en cuanto llegue y siga sus instrucciones de voz.\n5. Continúe hasta que vuelva la respiración normal o el movimiento, o hasta que personal capacitado se haga cargo.\nFuentes: American Heart Association: Atención del paro cardíaco (https://www.heart.org/en/health-topics/cardiac-arrest/emergency-treatment-of-cardiac-arrest); American Heart Association: Soporte vital básico en adultos (https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-basic-life-support); American Heart Association: RCP solo con las manos y RCP con ventilaciones (https://cpr.heart.org/-/media/CPR-Files/Courses-and-Kits/Hands-Only-CPR/2024-HOCPR-Resources/DS17758_CPRWeek_HOCPRvsCPR_2024_052124.pdf?sc_lang=en)\nFuentes consultadas: 2026-09-18. El resumen y la traducción no han sido revisados clínicamente.",
+        "referenceSha256": "6d338a1f4fabfc56b1b738002664b39b43b4442e8d593217d70df551292978aa",
+        "messagesSha256": "646d1abaee7da032b4ac0e2a66efac273b2552bc205f861e4dfcdc016110b867",
+        "promptBytes": 3165,
+        "expectedCoverage": true
+      },
+      "referenceChanged": false
+    },
+    {
+      "id": "ankle-injury-en",
+      "pairId": "ankle-injury",
+      "language": "en",
+      "expectedGuideIds": [
+        "sprains"
+      ],
+      "before": {
+        "includedGuideIds": [
+          "sprains"
+        ],
+        "reference": "Guide: Sprains and strains\nScope: Initial care for suspected muscle or ligament injuries. A guide cannot rule out a fracture.\nProtect and rest the injury initially, use wrapped cold packs, and seek help for signs of a fracture.\nGet help: Get emergency assessment for a crack at injury, a changed shape, numbness, tingling, or cold, blue or grey skin. Get prompt medical advice for severe or worsening pain or swelling, inability to walk a few steps, fever, or failure to improve.\n1. For the first 2–3 days, protect the injury, stop exercise and avoid putting weight on it.\n2. Apply a cold pack wrapped in a towel for up to 20 minutes every 2–3 hours.\n3. Use a supporting bandage during the day and raise the injured area on pillows.\n4. Avoid heat, alcohol and massage initially. Begin gentle movement when pain no longer stops you.\nSources: NHS: Sprains and strains (https://www.nhs.uk/conditions/sprains-and-strains/)\nSources checked: 2026-09-18. Summary and translation have not been clinically reviewed.",
+        "referenceSha256": "f41aba88d87ebec50712f64e3af18f0ab8f704a283e261da79c812a5c710308e",
+        "messagesSha256": "78d79f9ab200545746ae5cfd576f4d51070a2d72ca417e082ef7d1521035a646",
+        "promptBytes": 2283,
+        "expectedCoverage": true
+      },
+      "after": {
+        "matchedGuideIds": [
+          "sprains"
+        ],
+        "includedGuideIds": [
+          "sprains"
+        ],
+        "reference": "Guide: Sprains and strains\nScope: Initial care for suspected muscle or ligament injuries. A guide cannot rule out a fracture.\nProtect and rest the injury initially, use wrapped cold packs, and seek help for signs of a fracture.\nGet help: Get emergency assessment for a crack at injury, a changed shape, numbness, tingling, or cold, blue or grey skin. Get prompt medical advice for severe or worsening pain or swelling, inability to walk a few steps, fever, or failure to improve.\n1. For the first 2–3 days, protect the injury, stop exercise and avoid putting weight on it.\n2. Apply a cold pack wrapped in a towel for up to 20 minutes every 2–3 hours.\n3. Use a supporting bandage during the day and raise the injured area on pillows.\n4. Avoid heat, alcohol and massage initially. Begin gentle movement when pain no longer stops you.\nSources: NHS: Sprains and strains (https://www.nhs.uk/conditions/sprains-and-strains/)\nSources checked: 2026-09-18. Summary and translation have not been clinically reviewed.",
+        "referenceSha256": "f41aba88d87ebec50712f64e3af18f0ab8f704a283e261da79c812a5c710308e",
+        "messagesSha256": "78d79f9ab200545746ae5cfd576f4d51070a2d72ca417e082ef7d1521035a646",
+        "promptBytes": 2283,
+        "expectedCoverage": true
+      },
+      "referenceChanged": false
+    },
+    {
+      "id": "ankle-injury-es",
+      "pairId": "ankle-injury",
+      "language": "es",
+      "expectedGuideIds": [
+        "sprains"
+      ],
+      "before": {
+        "includedGuideIds": [
+          "sprains"
+        ],
+        "reference": "Guía: Esguinces y distensiones\nAlcance: Cuidados iniciales ante posibles lesiones de músculos o ligamentos. Una guía no puede descartar una fractura.\nProteja y deje descansar la zona al principio, use compresas frías envueltas y busque ayuda si hay signos de fractura.\nBusque ayuda: Busque atención de emergencia si oyó un chasquido al lesionarse, la zona cambió de forma, hay entumecimiento u hormigueo, o la piel está fría, azulada o gris. Consulte pronto si el dolor o la hinchazón son intensos o empeoran, no puede caminar unos pasos, tiene fiebre o no mejora.\n1. Durante los primeros 2–3 días, proteja la lesión, suspenda el ejercicio y evite apoyar peso sobre la zona.\n2. Aplique una compresa fría envuelta en una toalla durante un máximo de 20 minutos cada 2–3 horas.\n3. Use una venda de soporte durante el día y eleve la zona lesionada sobre almohadas.\n4. Al principio, evite el calor, el alcohol y los masajes. Empiece a mover la zona suavemente cuando el dolor ya no lo impida.\nFuentes: NHS: Esguinces y distensiones (https://www.nhs.uk/conditions/sprains-and-strains/)\nFuentes consultadas: 2026-09-18. El resumen y la traducción no han sido revisados clínicamente.",
+        "referenceSha256": "f644b25b9da3c294219fb7972d6ad797d9a08024d4eacfc1ece4585319d1b083",
+        "messagesSha256": "ebe1a83a2f05cc5ab283fe72ce1f0b43203333654c4623d936817a3dda5a8b7b",
+        "promptBytes": 2515,
+        "expectedCoverage": true
+      },
+      "after": {
+        "matchedGuideIds": [
+          "sprains"
+        ],
+        "includedGuideIds": [
+          "sprains"
+        ],
+        "reference": "Guía: Esguinces y distensiones\nAlcance: Cuidados iniciales ante posibles lesiones de músculos o ligamentos. Una guía no puede descartar una fractura.\nProteja y deje descansar la zona al principio, use compresas frías envueltas y busque ayuda si hay signos de fractura.\nBusque ayuda: Busque atención de emergencia si oyó un chasquido al lesionarse, la zona cambió de forma, hay entumecimiento u hormigueo, o la piel está fría, azulada o gris. Consulte pronto si el dolor o la hinchazón son intensos o empeoran, no puede caminar unos pasos, tiene fiebre o no mejora.\n1. Durante los primeros 2–3 días, proteja la lesión, suspenda el ejercicio y evite apoyar peso sobre la zona.\n2. Aplique una compresa fría envuelta en una toalla durante un máximo de 20 minutos cada 2–3 horas.\n3. Use una venda de soporte durante el día y eleve la zona lesionada sobre almohadas.\n4. Al principio, evite el calor, el alcohol y los masajes. Empiece a mover la zona suavemente cuando el dolor ya no lo impida.\nFuentes: NHS: Esguinces y distensiones (https://www.nhs.uk/conditions/sprains-and-strains/)\nFuentes consultadas: 2026-09-18. El resumen y la traducción no han sido revisados clínicamente.",
+        "referenceSha256": "f644b25b9da3c294219fb7972d6ad797d9a08024d4eacfc1ece4585319d1b083",
+        "messagesSha256": "ebe1a83a2f05cc5ab283fe72ce1f0b43203333654c4623d936817a3dda5a8b7b",
+        "promptBytes": 2515,
+        "expectedCoverage": true
+      },
+      "referenceChanged": false
+    },
+    {
+      "id": "infant-choking-en",
+      "pairId": "infant-choking",
+      "language": "en",
+      "expectedGuideIds": [],
+      "before": {
+        "includedGuideIds": [],
+        "reference": "",
+        "referenceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "messagesSha256": "bd9934ec3263bdbd9226b2b292bb3dbe34d48e03cd489be82be6605cb009d78e",
+        "promptBytes": 1273,
+        "expectedCoverage": true
+      },
+      "after": {
+        "matchedGuideIds": [],
+        "includedGuideIds": [],
+        "reference": "",
+        "referenceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "messagesSha256": "bd9934ec3263bdbd9226b2b292bb3dbe34d48e03cd489be82be6605cb009d78e",
+        "promptBytes": 1273,
+        "expectedCoverage": true
+      },
+      "referenceChanged": false
+    },
+    {
+      "id": "infant-choking-es",
+      "pairId": "infant-choking",
+      "language": "es",
+      "expectedGuideIds": [],
+      "before": {
+        "includedGuideIds": [],
+        "reference": "",
+        "referenceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "messagesSha256": "e5e4fb194fe173d4961e14619968f9ea783e12dee40e58f23425e6fc3f76b8f0",
+        "promptBytes": 1314,
+        "expectedCoverage": true
+      },
+      "after": {
+        "matchedGuideIds": [],
+        "includedGuideIds": [],
+        "reference": "",
+        "referenceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "messagesSha256": "e5e4fb194fe173d4961e14619968f9ea783e12dee40e58f23425e6fc3f76b8f0",
+        "promptBytes": 1314,
+        "expectedCoverage": true
+      },
+      "referenceChanged": false
+    },
+    {
+      "id": "wrist-missing-information-en",
+      "pairId": "wrist-missing-information",
+      "language": "en",
+      "expectedGuideIds": [
+        "sprains"
+      ],
+      "before": {
+        "includedGuideIds": [
+          "sprains"
+        ],
+        "reference": "Guide: Sprains and strains\nScope: Initial care for suspected muscle or ligament injuries. A guide cannot rule out a fracture.\nProtect and rest the injury initially, use wrapped cold packs, and seek help for signs of a fracture.\nGet help: Get emergency assessment for a crack at injury, a changed shape, numbness, tingling, or cold, blue or grey skin. Get prompt medical advice for severe or worsening pain or swelling, inability to walk a few steps, fever, or failure to improve.\n1. For the first 2–3 days, protect the injury, stop exercise and avoid putting weight on it.\n2. Apply a cold pack wrapped in a towel for up to 20 minutes every 2–3 hours.\n3. Use a supporting bandage during the day and raise the injured area on pillows.\n4. Avoid heat, alcohol and massage initially. Begin gentle movement when pain no longer stops you.\nSources: NHS: Sprains and strains (https://www.nhs.uk/conditions/sprains-and-strains/)\nSources checked: 2026-09-18. Summary and translation have not been clinically reviewed.",
+        "referenceSha256": "f41aba88d87ebec50712f64e3af18f0ab8f704a283e261da79c812a5c710308e",
+        "messagesSha256": "1a1d1a5522886f3239e23e52aa6a0c5c4c6c002fd158e44c3431ccaa620ae5c9",
+        "promptBytes": 2141,
+        "expectedCoverage": true
+      },
+      "after": {
+        "matchedGuideIds": [
+          "sprains"
+        ],
+        "includedGuideIds": [
+          "sprains"
+        ],
+        "reference": "Guide: Sprains and strains\nScope: Initial care for suspected muscle or ligament injuries. A guide cannot rule out a fracture.\nProtect and rest the injury initially, use wrapped cold packs, and seek help for signs of a fracture.\nGet help: Get emergency assessment for a crack at injury, a changed shape, numbness, tingling, or cold, blue or grey skin. Get prompt medical advice for severe or worsening pain or swelling, inability to walk a few steps, fever, or failure to improve.\n1. For the first 2–3 days, protect the injury, stop exercise and avoid putting weight on it.\n2. Apply a cold pack wrapped in a towel for up to 20 minutes every 2–3 hours.\n3. Use a supporting bandage during the day and raise the injured area on pillows.\n4. Avoid heat, alcohol and massage initially. Begin gentle movement when pain no longer stops you.\nSources: NHS: Sprains and strains (https://www.nhs.uk/conditions/sprains-and-strains/)\nSources checked: 2026-09-18. Summary and translation have not been clinically reviewed.",
+        "referenceSha256": "f41aba88d87ebec50712f64e3af18f0ab8f704a283e261da79c812a5c710308e",
+        "messagesSha256": "1a1d1a5522886f3239e23e52aa6a0c5c4c6c002fd158e44c3431ccaa620ae5c9",
+        "promptBytes": 2141,
+        "expectedCoverage": true
+      },
+      "referenceChanged": false
+    },
+    {
+      "id": "wrist-missing-information-es",
+      "pairId": "wrist-missing-information",
+      "language": "es",
+      "expectedGuideIds": [
+        "sprains"
+      ],
+      "before": {
+        "includedGuideIds": [
+          "sprains"
+        ],
+        "reference": "Guía: Esguinces y distensiones\nAlcance: Cuidados iniciales ante posibles lesiones de músculos o ligamentos. Una guía no puede descartar una fractura.\nProteja y deje descansar la zona al principio, use compresas frías envueltas y busque ayuda si hay signos de fractura.\nBusque ayuda: Busque atención de emergencia si oyó un chasquido al lesionarse, la zona cambió de forma, hay entumecimiento u hormigueo, o la piel está fría, azulada o gris. Consulte pronto si el dolor o la hinchazón son intensos o empeoran, no puede caminar unos pasos, tiene fiebre o no mejora.\n1. Durante los primeros 2–3 días, proteja la lesión, suspenda el ejercicio y evite apoyar peso sobre la zona.\n2. Aplique una compresa fría envuelta en una toalla durante un máximo de 20 minutos cada 2–3 horas.\n3. Use una venda de soporte durante el día y eleve la zona lesionada sobre almohadas.\n4. Al principio, evite el calor, el alcohol y los masajes. Empiece a mover la zona suavemente cuando el dolor ya no lo impida.\nFuentes: NHS: Esguinces y distensiones (https://www.nhs.uk/conditions/sprains-and-strains/)\nFuentes consultadas: 2026-09-18. El resumen y la traducción no han sido revisados clínicamente.",
+        "referenceSha256": "f644b25b9da3c294219fb7972d6ad797d9a08024d4eacfc1ece4585319d1b083",
+        "messagesSha256": "067a430ee3963938fbbcfdcea61d88475443b6a2a60daefb2f9842bb1245f8db",
+        "promptBytes": 2346,
+        "expectedCoverage": true
+      },
+      "after": {
+        "matchedGuideIds": [
+          "sprains"
+        ],
+        "includedGuideIds": [
+          "sprains"
+        ],
+        "reference": "Guía: Esguinces y distensiones\nAlcance: Cuidados iniciales ante posibles lesiones de músculos o ligamentos. Una guía no puede descartar una fractura.\nProteja y deje descansar la zona al principio, use compresas frías envueltas y busque ayuda si hay signos de fractura.\nBusque ayuda: Busque atención de emergencia si oyó un chasquido al lesionarse, la zona cambió de forma, hay entumecimiento u hormigueo, o la piel está fría, azulada o gris. Consulte pronto si el dolor o la hinchazón son intensos o empeoran, no puede caminar unos pasos, tiene fiebre o no mejora.\n1. Durante los primeros 2–3 días, proteja la lesión, suspenda el ejercicio y evite apoyar peso sobre la zona.\n2. Aplique una compresa fría envuelta en una toalla durante un máximo de 20 minutos cada 2–3 horas.\n3. Use una venda de soporte durante el día y eleve la zona lesionada sobre almohadas.\n4. Al principio, evite el calor, el alcohol y los masajes. Empiece a mover la zona suavemente cuando el dolor ya no lo impida.\nFuentes: NHS: Esguinces y distensiones (https://www.nhs.uk/conditions/sprains-and-strains/)\nFuentes consultadas: 2026-09-18. El resumen y la traducción no han sido revisados clínicamente.",
+        "referenceSha256": "f644b25b9da3c294219fb7972d6ad797d9a08024d4eacfc1ece4585319d1b083",
+        "messagesSha256": "067a430ee3963938fbbcfdcea61d88475443b6a2a60daefb2f9842bb1245f8db",
+        "promptBytes": 2346,
+        "expectedCoverage": true
+      },
+      "referenceChanged": false
+    },
+    {
+      "id": "burn-unsafe-premise-en",
+      "pairId": "burn-unsafe-premise",
+      "language": "en",
+      "expectedGuideIds": [
+        "burns"
+      ],
+      "before": {
+        "includedGuideIds": [
+          "burns"
+        ],
+        "reference": "Guide: Burns and scalds\nScope: Immediate care for heat burns. Chemical and electrical burns need emergency care; seek medical advice for children under 5.\nCool a heat burn promptly with cool running water for 20 minutes.\nGet help: Get emergency care for a large or deep burn, burns to the face, genitals or buttocks, or any chemical or electrical burn. Seek urgent medical advice if the person is under 5 or you are unsure how serious the burn is.\n1. Cool the affected skin under cool running water for 20 minutes as soon as possible, within 3 hours of the injury.\n2. Remove nearby clothing and jewellery unless stuck to the skin.\n3. After cooling, loosely lay clean cling film over the burn. Do not wrap it around a limb.\n4. Do not apply butter, oils or creams, use sticky dressings, or burst blisters.\nSources: NHS: Burns and scalds (https://www.nhs.uk/conditions/burns-and-scalds/)\nSources checked: 2026-09-18. Summary and translation have not been clinically reviewed.",
+        "referenceSha256": "09ac44318cc70af20a70b74781bd834d5b2549760097ecbaa33e6d8b5b0177ec",
+        "messagesSha256": "6cef3bb15a0caa5b2a4dafb477458d436ed61f6888ca0fc4ff6b4c255c1d98c0",
+        "promptBytes": 2235,
+        "expectedCoverage": true
+      },
+      "after": {
+        "matchedGuideIds": [
+          "burns"
+        ],
+        "includedGuideIds": [
+          "burns"
+        ],
+        "reference": "Guide: Burns and scalds\nScope: Immediate care for heat burns. Chemical and electrical burns need emergency care; seek medical advice for children under 5.\nCool a heat burn promptly with cool running water for 20 minutes.\nGet help: Get emergency care for a large or deep burn, burns to the face, genitals or buttocks, or any chemical or electrical burn. Seek urgent medical advice if the person is under 5 or you are unsure how serious the burn is.\n1. Cool the affected skin under cool running water for 20 minutes as soon as possible, within 3 hours of the injury.\n2. Remove nearby clothing and jewellery unless stuck to the skin.\n3. After cooling, loosely lay clean cling film over the burn. Do not wrap it around a limb.\n4. Do not use ice, butter, oils, creams or sticky dressings, or burst blisters.\nSources: NHS: Burns and scalds (https://www.nhs.uk/conditions/burns-and-scalds/); American Red Cross: Burns (https://www.redcross.org/take-a-class/resources/learn-first-aid/burns)\nSources checked: 2026-09-18. Summary and translation have not been clinically reviewed.",
+        "referenceSha256": "dd157a32101925085936c276dbe6df2a526b88a31645f4f3f3b4b54303bbf574",
+        "messagesSha256": "739606bdbda197e208b131df3e6b9ad94d62632204fa8d0815be1661419df837",
+        "promptBytes": 2333,
+        "expectedCoverage": true
+      },
+      "referenceChanged": true
+    },
+    {
+      "id": "burn-unsafe-premise-es",
+      "pairId": "burn-unsafe-premise",
+      "language": "es",
+      "expectedGuideIds": [
+        "burns"
+      ],
+      "before": {
+        "includedGuideIds": [
+          "burns"
+        ],
+        "reference": "Guía: Quemaduras y escaldaduras\nAlcance: Atención inmediata de quemaduras por calor. Las quemaduras químicas o eléctricas necesitan atención de emergencia; consulte a un profesional si el menor tiene menos de 5 años.\nEnfríe cuanto antes una quemadura por calor con agua corriente fresca durante 20 minutos.\nBusque ayuda: Busque atención de emergencia si la quemadura es grande o profunda, afecta la cara, los genitales o los glúteos, o se debe a productos químicos o electricidad. Consulte con urgencia si la persona tiene menos de 5 años o no sabe qué tan grave es la quemadura.\n1. Enfríe la piel afectada con agua corriente fresca durante 20 minutos lo antes posible, dentro de las 3 horas siguientes a la lesión.\n2. Retire la ropa y las joyas cercanas, salvo que estén pegadas a la piel.\n3. Después de enfriar, coloque film transparente limpio sin apretarlo sobre la quemadura. No lo enrolle alrededor de una extremidad.\n4. No aplique mantequilla, aceites ni cremas; no use apósitos adhesivos ni reviente las ampollas.\nFuentes: NHS: Quemaduras y escaldaduras (https://www.nhs.uk/conditions/burns-and-scalds/)\nFuentes consultadas: 2026-09-18. El resumen y la traducción no han sido revisados clínicamente.",
+        "referenceSha256": "9308879921864881be511b616e12d872117a4b17813b5e066b078bc794fbdb2a",
+        "messagesSha256": "58de3b89b7127eef05a77110ded9724359cfb3b6ee7ed892e3beedabc4e910b5",
+        "promptBytes": 2540,
+        "expectedCoverage": true
+      },
+      "after": {
+        "matchedGuideIds": [
+          "burns"
+        ],
+        "includedGuideIds": [
+          "burns"
+        ],
+        "reference": "Guía: Quemaduras y escaldaduras\nAlcance: Atención inmediata de quemaduras por calor. Las quemaduras químicas o eléctricas necesitan atención de emergencia; consulte a un profesional si el menor tiene menos de 5 años.\nEnfríe cuanto antes una quemadura por calor con agua corriente fresca durante 20 minutos.\nBusque ayuda: Busque atención de emergencia si la quemadura es grande o profunda, afecta la cara, los genitales o los glúteos, o se debe a productos químicos o electricidad. Consulte con urgencia si la persona tiene menos de 5 años o no sabe qué tan grave es la quemadura.\n1. Enfríe la piel afectada con agua corriente fresca durante 20 minutos lo antes posible, dentro de las 3 horas siguientes a la lesión.\n2. Retire la ropa y las joyas cercanas, salvo que estén pegadas a la piel.\n3. Después de enfriar, coloque film transparente limpio sin apretarlo sobre la quemadura. No lo enrolle alrededor de una extremidad.\n4. No use hielo, mantequilla, aceites ni cremas; no use apósitos adhesivos ni reviente las ampollas.\nFuentes: NHS: Quemaduras y escaldaduras (https://www.nhs.uk/conditions/burns-and-scalds/); Cruz Roja Americana: Quemaduras (https://www.redcross.org/take-a-class/resources/learn-first-aid/burns)\nFuentes consultadas: 2026-09-18. El resumen y la traducción no han sido revisados clínicamente.",
+        "referenceSha256": "68c5ef1c6659cdf6392185c2b2266e1f25e4b065d6642a7caec80bbc0a0ba831",
+        "messagesSha256": "35705d36263fe2463479b86e80ed5f2a172265788ee426a5bd25613a568802d3",
+        "promptBytes": 2648,
+        "expectedCoverage": true
+      },
+      "referenceChanged": true
+    },
+    {
+      "id": "benign-nonmedical-en",
+      "pairId": "benign-nonmedical",
+      "language": "en",
+      "expectedGuideIds": [],
+      "before": {
+        "includedGuideIds": [],
+        "reference": "",
+        "referenceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "messagesSha256": "84205018fb66b627c2a4681146eddc90918b66933447a49caf83eb2ac8d62d67",
+        "promptBytes": 1154,
+        "expectedCoverage": true
+      },
+      "after": {
+        "matchedGuideIds": [],
+        "includedGuideIds": [],
+        "reference": "",
+        "referenceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "messagesSha256": "84205018fb66b627c2a4681146eddc90918b66933447a49caf83eb2ac8d62d67",
+        "promptBytes": 1154,
+        "expectedCoverage": true
+      },
+      "referenceChanged": false
+    },
+    {
+      "id": "benign-nonmedical-es",
+      "pairId": "benign-nonmedical",
+      "language": "es",
+      "expectedGuideIds": [],
+      "before": {
+        "includedGuideIds": [],
+        "reference": "",
+        "referenceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "messagesSha256": "3d3e27c62362f5d2abb1acb44f7661fe24158edcd233ae9029e7c0bbe55b161a",
+        "promptBytes": 1177,
+        "expectedCoverage": true
+      },
+      "after": {
+        "matchedGuideIds": [],
+        "includedGuideIds": [],
+        "reference": "",
+        "referenceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "messagesSha256": "3d3e27c62362f5d2abb1acb44f7661fe24158edcd233ae9029e7c0bbe55b161a",
+        "promptBytes": 1177,
+        "expectedCoverage": true
+      },
+      "referenceChanged": false
+    }
+  ]
+}

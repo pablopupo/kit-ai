@@ -1,0 +1,70 @@
+{
+  "url": "http://127.0.0.1:4184/",
+  "checkedAt": "2026-09-18T23:05:49.852Z",
+  "scope": "Desktop Chrome; mobile viewport, not physical iPhone",
+  "results": [
+    {
+      "scenario": "first-visit-consent-and-offline-refresh",
+      "language": "en",
+      "first": {
+        "protocol": "kit-offline-v1",
+        "appSaved": true,
+        "runtimeSaved": false
+      },
+      "offline": {
+        "protocol": "kit-offline-v1",
+        "appSaved": true,
+        "runtimeSaved": false
+      },
+      "largeRequests": 0,
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "scenario": "first-visit-consent-and-offline-refresh",
+      "language": "es",
+      "first": {
+        "protocol": "kit-offline-v1",
+        "appSaved": true,
+        "runtimeSaved": false
+      },
+      "offline": {
+        "protocol": "kit-offline-v1",
+        "appSaved": true,
+        "runtimeSaved": false
+      },
+      "largeRequests": 0,
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "scenario": "failed-assistant-download-then-offline-refresh",
+      "blocked": [
+        "http://127.0.0.1:4184/assets/webllmService-CUywc33L.js",
+        "http://127.0.0.1:4184/assets/webllmService-CUywc33L.js"
+      ],
+      "offline": {
+        "protocol": "kit-offline-v1",
+        "appSaved": true,
+        "runtimeSaved": false
+      }
+    },
+    {
+      "scenario": "missing-index-detected-and-reinstalled",
+      "deleted": 1,
+      "repaired": {
+        "protocol": "kit-offline-v1",
+        "appSaved": true,
+        "runtimeSaved": false
+      }
+    },
+    {
+      "scenario": "registration-failure-actionable-and-retry",
+      "recovered": {
+        "protocol": "kit-offline-v1",
+        "appSaved": true,
+        "runtimeSaved": false
+      }
+    }
+  ]
+}
