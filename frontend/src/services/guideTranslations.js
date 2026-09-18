@@ -28,13 +28,13 @@ export const GUIDE_TRANSLATIONS = {
         'Enfríe la piel afectada con agua corriente fresca durante 20 minutos lo antes posible, dentro de las 3 horas siguientes a la lesión.',
         'Retire la ropa y las joyas cercanas, salvo que estén pegadas a la piel.',
         'Después de enfriar, coloque film transparente limpio sin apretarlo sobre la quemadura. No lo enrolle alrededor de una extremidad.',
-        'No aplique mantequilla, aceites ni cremas; no use apósitos adhesivos ni reviente las ampollas.',
+        'No use hielo, mantequilla, aceites ni cremas; no use apósitos adhesivos ni reviente las ampollas.',
       ],
       redFlags: [
         'Busque atención de emergencia si la quemadura es grande o profunda, afecta la cara, los genitales o los glúteos, o se debe a productos químicos o electricidad.',
         'Consulte con urgencia si la persona tiene menos de 5 años o no sabe qué tan grave es la quemadura.',
       ],
-      sourceTitles: ['NHS: Quemaduras y escaldaduras'],
+      sourceTitles: ['NHS: Quemaduras y escaldaduras', 'Cruz Roja Americana: Quemaduras'],
     },
     'adult-choking': {
       title: 'Atragantamiento en adultos',

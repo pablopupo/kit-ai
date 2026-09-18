@@ -17,6 +17,54 @@ test('matches topics with case, punctuation, and phrase boundaries', () => {
   assert.deepEqual(searchGuides('haircut shortcut heartburn restrained'), []);
 });
 
+test('finds heat contact and heavy blood flow described without medical topic names', () => {
+  const examples = [
+    ['I touched a hot pan with my forearm. The skin is red.', 'burns'],
+    ['Boiling water splashed onto my hand.', 'burns'],
+    ['I grabbed a hot iron and my fingers hurt.', 'burns'],
+    ['Toqué una sartén caliente con el brazo y ahora está rojo.', 'burns'],
+    ['Me cayó sobre la mano agua hirviendo.', 'burns'],
+    ['Me salpicó aceite caliente en la piel.', 'burns'],
+    ['Blood is flowing heavily around a piece of glass in their forearm.', 'severe-bleeding'],
+    ['Blood keeps pouring from my leg.', 'severe-bleeding'],
+    ["Blood won't stop coming from the wound.", 'severe-bleeding'],
+    ['Sale mucha sangre alrededor del vidrio incrustado.', 'severe-bleeding'],
+    ['No deja de salir sangre del brazo.', 'severe-bleeding'],
+    ['Está perdiendo mucha sangre y se siente débil.', 'severe-bleeding'],
+  ];
+  for (const [query, expected] of examples) {
+    for (const language of ['en', 'es']) {
+      assert.equal(searchGuides(query, language)[0]?.id, expected, `${language}: ${query}`);
+      assert.ok(getGuideContext(query, 6000, language));
+    }
+  }
+});
+
+test('descriptive matching does not turn ordinary heat or blood mentions into injury advice', () => {
+  for (const query of [
+    'How hot should the pan be for pancakes?', 'I touched a hot pan handle with an oven mitt.',
+    'I spilled boiling water on the kitchen floor.', 'Why does blood flow through the body?',
+    'My blood test is tomorrow.', 'It is hot outside and my hands are sweaty.',
+    '¿Cómo cocino huevos en una sartén caliente?', 'Derramé agua caliente en el suelo.',
+    '¿Para qué sirve un análisis de sangre?', 'Hace calor y tengo las manos sudorosas.',
+  ]) {
+    for (const language of ['en', 'es']) assert.deepEqual(searchGuides(query, language), [], `${language}: ${query}`);
+  }
+});
+
+test('burn guides explicitly reject ice and retain both primary sources in each language', () => {
+  for (const language of ['en', 'es']) {
+    const guide = getGuides(language).find(item => item.id === 'burns');
+    assert.ok(guide.steps.some(step => step.includes(language === 'es' ? 'No use hielo' : 'Do not use ice')));
+    assert.equal(guide.sources.length, 2);
+    assert.ok(guide.sources.some(source => source.url === 'https://www.redcross.org/take-a-class/resources/learn-first-aid/burns'));
+    if (language === 'es') assert.equal(guide.sources[1].title, 'Cruz Roja Americana: Quemaduras');
+    const context = getGuideContext('burns', 6000, language);
+    for (const source of guide.sources) assert.ok(context.includes(source.url));
+    assert.equal(getGuideContext('burns', context.length - 1, language), '');
+  }
+});
+
 test('does not offer adult CPR or choking instructions for an explicitly pediatric query', () => {
   for (const query of ['My baby is choking', 'CPR for children', 'my 8-year-old stopped breathing', 'CPR for a 6-month-old', 'my 18-month-old is choking', 'CPR for a 24-week-old']) {
     assert.deepEqual(searchGuides(query), []);

@@ -2,8 +2,9 @@ import { ArrowUpRight } from 'lucide-react'
 import { useSettings, SUPPORTED_LANGUAGES } from '../contexts/SettingsContext'
 import { useTTS } from '../contexts/TTSContext'
 import OfflineSetup from './OfflineSetup'
+import { phoneCheckTitle } from './PhoneCheck'
 
-export default function SettingsPanel({ local }) {
+export default function SettingsPanel({ local, onCheckDevice }) {
   const { t, language, setLanguage, darkMode, setDarkMode, autoPrepare, allowOnline, setAllowOnline } = useSettings()
   const { ttsEnabled, setTtsEnabled, speed, setSpeed } = useTTS()
   return <section className="max-w-xl">
@@ -14,6 +15,7 @@ export default function SettingsPanel({ local }) {
       <Toggle title={t('readAloud')} description={t('readAloudDetail')} checked={ttsEnabled} onChange={setTtsEnabled} />
       <label className="block py-5"><span className="font-bold">{t('voiceSpeed')}: {speed}×</span><input aria-label={t('voiceSpeed')} type="range" min="0.5" max="2" step="0.1" value={speed} onChange={e => setSpeed(Number(e.target.value))} className="block w-full mt-4 accent-teal-700" /></label>
       <div className="pt-5"><h2 className="font-bold mb-3">{t('offlineSettings')}</h2><OfflineSetup local={local} /><p className="text-sm text-slate-500 mb-4">{t('storageDetail')}</p></div>
+      <div className="py-3"><button onClick={onCheckDevice} className="kit-text-button">{phoneCheckTitle(language)} <ArrowUpRight size={16} /></button></div>
       <Toggle title={t('autoSetup')} description={t('autoSetupDetail')} checked={autoPrepare} onChange={value => value ? local.resume() : local.pause()} />
       <Toggle title={t('onlineHelp')} description={t('onlineHelpDetail')} checked={allowOnline} onChange={setAllowOnline} />
       <div className="py-5"><h2 className="font-bold mb-2">{t('takeWithYou')}</h2><p className="text-sm text-slate-600 dark:text-slate-300">{t('installDetail')}</p></div>

@@ -6,6 +6,7 @@ import GuideLibrary from './GuideLibrary'
 import KitLogo from './KitLogo'
 import OfflineSetup from './OfflineSetup'
 import SettingsPanel from './SettingsPanel'
+import PhoneCheck, { phoneCheckTitle } from './PhoneCheck'
 import { useWebLLM } from '../hooks/useWebLLM'
 import { useSettings } from '../contexts/SettingsContext'
 import { useChatHistory } from '../contexts/ChatHistoryContext'
@@ -35,9 +36,10 @@ function referenceAnswer(question, language, t) {
 }
 
 export default function Home() {
-  const [tab, setTab] = useState('guides')
+  const [tab, setTab] = useState(() => window.location.hash === '#device-check' ? 'device-check' : 'guides')
   const [online, setOnline] = useState(navigator.onLine)
   const [busy, setBusy] = useState(false)
+  const [diagnosticBusy, setDiagnosticBusy] = useState(false)
   const [streaming, setStreaming] = useState('')
   const [requestStatus, setRequestStatus] = useState('')
   const [requestError, setRequestError] = useState('')
@@ -72,7 +74,11 @@ export default function Home() {
       abortRef.current?.abort()
     }
   }, [])
-  useEffect(() => { mainRef.current?.scrollTo({ top: 0 }) }, [tab])
+  useEffect(() => {
+    mainRef.current?.scrollTo({ top: 0 })
+    const url = `${window.location.pathname}${window.location.search}${tab === 'device-check' ? '#device-check' : ''}`
+    window.history.replaceState(null, '', url)
+  }, [tab])
   useEffect(() => {
     if (tab === 'chat') endRef.current?.scrollIntoView({ block: 'end', behavior: 'instant' })
   }, [currentMessages, streaming, tab])
@@ -86,7 +92,7 @@ export default function Home() {
     setTab('chat')
   }
   const handleSend = async content => {
-    if (abortRef.current) return
+    if (abortRef.current || diagnosticBusy) return
     const controller = new AbortController()
     abortRef.current = controller
     // Select once for this request; never move an in-flight private question to a server.
@@ -136,7 +142,7 @@ export default function Home() {
       <div className="flex-1 min-w-0 flex flex-col">
         <header style={{ paddingTop: 'max(1rem, env(safe-area-inset-top, 0px))' }} className="flex shrink-0 items-center justify-between px-5 md:px-10 py-4 border-b border-slate-100 dark:border-slate-800 gap-3">
           <div className="md:hidden"><KitLogo onNewConversation={newChat} small /></div>
-          <span className="hidden md:block font-bold">{t(tab)}</span>
+          <span className="hidden md:block font-bold">{tab === 'device-check' ? phoneCheckTitle(language) : t(tab)}</span>
           <span className="text-xs text-slate-600 dark:text-slate-300 flex gap-2 items-center">{!online && <WifiOff size={15} />}{t(!online ? 'offline' : offlineReady ? 'guidesSaved' : 'companion')}</span>
         </header>
         <div className="shrink-0 px-5 md:px-10 py-2.5 bg-rose-50 dark:bg-rose-950/20 text-[#87343B] dark:text-rose-200 text-xs sm:text-sm">{t('emergencyBanner')}</div>
@@ -148,7 +154,8 @@ export default function Home() {
               <div className="flex flex-wrap items-center justify-between gap-3 mb-4"><h1 className="text-2xl font-extrabold">{t('chat')}</h1><button onClick={newChat} className="kit-text-button"><Plus size={17} />{t('newChat')}</button></div>
               <OfflineSetup local={local} compact />
               <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400 mb-6">{t(source === 'online' ? 'onlineNotice' : source === 'device' ? 'deviceNotice' : 'guideNotice')}</p>
-              {currentMessages.length === 0 && <div className="py-7 border-t border-slate-200 dark:border-slate-700"><h2 className="text-xl font-bold mb-3">{t('welcomeTitle')}</h2><p className="text-slate-600 dark:text-slate-300 mb-5">{t('welcomeDetail')}</p><div className="flex flex-wrap gap-2">{['starterCut', 'starterBurn'].map(key => <button key={key} disabled={busy} onClick={() => handleSend(t(key))} className="kit-mode text-left">{t(key)}</button>)}</div></div>}
+              {currentMessages.length === 0 && <div className="py-7 border-t border-slate-200 dark:border-slate-700"><h2 className="text-xl font-bold mb-3">{t('welcomeTitle')}</h2><p className="text-slate-600 dark:text-slate-300 mb-5">{t('welcomeDetail')}</p><div className="flex flex-wrap gap-2">{['starterCut', 'starterBurn'].map(key => <button key={key} disabled={busy || diagnosticBusy} onClick={() => handleSend(t(key))} className="kit-mode text-left">{t(key)}</button>)}</div></div>}
+              {diagnosticBusy && <p role="status" className="text-sm py-3">{language === 'es' ? 'Terminando la prueba local…' : 'Finishing the local test…'}</p>}
               <div role="log" aria-label={t('conversation')} aria-live="polite">
                 {currentMessages.map((message, index) => <div key={`${message.timestamp}-${index}`}><ChatMessage role={message.role} content={message.content} />{message.role === 'assistant' && <p className="text-xs text-slate-500 mb-5 ml-12">{t(sourceKeys[message.source] || 'previousConversation')}{message.sources?.length > 0 && <> · {t('referenceMaterial')}: {[...new Map(message.sources.map(item => [item.url, item])).values()].map(item => <a key={item.url} href={item.url} target="_blank" rel="noreferrer" className="underline mr-2">{item.title}</a>)}</>}</p>}</div>)}
                 {busy && sameConversation && (streaming ? <ChatMessage role="assistant" content={streaming} /> : <p role="status" className="py-5 text-sm text-teal-800 dark:text-teal-200">{requestStatus}</p>)}
@@ -157,10 +164,11 @@ export default function Home() {
               <div ref={endRef} />
             </>}
             {tab === 'history' && <section><h1 className="text-3xl font-extrabold mb-3">{t('historyTitle')}</h1><p className="text-slate-600 dark:text-slate-400 mb-7">{t('historyDetail')}</p>{conversationsList.length === 0 ? <p>{t('noConversations')} <button onClick={() => setTab('chat')} className="underline text-teal-800 dark:text-teal-300">{t('askQuestion')}</button></p> : <div className="divide-y divide-slate-200 dark:divide-slate-700">{conversationsList.map(conversation => <div key={conversation.id} className="flex gap-3 items-center py-3"><button disabled={busy} onClick={() => { loadConversation(conversation.id); setRequestError(''); setTab('chat') }} className="flex-1 text-left p-2 min-w-0"><span className="block font-bold truncate">{conversation.title || t('conversation')}</span><span className="text-xs text-slate-500">{new Date(conversation.updatedAt).toLocaleDateString(language)}</span></button><button disabled={busy} aria-label={t('deleteConversation', { title: conversation.title || t('conversation') })} onClick={() => deleteConversation(conversation.id)} className="p-3 text-slate-500 hover:text-rose-700"><Trash2 size={19} /></button></div>)}</div>}</section>}
-            {tab === 'settings' && <SettingsPanel local={local} />}
+            {tab === 'settings' && <SettingsPanel local={local} onCheckDevice={() => setTab('device-check')} />}
+            {tab === 'device-check' && <PhoneCheck local={local} chatBusy={busy || diagnosticBusy} onBusyChange={setDiagnosticBusy} onBack={() => setTab('settings')} />}
           </div>
         </main>
-        {tab === 'chat' && <div className="shrink-0 border-t border-slate-100 dark:border-slate-800">{busy && <button onClick={stop} className="kit-text-button mx-auto mt-2 text-sm"><Square size={14} />{t('stopResponse')}</button>}<ChatInput key={currentConversationId || 'new'} onSend={handleSend} disabled={busy} placeholder={t('inputPlaceholder')} /></div>}
+        {tab === 'chat' && <div className="shrink-0 border-t border-slate-100 dark:border-slate-800">{busy && <button onClick={stop} className="kit-text-button mx-auto mt-2 text-sm"><Square size={14} />{t('stopResponse')}</button>}<ChatInput key={currentConversationId || 'new'} onSend={handleSend} disabled={busy || diagnosticBusy} placeholder={t('inputPlaceholder')} /></div>}
         <nav aria-label={t('mobileNavigation')} className="md:hidden shrink-0 flex border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-kit-dark-bg" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>{tabs.map(({ id, icon: Icon }) => <button key={id} onClick={() => setTab(id)} aria-current={tab === id ? 'page' : undefined} className={`flex-1 min-h-16 flex flex-col items-center justify-center gap-1 text-xs font-bold ${tab === id ? 'text-teal-800 dark:text-teal-200 bg-teal-50 dark:bg-teal-950/30' : 'text-slate-500 dark:text-slate-400'}`}><Icon size={21} />{t(id)}</button>)}</nav>
       </div>
     </div>

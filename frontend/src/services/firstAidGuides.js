@@ -34,13 +34,16 @@ export const FIRST_AID_GUIDES = [
       'Cool the affected skin under cool running water for 20 minutes as soon as possible, within 3 hours of the injury.',
       'Remove nearby clothing and jewellery unless stuck to the skin.',
       'After cooling, loosely lay clean cling film over the burn. Do not wrap it around a limb.',
-      'Do not apply butter, oils or creams, use sticky dressings, or burst blisters.',
+      'Do not use ice, butter, oils, creams or sticky dressings, or burst blisters.',
     ],
     redFlags: [
       'Get emergency care for a large or deep burn, burns to the face, genitals or buttocks, or any chemical or electrical burn.',
       'Seek urgent medical advice if the person is under 5 or you are unsure how serious the burn is.',
     ],
-    sources: [{ title: 'NHS: Burns and scalds', url: 'https://www.nhs.uk/conditions/burns-and-scalds/' }],
+    sources: [
+      { title: 'NHS: Burns and scalds', url: 'https://www.nhs.uk/conditions/burns-and-scalds/' },
+      { title: 'American Red Cross: Burns', url: 'https://www.redcross.org/take-a-class/resources/learn-first-aid/burns' },
+    ],
     checkedAt: CHECKED_AT,
   },
   {
@@ -160,6 +163,35 @@ const SEARCH_KEYWORDS = new Map(FIRST_AID_GUIDES.map(guide => [guide.id, [...new
   ...Object.values(GUIDE_TRANSLATIONS).flatMap(translations => translations[guide.id]?.keywords || []),
 ].map(normalize))]]));
 
+// Descriptive lexical matches supplement topic names; they are not diagnosis or
+// semantic search. A heat source alone (a recipe, weather, etc.) is insufficient.
+const HEAT_CONTACT = [
+  'touched', 'touching', 'grabbed', 'spilled', 'splashed', 'splashed onto', 'landed on',
+  'toque', 'toco', 'tocando', 'agarre', 'derrame', 'derramo', 'salpico', 'cayo sobre',
+];
+const HEAT_SOURCES = [
+  'hot pan', 'hot pot', 'hot stove', 'hot iron', 'hot water', 'boiling water', 'hot oil', 'steam',
+  'sarten caliente', 'olla caliente', 'estufa caliente', 'plancha caliente', 'agua caliente', 'agua hirviendo', 'aceite caliente', 'vapor',
+];
+const SKIN_AREAS = [
+  'skin', 'hand', 'hands', 'finger', 'fingers', 'arm', 'arms', 'forearm', 'leg', 'legs', 'foot', 'feet', 'chest', 'face',
+  'piel', 'mano', 'manos', 'dedo', 'dedos', 'brazo', 'brazos', 'antebrazo', 'pierna', 'piernas', 'pie', 'pies', 'pecho', 'cara',
+];
+const HEAVY_BLOOD_FLOW = [
+  'blood flowing heavily', 'blood is flowing heavily', 'blood keeps flowing', 'blood keeps pouring',
+  'blood pouring out', 'blood is pouring out', 'blood is spurting', 'blood spurting', 'blood is gushing', 'blood gushing',
+  'blood will not stop', 'blood won t stop', 'blood wont stop', 'blood coming out fast',
+  'sale mucha sangre', 'saliendo mucha sangre', 'pierde mucha sangre', 'perdiendo mucha sangre',
+  'sangre a borbotones', 'no deja de salir sangre', 'sigue saliendo sangre', 'sangre no para', 'sangre sale a chorros',
+];
+
+function descriptiveScore(id, query) {
+  const hasAny = phrases => phrases.some(phrase => includesPhrase(query, phrase));
+  if (id === 'burns' && hasAny(HEAT_CONTACT) && hasAny(HEAT_SOURCES) && hasAny(SKIN_AREAS)) return 3;
+  if (id === 'severe-bleeding' && hasAny(HEAVY_BLOOD_FLOW)) return 3;
+  return 0;
+}
+
 /** Returns only topic matches, ordered by specificity; an empty query returns []. */
 export function searchGuides(query, language = 'en') {
   const normalized = normalize(query);
@@ -178,7 +210,7 @@ export function searchGuides(query, language = 'en') {
       guide,
       score: SEARCH_KEYWORDS.get(guide.id).reduce((score, keyword) => (
         includesPhrase(normalized, keyword) ? score + normalize(keyword).split(' ').length : score
-      ), 0),
+      ), descriptiveScore(guide.id, normalized)),
     }))
     .filter(({ score }) => score > 0)
     .sort((a, b) => b.score - a.score)
