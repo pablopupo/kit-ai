@@ -3,6 +3,7 @@ import { BookOpen, MessageCircle, History, Settings, Plus, WifiOff, ArrowUpRight
 import ChatInput from './ChatInput'
 import ChatMessage from './ChatMessage'
 import GuideLibrary from './GuideLibrary'
+import KitLogo from './KitLogo'
 import { useWebLLM } from '../hooks/useWebLLM'
 import { useSettings } from '../contexts/SettingsContext'
 import { useTTS } from '../contexts/TTSContext'
@@ -64,7 +65,13 @@ export default function Home() {
   }, [currentMessages, streaming, tab])
 
   const stop = () => abortRef.current?.abort()
-  const newChat = () => { stop(); createNewConversation(); setRequestError(''); setTab('chat') }
+  const newChat = () => {
+    stop()
+    createNewConversation()
+    setStreaming('')
+    setRequestError('')
+    setTab('chat')
+  }
   const handleSend = async content => {
     if (abortRef.current) return
     const controller = new AbortController()
@@ -100,17 +107,15 @@ export default function Home() {
   return (
     <div className="app-shell flex bg-white dark:bg-kit-dark-bg text-slate-800 dark:text-kit-dark-text overflow-hidden">
       <aside className="hidden md:flex w-60 shrink-0 flex-col bg-[#E0F5F3] dark:bg-kit-dark-bg-light p-6 border-r border-teal-100 dark:border-slate-700">
-        <button onClick={() => setTab('guides')} aria-label="Kit AI home" className="text-4xl font-extrabold tracking-tight text-[#B83F4B] dark:text-kit-red text-left mb-3">kit<span className="text-teal-800 dark:text-teal-300">.ai</span></button>
-        <p className="text-sm text-teal-900 dark:text-slate-300 mb-10">A little clarity.<br />When it matters.</p>
+        <div className="mb-10"><KitLogo onNewConversation={newChat} /></div>
         <nav aria-label="Main navigation" className="space-y-2">
           {tabs.map(({ id, title, icon: Icon }) => <button key={id} onClick={() => setTab(id)} aria-current={tab === id ? 'page' : undefined} className={`flex w-full gap-3 items-center min-h-12 px-4 rounded-xl font-bold ${tab === id ? 'bg-white dark:bg-kit-dark-bg text-teal-900 dark:text-teal-200' : 'text-slate-600 dark:text-slate-300 hover:bg-white/50'}`}><Icon size={20} />{title}</button>)}
         </nav>
-        <button onClick={newChat} disabled={busy} className="kit-text-button mt-6"><Plus size={18} /> New conversation</button>
         <div className="mt-auto text-sm text-teal-900 dark:text-teal-200 pt-8"><ShieldCheck size={21} className="mb-2" /><p className="font-bold">{offlineReady ? 'Guides saved for offline' : 'First-aid guides included'}</p><p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">General information, not a diagnosis. In an emergency, call your local emergency number.</p></div>
       </aside>
       <div className="flex-1 min-w-0 flex flex-col">
         <header style={{ paddingTop: 'max(1rem, env(safe-area-inset-top, 0px))' }} className="flex shrink-0 items-center justify-between px-5 md:px-10 py-4 border-b border-slate-100 dark:border-slate-800 gap-3">
-          <span className="md:hidden text-2xl font-extrabold text-[#B83F4B] dark:text-kit-red">kit.ai</span>
+          <div className="md:hidden"><KitLogo onNewConversation={newChat} small /></div>
           <span className="hidden md:block font-bold">{tabs.find(item => item.id === tab)?.title}</span>
           <span className="text-xs text-slate-600 dark:text-slate-300 flex gap-2 items-center">{!online && <WifiOff size={15} />}{!online ? 'Offline' : offlineReady ? 'Guides available offline' : 'First-aid companion'}</span>
         </header>
@@ -122,7 +127,7 @@ export default function Home() {
             {tab === 'chat' && <>
               <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
                 <h1 className="text-2xl font-extrabold">Ask Kit</h1>
-                <button onClick={newChat} disabled={busy} className="kit-text-button"><Plus size={17} /> New chat</button>
+                <button onClick={newChat} className="kit-text-button"><Plus size={17} /> New chat</button>
               </div>
               <div className="flex flex-wrap gap-2 mb-3" role="group" aria-label="AI mode">
                 <button disabled={busy} aria-pressed={mode === 'online'} onClick={() => { setMode('online'); setRequestError('') }} className={`kit-mode ${mode === 'online' ? 'selected' : ''}`}>Online medical model</button>
@@ -158,7 +163,7 @@ export default function Home() {
             </div></section>}
           </div>
         </main>
-        {tab === 'chat' && <div className="shrink-0 border-t border-slate-100 dark:border-slate-800">{busy && <button onClick={stop} className="kit-text-button mx-auto mt-2 text-sm"><Square size={14} /> Stop response</button>}<ChatInput onSend={handleSend} disabled={busy || !ready} placeholder={!ready ? mode === 'online' ? 'Connect to the internet for online AI' : 'Download local AI to chat' : 'Ask a general health question…'} /></div>}
+        {tab === 'chat' && <div className="shrink-0 border-t border-slate-100 dark:border-slate-800">{busy && <button onClick={stop} className="kit-text-button mx-auto mt-2 text-sm"><Square size={14} /> Stop response</button>}<ChatInput key={currentConversationId || 'new'} onSend={handleSend} disabled={busy || !ready} placeholder={!ready ? mode === 'online' ? 'Connect to the internet for online AI' : 'Download local AI to chat' : 'Ask a general health question…'} /></div>}
         <nav aria-label="Mobile navigation" className="md:hidden shrink-0 flex border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-kit-dark-bg" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>{tabs.map(({ id, title, icon: Icon }) => <button key={id} onClick={() => setTab(id)} aria-current={tab === id ? 'page' : undefined} className={`flex-1 min-h-16 flex flex-col items-center justify-center gap-1 text-xs font-bold ${tab === id ? 'text-teal-800 dark:text-teal-200 bg-teal-50 dark:bg-teal-950/30' : 'text-slate-500 dark:text-slate-400'}`}><Icon size={21} />{title}</button>)}</nav>
       </div>
     </div>
