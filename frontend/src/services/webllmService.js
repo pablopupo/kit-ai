@@ -1,33 +1,32 @@
 import {
   CreateWebWorkerMLCEngine,
   prebuiltAppConfig,
-  modelLibURLPrefix,
-  modelVersion,
 } from '@mlc-ai/web-llm'
 import { devLog, devWarn } from '../utils/devLog'
 
-const LLAMA_32_3B_WASM =
-  modelLibURLPrefix + modelVersion + '/Llama-3.2-3B-Instruct-q4f32_1-ctx4k_cs1k-webgpu.wasm'
-
 const CUSTOM_MODEL_URL = import.meta.env.VITE_WEBLLM_MODEL_URL
 const CUSTOM_MODEL_ID = import.meta.env.VITE_WEBLLM_MODEL_ID || 'kit-ai-medical-v1'
+const CUSTOM_MODEL_LIB = import.meta.env.VITE_WEBLLM_MODEL_LIB
 
 const customModelRecord = CUSTOM_MODEL_URL
   ? {
       model: CUSTOM_MODEL_URL,
       model_id: CUSTOM_MODEL_ID,
-      model_lib: LLAMA_32_3B_WASM,
+      model_lib: CUSTOM_MODEL_LIB,
       overrides: { context_window_size: 4096 },
     }
   : null
 
-const DEFAULT_MODEL = customModelRecord ? CUSTOM_MODEL_ID : 'Llama-3.2-1B-Instruct-q4f16_1-MLC'
+const DEFAULT_MODEL = customModelRecord ? CUSTOM_MODEL_ID : 'Llama-3.2-1B-Instruct-q4f32_1-MLC'
 
 let engine = null
 let worker = null
 let initPromise = null // Guards against concurrent init calls (e.g. StrictMode)
 
 export async function initEngine(modelId = DEFAULT_MODEL, onProgress) {
+  if (CUSTOM_MODEL_URL && !CUSTOM_MODEL_LIB) {
+    throw new Error('A custom local model needs MLC-format weights and a matching VITE_WEBLLM_MODEL_LIB. A bitsandbytes Hugging Face repository cannot run in WebLLM.')
+  }
   devLog('[WebLLM] initEngine called', { modelId, hasExistingEngine: !!engine })
 
   // If already initialized, return the existing engine
@@ -149,7 +148,11 @@ export async function unloadEngine() {
 }
 
 export function hasWebGPU() {
-  return typeof navigator !== 'undefined' && 'gpu' in navigator
+  return typeof navigator !== 'undefined' && typeof navigator.gpu?.requestAdapter === 'function'
+}
+
+export function interruptGeneration() {
+  engine?.interruptGenerate()
 }
 
 /**

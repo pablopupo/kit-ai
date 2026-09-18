@@ -70,7 +70,7 @@ function AudioPlayer({ messageContent, messageId }) {
     }
 
     // If offline, go straight to browser TTS
-    if (!isOnline) {
+    if (!isOnline || ttsMode === 'browser') {
       return useBrowserFallback()
     }
 

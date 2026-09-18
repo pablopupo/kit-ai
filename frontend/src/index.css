@@ -40,10 +40,29 @@
 @tailwind utilities;
 
 @layer base {
+  html, body, #root {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+  }
+
   body {
     @apply font-sans antialiased;
     /* Prevent pull-to-refresh and overscroll bounce on mobile */
     overscroll-behavior: none;
+  }
+
+  button, a, input, textarea, select {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus-visible {
+    outline: 3px solid #278579;
+    outline-offset: 3px;
+  }
+
+  input, textarea, select {
+    font-size: max(1rem, 16px);
   }
 
   /* Safe area padding for notched devices (iPhone X+) */
@@ -64,6 +83,19 @@
 }
 
 @layer components {
+  .app-shell {
+    height: 100vh;
+    height: 100dvh;
+    height: var(--app-height, 100dvh);
+    min-width: 0;
+    padding-left: var(--sal);
+    padding-right: var(--sar);
+  }
+
+  .app-shell p {
+    overflow-wrap: anywhere;
+  }
+
   /* Mobile sidebar overlay backdrop */
   .mobile-sidebar-backdrop {
     @apply fixed inset-0 bg-black/40 z-40 transition-opacity duration-300;
@@ -72,12 +104,18 @@
   /* Mobile sidebar slide-in */
   .mobile-sidebar {
     @apply fixed inset-y-0 left-0 z-50 w-72 transform transition-transform duration-300 ease-out;
+    max-width: calc(100vw - 3rem);
+    max-height: var(--app-height, 100dvh);
+    overflow-y: auto;
+    padding-bottom: var(--sab);
   }
   .mobile-sidebar.open {
     @apply translate-x-0;
   }
   .mobile-sidebar.closed {
     @apply -translate-x-full;
+    visibility: hidden;
+    pointer-events: none;
   }
 }
 

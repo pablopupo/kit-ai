@@ -1,22 +1,22 @@
 import { createContext, useContext, useState, useEffect } from 'react'
+import { readPreference, readBoolean, writePreference } from '../utils/preferences'
 import { translations } from '../utils/translations'
 
 const SettingsContext = createContext()
 
 export function SettingsProvider({ children }) {
   const [darkMode, setDarkMode] = useState(() => {
-    const saved = localStorage.getItem('kit-ai-dark-mode')
-    return saved ? JSON.parse(saved) : false
+    return readBoolean('kit-ai-dark-mode', false)
   })
 
   const [language, setLanguage] = useState(() => {
-    const saved = localStorage.getItem('kit-ai-language')
+    const saved = readPreference('kit-ai-language')
     return saved || 'en'
   })
 
   // Persist dark mode to localStorage
   useEffect(() => {
-    localStorage.setItem('kit-ai-dark-mode', JSON.stringify(darkMode))
+    writePreference('kit-ai-dark-mode', JSON.stringify(darkMode))
 
     // Apply dark mode class to document
     if (darkMode) {
@@ -28,7 +28,7 @@ export function SettingsProvider({ children }) {
 
   // Persist language to localStorage
   useEffect(() => {
-    localStorage.setItem('kit-ai-language', language)
+    writePreference('kit-ai-language', language)
   }, [language])
 
   const t = (key) => {

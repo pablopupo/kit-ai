@@ -1,699 +1,166 @@
 import { useState, useRef, useEffect } from 'react'
-import ChatMessage from './ChatMessage'
+import { BookOpen, MessageCircle, History, Settings, Plus, WifiOff, ArrowUpRight, Download, Square, Trash2, ShieldCheck } from 'lucide-react'
 import ChatInput from './ChatInput'
-import ConversationItem from './ConversationItem'
+import ChatMessage from './ChatMessage'
+import GuideLibrary from './GuideLibrary'
 import { useWebLLM } from '../hooks/useWebLLM'
 import { useSettings } from '../contexts/SettingsContext'
 import { useTTS } from '../contexts/TTSContext'
 import { useChatHistory } from '../contexts/ChatHistoryContext'
-import { ensureMedicalData } from '../services/medicalCacheService'
-import { languageNames } from '../utils/translations'
+import { askMedicalModel, MEDICAL_MODEL } from '../services/onlineMedicalService'
+import { searchGuides, getGuideContext } from '../services/firstAidGuides'
 
-// Offline status indicator component
-function OfflineBanner({ t }) {
-  const [isOffline, setIsOffline] = useState(!navigator.onLine)
+const tabs = [
+  { id: 'guides', title: 'Guides', icon: BookOpen },
+  { id: 'chat', title: 'Ask Kit', icon: MessageCircle },
+  { id: 'history', title: 'History', icon: History },
+  { id: 'settings', title: 'Settings', icon: Settings },
+]
+
+export default function Home() {
+  const [tab, setTab] = useState('guides')
+  const [mode, setMode] = useState('online')
+  const [online, setOnline] = useState(navigator.onLine)
+  const [busy, setBusy] = useState(false)
+  const [streaming, setStreaming] = useState('')
+  const [requestStatus, setRequestStatus] = useState('')
+  const [requestError, setRequestError] = useState('')
+  const [pendingConversation, setPendingConversation] = useState(null)
+  const [offlineReady, setOfflineReady] = useState(false)
+  const abortRef = useRef(null)
+  const endRef = useRef(null)
+  const mainRef = useRef(null)
+  const local = useWebLLM()
+  const { darkMode, setDarkMode } = useSettings()
+  const { ttsEnabled, setTtsEnabled, speed, setSpeed } = useTTS()
+  const { currentMessages, conversationsList, createNewConversation, loadConversation, deleteConversation, updateMessages, currentConversationId, storageError } = useChatHistory()
 
   useEffect(() => {
-    const goOffline = () => setIsOffline(true)
-    const goOnline = () => setIsOffline(false)
-    window.addEventListener('offline', goOffline)
-    window.addEventListener('online', goOnline)
+    const updateNetwork = () => setOnline(navigator.onLine)
+    window.addEventListener('online', updateNetwork)
+    window.addEventListener('offline', updateNetwork)
+    let active = true
+    if ('serviceWorker' in navigator) navigator.serviceWorker.ready.then(() => { if (active) setOfflineReady(true) })
+    const viewport = window.visualViewport
+    const resize = () => document.documentElement.style.setProperty('--app-height', `${viewport?.height || window.innerHeight}px`)
+    resize()
+    viewport?.addEventListener('resize', resize)
+    window.addEventListener('resize', resize)
     return () => {
-      window.removeEventListener('offline', goOffline)
-      window.removeEventListener('online', goOnline)
+      active = false
+      window.removeEventListener('online', updateNetwork)
+      window.removeEventListener('offline', updateNetwork)
+      viewport?.removeEventListener('resize', resize)
+      window.removeEventListener('resize', resize)
+      document.documentElement.style.removeProperty('--app-height')
+      abortRef.current?.abort()
     }
   }, [])
 
-  if (!isOffline) return null
-
-  return (
-    <div className="absolute top-0 left-0 right-0 z-50 flex justify-center pointer-events-none">
-      <div className="mt-3 px-4 py-2 bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700/50 rounded-full shadow-sm pointer-events-auto animate-fadeIn">
-        <div className="flex items-center gap-2">
-          <svg className="w-4 h-4 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636a9 9 0 010 12.728M5.636 18.364a9 9 0 010-12.728M12 9v2m0 4h.01" />
-          </svg>
-          <span className="text-xs font-medium text-amber-700 dark:text-amber-300">
-            {t('offlineMode') || 'Offline \u2014 using browser voice, updates paused'}
-          </span>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// Kit.ai Logo - always red, less rounded box
-function KitLogo({ onClick, small }) {
-  const textSize = small ? 'text-3xl' : 'text-5xl'
-  const boxSize = small ? 'w-6 h-6' : 'w-9 h-9'
-  const crossThick = small ? 'h-1' : 'h-1.5'
-  const crossThin = small ? 'w-1' : 'w-1.5'
-  const iconSize = small ? 'w-3.5 h-3.5' : 'w-5 h-5'
-
-  return (
-    <button
-      onClick={onClick}
-      className="group flex items-center gap-0 hover:scale-105 transition-transform duration-300"
-    >
-      <span className={`${textSize} font-extrabold text-kit-red dark:text-kit-red leading-none tracking-tight`}>k</span>
-      <span className={`${textSize} font-extrabold text-kit-red dark:text-kit-red leading-none tracking-tight`}>i</span>
-      <div className={`relative inline-flex items-center justify-center ${boxSize} bg-kit-red dark:bg-kit-red rounded-md group-hover:shadow-lg transition-all duration-300 mx-0.5`}>
-        <div className={`relative ${iconSize}`}>
-          <div className={`absolute top-1/2 left-0 w-full ${crossThick} bg-white -translate-y-1/2 rounded-full`}></div>
-          <div className={`absolute left-1/2 top-0 ${crossThin} h-full bg-white -translate-x-1/2 rounded-full`}></div>
-        </div>
-      </div>
-      <span className={`${textSize} font-extrabold text-kit-red dark:text-kit-red leading-none tracking-tight`}>.</span>
-      <span className={`${textSize} font-extrabold text-kit-red dark:text-kit-red leading-none tracking-tight`}>a</span>
-      <span className={`${textSize} font-extrabold text-kit-red dark:text-kit-red leading-none tracking-tight`}>i</span>
-    </button>
-  )
-}
-
-// Navigation item component with seamless tab design
-function NavItem({ icon, label, active, onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`relative flex items-center gap-3 px-5 py-3.5 text-left transition-all w-full group duration-300 ${
-        active
-          ? 'text-gray-800 dark:text-kit-dark-text font-bold'
-          : 'text-kit-red dark:text-kit-red-dark font-semibold hover:text-kit-red/80 dark:hover:text-kit-red hover:bg-white/30 dark:hover:bg-kit-dark-bg-lighter/30'
-      }`}
-    >
-      {/* Seamless tab background that extends into content area */}
-      {active && (
-        <div className="absolute inset-0 bg-white dark:bg-kit-dark-bg-light rounded-l-3xl -right-8 shadow-lg transition-colors duration-300"></div>
-      )}
-      <span className={`relative z-10 transition-colors duration-300 ${active ? 'text-kit-red dark:text-kit-red' : 'group-hover:text-kit-red/80 dark:group-hover:text-kit-red'}`}>{icon}</span>
-      <span className="relative z-10">{label}</span>
-    </button>
-  )
-}
-
-// Mobile bottom navigation tab
-function MobileNavTab({ icon, label, active, onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`flex flex-col items-center justify-center flex-1 py-2 transition-colors duration-200 ${
-        active
-          ? 'text-kit-red dark:text-kit-red'
-          : 'text-gray-400 dark:text-kit-dark-text-muted'
-      }`}
-    >
-      <span className="mb-0.5">{icon}</span>
-      <span className="text-[10px] font-semibold">{label}</span>
-    </button>
-  )
-}
-
-function Home() {
-  const [streamingContent, setStreamingContent] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [activeNav, setActiveNav] = useState('chat')
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const messagesEndRef = useRef(null)
-
-  const { language, setLanguage, t } = useSettings()
-  const { status, progress, error, loadEngine, sendMessage, hasWebGPU } = useWebLLM()
-  const { ttsEnabled, setTtsEnabled, voice, setVoice, speed, setSpeed, autoPlay, setAutoPlay, voices } = useTTS()
-  const { currentMessages, conversationsList, createNewConversation, loadConversation, deleteConversation, updateMessages, currentConversationId } = useChatHistory()
+  useEffect(() => { mainRef.current?.scrollTo({ top: 0 }) }, [tab])
 
   useEffect(() => {
-    // Populate IndexedDB with medical knowledge from static JSON files.
-    // This must happen before the first message so getMedicalContext() has data.
-    ensureMedicalData().catch((err) =>
-      console.warn('[Home] Failed to load medical data:', err)
-    )
-    loadEngine()
-  }, [loadEngine])
+    if (tab === 'chat') endRef.current?.scrollIntoView({ block: 'end', behavior: 'instant' })
+  }, [currentMessages, streaming, tab])
 
-  // Close sidebar when navigating on mobile
-  const handleNavClick = (nav) => {
-    setActiveNav(nav)
-    setSidebarOpen(false)
-  }
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  useEffect(() => {
-    scrollToBottom()
-  }, [currentMessages, streamingContent])
-
-  const handleSend = async (content) => {
-    if (status !== 'ready') return
-
-    // Create conversation if none exists, capture the ID directly
-    let convId = currentConversationId
-    if (!convId) {
-      convId = createNewConversation()
-    }
-
-    // Add user message to history with explicit conversation ID
+  const stop = () => abortRef.current?.abort()
+  const newChat = () => { stop(); createNewConversation(); setRequestError(''); setTab('chat') }
+  const handleSend = async content => {
+    if (abortRef.current) return
+    const controller = new AbortController()
+    abortRef.current = controller
+    const convId = currentConversationId || createNewConversation()
+    const priorMessages = currentMessages
     updateMessages({ role: 'user', content }, convId)
-
-    setIsLoading(true)
-    setStreamingContent('')
-
+    setPendingConversation(convId)
+    setBusy(true)
+    setStreaming('')
+    setRequestError('')
+    setRequestStatus(mode === 'online' ? 'Connecting to the medical model…' : 'Thinking on this device…')
     try {
-      const fullContent = await sendMessage(content, currentMessages, (chunk) => {
-        setStreamingContent(chunk)
-      })
-
-      // Add assistant message to history with explicit conversation ID
-      updateMessages({ role: 'assistant', content: fullContent }, convId)
+      const answer = mode === 'online'
+        ? await askMedicalModel(content, priorMessages, { signal: controller.signal, onStatus: setRequestStatus })
+        : await local.sendMessage(content, priorMessages, setStreaming, controller.signal)
+      const reference = getGuideContext(content, 3000)
+      if (!controller.signal.aborted) updateMessages({ role: 'assistant', content: answer, model: mode === 'online' ? MEDICAL_MODEL : 'Local general-purpose model', sources: searchGuides(content).flatMap(guide => guide.sources).filter(source => reference.includes(source.url)) }, convId)
     } catch (err) {
-      // Add error message to history with explicit conversation ID
-      updateMessages({
-        role: 'assistant',
-        content: `Error: ${err?.message || 'Failed to get response.'}`,
-      }, convId)
+      if (!controller.signal.aborted && err.name !== 'AbortError') setRequestError(err.message || 'The model is unavailable. You can still use first-aid guides.')
     } finally {
-      setStreamingContent('')
-      setIsLoading(false)
+      if (abortRef.current === controller) {
+        abortRef.current = null
+        setStreaming('')
+        setBusy(false)
+        setPendingConversation(null)
+      }
     }
   }
-
-  const chatReady = status === 'ready'
-  const chatDisabled = isLoading || !chatReady
-
-  const handleGoHome = () => {
-    createNewConversation()
-    setActiveNav('chat')
-    setSidebarOpen(false)
-  }
-
-  // Icon components
-  const ChatIcon = () => (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-    </svg>
-  )
-
-  const HistoryIcon = () => (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  )
-
-  const SettingsIcon = () => (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-    </svg>
-  )
-
-  const HamburgerIcon = () => (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-    </svg>
-  )
-
-  const CloseIcon = () => (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-    </svg>
-  )
-
-  if (status === 'error') {
-    return (
-      <div className="h-screen flex overflow-hidden bg-white dark:bg-kit-dark-bg transition-colors duration-300">
-          {/* Sidebar - hidden on mobile for error page */}
-          <div className="hidden md:flex w-64 flex-col bg-kit-teal-light dark:bg-kit-dark-bg-light p-6 rounded-r-3xl transition-colors duration-300">
-            <div className="mb-12 flex justify-start ml-7">
-              <KitLogo onClick={handleGoHome} />
-            </div>
-          </div>
-          {/* White Content Area */}
-          <div className="flex-1 bg-white dark:bg-kit-dark-bg flex items-center justify-center md:rounded-l-3xl md:ml-[-1.5rem] transition-colors duration-300">
-            <div className="max-w-md w-full bg-gray-50 dark:bg-kit-dark-bg-light rounded-3xl p-6 md:p-8 mx-4 transition-colors duration-300">
-              <div className="w-16 h-16 bg-kit-red-light dark:bg-kit-red-dark/20 rounded-2xl flex items-center justify-center mx-auto mb-4 transition-colors duration-300">
-                <svg className="w-8 h-8 text-kit-red dark:text-kit-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
-              </div>
-              <h2 className="text-lg md:text-xl font-bold text-gray-800 dark:text-kit-dark-text mb-3 text-center transition-colors duration-300">
-                {t('webGpuNotSupported')}
-              </h2>
-              <p className="text-sm md:text-base text-gray-600 dark:text-kit-dark-text-muted mb-4 text-center transition-colors duration-300">
-                {error?.message || t('webGpuError')}
-              </p>
-              <p className="text-xs md:text-sm text-gray-500 dark:text-kit-dark-text-muted text-center transition-colors duration-300">
-                {t('browserSupport')}
-              </p>
-            </div>
-          </div>
-      </div>
-    )
-  }
+  const ready = mode === 'online' ? online : local.status === 'ready'
+  const sameConversation = pendingConversation === currentConversationId
 
   return (
-    <div className="h-screen flex flex-col md:flex-row overflow-hidden bg-white dark:bg-kit-dark-bg transition-colors duration-300">
-
-      {/* ===== MOBILE TOP BAR ===== */}
-      <div className="md:hidden shrink-0 flex items-center justify-between px-4 py-3 bg-kit-teal-light dark:bg-kit-dark-bg-light border-b border-kit-teal-light dark:border-kit-dark-bg-lighter transition-colors duration-300"
-        style={{ paddingTop: 'max(0.75rem, var(--sat))' }}
-      >
-        <button
-          onClick={() => setSidebarOpen(true)}
-          className="w-10 h-10 flex items-center justify-center text-kit-red dark:text-kit-red rounded-xl hover:bg-white/50 dark:hover:bg-kit-dark-bg-lighter/50 transition-colors duration-300"
-        >
-          <HamburgerIcon />
-        </button>
-        <KitLogo onClick={handleGoHome} small />
-        {/* Spacer to balance the hamburger */}
-        <div className="w-10 h-10"></div>
-      </div>
-
-      {/* ===== MOBILE SIDEBAR OVERLAY ===== */}
-      {sidebarOpen && (
-        <div
-          className="md:hidden mobile-sidebar-backdrop"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-      <div className={`md:hidden mobile-sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
-        <div className="h-full flex flex-col bg-kit-teal-light dark:bg-kit-dark-bg-light p-6 rounded-r-3xl transition-colors duration-300"
-          style={{ paddingTop: 'max(1.5rem, var(--sat))' }}
-        >
-          {/* Close button + Logo */}
-          <div className="flex items-center justify-between mb-10">
-            <KitLogo onClick={handleGoHome} small />
-            <button
-              onClick={() => setSidebarOpen(false)}
-              className="w-10 h-10 flex items-center justify-center text-gray-500 dark:text-kit-dark-text-muted rounded-xl hover:bg-white/50 dark:hover:bg-kit-dark-bg-lighter/50 transition-colors duration-300"
-            >
-              <CloseIcon />
-            </button>
-          </div>
-
-          {/* Navigation */}
-          <nav className="flex-1 flex flex-col gap-2 relative pr-2">
-            <NavItem icon={<ChatIcon />} label={t('chat')} active={activeNav === 'chat'} onClick={() => handleNavClick('chat')} />
-            <NavItem icon={<HistoryIcon />} label={t('history')} active={activeNav === 'history'} onClick={() => handleNavClick('history')} />
-            <NavItem icon={<SettingsIcon />} label={t('settings')} active={activeNav === 'settings'} onClick={() => handleNavClick('settings')} />
-            <div className="flex-1"></div>
-          </nav>
-
-          {/* Status Indicator */}
-          <div className="mt-4 flex justify-center">
-            <div className="flex items-center gap-4 py-3 px-8 rounded-full bg-white dark:bg-kit-dark-bg-light shadow-sm transition-colors duration-300">
-              <div className="w-2 h-2 bg-kit-teal dark:bg-kit-teal rounded-full animate-pulse"></div>
-              <span className="text-xs font-medium text-kit-teal dark:text-kit-teal">{t('localModeActive')}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ===== DESKTOP SIDEBAR ===== */}
-      <div className="hidden md:flex w-64 flex-col bg-kit-teal-light dark:bg-kit-dark-bg-light p-6 relative rounded-r-3xl transition-colors duration-300 shrink-0">
-        {/* Logo */}
-        <div className="mb-12 flex justify-start ml-7">
-          <KitLogo onClick={handleGoHome} />
-        </div>
-
-        {/* Navigation with seamless tab design */}
-        <nav className="flex-1 flex flex-col gap-2 relative pr-2">
-          <NavItem
-            icon={<ChatIcon />}
-            label={t('chat')}
-            active={activeNav === 'chat'}
-            onClick={() => setActiveNav('chat')}
-          />
-          <NavItem
-            icon={<HistoryIcon />}
-            label={t('history')}
-            active={activeNav === 'history'}
-            onClick={() => setActiveNav('history')}
-          />
-          <NavItem
-            icon={<SettingsIcon />}
-            label={t('settings')}
-            active={activeNav === 'settings'}
-            onClick={() => setActiveNav('settings')}
-          />
-
-          {/* Spacer */}
-          <div className="flex-1"></div>
+    <div className="app-shell flex bg-white dark:bg-kit-dark-bg text-slate-800 dark:text-kit-dark-text overflow-hidden">
+      <aside className="hidden md:flex w-60 shrink-0 flex-col bg-[#E0F5F3] dark:bg-kit-dark-bg-light p-6 border-r border-teal-100 dark:border-slate-700">
+        <button onClick={() => setTab('guides')} aria-label="Kit AI home" className="text-4xl font-extrabold tracking-tight text-[#B83F4B] dark:text-kit-red text-left mb-3">kit<span className="text-teal-800 dark:text-teal-300">.ai</span></button>
+        <p className="text-sm text-teal-900 dark:text-slate-300 mb-10">A little clarity.<br />When it matters.</p>
+        <nav aria-label="Main navigation" className="space-y-2">
+          {tabs.map(({ id, title, icon: Icon }) => <button key={id} onClick={() => setTab(id)} aria-current={tab === id ? 'page' : undefined} className={`flex w-full gap-3 items-center min-h-12 px-4 rounded-xl font-bold ${tab === id ? 'bg-white dark:bg-kit-dark-bg text-teal-900 dark:text-teal-200' : 'text-slate-600 dark:text-slate-300 hover:bg-white/50'}`}><Icon size={20} />{title}</button>)}
         </nav>
-
-        {/* Status Indicator - bottom of sidebar */}
-        <div className="mt-4 flex justify-center -ml-5">
-          <div className="flex items-center gap-4 py-3 px-8 rounded-full bg-white dark:bg-kit-dark-bg-light shadow-sm transition-colors duration-300">
-            <div className="w-2 h-2 bg-kit-teal dark:bg-kit-teal rounded-full animate-pulse"></div>
-            <span className="text-xs font-medium text-kit-teal dark:text-kit-teal">{t('localModeActive')}</span>
+        <button onClick={newChat} disabled={busy} className="kit-text-button mt-6"><Plus size={18} /> New conversation</button>
+        <div className="mt-auto text-sm text-teal-900 dark:text-teal-200 pt-8"><ShieldCheck size={21} className="mb-2" /><p className="font-bold">{offlineReady ? 'Guides saved for offline' : 'First-aid guides included'}</p><p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">General information, not a diagnosis. In an emergency, call your local emergency number.</p></div>
+      </aside>
+      <div className="flex-1 min-w-0 flex flex-col">
+        <header style={{ paddingTop: 'max(1rem, env(safe-area-inset-top, 0px))' }} className="flex shrink-0 items-center justify-between px-5 md:px-10 py-4 border-b border-slate-100 dark:border-slate-800 gap-3">
+          <span className="md:hidden text-2xl font-extrabold text-[#B83F4B] dark:text-kit-red">kit.ai</span>
+          <span className="hidden md:block font-bold">{tabs.find(item => item.id === tab)?.title}</span>
+          <span className="text-xs text-slate-600 dark:text-slate-300 flex gap-2 items-center">{!online && <WifiOff size={15} />}{!online ? 'Offline' : offlineReady ? 'Guides available offline' : 'First-aid companion'}</span>
+        </header>
+        <div className="shrink-0 px-5 md:px-10 py-2.5 bg-rose-50 dark:bg-rose-950/20 text-[#87343B] dark:text-rose-200 text-xs sm:text-sm">Immediate danger? Call your local emergency number. Don’t wait for AI.</div>
+        {storageError && <p role="status" className="px-5 py-2 text-amber-800 bg-amber-50 text-sm">{storageError}</p>}
+        <main ref={mainRef} id="main-content" className="flex-1 overflow-y-auto min-h-0 px-5 md:px-10 py-7 md:py-10">
+          <div className="max-w-3xl mx-auto">
+            {tab === 'guides' && <GuideLibrary />}
+            {tab === 'chat' && <>
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <h1 className="text-2xl font-extrabold">Ask Kit</h1>
+                <button onClick={newChat} disabled={busy} className="kit-text-button"><Plus size={17} /> New chat</button>
+              </div>
+              <div className="flex flex-wrap gap-2 mb-3" role="group" aria-label="AI mode">
+                <button disabled={busy} aria-pressed={mode === 'online'} onClick={() => { setMode('online'); setRequestError('') }} className={`kit-mode ${mode === 'online' ? 'selected' : ''}`}>Online medical model</button>
+                <button disabled={busy} aria-pressed={mode === 'local'} onClick={() => { setMode('local'); setRequestError('') }} className={`kit-mode ${mode === 'local' ? 'selected' : ''}`}>Local AI</button>
+              </div>
+              <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400 mb-6">{mode === 'online' ? <>Uses <a href={`https://huggingface.co/${MEDICAL_MODEL}`} target="_blank" rel="noreferrer" className="underline">your fine-tuned Llama 3.2 3B</a>. Sending a message shares it and recent conversation with Hugging Face. Avoid identifying details. The model is experimental; answers can be wrong.</> : `Runs on your device after a large download. ${import.meta.env.VITE_WEBLLM_MODEL_URL ? 'Custom MLC model configured.' : 'Uses general-purpose Llama 3.2 1B; this is not the fine-tuned medical model.'}`}</p>
+              {mode === 'local' && local.status !== 'ready' && <div className="rounded-xl border border-teal-200 dark:border-slate-700 p-5 mb-6">
+                <p className="text-sm mb-3">Local AI needs a compatible browser and enough memory. Use Wi-Fi for the initial model download (about 1 GB). Guides need no model.</p>
+                {local.error && <p role="alert" className="text-sm text-rose-700 dark:text-rose-300 mb-3">{local.error.message}</p>}
+                <button className="kit-primary" onClick={local.loadEngine} disabled={local.status === 'loading'}><Download size={17} />{local.status === 'loading' ? `Downloading… ${Math.round(local.progress)}%` : 'Download local AI'}</button>
+                {local.status === 'loading' && <progress aria-label="Model download" max="100" value={local.progress} className="w-full mt-4" />}
+              </div>}
+              {mode === 'online' && !online && <p role="status" className="text-sm mb-5">Reconnect to use online AI. Your first-aid guides are still here.</p>}
+              {currentMessages.length === 0 && <div className="py-7 border-t border-slate-200 dark:border-slate-700">
+                <h2 className="text-xl font-bold mb-3">What would you like to understand?</h2>
+                <p className="text-slate-600 dark:text-slate-300 mb-5">Ask a general health question, or start with a first-aid topic.</p>
+                <div className="flex flex-wrap gap-2">{['How do I care for a small cut?', 'What should I do for a minor burn?'].map(question => <button key={question} disabled={!ready || busy} onClick={() => handleSend(question)} className="kit-mode text-left">{question}</button>)}</div>
+              </div>}
+              <div role="log" aria-label="Conversation" aria-live="polite">
+                {currentMessages.map((message, index) => <div key={`${message.timestamp}-${index}`}><ChatMessage role={message.role} content={message.content} />{message.role === 'assistant' && <p className="text-xs text-slate-500 mb-5 ml-12">{message.model || 'Previous conversation'}{message.sources?.length > 0 && <> · Reference material: {[...new Map(message.sources.map(source => [source.url, source])).values()].map(source => <a key={source.url} href={source.url} target="_blank" rel="noreferrer" className="underline mr-2">{source.title}</a>)}</>}</p>}</div>)}
+                {busy && sameConversation && (streaming ? <ChatMessage role="assistant" content={streaming} /> : <p role="status" className="py-5 text-sm text-teal-800 dark:text-teal-200">{requestStatus}</p>)}
+              </div>
+              {requestError && <div role="alert" className="my-4 border-l-4 border-rose-400 p-4 bg-rose-50 dark:bg-rose-950/20 text-sm"><p>{requestError}</p><button onClick={() => setTab('guides')} className="kit-text-button mt-3">Open first-aid guides</button></div>}
+              <div ref={endRef} />
+            </>}
+            {tab === 'history' && <section><h1 className="text-3xl font-extrabold mb-3">Your conversations</h1><p className="text-slate-600 dark:text-slate-400 mb-7">Saved in this browser. Delete a conversation to remove it from this device.</p>{conversationsList.length === 0 ? <p>No conversations yet. <button onClick={() => setTab('chat')} className="underline text-teal-800 dark:text-teal-300">Ask Kit a question</button>.</p> : <div className="divide-y divide-slate-200 dark:divide-slate-700">{conversationsList.map(conversation => <div key={conversation.id} className="flex gap-3 items-center py-3"><button disabled={busy} onClick={() => { loadConversation(conversation.id); setRequestError(''); setTab('chat') }} className="flex-1 text-left p-2 min-w-0"><span className="block font-bold truncate">{conversation.title || 'Conversation'}</span><span className="text-xs text-slate-500">{new Date(conversation.updatedAt).toLocaleDateString()}</span></button><button disabled={busy} aria-label={`Delete ${conversation.title || 'conversation'}`} onClick={() => deleteConversation(conversation.id)} className="p-3 text-slate-500 hover:text-rose-700"><Trash2 size={19} /></button></div>)}</div>}</section>}
+            {tab === 'settings' && <section className="max-w-xl"><h1 className="text-3xl font-extrabold mb-8">Make yourself comfortable.</h1><div className="divide-y divide-slate-200 dark:divide-slate-700">
+              <label className="flex gap-4 items-center justify-between py-5"><span><span className="block font-bold">Dark appearance</span><span className="text-sm text-slate-500">A softer screen in low light.</span></span><input type="checkbox" className="w-6 h-6 accent-teal-700" checked={darkMode} onChange={e => setDarkMode(e.target.checked)} /></label>
+              <label className="flex gap-4 items-center justify-between py-5"><span><span className="block font-bold">Read answers aloud</span><span className="text-sm text-slate-500">Use the play button under an answer.</span></span><input type="checkbox" className="w-6 h-6 accent-teal-700" checked={ttsEnabled} onChange={e => setTtsEnabled(e.target.checked)} /></label>
+              <label className="block py-5"><span className="font-bold">Voice speed: {speed}×</span><input aria-label="Voice speed" type="range" min="0.5" max="2" step="0.1" value={speed} onChange={e => setSpeed(Number(e.target.value))} className="block w-full mt-4 accent-teal-700" /></label>
+              <div className="py-5"><h2 className="font-bold mb-2">Take Kit with you</h2><p className="text-sm text-slate-600 dark:text-slate-300">On iPhone, open in Safari and choose Share → Add to Home Screen. On Android, use your browser’s Install app or Add to Home Screen option. Open Kit once online and let it finish loading before you go offline.</p></div>
+              <div className="py-5"><h2 className="font-bold mb-2">About these guides</h2><p className="text-sm text-slate-600 dark:text-slate-300">Six English-language summaries linked to public first-aid sources. They are not a diagnosis or a substitute for professional care. AI answers have not been clinically validated.</p><a href="https://github.com/pablopupo/kit-ai" target="_blank" rel="noreferrer" className="kit-text-button mt-4">View the project <ArrowUpRight size={16} /></a></div>
+            </div></section>}
           </div>
-        </div>
+        </main>
+        {tab === 'chat' && <div className="shrink-0 border-t border-slate-100 dark:border-slate-800">{busy && <button onClick={stop} className="kit-text-button mx-auto mt-2 text-sm"><Square size={14} /> Stop response</button>}<ChatInput onSend={handleSend} disabled={busy || !ready} placeholder={!ready ? mode === 'online' ? 'Connect to the internet for online AI' : 'Download local AI to chat' : 'Ask a general health question…'} /></div>}
+        <nav aria-label="Mobile navigation" className="md:hidden shrink-0 flex border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-kit-dark-bg" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>{tabs.map(({ id, title, icon: Icon }) => <button key={id} onClick={() => setTab(id)} aria-current={tab === id ? 'page' : undefined} className={`flex-1 min-h-16 flex flex-col items-center justify-center gap-1 text-xs font-bold ${tab === id ? 'text-teal-800 dark:text-teal-200 bg-teal-50 dark:bg-teal-950/30' : 'text-slate-500 dark:text-slate-400'}`}><Icon size={21} />{title}</button>)}</nav>
       </div>
-
-      {/* ===== MAIN CONTENT AREA ===== */}
-      <div className="flex-1 bg-white dark:bg-kit-dark-bg flex flex-col relative overflow-hidden md:rounded-l-3xl md:ml-[-1.5rem] transition-colors duration-300 min-h-0">
-          {/* Offline indicator */}
-          <OfflineBanner t={t} />
-          {/* Content Area */}
-          <div className={`flex-1 flex p-4 md:p-8 overflow-y-auto ${
-            (activeNav === 'chat' && currentMessages.length > 0) || activeNav === 'settings' || activeNav === 'history' ? 'items-start justify-center' : 'items-center justify-center'
-          }`}>
-            <div className={`w-full max-w-3xl ${
-              activeNav === 'chat' && status === 'loading' ? 'flex items-center justify-center h-full' : ''
-            }`}>
-              {activeNav === 'settings' ? (
-                /* Settings Page */
-                <div className="w-full max-w-2xl mx-auto animate-fadeIn">
-                  {/* Language Section */}
-                  <div className="mb-8 md:mb-10 animate-fadeIn">
-                    <div className="mb-4 md:mb-6">
-                      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-kit-dark-text mb-2 transition-colors duration-300">Language</h2>
-                      <p className="text-sm md:text-base text-gray-500 dark:text-kit-dark-text-muted transition-colors duration-300">{t('languageDesc')}</p>
-                    </div>
-                    <div className="bg-gradient-to-br from-gray-50 to-gray-100/50 dark:from-kit-dark-bg-light dark:to-kit-dark-bg-lighter rounded-3xl p-4 md:p-6 shadow-sm hover:shadow-md transition-all duration-300">
-                    <div className="space-y-2">
-                      {Object.entries(languageNames).map(([code, { name, flag }], index) => (
-                        <button
-                          key={code}
-                          onClick={() => setLanguage(code)}
-                          style={{ animationDelay: `${index * 50}ms` }}
-                          className={`w-full flex items-center gap-3 p-3 md:p-4 rounded-2xl transition-all duration-300 group/lang animate-slideIn ${
-                            language === code
-                              ? 'bg-kit-teal-light dark:bg-kit-teal-dark/30 text-kit-teal dark:text-kit-teal shadow-md scale-[1.02]'
-                              : 'bg-white dark:bg-kit-dark-bg-lighter text-gray-700 dark:text-kit-dark-text hover:bg-gray-50 dark:hover:bg-kit-dark-bg hover:scale-[1.01] hover:shadow-md'
-                          }`}
-                        >
-                          <span className="text-2xl group-hover/lang:scale-125 transition-transform duration-300">{flag}</span>
-                          <span className="font-semibold flex-1 text-left">{name}</span>
-                          {language === code && (
-                            <svg className="w-5 h-5 animate-checkmark" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                            </svg>
-                          )}
-                        </button>
-                      ))}
-                    </div>
-                    </div>
-                  </div>
-
-                  {/* TTS Settings Section */}
-                  <div className="mb-8 md:mb-10 animate-fadeIn" style={{ animationDelay: '150ms' }}>
-                    <div className="mb-4 md:mb-6">
-                      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-kit-dark-text mb-2 transition-colors duration-300">Text-to-Speech</h2>
-                      <p className="text-sm md:text-base text-gray-500 dark:text-kit-dark-text-muted transition-colors duration-300">{t('ttsSettingsDesc')}</p>
-                    </div>
-                    <div className="bg-gradient-to-br from-gray-50 to-gray-100/50 dark:from-kit-dark-bg-light dark:to-kit-dark-bg-lighter rounded-3xl p-4 md:p-6 shadow-sm hover:shadow-md transition-all duration-300">
-
-                    <div className="space-y-3 md:space-y-4">
-                      {/* Enable/Disable Toggle */}
-                      <div className="flex items-center justify-between p-3 md:p-4 bg-white dark:bg-kit-dark-bg-lighter rounded-2xl transition-colors duration-300">
-                        <div className="mr-3">
-                          <p className="font-semibold text-sm md:text-base text-gray-800 dark:text-kit-dark-text transition-colors duration-300">{t('ttsEnabled')}</p>
-                          <p className="text-xs md:text-sm text-gray-600 dark:text-kit-dark-text-muted transition-colors duration-300">{t('ttsEnabledDesc')}</p>
-                        </div>
-                        <button
-                          onClick={() => setTtsEnabled(!ttsEnabled)}
-                          className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 shrink-0 ${
-                            ttsEnabled ? 'bg-kit-teal dark:bg-kit-teal' : 'bg-gray-300 dark:bg-gray-600'
-                          }`}
-                        >
-                          <span
-                            className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-300 ${
-                              ttsEnabled ? 'translate-x-6' : 'translate-x-1'
-                            }`}
-                          />
-                        </button>
-                      </div>
-
-                      {/* Voice Selection */}
-                      {ttsEnabled && (
-                        <div className="p-3 md:p-4 bg-white dark:bg-kit-dark-bg-lighter rounded-2xl transition-colors duration-300">
-                          <label className="block font-semibold text-sm md:text-base text-gray-800 dark:text-kit-dark-text mb-2 transition-colors duration-300">
-                            {t('ttsVoice')}
-                          </label>
-                          <select
-                            value={voice}
-                            onChange={(e) => setVoice(e.target.value)}
-                            className="w-full px-4 py-2 bg-gray-50 dark:bg-kit-dark-bg border border-gray-200 dark:border-kit-dark-bg-lighter rounded-xl text-sm md:text-base text-gray-800 dark:text-kit-dark-text focus:outline-none focus:ring-2 focus:ring-kit-teal dark:focus:ring-kit-teal transition-colors duration-300"
-                          >
-                            {voices.map((v) => (
-                              <option key={v.id} value={v.id}>
-                                {v.name} - {v.descriptionKey ? t(v.descriptionKey) : 'Voice'}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-                      )}
-
-                      {/* Speed Control */}
-                      {ttsEnabled && (
-                        <div className="p-3 md:p-4 bg-white dark:bg-kit-dark-bg-lighter rounded-2xl transition-colors duration-300">
-                          <label className="block font-semibold text-sm md:text-base text-gray-800 dark:text-kit-dark-text mb-2 transition-colors duration-300">
-                            {t('ttsSpeed')}: {speed}x
-                          </label>
-                          <input
-                            type="range"
-                            min="0.5"
-                            max="2.0"
-                            step="0.1"
-                            value={speed}
-                            onChange={(e) => setSpeed(parseFloat(e.target.value))}
-                            className="w-full h-2 bg-gray-200 dark:bg-kit-dark-bg rounded-lg appearance-none cursor-pointer accent-kit-teal"
-                          />
-                          <div className="flex justify-between text-xs text-gray-500 dark:text-kit-dark-text-muted mt-1">
-                            <span>0.5x</span>
-                            <span>1.0x</span>
-                            <span>2.0x</span>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Auto-play Toggle */}
-                      {ttsEnabled && (
-                        <div className="flex items-center justify-between p-3 md:p-4 bg-white dark:bg-kit-dark-bg-lighter rounded-2xl transition-colors duration-300">
-                          <div className="mr-3">
-                            <p className="font-semibold text-sm md:text-base text-gray-800 dark:text-kit-dark-text transition-colors duration-300">{t('ttsAutoPlay')}</p>
-                            <p className="text-xs md:text-sm text-gray-600 dark:text-kit-dark-text-muted transition-colors duration-300">{t('ttsAutoPlayDesc')}</p>
-                          </div>
-                          <button
-                            onClick={() => setAutoPlay(!autoPlay)}
-                            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 shrink-0 ${
-                              autoPlay ? 'bg-kit-teal dark:bg-kit-teal' : 'bg-gray-300 dark:bg-gray-600'
-                            }`}
-                          >
-                            <span
-                              className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-300 ${
-                                autoPlay ? 'translate-x-6' : 'translate-x-1'
-                              }`}
-                            />
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                    </div>
-                  </div>
-
-                  {/* About Section */}
-                  <div className="mt-6 md:mt-8 text-center space-y-2 animate-fadeIn mb-4" style={{ animationDelay: '300ms' }}>
-                    <p className="text-sm text-gray-400 dark:text-kit-dark-text-muted transition-colors duration-300">{t('aboutVersion')}</p>
-                    <p className="text-xs text-gray-400 dark:text-kit-dark-text-muted max-w-md mx-auto transition-colors duration-300">
-                      {t('disclaimer')}
-                    </p>
-                  </div>
-                </div>
-              ) : activeNav === 'chat' && status === 'loading' ? (
-                <div className="flex flex-col items-center justify-center py-12 animate-fadeIn">
-                  <div className="w-20 h-20 bg-kit-teal-light dark:bg-kit-teal-dark/20 rounded-full flex items-center justify-center mb-6 transition-colors duration-300">
-                    <div className="w-10 h-10 border-4 border-kit-teal dark:border-kit-teal border-t-transparent rounded-full animate-spin"></div>
-                  </div>
-                  <p className="text-gray-700 dark:text-kit-dark-text mb-2 text-base md:text-lg font-semibold transition-colors duration-300">
-                    {progress < 5 ? t('loadingModelProgress') : t('loadingModelProgress')}
-                  </p>
-                  <p className="text-xs text-gray-400 dark:text-kit-dark-text-muted mb-4 max-w-xs text-center transition-colors duration-300">
-                    {progress < 5
-                      ? 'Preparing the AI model for first use...'
-                      : 'Downloading AI model. This only happens once and will be cached for future visits.'}
-                  </p>
-                  <div className="w-full max-w-xs h-3 bg-gray-200 dark:bg-kit-dark-bg-lighter rounded-full overflow-hidden transition-colors duration-300">
-                    <div
-                      className="h-full bg-kit-teal dark:bg-kit-teal rounded-full transition-all duration-300"
-                      style={{ width: `${progress}%` }}
-                    />
-                  </div>
-                  <p className="text-sm text-gray-500 dark:text-kit-dark-text-muted mt-3 font-medium transition-colors duration-300">{Math.round(progress)}%</p>
-                </div>
-              ) : activeNav === 'chat' && status === 'ready' && currentMessages.length === 0 ? (
-                <div className="flex flex-col items-center animate-fadeIn">
-                  {/* Welcome Message */}
-                  <h1 className="text-3xl md:text-5xl font-bold text-gray-800 dark:text-kit-dark-text mb-3 md:mb-4 text-center transition-colors duration-300">
-                    {t('howCanIHelp')}
-                  </h1>
-                  <p className="text-base md:text-lg text-gray-500 dark:text-kit-dark-text-muted mb-8 md:mb-10 text-center max-w-md transition-colors duration-300">
-                    {t('askMeAnything')}
-                  </p>
-
-                  {/* Quick Action Buttons */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 w-full max-w-2xl mb-8 md:mb-10">
-                    <button
-                      onClick={() => handleSend("What are common symptoms I should watch for?")}
-                      className="group bg-red-50/70 dark:bg-kit-red-dark/10 p-4 md:p-5 rounded-3xl hover:bg-red-50/90 dark:hover:bg-kit-red-dark/20 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 text-left shadow-sm animate-slideIn"
-                      style={{ animationDelay: '100ms' }}
-                    >
-                      <div className="flex items-center gap-3 mb-2 md:mb-3">
-                        <svg className="w-7 h-7 md:w-8 md:h-8 text-kit-red dark:text-kit-red shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                        </svg>
-                        <span className="font-bold text-gray-800 dark:text-kit-dark-text text-base md:text-lg transition-colors duration-300">{t('symptomCheck')}</span>
-                      </div>
-                      <p className="text-sm md:text-base text-gray-600 dark:text-kit-dark-text-muted transition-colors duration-300">{t('symptomCheckDesc')}</p>
-                    </button>
-
-                    <button
-                      onClick={() => handleSend("What should I do in case of an emergency?")}
-                      className="group bg-teal-50/70 dark:bg-kit-teal-dark/10 p-4 md:p-5 rounded-3xl hover:bg-teal-50/90 dark:hover:bg-kit-teal-dark/20 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 text-left shadow-sm animate-slideIn"
-                      style={{ animationDelay: '150ms' }}
-                    >
-                      <div className="flex items-center gap-3 mb-2 md:mb-3">
-                        <svg className="w-7 h-7 md:w-8 md:h-8 text-kit-teal dark:text-kit-teal shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                        </svg>
-                        <span className="font-bold text-gray-800 dark:text-kit-dark-text text-base md:text-lg transition-colors duration-300">{t('emergencyInfo')}</span>
-                      </div>
-                      <p className="text-sm md:text-base text-gray-600 dark:text-kit-dark-text-muted transition-colors duration-300">{t('emergencyInfoDesc')}</p>
-                    </button>
-
-                    <button
-                      onClick={() => handleSend("Give me health tips and wellness advice")}
-                      className="group bg-teal-50/70 dark:bg-kit-teal-dark/10 p-4 md:p-5 rounded-3xl hover:bg-teal-50/90 dark:hover:bg-kit-teal-dark/20 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 text-left shadow-sm animate-slideIn"
-                      style={{ animationDelay: '200ms' }}
-                    >
-                      <div className="flex items-center gap-3 mb-2 md:mb-3">
-                        <svg className="w-7 h-7 md:w-8 md:h-8 text-kit-teal dark:text-kit-teal shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                        </svg>
-                        <span className="font-bold text-gray-800 dark:text-kit-dark-text text-base md:text-lg transition-colors duration-300">{t('healthTips')}</span>
-                      </div>
-                      <p className="text-sm md:text-base text-gray-600 dark:text-kit-dark-text-muted transition-colors duration-300">{t('healthTipsDesc')}</p>
-                    </button>
-
-                    <button
-                      onClick={() => handleSend("Tell me about preventive care")}
-                      className="group bg-red-50/70 dark:bg-kit-red-dark/10 p-4 md:p-5 rounded-3xl hover:bg-red-50/90 dark:hover:bg-kit-red-dark/20 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 text-left shadow-sm animate-slideIn"
-                      style={{ animationDelay: '250ms' }}
-                    >
-                      <div className="flex items-center gap-3 mb-2 md:mb-3">
-                        <svg className="w-7 h-7 md:w-8 md:h-8 text-kit-red dark:text-kit-red shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.0 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
-                        <span className="font-bold text-gray-800 dark:text-kit-dark-text text-base md:text-lg transition-colors duration-300">{t('preventiveCare')}</span>
-                      </div>
-                      <p className="text-sm md:text-base text-gray-600 dark:text-kit-dark-text-muted transition-colors duration-300">{t('preventiveCareDesc')}</p>
-                    </button>
-                  </div>
-
-                  {/* Disclaimer */}
-                  <div className="text-center max-w-lg animate-fadeIn" style={{ animationDelay: '300ms' }}>
-                    <p className="text-xs text-gray-400 dark:text-kit-dark-text-muted transition-colors duration-300">
-                      {t('disclaimer')}
-                    </p>
-                  </div>
-                </div>
-              ) : activeNav === 'chat' ? (
-                <div className="space-y-4">
-                  {currentMessages.map((msg, i) => (
-                    <ChatMessage key={`${msg.timestamp}-${i}`} role={msg.role} content={msg.content} />
-                  ))}
-                  {streamingContent && (
-                    <ChatMessage role="assistant" content={streamingContent} />
-                  )}
-                  {isLoading && !streamingContent && (
-                    <div className="flex justify-start">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-kit-red dark:bg-kit-red rounded-full flex items-center justify-center transition-colors duration-300">
-                          <div className="w-5 h-5 relative">
-                            <div className="absolute top-1/2 left-0 w-full h-1 bg-white -translate-y-1/2 rounded-full"></div>
-                            <div className="absolute left-1/2 top-0 w-1 h-full bg-white -translate-x-1/2 rounded-full"></div>
-                          </div>
-                        </div>
-                        <div className="bg-kit-red-light dark:bg-kit-red-dark/20 px-5 py-3 rounded-3xl rounded-tl-lg transition-colors duration-300">
-                          <div className="flex gap-1.5">
-                            <div className="w-2 h-2 bg-kit-red/60 dark:bg-kit-red rounded-full animate-bounce"></div>
-                            <div className="w-2 h-2 bg-kit-red/60 dark:bg-kit-red rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                            <div className="w-2 h-2 bg-kit-red/60 dark:bg-kit-red rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  <div ref={messagesEndRef} />
-                </div>
-              ) : activeNav === 'history' ? (
-                <div className="w-full max-w-2xl mx-auto animate-fadeIn">
-                  {/* Chat History Section */}
-                  <div className="mb-8 md:mb-10 animate-fadeIn">
-                    <div className="mb-4 md:mb-6">
-                      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-kit-dark-text mb-2 transition-colors duration-300">
-                        {t('chatHistory')}
-                      </h2>
-                      <p className="text-sm md:text-base text-gray-500 dark:text-kit-dark-text-muted transition-colors duration-300">
-                        {t('selectConversationDesc')}
-                      </p>
-                    </div>
-
-                    {/* Conversations List */}
-                    {conversationsList.length === 0 ? (
-                      <div className="py-8">
-                        <p className="text-gray-500 dark:text-kit-dark-text-muted transition-colors duration-300">
-                          {t('selectConversationDesc')}
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="grid grid-cols-1 gap-3 md:gap-4">
-                        {conversationsList.map((conversation, index) => (
-                          <ConversationItem
-                            key={conversation.id}
-                            conversation={conversation}
-                            isActive={conversation.id === currentConversationId}
-                            colorIndex={index}
-                            onSelect={(id) => {
-                              loadConversation(id)
-                              setActiveNav('chat')
-                            }}
-                            onDelete={deleteConversation}
-                            animationDelay={index * 50}
-                          />
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          </div>
-
-          {/* Chat Input - only show on chat page */}
-          {activeNav === 'chat' && (
-          <div className="shrink-0" style={{ paddingBottom: 'max(0px, var(--sab))' }}>
-            <ChatInput
-              onSend={handleSend}
-              disabled={chatDisabled}
-              placeholder={status === 'loading' ? t('loadingModel') : undefined}
-            />
-          </div>
-          )}
-
-          {/* ===== MOBILE BOTTOM NAV ===== */}
-          {activeNav !== 'chat' && (
-            <div className="md:hidden shrink-0 flex items-center justify-around border-t border-gray-200 dark:border-kit-dark-bg-lighter bg-white dark:bg-kit-dark-bg transition-colors duration-300"
-              style={{ paddingBottom: 'var(--sab)' }}
-            >
-              <MobileNavTab icon={<ChatIcon />} label={t('chat')} active={activeNav === 'chat'} onClick={() => setActiveNav('chat')} />
-              <MobileNavTab icon={<HistoryIcon />} label={t('history')} active={activeNav === 'history'} onClick={() => setActiveNav('history')} />
-              <MobileNavTab icon={<SettingsIcon />} label={t('settings')} active={activeNav === 'settings'} onClick={() => setActiveNav('settings')} />
-            </div>
-          )}
-        </div>
     </div>
   )
 }
-
-export default Home
