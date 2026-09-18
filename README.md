@@ -16,7 +16,7 @@ KIT AI provides general information. It cannot diagnose a condition or replace p
 
 Guides and navigation work even when WebGPU or an AI service is unavailable. No model weights download until the user chooses **Download local AI**. Online chat is explicitly labeled and sends the question and recent conversation to Hugging Face. Avoid identifying information.
 
-**Current online-model status:** the frontend is integrated with the intended Space, but the existing deployed Space failed a synthetic inference check on 2026-09-18. The repaired Space files in `huggingface-space/` must be uploaded from the owner's Hugging Face account and GPU inference must pass before this is considered working end to end.
+**Current online-model status:** the repaired Space is deployed and real inference passed on 2026-09-18. A synthetic scrape-care question succeeded through the live Vercel frontend, and a first-aid-kit question succeeded through the official Gradio client (17.24 seconds). Runtime commit `adb12bb2fcb5c477e09acb140cc195bf44947e4e` uses the intended pinned medical checkpoint. These are functional smoke checks, not clinical accuracy validation.
 
 ## Why a model URL alone did not fix chat
 

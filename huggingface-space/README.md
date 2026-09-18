@@ -5,7 +5,7 @@ colorFrom: blue
 colorTo: green
 sdk: gradio
 sdk_version: 6.28.0
-python_version: 3.10
+python_version: "3.10"
 app_file: app.py
 pinned: false
 license: mit
@@ -43,7 +43,10 @@ Use the existing ZeroGPU hardware; no paid upgrade is required for this demo.
 Upload `app.py`, `prompting.py`, `requirements.txt`, and this `README.md` to
 `Pablo305/offline-medical-assistant`. A Space commit triggers a rebuild. The
 build and a successful real model request must be verified before enabling the
-service in the frontend. These files have not automatically been uploaded.
+service in the frontend. The repair was uploaded to the existing Space on
+2026-09-18, and live inference passed through both the official Gradio client
+and the published Kit AI frontend. These are functional checks, not a clinical
+validation. See the app repository for the current deployment and evaluation status.
 
 Gradio 6 exposes its API under `/gradio_api`. The simplest stable integration is
 the official Gradio client with `api_name="/ask"`. For HTTP integration, inspect

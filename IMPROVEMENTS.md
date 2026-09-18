@@ -1,11 +1,15 @@
 # KIT AI: next improvements
 
-## Finish the intended model integration
+## Improve model quality and reliability
 
-1. Sign into the owner's `Pablo305` Hugging Face account and upload the repaired files from `huggingface-space/`.
-2. Verify the Space finishes building and actually generates complete answers. A running UI is not evidence of working GPU inference. The previous public inference check failed with an error event.
-3. Evaluate ordinary educational questions, relevant reference use, appropriate escalation, unsupported questions, misleading premises, and requests for diagnosis/prescribing. Compare the medical checkpoint against a baseline; do not assume fine-tuning improved it.
-4. Document training data, method, licensing, and evaluation results in the model card. Consider clinician review before expanding health use cases.
+The repaired Hugging Face Space is deployed on its existing ZeroGPU hardware. On
+2026-09-18, the intended model answered a scrape-care question through the live
+mobile frontend and a first-aid-kit question through the official Gradio client.
+The latter request took 17.24 seconds. Neither returned a blanket refusal.
+
+1. Evaluate ordinary educational questions, relevant reference use, appropriate escalation, unsupported questions, misleading premises, follow-ups, and requests for diagnosis/prescribing. Compare the medical checkpoint against a baseline; do not assume fine-tuning improved it.
+2. Check completeness against the reference guides. The scrape smoke response answered cleaning steps but did not repeat all dressing and warning-sign guidance from the source. A successful request is not proof of a complete or accurate answer.
+3. Document training data, method, licensing, and evaluation results in the model card. Consider clinician review before expanding health use cases.
 
 ## Highest-value product improvements
 
@@ -27,7 +31,9 @@
 - Mobile navigation, keyboard sizing, accessible composer and PWA assets improved.
 - Chat history teardown/delete bugs fixed; storage failures do not silently erase saved history.
 - Frontend dependency audit remediated without a forced major upgrade.
+- Original pink logo restored; its accessible plus starts a new chat and clears the draft.
+- Personal Vercel site deployed; repaired Hugging Face model service passed live inference checks.
 
 ## What has not been established
 
-A working live medical model, clinical accuracy, real-device performance across phones, a converted offline medical checkpoint, or deployment of the legacy backend. Treat these as explicit follow-up work rather than shipped capabilities.
+Clinical accuracy, real-device performance across phones, a converted offline medical checkpoint, or deployment of the legacy backend. Treat these as explicit follow-up work rather than shipped capabilities.
