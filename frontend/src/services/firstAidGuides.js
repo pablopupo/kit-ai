@@ -1,3 +1,5 @@
+import { GUIDE_TRANSLATIONS, GUIDE_LABELS, resolveGuideLanguage } from './guideTranslations.js';
+
 // Concise paraphrases checked against the linked public guidance, not clinician review.
 // Keep each source-backed guide complete when passing it to the assistant.
 const CHECKED_AT = '2026-09-18';
@@ -119,7 +121,7 @@ export const FIRST_AID_GUIDES = [
 
 function normalize(value) {
   return typeof value === 'string'
-    ? value.normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim()
+    ? value.normalize('NFKD').replace(/\p{M}+/gu, '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim()
     : '';
 }
 
@@ -127,22 +129,54 @@ function includesPhrase(query, phrase) {
   return ` ${query} `.includes(` ${normalize(phrase)} `);
 }
 
-const CHILD_TERMS = ['baby', 'babies', 'infant', 'infants', 'newborn', 'toddler', 'toddlers', 'child', 'children', 'kid', 'kids', 'pediatric', 'paediatric'];
+const CHILD_TERMS = [
+  'baby', 'babies', 'infant', 'infants', 'newborn', 'toddler', 'toddlers', 'child', 'children', 'kid', 'kids', 'pediatric', 'paediatric',
+  'bebe', 'bebes', 'nino', 'nina', 'ninos', 'ninas', 'infante', 'infantes', 'lactante', 'lactantes', 'recien nacido', 'recien nacida', 'menor', 'menores', 'pediatrico', 'pediatrica', 'hijo', 'hija', 'hijos', 'hijas',
+];
 const ADULT_ONLY_IDS = new Set(['adult-choking', 'adult-cpr']);
+const ENGLISH_CHILD_AGES = /\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen) years? old\b/u;
+const SPANISH_CHILD_AGES = /\b(?:cero|un|una|uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieciseis|diecisiete) anos?\b/u;
+
+/** Same canonical IDs and source metadata in every supported display language. */
+export function getGuides(language = 'en') {
+  const translations = GUIDE_TRANSLATIONS[resolveGuideLanguage(language)];
+  if (!translations) return FIRST_AID_GUIDES;
+  return FIRST_AID_GUIDES.map(guide => {
+    const translation = translations[guide.id];
+    if (!translation) return guide;
+    const { sourceTitles, ...content } = translation;
+    return {
+      ...guide,
+      ...content,
+      sources: guide.sources.map((source, index) => ({ ...source, title: sourceTitles[index] || source.title })),
+    };
+  });
+}
+
+// Search all supported languages regardless of the selected display language.
+// Deduplication prevents shared words from receiving an accidental ranking boost.
+const SEARCH_KEYWORDS = new Map(FIRST_AID_GUIDES.map(guide => [guide.id, [...new Set([
+  ...guide.keywords,
+  ...Object.values(GUIDE_TRANSLATIONS).flatMap(translations => translations[guide.id]?.keywords || []),
+].map(normalize))]]));
 
 /** Returns only topic matches, ordered by specificity; an empty query returns []. */
-export function searchGuides(query) {
+export function searchGuides(query, language = 'en') {
   const normalized = normalize(query);
   if (!normalized) return [];
   const isChildQuery = CHILD_TERMS.some(term => includesPhrase(normalized, term))
     || /\b(?:[0-9]|1[0-7]) (?:year|years|yr|yrs) old\b/u.test(normalized)
-    || /\b\d+ (?:month|months|week|weeks) old\b/u.test(normalized);
+    || /\b\d+ (?:month|months|week|weeks) old\b/u.test(normalized)
+    || /\b(?:[0-9]|1[0-7]) anos?\b/u.test(normalized)
+    || /\b\d+ (?:mes|meses|semanas?)\b/u.test(normalized)
+    || ENGLISH_CHILD_AGES.test(normalized)
+    || SPANISH_CHILD_AGES.test(normalized);
 
-  return FIRST_AID_GUIDES
+  return getGuides(language)
     .filter(guide => !(isChildQuery && ADULT_ONLY_IDS.has(guide.id)))
     .map(guide => ({
       guide,
-      score: guide.keywords.reduce((score, keyword) => (
+      score: SEARCH_KEYWORDS.get(guide.id).reduce((score, keyword) => (
         includesPhrase(normalized, keyword) ? score + normalize(keyword).split(' ').length : score
       ), 0),
     }))
@@ -151,25 +185,26 @@ export function searchGuides(query) {
     .map(({ guide }) => guide);
 }
 
-function formatGuide(guide) {
+function formatGuide(guide, language) {
+  const labels = GUIDE_LABELS[resolveGuideLanguage(language)];
   return [
-    `Guide: ${guide.title}`,
-    `Scope: ${guide.scope}`,
+    `${labels.guide}: ${guide.title}`,
+    `${labels.scope}: ${guide.scope}`,
     guide.summary,
-    `Get help: ${guide.redFlags.join(' ')}`,
+    `${labels.contextHelp}: ${guide.redFlags.join(' ')}`,
     ...guide.steps.map((step, index) => `${index + 1}. ${step}`),
-    `Sources: ${guide.sources.map(source => `${source.title} (${source.url})`).join('; ')}`,
-    `Sources checked: ${guide.checkedAt}. Summary is not a clinical review.`,
+    `${labels.sources}: ${guide.sources.map(source => `${source.title} (${source.url})`).join('; ')}`,
+    `${labels.checked}: ${guide.checkedAt}. ${labels.contextNote}`,
   ].join('\n');
 }
 
 /** Whole guides only: never truncate steps, escalation advice, or attribution. */
-export function getGuideContext(query, maxChars = 6000) {
+export function getGuideContext(query, maxChars = 6000, language = 'en') {
   if (!Number.isFinite(maxChars) || maxChars < 1) return '';
   const limit = Math.floor(maxChars);
   let context = '';
-  for (const guide of searchGuides(query)) {
-    const next = `${context ? '\n\n' : ''}${formatGuide(guide)}`;
+  for (const guide of searchGuides(query, language)) {
+    const next = `${context ? '\n\n' : ''}${formatGuide(guide, language)}`;
     if (context.length + next.length > limit) break;
     context += next;
   }

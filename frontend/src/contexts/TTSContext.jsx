@@ -85,7 +85,7 @@ export function TTSProvider({ children }) {
       }
     }
 
-    if (ttsEnabled && online) {
+    if (ttsEnabled && online && import.meta.env.VITE_BACKEND_URL) {
       loadVoices()
     }
   }, [ttsEnabled, online])

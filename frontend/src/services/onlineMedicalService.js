@@ -3,7 +3,7 @@ import { buildMessages } from './chatPrompt'
 export const MEDICAL_MODEL = 'Pablo305/llama3-medical-3b-4bit'
 export const MEDICAL_SPACE = import.meta.env.VITE_MEDICAL_SPACE || 'Pablo305/offline-medical-assistant'
 
-export async function askMedicalModel(question, history, { signal, onStatus } = {}) {
+export async function askMedicalModel(question, history, { signal, onStatus, language = 'en' } = {}) {
   if (!navigator.onLine) throw new Error('Online AI needs an internet connection. First-aid guides remain available offline.')
   let client
   let job
@@ -14,7 +14,7 @@ export async function askMedicalModel(question, history, { signal, onStatus } = 
     const { Client } = await import('@gradio/client')
     client = await Client.connect(MEDICAL_SPACE, { events: ['data', 'status'] })
     if (finished || signal?.aborted) { client.close(); throw new DOMException('Stopped', 'AbortError') }
-    const messages = buildMessages(question, history)
+    const messages = buildMessages(question, history, { language })
     const prompt = messages.map(m => `${m.role === 'system' ? 'Reference instructions' : m.role}:\n${m.content}`).join('\n\n')
     job = client.submit('/ask', [prompt, 8, 512])
     let result = ''

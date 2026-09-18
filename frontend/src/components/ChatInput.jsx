@@ -49,7 +49,7 @@ function ChatInput({ onSend, disabled, placeholder }) {
           />
           <button
             type="submit"
-            aria-label="Send message"
+            aria-label={t('sendMessage')}
             disabled={disabled || !message.trim()}
             className="shrink-0 w-11 h-11 flex items-center justify-center bg-kit-teal-hover dark:bg-kit-teal-dark text-white rounded-full hover:bg-[#2E8E82] dark:hover:bg-kit-teal disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-sm hover:shadow"
           >
@@ -58,7 +58,7 @@ function ChatInput({ onSend, disabled, placeholder }) {
             </svg>
           </button>
         </div>
-        {message.length >= 1000 && <p id="message-length" className="px-3 pt-1 text-right text-xs text-gray-500 dark:text-kit-dark-text-muted">{message.length} / 1,200 characters</p>}
+        {message.length >= 1000 && <p id="message-length" className="px-3 pt-1 text-right text-xs text-gray-500 dark:text-kit-dark-text-muted">{t('characterCount', { count: message.length })}</p>}
       </div>
     </form>
   )

@@ -49,8 +49,9 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2,wasm,json}'],
-        // Download the large AI runtime only when someone enables local AI.
-        globIgnores: ['**/webllmService-*.js', '**/webllm-worker-*.js'],
+        // Include the engine and worker JS in the offline shell. Automatic first-
+        // visit loading can begin before the service worker controls the page.
+        // Model weights/config/tokenizer/Wasm use WebLLM's IndexedDB caches.
         runtimeCaching: [{
           urlPattern: ({ url }) => url.origin === self.location.origin && /\/assets\/webllm(?:Service|-worker)-.*\.js$/.test(url.pathname),
           handler: 'CacheFirst',

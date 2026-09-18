@@ -6,15 +6,33 @@ A mobile-friendly first-aid reference and experimental health assistant.
 
 KIT AI provides general information. It cannot diagnose a condition or replace professional care. In an emergency, contact the local emergency number without waiting for an AI answer.
 
-## Three clearly separated experiences
+## One Ask Kit experience
 
-| Experience | Internet | Model / source |
-| --- | --- | --- |
-| First-aid guides | Available offline after the app finishes its first online load | Six source-linked summaries from NHS, American Red Cross and AHA guidance |
-| Online medical chat | Required | `Pablo305/llama3-medical-3b-4bit` through the owner's Hugging Face Space |
-| Optional local AI | Required for first download; cached afterward on compatible devices | General-purpose Llama 3.2 1B, or a configured MLC-format model |
+Ask Kit chooses the available assistant automatically. It prefers the owner's
+fine-tuned Hugging Face model when connected, uses the prepared browser model
+when offline (or when online answers are disabled), and can show matching saved
+guides if the device cannot run AI. There is no model-mode selector in chat.
+Generated answers remain enabled; reference excerpts are clearly identified.
 
-Guides and navigation work even when WebGPU or an AI service is unavailable. No model weights download until the user chooses **Download local AI**. Online chat is explicitly labeled and sends the question and recent conversation to Hugging Face. Avoid identifying information.
+| Capability | What is available |
+| --- | --- |
+| English and Spanish | Interface, complete guides, bilingual search, requested AI answer language and browser speech language |
+| Automatic offline preparation | Downloads the current browser model on supported devices, shows progress/pause/retry, reuses cached files on later visits, requests persistent storage |
+| Online assistant | `Pablo305/llama3-medical-3b-4bit` through the owner's existing Space |
+| Browser assistant | Experimental general-purpose Llama 3.2 1B; **not the same weights as the fine-tuned medical model** |
+| Offline retrieval | Bilingual keyword matching over six whole source-linked guides; relevant complete guidance is included in model prompts |
+| Web search | Not implemented; online model inference does not browse the internet |
+
+The first browser-model cache measured about 718 MB on the test machine. The
+app precaches about 11 MB of runtime/worker JavaScript so it can reopen offline
+even when initial preparation starts before service-worker control. Known
+cellular/Data Saver connections defer the first model download; browser network
+information is not available everywhere. Pause and online-answer preferences live
+in Settings. Browser storage may be evicted or cleared.
+
+Online questions and prior **online** turns are sent to Hugging Face. Earlier
+device-only and guide-only turns are excluded from cloud history. Turning off
+online answers keeps new questions on the device. Avoid identifying information.
 
 **Current online-model status:** the repaired Space is deployed and real inference passed on 2026-09-18. A synthetic scrape-care question succeeded through the live Vercel frontend, and a first-aid-kit question succeeded through the official Gradio client (17.24 seconds). Runtime commit `adb12bb2fcb5c477e09acb140cc195bf44947e4e` uses the intended pinned medical checkpoint. These are functional smoke checks, not clinical accuracy validation.
 
@@ -34,7 +52,7 @@ npm ci
 npm run dev
 ```
 
-The app starts with bundled guides. No keys, backend, or database are needed. An internet connection and an operational public HF Space are needed for online chat.
+The app starts with bundled guides and automatically checks whether it can prepare its browser assistant. No keys, backend, or database are needed. An internet connection and an operational public HF Space are needed for online chat.
 
 ```sh
 npm test
@@ -77,9 +95,9 @@ This deploys the web app, not the GPU model. The medical model runs on Hugging F
 - Responsive navigation and multiline composer, touch targets, safe-area padding, keyboard-aware viewport sizing, and zoom support.
 - Installable PWA with standalone display and 192/512 pixel icons.
 - Offline app shell and source-linked guide text after a successful initial cache; linked source websites still require internet.
-- Optional local AI needs browser WebGPU support and substantial device memory. A successful API check does not guarantee a specific phone can hold the model.
+- Offline generated answers need working WebGPU in a worker and substantial device memory. Safari 26 and some Android browsers support it; support and memory differ by device. Firefox, older phones and unsupported GPUs retain guides and online access. A successful API probe alone does not guarantee the model fits.
 - Browser storage can be cleared or evicted. Test offline access before relying on saved content.
-- Conversation history stays in the current browser; errors saving it are visible, and deleting another conversation does not change the open conversation.
+- Conversation history is stored in the current browser; only online turns are eligible for later online request context. Errors saving history are visible, and deleting another conversation does not change the open conversation.
 
 ## Source structure
 
@@ -87,7 +105,7 @@ This deploys the web app, not the GPU model. The medical model runs on Hugging F
 - `frontend/src/services/firstAidGuides.js`: active guide library with scope, source links, and check dates.
 - `frontend/src/services/chatPrompt.js`: bounded recent history and relevant complete reference blocks.
 - `frontend/src/services/onlineMedicalService.js`: lazy Gradio client, timeout/cancellation, explicit errors.
-- `frontend/src/services/webllmService.js`: optional local engine and explicit custom-model configuration.
+- `frontend/src/services/webllmService.js`: automatically prepared browser engine, cache reuse, interrupted-stream draining and failed-worker recovery.
 - `huggingface-space/`: GPU service repair and GPU-free prompt/output regression tests.
 - `backend/`: legacy optional Express/MongoDB/Gemini/TTS pipeline, not deployed by this frontend project.
 
@@ -97,7 +115,18 @@ The historical `frontend/public/medical-knowledge.json` and `packs/learned.json`
 
 Automated checks cover guide matching, excluding adult instructions for explicitly pediatric requests, complete source/context bounds, conversation persistence and deletion, and Space prompt/output behavior. Browser checks cover phone layouts, unavailable WebGPU, navigation, and offline reload. Responsive emulation is not a physical-device certification.
 
-See [IMPROVEMENTS.md](IMPROVEMENTS.md) for the prioritized next steps and remaining model blocker.
+Real hardware checks on Apple Metal verified automatic loading, cached offline
+reload (about five seconds), and generation without model-network requests. This
+is not a physical iPhone/Android certification. The current browser Llama refused
+basic cut/burn questions during evaluation. Qwen 0.6B and 1.7B comparisons answered
+but omitted or contradicted source guidance, so they were not silently substituted
+for the owner's model. Functional offline AI is established; reliable offline
+medical answer quality remains work to do.
+
+See [IMPROVEMENTS.md](IMPROVEMENTS.md) and the [learning plan](evaluations/README.md)
+for next steps. The historical Space prompt is preserved in
+[evaluations/original-space-prompt.txt](evaluations/original-space-prompt.txt).
+No new fine-tuning job has been launched.
 
 ## Team
 

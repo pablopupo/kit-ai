@@ -1,7 +1,10 @@
 import {
   CreateWebWorkerMLCEngine,
   prebuiltAppConfig,
+  hasModelInCache,
 } from '@mlc-ai/web-llm'
+import { LOCAL_MODEL_ID } from './localModelConfig'
+import { MAX_RESPONSE_TOKENS } from './chatPrompt'
 import { devLog, devWarn } from '../utils/devLog'
 
 const CUSTOM_MODEL_URL = import.meta.env.VITE_WEBLLM_MODEL_URL
@@ -17,13 +20,17 @@ const customModelRecord = CUSTOM_MODEL_URL
     }
   : null
 
-const DEFAULT_MODEL = customModelRecord ? CUSTOM_MODEL_ID : 'Llama-3.2-1B-Instruct-q4f32_1-MLC'
+const DEFAULT_MODEL = LOCAL_MODEL_ID
+const appConfig = { ...prebuiltAppConfig, useIndexedDBCache: true, model_list: customModelRecord ? [...prebuiltAppConfig.model_list, customModelRecord] : prebuiltAppConfig.model_list }
+
+export function isModelCached() { return hasModelInCache(DEFAULT_MODEL, appConfig) }
 
 let engine = null
 let worker = null
 let initPromise = null // Guards against concurrent init calls (e.g. StrictMode)
 
-export async function initEngine(modelId = DEFAULT_MODEL, onProgress) {
+export async function initEngine(modelId = DEFAULT_MODEL, onProgress, signal) {
+  if (signal?.aborted) throw new DOMException('Paused', 'AbortError')
   if (CUSTOM_MODEL_URL && !CUSTOM_MODEL_LIB) {
     throw new Error('A custom local model needs MLC-format weights and a matching VITE_WEBLLM_MODEL_LIB. A bitsandbytes Hugging Face repository cannot run in WebLLM.')
   }
@@ -48,14 +55,6 @@ export async function initEngine(modelId = DEFAULT_MODEL, onProgress) {
       { type: 'module' }
     )
 
-    const appConfig = {
-      ...prebuiltAppConfig,
-      useIndexedDBCache: true,
-      model_list: customModelRecord
-        ? [...prebuiltAppConfig.model_list, customModelRecord]
-        : prebuiltAppConfig.model_list,
-    }
-
     const engineConfig = {
       appConfig,
       initProgressCallback: (report) => {
@@ -67,9 +66,14 @@ export async function initEngine(modelId = DEFAULT_MODEL, onProgress) {
       logLevel: 'WARN',
     }
 
+    let abort
+    const cancelled = new Promise((_, reject) => {
+      abort = () => reject(new DOMException('Paused', 'AbortError'))
+      signal?.addEventListener('abort', abort, { once: true })
+    })
     devLog('[WebLLM] Creating engine...')
     try {
-      engine = await CreateWebWorkerMLCEngine(worker, modelId, engineConfig)
+      engine = await Promise.race([CreateWebWorkerMLCEngine(worker, modelId, engineConfig, { context_window_size: 4096, prefill_chunk_size: 128 }), cancelled])
       devLog('[WebLLM] Engine created successfully!', { hasEngine: !!engine })
       return engine
     } catch (error) {
@@ -79,9 +83,10 @@ export async function initEngine(modelId = DEFAULT_MODEL, onProgress) {
         worker.terminate()
         worker = null
       }
-      console.error('[WebLLM] Failed to create engine:', error)
+      if (error.name !== 'AbortError') console.error('[WebLLM] Failed to create engine:', error)
       throw error
     } finally {
+      signal?.removeEventListener('abort', abort)
       initPromise = null
     }
   })()
@@ -147,40 +152,56 @@ export async function unloadEngine() {
   }
 }
 
-export function hasWebGPU() {
-  return typeof navigator !== 'undefined' && typeof navigator.gpu?.requestAdapter === 'function'
+// A failed worker may never acknowledge unload(). Terminating it is also what
+// releases its pending requests and GPU resources before a subsequent retry.
+export function invalidateEngine() {
+  const failedWorker = worker
+  engine = null
+  worker = null
+  failedWorker?.terminate()
 }
 
-export function interruptGeneration() {
-  engine?.interruptGenerate()
-}
-
-/**
- * Checks WebGPU in Worker context (where WebLLM runs). Fails fast before model download.
- * Returns { supported: boolean, error?: string }
- */
-export async function checkWebGPUInWorker() {
-  if (!hasWebGPU()) {
-    return { supported: false, error: 'WebGPU API not found' }
+export async function collectResponse(chunks, { signal, onStream, language = 'en', onInterrupt } = {}) {
+  let response = ''
+  let finishReason
+  let drainInterrupted = false
+  for await (const chunk of chunks) {
+    if (signal?.aborted) {
+      // WebLLM's worker releases its generation lock only after the final chunk
+      // is consumed. Returning/throwing here would strand the next request.
+      if (!drainInterrupted) { onInterrupt?.(); drainInterrupted = true }
+      continue
+    }
+    response += chunk.choices[0]?.delta?.content ?? ''
+    finishReason = chunk.choices[0]?.finish_reason ?? finishReason
+    onStream?.(response)
   }
-  return new Promise((resolve) => {
-    const worker = new Worker(
-      new URL('../worker/webgpu-check-worker.js', import.meta.url),
-      { type: 'module' }
-    )
-    const timeout = setTimeout(() => {
-      worker.terminate()
-      resolve({ supported: false, error: 'WebGPU check timed out' })
-    }, 5000)
-    worker.onmessage = (e) => {
-      clearTimeout(timeout)
-      worker.terminate()
-      resolve(e.data)
-    }
-    worker.onerror = (err) => {
-      clearTimeout(timeout)
-      worker.terminate()
-      resolve({ supported: false, error: err?.message || 'Worker error' })
-    }
-  })
+  if (signal?.aborted) throw new DOMException('Stopped', 'AbortError')
+  if (!response.trim()) throw new Error('The model returned no answer.')
+  if (finishReason === 'length') {
+    response += language === 'es'
+      ? '\n\nEsta respuesta alcanzó su límite de longitud y puede estar incompleta. Consulta la guía enlazada o pide los pasos restantes.'
+      : '\n\nThis response reached its length limit and may be incomplete. Check the linked guide or ask for the remaining steps.'
+    onStream?.(response)
+  }
+  return response
 }
+
+export async function generateReply(messages, { signal, onStream, language = 'en' } = {}) {
+  if (signal?.aborted) throw new DOMException('Stopped', 'AbortError')
+  const stop = () => interruptGeneration()
+  signal?.addEventListener('abort', stop, { once: true })
+  try {
+    const chunks = await chat(messages, { stream: true, max_tokens: MAX_RESPONSE_TOKENS, temperature: 0.2 })
+    return await collectResponse(chunks, { signal, onStream, language, onInterrupt: stop })
+  } catch (error) {
+    if (error?.name !== 'AbortError') invalidateEngine()
+    throw error
+  } finally {
+    signal?.removeEventListener('abort', stop)
+  }
+}
+
+export { hasWebGPU, checkWebGPUInWorker } from './webgpuSupport'
+
+export function interruptGeneration() { engine?.interruptGenerate() }

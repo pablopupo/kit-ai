@@ -2,6 +2,25 @@
 
 ## Improve model quality and reliability
 
+The current release has automatic offline preparation, one Ask Kit flow and full
+English/Spanish UI, guides and search. It prefers the owner's fine-tuned online
+model when connected. The browser model is still a separate experimental model.
+The owner chose to retain generated answers rather than replace offline chat with
+guide-only answers. On devices where generation cannot run, guides remain the
+fallback.
+
+Real Apple Metal testing established cache reuse and offline generation. It also
+reproduced medical refusals in the browser Llama. Qwen 0.6B and 1.7B were compared
+on identical English/Spanish cut and burn prompts; 1.7B improved but still missed
+warning signs and added unsupported statements. Do not equate fewer refusals with
+better medical reliability. Keep these as evaluation candidates.
+
+No training notebook or dataset was found in the public Hugging Face inventory or
+nine reachable repository revisions. The config suggests an Unsloth export. The
+original inference prompt was recovered and preserved; Colab/Drive or private files
+may still contain the training recipe. See [the learning plan](evaluations/README.md).
+
+
 The repaired Hugging Face Space is deployed on its existing ZeroGPU hardware. On
 2026-09-18, the intended model answered a scrape-care question through the live
 mobile frontend and a first-aid-kit question through the official Gradio client.
@@ -13,20 +32,20 @@ The latter request took 17.24 seconds. Neither returned a blanket refusal.
 
 ## Highest-value product improvements
 
-- **Reliable references first:** expand beyond the initial six guides using authoritative sources, age-specific scope, date checks and review ownership. The current summaries are source-checked, not clinically validated.
+- **Reliable references first:** expand beyond the initial six guides using authoritative sources, age-specific scope, date checks and review ownership. The current summaries are source-checked, not clinically validated. Add retrieval tests for ambiguous queries and follow-ups; current matching is lexical, not semantic.
 - **Offline preparation:** show storage availability, cache completion, model download size/progress, and a single readiness check before travel. Browsers can evict cached data.
 - **Mobile device testing:** test real iPhone Safari and Android Chrome with the keyboard open, weak connectivity, low memory, installed PWA mode and a cold offline launch.
 - **Model conversion:** if the specific medical model must run offline, recover the original unquantized/merged checkpoint, convert and quantize to MLC, then compile the matching runtime. Benchmark memory/latency on target phones before making it a default.
 - **Reliable online serving:** measure ZeroGPU cold starts, quota failures and generation time. If those prevent the desired experience, price a dedicated inference endpoint before committing to paid hosting.
 - **Privacy controls:** add explicit optional history retention, export and delete-all controls; review any future analytics or speech providers before sending health-related content.
-- **Localization:** provide reviewed translations of guides before advertising multilingual first aid. English is the supported guide language in this iteration.
+- **Localization review:** English and Spanish are now implemented. Obtain qualified review of both the guide translations and generated medical answers before expanding languages.
 
 ## Completed in this cleanup
 
 - Guides remain accessible without WebGPU or any model download.
-- Online mode names the intended medical model and explains Hugging Face transmission.
-- Local mode labels the general-purpose model honestly and validates custom MLC configuration.
-- Prompts answer ordinary general-health questions, include only relevant references and bound conversation size.
+- Connected requests use the intended medical model and explain Hugging Face transmission; device-only history is excluded.
+- Model details explain the distinct browser and fine-tuned server models; automatic routing removes the chat mode selector.
+- Prompts request useful general-health answers, include relevant complete references, preserve questions and bound UTF-8 context. Actual behavior still depends on the model.
 - Online requests have a deadline, stop action and actionable failure state.
 - Mobile navigation, keyboard sizing, accessible composer and PWA assets improved.
 - Chat history teardown/delete bugs fixed; storage failures do not silently erase saved history.
@@ -37,3 +56,5 @@ The latter request took 17.24 seconds. Neither returned a blanket refusal.
 ## What has not been established
 
 Clinical accuracy, real-device performance across phones, a converted offline medical checkpoint, or deployment of the legacy backend. Treat these as explicit follow-up work rather than shipped capabilities.
+
+- Current checks: 39 frontend tests pass, including bilingual retrieval, prompt budgets, stop/retry lifecycle and privacy routing. Browser tests cover offline EN/ES guides and chat fallback, pause/resume, preferences and responsive layouts.

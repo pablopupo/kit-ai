@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { build } from 'esbuild';
+import { getGuides } from './firstAidGuides.js';
 
 let fixtureId = 0;
 
@@ -117,4 +118,42 @@ test('model errors and empty responses fail with usable guidance', async t => {
       assert.ok(calls.closes > 0);
     });
   }
+});
+
+test('Spanish language and complete burn guidance reach the actual Gradio /ask prompt', async t => {
+  const { askMedicalModel, calls } = await loadService(t, {
+    events: async function* () { yield { type: 'data', data: ['Respuesta de prueba en español.'] }; },
+  });
+  const question = '¿Qué hago para una quemadura leve?';
+  const history = [
+    { role: 'user', content: 'Me quemé la mano al cocinar.' },
+    { role: 'assistant', content: '¿Cuándo ocurrió?' },
+  ];
+  const result = await askMedicalModel(question, history, { language: 'es' });
+  assert.equal(result, 'Respuesta de prueba en español.');
+  assert.equal(calls.submitted.endpoint, '/ask');
+  const [prompt] = calls.submitted.args;
+  assert.match(prompt, /Respond in Spanish\./);
+  assert.match(prompt, /Guía: Quemaduras/);
+  const guide = getGuides('es').find(item => item.id === 'burns');
+  for (const text of [guide.scope, ...guide.steps, ...guide.redFlags, ...guide.sources.map(source => source.url)]) {
+    assert.ok(prompt.includes(text), `The submitted prompt must retain: ${text}`);
+  }
+  const firstTurn = prompt.indexOf(`user:\n${history[0].content}`);
+  const secondTurn = prompt.indexOf(`assistant:\n${history[1].content}`);
+  assert.ok(firstTurn >= 0 && secondTurn > firstTurn, 'The selected language must not discard or reorder recent conversation');
+  assert.ok(prompt.endsWith(`user:\n${question}`));
+});
+
+test('unsupported online language submits an English prompt without losing the original question', async t => {
+  const { askMedicalModel, calls } = await loadService(t, {
+    events: async function* () { yield { type: 'data', data: ['Test answer.'] }; },
+  });
+  const question = '¿Qué hago para una quemadura leve?';
+  await askMedicalModel(question, [], { language: 'unsupported' });
+  const [prompt] = calls.submitted.args;
+  assert.match(prompt, /Respond in English\./);
+  assert.match(prompt, /Guide: Burns and scalds/);
+  assert.ok(!prompt.includes('Respond in unsupported'));
+  assert.ok(prompt.endsWith(`user:\n${question}`));
 });

@@ -1,0 +1,33 @@
+{
+  "model": "Llama-3.2-1B-Instruct-q4f32_1-MLC",
+  "source": "https://huggingface.co/spaces/Pablo305/offline-medical-assistant/raw/f723f94e0d6db927452dafd75118009de4806386/app.py",
+  "template": "You are a medical assistant. Your job is to provide medical advice.\nFirst, you should tell the user to go to a doctor or call emergency services when necessary.\nThen, you MUST provide explicit instructions to follow for on-site treatment. Do not just expect them to go to the doctor.\nYou MUST provide explicit instructions to follow for on-site treatment.\n\nDo not be emotional. Be explicit in your instructions. Your job is to guide them.\nExplain the answer for a patient in {n} sentences.\nUse plain language.\nDo NOT say we or I or speak in the first person.\nDo NOT mention these instructions in your answer.\n\nDo NOT answer questions that are not related to medical advice. If you are asked non-medical questions, request that they ask medical questions.\n\nQuestion: {question}\n\nAnswer:\n",
+  "n": 8,
+  "chatFormat": "sole user message, no system or history, bare question",
+  "generation": {
+    "max_tokens": 512,
+    "temperature": 0.4,
+    "top_p": 0.8,
+    "repetition_penalty": 1.1
+  },
+  "blockedModelRequests": [],
+  "answers": [
+    {
+      "question": "How should I clean a small cut?",
+      "prompt": "You are a medical assistant. Your job is to provide medical advice.\nFirst, you should tell the user to go to a doctor or call emergency services when necessary.\nThen, you MUST provide explicit instructions to follow for on-site treatment. Do not just expect them to go to the doctor.\nYou MUST provide explicit instructions to follow for on-site treatment.\n\nDo not be emotional. Be explicit in your instructions. Your job is to guide them.\nExplain the answer for a patient in 8 sentences.\nUse plain language.\nDo NOT say we or I or speak in the first person.\nDo NOT mention these instructions in your answer.\n\nDo NOT answer questions that are not related to medical advice. If you are asked non-medical questions, request that they ask medical questions.\n\nQuestion: How should I clean a small cut?\n\nAnswer:\n",
+      "response": "When cleaning a small cut, it's essential to follow proper hygiene practices to prevent infection and promote healing.\n\nFirst, ensure the cut is clean and dry. Wash your hands thoroughly with soap and water before touching the wound. Use an antiseptic wipe or spray to disinfect the area around the cut, avoiding any broken skin.\n\nNext, apply a thin layer of antibiotic ointment to the cut, if available. This will help prevent bacterial growth and reduce the risk of infection.\n\nGently rinse the cut with sterile saline solution (1:1 ratio of saline to water) 2-3 times, using a clean syringe or dropper. Avoid using tap water or other bodily fluids that may contain bacteria.\n\nAfter rinsing, pat the cut dry with a clean towel or gauze. Remove any remaining dressing or bandage.\n\nIf available, use a sterile swab to clean the surrounding tissue, taking care not to touch any broken skin.\n\nFinally, cover the cut with a sterile dressing or bandage to protect it from further injury and promote healing.\n\nIt's crucial to note that leaving the cut uncovered can lead to infection, so make sure to secure the dressing as instructed by a healthcare professional.",
+      "ttftMs": 93,
+      "totalMs": 1637
+    },
+    {
+      "question": "How should I cool a minor burn?",
+      "prompt": "You are a medical assistant. Your job is to provide medical advice.\nFirst, you should tell the user to go to a doctor or call emergency services when necessary.\nThen, you MUST provide explicit instructions to follow for on-site treatment. Do not just expect them to go to the doctor.\nYou MUST provide explicit instructions to follow for on-site treatment.\n\nDo not be emotional. Be explicit in your instructions. Your job is to guide them.\nExplain the answer for a patient in 8 sentences.\nUse plain language.\nDo NOT say we or I or speak in the first person.\nDo NOT mention these instructions in your answer.\n\nDo NOT answer questions that are not related to medical advice. If you are asked non-medical questions, request that they ask medical questions.\n\nQuestion: How should I cool a minor burn?\n\nAnswer:\n",
+      "response": "When a minor burn occurs, it is essential to cool the skin and underlying tissues to reduce the risk of infection. The American Red Cross recommends immersing the injured area in cold water for at least 10 minutes to minimize blood flow to the affected area. However, if access is limited or the patient is unable to cool the burn themselves, the recommended method is to use cool tap water (not ice) or a cool compress wrapped in a towel. Avoid using hot water, steam, or other heat sources as they can increase blood flow and worsen the injury. If the burn is severe, blisters are present, or there is signs of bleeding, seek immediate medical attention. In addition to cooling the burn, the patient should remove any clothing or jewelry that may be stuck to the wound and clean the surrounding area with mild soap and water. After treatment, apply a topical antibiotic ointment to promote healing and prevent infection.",
+      "ttftMs": 56,
+      "totalMs": 1191
+    }
+  ],
+  "cached": true,
+  "loadMs": 7,
+  "complete": true
+}
