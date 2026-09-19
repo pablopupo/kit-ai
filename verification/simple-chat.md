@@ -1,5 +1,9 @@
 # One offline AI chat
 
+The implementation and results below describe the simplified-chat release.
+The subsequent iPhone GPU-limit correction is now live; see
+[current release and verification](phone-gpu-limits.md).
+
 Published at [Kit AI](https://kit-ai-pablopupo.vercel.app/) in Vercel deployment
 `dpl_FbxruYYgfySeUGBGLN2n3mU1S8uN`, main bundle `index-aFo-3uUA.js`.
 

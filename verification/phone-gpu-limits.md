@@ -1,5 +1,15 @@
 # Medical model GPU limit correction
 
+Published on 2026-09-19 at [Kit AI](https://kit-ai-pablopupo.vercel.app/),
+deployment `dpl_DuBgCwKJk7yKYzvkKXkjzuvMvXyw`, from correction commit `c4185cf`.
+The live main bundle is `index-vwvTw2c3.js`. Its served inference worker hash
+matches the original worker used in the constrained-GPU test exactly. Fresh
+English/Spanish live checks show the download offer, no model request before
+approval, no page errors and no horizontal overflow. The production build also
+includes extra unused CSS utilities discovered in the new regression test file;
+the GPU worker is byte-identical to the verified worker. See
+`phone-gpu-limits-live-results.json`.
+
 ## Reported failure
 
 The owner's iPhone help report on 2026-09-19 showed the small app saved, but
@@ -68,6 +78,12 @@ It cannot reproduce iOS memory pressure, WebKit behavior, thermal limits, or
 physical airplane mode. Fresh offline answers on the owner's iPhone and on an
 Android phone remain required. Successful generation is also separate from
 medical accuracy; prior evaluation failures remain open.
+
+For the physical retest, open Kit while connected, let the small update save,
+then close and reopen it in the same browser. Approve the download on Wi-Fi if
+offered. Wait for “Ready without internet,” enable airplane mode with Wi-Fi off,
+reopen Kit and ask a fresh synthetic question. Do not clear browser storage:
+that would remove saved files and require another download.
 
 WebGPU validates against the **requested device limits**, not the adapter's
 maximum: [WebGPU required limits](https://www.w3.org/TR/webgpu/#dom-gpudevicedescriptor-requiredlimits).
