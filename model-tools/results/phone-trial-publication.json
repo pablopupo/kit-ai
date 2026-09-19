@@ -1,0 +1,1227 @@
+{
+  "schema": "kit-ai-model-publication-v1",
+  "checkedAt": "2026-09-19T21:54:14.442143+00:00",
+  "repo": "Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC",
+  "revision": "34f6aa7d8fb5608dc2585e6660b982610ca4bc28",
+  "localFileCount": 67,
+  "localBytes": 1830911064,
+  "localChecks": {
+    "shards": 58,
+    "tensors": 283,
+    "quantization": "q4f16_1",
+    "runtimeSha256": "34de0d60ab598c6a85ae882b48474f250193076f902057a21070bb2daae96d5b"
+  },
+  "scope": "Publication integrity and browser CORS only; not phone inference or medical validation.",
+  "previousAttempts": [
+    {
+      "checkedAt": "2026-09-19T21:52:13.708691+00:00",
+      "failures": [
+        {
+          "file": "params_shard_49.bin",
+          "errors": [
+            "URLError: <urlopen error [Errno 60] Operation timed out>"
+          ]
+        },
+        {
+          "file": "params_shard_5.bin",
+          "errors": [
+            "URLError: <urlopen error [Errno 60] Operation timed out>"
+          ]
+        },
+        {
+          "file": "params_shard_50.bin",
+          "errors": [
+            "URLError: <urlopen error [Errno 60] Operation timed out>"
+          ]
+        },
+        {
+          "file": "params_shard_51.bin",
+          "errors": [
+            "URLError: <urlopen error [Errno 60] Operation timed out>"
+          ]
+        },
+        {
+          "file": "params_shard_52.bin",
+          "errors": [
+            "URLError: <urlopen error [Errno 60] Operation timed out>"
+          ]
+        },
+        {
+          "file": "params_shard_53.bin",
+          "errors": [
+            "URLError: <urlopen error [Errno 60] Operation timed out>"
+          ]
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "file": "LICENSE",
+      "size": 7669,
+      "sha256": "8cc15535a8a34b41888f644b339a1a9eb428af793a4f5e24df58a3e5b1487d74",
+      "errors": [],
+      "hashMethod": "download-sha256"
+    },
+    {
+      "file": "NOTICE",
+      "size": 185,
+      "sha256": "a6cd5b8df1b7f5a821982e2e9c22006baf0ae0d27072c6f1888e54ef667f6165",
+      "errors": [],
+      "hashMethod": "download-sha256"
+    },
+    {
+      "file": "README.md",
+      "size": 2864,
+      "sha256": "030ad25dcbf4b3f1f7ca30895b55a23a1399b79976075f4028597fc896e8edf9",
+      "errors": [],
+      "hashMethod": "download-sha256"
+    },
+    {
+      "file": "RUNTIME-LICENSE",
+      "size": 11726,
+      "sha256": "87935f332472db09253871326ef23d5d6a45f4fd2e6c96772f72052866dfab0d",
+      "errors": [],
+      "hashMethod": "download-sha256"
+    },
+    {
+      "file": "mlc-chat-config.json",
+      "size": 2490,
+      "sha256": "7c1436fa2b68e4b5f76a5a5a68f6d2a98e55d2cb9a387200ced9cbc8c917d04a",
+      "errors": [],
+      "hashMethod": "download-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "https://kit-ai-pablopupo.vercel.app",
+        "contentType": "text/plain; charset=utf-8",
+        "redirects": [
+          {
+            "status": 307,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "model.wasm",
+      "size": 6131270,
+      "sha256": "34de0d60ab598c6a85ae882b48474f250193076f902057a21070bb2daae96d5b",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/wasm",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_0.bin",
+      "size": 197001216,
+      "sha256": "d3944f6fda1cc62c8557760c80503c296ea047a26caf358687f06e78b8c25c87",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_1.bin",
+      "size": 33472512,
+      "sha256": "2cb8a6c76c903756425b182f235e8fea49e653e103f93f6fc4b29bb05805ab8e",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_10.bin",
+      "size": 31469568,
+      "sha256": "05213da5d705c3567a47e7d201dbf1c8219f2cd3f1a10e2ccd53fe867e39071c",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_11.bin",
+      "size": 25165824,
+      "sha256": "cc9421ebf7e9a57f141c6f9f9f04c80f9c2437bb1c858c78171dc82771603aba",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_12.bin",
+      "size": 31469568,
+      "sha256": "f05521ed55de9d201a97b2036212ca35ef9e6a4c569c4c88d4c5b79b6ef4779d",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_13.bin",
+      "size": 25165824,
+      "sha256": "46ae33cff21968403588524719798720febbb5efb62ddd638cf2f03bc22e818a",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_14.bin",
+      "size": 31469568,
+      "sha256": "a6f5a0844602d698c1e711081225f0c3c89be67abae624b40db5e7121273e9df",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_15.bin",
+      "size": 25165824,
+      "sha256": "6cd5f95f25ecbd489549a56e5515c3273f72c0988021af4f7a4670f3c73b2a63",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_16.bin",
+      "size": 31469568,
+      "sha256": "7e24cfdc38287faa037c0a0ffa0592506b2100196f8982a4f94d49d842200e0f",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_17.bin",
+      "size": 25165824,
+      "sha256": "4d57bb4067bbbddd1960ad74c1790bcc9a5d41b9c3ecb6325cb9f0b373ca5066",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_18.bin",
+      "size": 31469568,
+      "sha256": "e419125a19e8f04352ab359c520947289e5b56ef19d6b02405d5052e1edcc703",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_19.bin",
+      "size": 25165824,
+      "sha256": "591fde6ffa9ab0d67526b2b9e81b2053eb1aac9b04c5f8a5c2ba7fcfedb82ed0",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_2.bin",
+      "size": 30474240,
+      "sha256": "f6f347da904857faa37ff460331ca063557d6c3a310f888bd9175614d5528f4b",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_20.bin",
+      "size": 31469568,
+      "sha256": "9c1cc16174900b20784389ecd17b60dc1231ddfc759c8d73622e55c15529f3f9",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_21.bin",
+      "size": 25165824,
+      "sha256": "863c84552356cd1e7c1ae3edeca18df2a13fc2eeb3b72fe29de5f6fa6e48bfde",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_22.bin",
+      "size": 31469568,
+      "sha256": "c96607795f8f90a4843c1cd41f9f1dddae7c1f162c729bcf9252ce5d2c4b4bff",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_23.bin",
+      "size": 25165824,
+      "sha256": "b4bdfd6f2af36721d154c3acbb9a6192cf755bece6afdbc8852dcbb6debeb1b1",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_24.bin",
+      "size": 31469568,
+      "sha256": "bb2cad340c704d4cac7c6943cc5f5021d1f9f32496b68f66000c0bee5c1d6fa2",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_25.bin",
+      "size": 25165824,
+      "sha256": "2105c4faf74fac354028e9bc648db31db8e4abf0686dd9c20bb266f4f769e8fc",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_26.bin",
+      "size": 31469568,
+      "sha256": "21c3e8179b082594c9bd70ec00101a161195d50688b4e5086ee90780ebe1ae94",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_27.bin",
+      "size": 25165824,
+      "sha256": "0382d6cc68a961694a16308434fd1c294165a70faa3d9d048654a1d696b78574",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_28.bin",
+      "size": 31469568,
+      "sha256": "38b0603d9fa85ede904f7e5b980b0e4f2bd374ba316e05b95afff5baaab08f67",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_29.bin",
+      "size": 25165824,
+      "sha256": "630f13cd6e0c76271f3e0054319188d247ada2c5ca36cc8331baf672fa4b83b8",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_3.bin",
+      "size": 25165824,
+      "sha256": "c7658a6177de1452afcbfdbf1f9bb8d6137b38e8bccacce68cf80b2197008547",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_30.bin",
+      "size": 31469568,
+      "sha256": "212ceb538c6042bb0a441b4f09c22f18cd3e3f537d81925bb649afce242188f2",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_31.bin",
+      "size": 25165824,
+      "sha256": "388b31aa466173c4cc0cd80a6ea13fb7028c7ae0fd94e2e1c26460b9a4dc09f9",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_32.bin",
+      "size": 31469568,
+      "sha256": "f7dacc90df7d880e30678bfcbfdf3efd05b5bfa421e772a392fb0e5177eef861",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_33.bin",
+      "size": 25165824,
+      "sha256": "2589a5007dafce33f2f9a3841c82dc7fdd4f9e180a2b06442da937141af041bc",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_34.bin",
+      "size": 31469568,
+      "sha256": "ab9db53eec0b289cc75c4ca88dbbcf34cf2447531450a3d2fb0c99aed38f8737",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_35.bin",
+      "size": 25165824,
+      "sha256": "98a43c97b30c75c0f6a4ab37c91ba4fe068038c4a6d61d5755b1def3905bae6e",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_36.bin",
+      "size": 31469568,
+      "sha256": "9ee5b437fad3fd29a6777fd0da9dc7bbd0e9d704b1fba4f58a0c1086e85b1cdb",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_37.bin",
+      "size": 25165824,
+      "sha256": "0606d8273603478594e6d4a0fdbe5ed05267b65f961a279d35d41a062e6cc930",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_38.bin",
+      "size": 31469568,
+      "sha256": "95628b78c728fc3ace02a45d2ab437210168f2383c8fbd41b94612fa1290aeb3",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_39.bin",
+      "size": 25165824,
+      "sha256": "aaa8f40bc9544a5347817c14b8d069192b809535a8ee719872274e55e492f3ea",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_4.bin",
+      "size": 31469568,
+      "sha256": "741acb76a021a2410e09cde5c887b1b2f6c410be11b79a9329e430e8b7c82f0f",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_40.bin",
+      "size": 31469568,
+      "sha256": "8fd78e3ce53b61d103e00f8b12490bb2f677d76ddabec5101f29c28b9fa38ab3",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_41.bin",
+      "size": 25165824,
+      "sha256": "9a80eacac0d0b69a2e7f669782f1c7cb631e7e3c67fe4890ed7734feee92bd2b",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_42.bin",
+      "size": 31469568,
+      "sha256": "49278fbae0fe912a37ea1e132c5982dd1dc49bb740cee4bb53a8fc5e6b957076",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_43.bin",
+      "size": 25165824,
+      "sha256": "b9cc03d41bc797f45d95514b2ef3c0bfa655dd9d797613acec72ffdda800e043",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_44.bin",
+      "size": 31469568,
+      "sha256": "3a5d684fb7e6e54bb1e1d52f86bbfbb548f74e5390286afa982946bb06d10a53",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_45.bin",
+      "size": 25165824,
+      "sha256": "b60ac0be6bab97a064e5662500393c6ac233020d6b1365c413bc6e8ffa9a685b",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_46.bin",
+      "size": 31469568,
+      "sha256": "54f1d7289dc66949177a2dbeebd6f4f52dd434ab2d0953fe03799d2c2bdcbf02",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_47.bin",
+      "size": 25165824,
+      "sha256": "904b270a7f305e9983c6cc3c6c37484111659ff3c2db2584d1fce2c7b11b9fd8",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_48.bin",
+      "size": 31469568,
+      "sha256": "d3462a36148ca8e26bc34fc36be7b562e815f68a5b906319769006492b0783a4",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_49.bin",
+      "size": 25165824,
+      "sha256": "ee57c5ceaeee2ffeaac5b232aad35b204ccb7b4c41fcb4f6242964b9e889bee0",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_5.bin",
+      "size": 25165824,
+      "sha256": "d73235d4d16c4c3f4662d58ce19ff24ef8f23db705fc31c79328514423219055",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_50.bin",
+      "size": 31469568,
+      "sha256": "5b6e94b1095bea6135b75f7c14646687ba82b0a3b38e56c96c69a02d35bca9c9",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_51.bin",
+      "size": 25165824,
+      "sha256": "d319d1926bf105e6d747724ff3250134d183b4693f34432b1928b299f3e74f64",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_52.bin",
+      "size": 31469568,
+      "sha256": "f62ddf44141a98093cf451d54053113ef0d02799137be96321b41daf35cbfbee",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_53.bin",
+      "size": 25165824,
+      "sha256": "f01c0fb40184688a5a6f13cbb9fd4a8387fa00d45cf0fc6e49a180da698fcc88",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_54.bin",
+      "size": 31469568,
+      "sha256": "4adab552da9046ae23f972447449c332301c04c3230db52c0649da506059389e",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_55.bin",
+      "size": 25165824,
+      "sha256": "0dfa91aa27deb24f3e0ee1c11e0561ec0117ef120c94652f74cdd7c785a97012",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_56.bin",
+      "size": 31469568,
+      "sha256": "f7eb5a226cbec0ee71537cebe2e726cd9c1e5a17cb1f2a7b367ad678e4d6bbda",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_57.bin",
+      "size": 17319936,
+      "sha256": "fed3c11c525607278953f50ed95aaa7931a139b8aa3808b58f9c9357da520fa5",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_6.bin",
+      "size": 31469568,
+      "sha256": "1b92ba7812dfead790106f3c77fb98233c5f58bbcdc6660b08d0f711c92ae7d6",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_7.bin",
+      "size": 25165824,
+      "sha256": "9ed5069f2b60a3d699486d5fdd6d02e78c63d72a3f7cf79cb5e42dd29b54e435",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_8.bin",
+      "size": 31469568,
+      "sha256": "d984bc3bbe4cd5f1ee076024b2611cde96d9aca841c6101026489bde99a2f146",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "params_shard_9.bin",
+      "size": 25165824,
+      "sha256": "fb8f501b5178fd653493f79cb332d48407945b59f5d2bc284036226f3a7ead1e",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/octet-stream",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "tensor-cache.json",
+      "size": 121026,
+      "sha256": "76b9e3a0bcbe881ff2c7422e2ac71c7ee07efd734649abc0dcd47c870061ef58",
+      "errors": [],
+      "hashMethod": "download-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "https://kit-ai-pablopupo.vercel.app",
+        "contentType": "text/plain; charset=utf-8",
+        "redirects": [
+          {
+            "status": 307,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "tokenizer.json",
+      "size": 17209920,
+      "sha256": "6b9e4e7fb171f92fd137b777cc2714bf87d11576700a1dcd7a399e7bbe39537b",
+      "errors": [],
+      "hashMethod": "public-lfs-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "*",
+        "contentType": "application/json; charset=utf-8",
+        "redirects": [
+          {
+            "status": 302,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    },
+    {
+      "file": "tokenizer_config.json",
+      "size": 426,
+      "sha256": "e4b91e9a8f1753ac8fa3e3c4d996edf69ea658bec2668944283ea829ad313655",
+      "errors": [],
+      "hashMethod": "download-sha256",
+      "delivery": {
+        "status": 200,
+        "allowOrigin": "https://kit-ai-pablopupo.vercel.app",
+        "contentType": "text/plain; charset=utf-8",
+        "redirects": [
+          {
+            "status": 307,
+            "allowOrigin": "https://kit-ai-pablopupo.vercel.app"
+          }
+        ]
+      }
+    }
+  ],
+  "extraFiles": [
+    ".gitattributes"
+  ],
+  "verifiedFileCount": 67,
+  "publicVerified": true
+}

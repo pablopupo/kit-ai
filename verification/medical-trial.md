@@ -8,15 +8,28 @@ The speech provider is not mounted for this route.
 
 ## Publication status
 
-The converted 3B weights and matching runtime are staged locally in
-`../model-conversion/phone-trial-upload/`. The intended distinct repository is
-`Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC`. The model card is tracked in
-`model-tools/phone-trial-model-card.md`. The original checkpoint is unchanged.
+Published on 2026-09-19 in the distinct repository
+[`Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC`](https://huggingface.co/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC).
+`medicalTrialConfig.js` pins both the weights and runtime to immutable revision
+`34f6aa7d8fb5608dc2585e6660b982610ca4bc28`. The original checkpoint is unchanged.
+The model card is tracked in `model-tools/phone-trial-model-card.md`.
 
-**Upload is pending Hugging Face authentication.** `MEDICAL_TRIAL_RECORD` remains
-null until the uploaded files are verified and an immutable commit is set in
-`medicalTrialConfig.js`. The route truthfully shows that the trial is unavailable
-and offers no download. Do not set a guessed revision or use a mutable main URL.
+Anonymous publication verification matched all 67 staged files and 1,830,911,064
+bytes against public sizes and SHA-256 hashes. All 63 browser assets passed CORS
+checks on redirects and final responses. Six transient header-request timeouts
+cleared on one targeted retry; the report retains those initial failures.
+See [`phone-trial-publication.json`](../model-tools/results/phone-trial-publication.json)
+and `model-tools/verify_phone_trial_publication.py`. These checks establish
+publication integrity, not successful phone inference or medical accuracy.
+
+The trial is deployed at
+[`https://kit-ai-pablopupo.vercel.app/?trial=medical3b`](https://kit-ai-pablopupo.vercel.app/?trial=medical3b)
+in Vercel deployment `dpl_H1qvSb9dk83m4GPvXUrVJPdXNZVB`.
+The public alias serves the expected `index-BCqTJ6oC.js` build. A fresh desktop
+Chrome profile at a 390×844 mobile viewport shows the English and Spanish
+1.83 GB approval buttons without external requests, horizontal overflow or page
+errors. This live check did not approve or repeat the download. See
+[`medical-trial-live-results.json`](medical-trial-live-results.json).
 
 ## Before a phone downloads
 
@@ -36,6 +49,23 @@ and offers no download. Do not set a guessed revision or use a mutable main URL.
 
 ## Verification scope
 
+- `verify-medical-trial-hosted.mjs` runs the built app in a separate desktop Chrome
+  profile with hardware WebGPU. It verifies separate consent, downloads all 58
+  shards from the pinned public revision, generates a synthetic answer, closes
+  Chrome completely, stops its own app server, then reopens offline and asks a
+  fresh question. It uses no model mocks or locally substituted weights. Run after
+  building `frontend/dist` with `KIT_PLAYWRIGHT_MODULE` pointing to an installed
+  Playwright module if it is not available through normal module resolution.
+- On 2026-09-19, desktop Chrome on Apple Metal downloaded the 58 public shards
+  after approval and generated a synthetic small-cut answer. After full browser
+  exit, with its app server stopped and browser network requests blocked, it
+  reopened from saved files and generated a fresh answer in 0.824 seconds.
+  An uncached external request failed with `ERR_INTERNET_DISCONNECTED`; no model
+  shard or inference request accompanied that answer. Chrome's `navigator.onLine`
+  nevertheless stayed true under this emulation. The report retains that mismatch,
+  earlier harness assertion failures, and raw synthetic outputs; the browser flag
+  was not spoofed. This establishes desktop cached-generation mechanics only.
+  See [`medical-trial-hosted-results.json`](medical-trial-hosted-results.json).
 - Pure GPU/storage tests exercise binding limits, real request-device arguments,
   cleanup, denied/unknown storage, worker errors and timeouts.
 - `verify-medical-trial-lifecycle.mjs` mounts the real hook under React StrictMode
@@ -49,7 +79,7 @@ and offers no download. Do not set a guessed revision or use a mutable main URL.
 
 ## Remaining physical test
 
-After publication, open the trial URL in Safari while on Wi-Fi, approve the
+Open the trial URL in Safari while on Wi-Fi, approve the
 download if the compatibility check passes, and generate a synthetic example.
 Then enable airplane mode, turn Wi-Fi off, reopen the exact same trial URL in
 the same browser and generate a fresh question. Repeat on Android Chrome.

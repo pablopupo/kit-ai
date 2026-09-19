@@ -1,7 +1,9 @@
 # Reproduce the local medical-model conversion
 
 This is an **evaluation-only** conversion of the user's existing trained model.
-It does not train, replace the base model, publish weights, or change KIT-AI's deployed model.
+The conversion scripts do not train or replace the source model. The separate
+publication step below enables an opt-in browser trial; normal KIT-AI model
+defaults remain unchanged.
 
 Source: `Pablo305/llama3-medical-3b-4bit`, pinned revision
 `df5aa311d5b017bdd4d1719c50c5d7a1dd1fa37b`.
@@ -98,6 +100,22 @@ observed complete checks took about 96 seconds for NF4 and 41 seconds for FP16.
 Without the case arguments, it compares one short, non-clinical forward pass.
 
 ## Browser integration for evaluation
+
+The converted artifacts were published on 2026-09-19 as
+[`Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC`](https://huggingface.co/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC),
+revision `34f6aa7d8fb5608dc2585e6660b982610ca4bc28`, for the explicit
+`/?trial=medical3b` route. All 67 files match their local hashes and sizes;
+all browser assets permit cross-origin delivery. See the
+[publication report](results/phone-trial-publication.json) and
+[trial verification scope](../verification/medical-trial.md). Historical conversion
+reports describe the earlier local-only experiment and remain unchanged.
+
+To verify the published revision against the staged files without downloading
+the large shards (their public LFS hashes are compared instead):
+
+```sh
+python3 model-tools/verify_phone_trial_publication.py --revision 34f6aa7d8fb5608dc2585e6660b982610ca4bc28 --output model-tools/results/phone-trial-publication.json
+```
 
 The converted checkpoint passed a desktop Chrome/Apple Metal load, four generated
 test answers and a full offline browser restart. The cached model initialized in

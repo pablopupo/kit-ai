@@ -1,0 +1,1513 @@
+{
+  "schema": "kit-ai-hosted-trial-mechanics-v1",
+  "startedAt": "2026-09-19T21:54:58.796Z",
+  "modelRevision": "34f6aa7d8fb5608dc2585e6660b982610ca4bc28",
+  "modelRepository": "Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC",
+  "buildIndexSha256": "5a7d48b164228ac9ce266a55c7d2cd63f77d5d2f9269c25df6e2efc17eeaf8e2",
+  "scope": "Real production build and published immutable model files on desktop Chrome with hardware WebGPU. No inference mocks or local model substitutions. The offline restart disables browser networking and stops the owned app server. This is not a physical iPhone/Android or airplane-mode test and does not establish medical accuracy.",
+  "network": {
+    "pre-consent": {
+      "requests": [
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-BCqTJ6oC.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-CYS-thMw.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/MedicalModelTrial-CEKjveCD.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/fonts/nunito-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/sw.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/pwa-maskable-512x512.png",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/pwa-512x512.png",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/pwa-192x192.png",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/index.html",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/apple-touch-icon.png",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/fonts/varela-round-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/fonts/varela-round-latin-ext.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/fonts/nunito-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/fonts/nunito-latin-ext.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webgpu-check-worker-CsNPHstF.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-CYS-thMw.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-BCqTJ6oC.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/browser-DoY_DcCg.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/__vite-browser-external-Cgmn0awE-DZczvuwA.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/MedicalModelTrial-CEKjveCD.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/robots.txt",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        }
+      ],
+      "responses": 29,
+      "serviceWorkerResponses": 0,
+      "failures": []
+    },
+    "hosted-download": {
+      "requests": [
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllmService-ERyo-Zhn.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllm-worker-DWhKXDWk.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllmService-ERyo-Zhn.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllm-worker-DWhKXDWk.js",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/mlc-chat-config.json",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/api/resolve-cache/models/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/mlc-chat-config.json",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/model.wasm",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/4aec19f38d991d2f33e6da2d99b4407c51b106ab77212a036130a693acfbf99f",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/tokenizer.json",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/da070f8626ee36c29d81d14f7a18b0a943ba6477aaa86b433d0f865f98bf8392",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/tensor-cache.json",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/api/resolve-cache/models/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/tensor-cache.json",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_0.bin",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_14.bin",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_28.bin",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_42.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/152ee5042270b3e7eee5b1f52a08df75f08b278588c96eb8affcbb7b31b3d0b7",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/b976babc366b9deec5d72ebebd7ad42fafb795fdfff87bcefcc7f69af416db70",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/251a3d9ada9f048b78fcc7a1285523469068e3b342048ab4c48f2a8545eaf5ef",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/1dec48a767a52b0bc9d214951b8f9e58d8d2169c25406209f957ae5197c8c7f8",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_43.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/04bddea9248e514608cb564bf05b4cfa6e4f513e0c51f32cc92a8daac28d688e",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_15.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/630a2da63c76fd483f7770017ee53fc90366014ea45d3da62b99df0411ce7820",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_29.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/8ce25518bdf15d6010846a1b1bed7d476c6371e9dcc46c6a770dce623ee6f30f",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_16.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/13ce6ba10ca30f7dd86f39088b7c6ed8f644c27d232b4c1167b93206536e7268",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_44.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/8045bf62e0baa3f9f88fe94592d13462cdcb5a53e9723e6ad3af8a163d951fe1",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_30.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/334b87d4281db40b4ac6017688344ca8d3604a52221b3666f9f6d64e5f4c4511",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_45.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/fe65bbee341d7a02425768a9960affa1ae586f23b113596a43a7ca81ffc21f11",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_17.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/d36e71622b18e0cb845857e5bf23fa9ce7179231d47e70f7a4adc4845ec1793d",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_31.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/54d56a59b63a33a30c0e8d8f850e17dcbcd7e31c5c5f18e423baba3734ed2944",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_46.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/8ee5b9aa774fa26f2b0893cbbd8eb46007c24f866e087d0a2c1d86f61f9d753c",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_18.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/f00a3a25d2963e16048595f76a4bcd2d0180faa8d242ce23ea55618c8a96d002",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_32.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/b02a605de17e47896d7ceeaa300a7b41640bdb5e0cca611e202f2fafb5d6e3f9",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_47.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/0d57bf78b2220d42745f89d8f0d23859b822fc903b886728ea1a4d7a8fd3c973",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_33.bin",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_19.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/fbf7c38986fb28030496b3317ee1629f4af684cdbd9dfaf09cac6f85776952c2",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/154881722d7b5655a299c28e4d952972df6387b54bd1b5767e01e01ba0120dd0",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_48.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/2c24e1bac30ab8a23bdebc17e4403e68a13aebe2d3562b908c89bd7bfdf879c2",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_34.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/e3991f40ac0a824d1958c4fc99630ee7fb39b3af9bc5b456ecf58e6b0b011042",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_20.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/4d76241e68afc77036bdfd638c9fc0f8ec15ce1d6f2207a0e2b8edadbfa0146a",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_1.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/493be17afb86ed5513105fcc72e50f05cf5a65fedc2a043754e999d31ba9fafd",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_49.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/243d10876a5823615ad035f1626807562345361b7398dc8f5be3bf7ea32bbc3e",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_35.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/4918324bd0ce8ddb779ad37f64b2d682b6e244d787ee3ed0b44a2c8c3217405f",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_21.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/aa154ad8ca3b53747cfd1b7b91c370bfa7dd8f3c28a6db32729be093e3cded19",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_2.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/2b6a67235ed5e462545b9cf354c4d4f4d4c7015a25e3d7f9a496aa729f4d16f9",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_50.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/e10d93011e2182e14f1a15dbca50b61ad8e33e1a208d794ef3b77044a9a70815",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_36.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/5411a0a8cb55bb9d809b1eecb0736b8a4d3eeb23506d29b676a3b7b0861de624",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_22.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/7135ab246c3332b90ecbcbd467bad7c1b60b60d33770defe7ede63556d689b9d",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_3.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/660091456de3f978ebedb69bba446c0aa9a5b4184d47ea024487218758483459",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_51.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/494f80074a27667e7fe23074d2104caf6ee884022374e6cea724c80049022dcb",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_37.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/5c4c105e5401dafd0f900519df1cb6b79871603549d192acf28f31445fceb988",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_23.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/f2cb6da1a573ce390436d36f1d15af3a52ca6062158e86b7c00d35fc3b9a636d",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_4.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/3b909419748c5bf634409f215aa8b112518c460de69672c151b3ddbb71afb2e2",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_52.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/a2c2aa1afb8a5d8ce5867dcf35afddc7917e8ce5fbac3fb758191b74c7ebe1ac",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_38.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/f9fc70ffef402fd7e29be8daac50298cf708dca384c9f687855a62dd4e0dab1f",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_24.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/f4cd47ec7c12f8a924c8eac1aaf53c86aab83b8edc106f85698ff012874000a6",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_5.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/497cc5356ae63bc38043b3d0ffd622f7478e9b1fa560811d0532aea83facc956",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_53.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/139074d382a13a74a9c506884dd42800a815d193b7fb8d6b824da997f2f4876f",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_39.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/21c6cf1d2fcc03a9d6ad89beed059c6fc73c469fc8a2910925fc288816f4fd98",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_25.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/74471ba9b47be41894fdb1886898816aef40d34721a0fcfeb9fe8bb8c1117b5b",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_6.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/f57ad481155761e776a99041625fcd0459deae85b5b1e2169fa3a1a8fda9be29",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_54.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/35fa9a6c03423610d29ea033f9455ca4642141d3fc09a679442d404fa9f63db5",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_40.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/c99428a5c2ff055ae05fdcf68613c0a7e1d587d79b2eb8640aa55392a9a8e65f",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_26.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/5b12d03b34ec2b88a2080e418f17ae52d0705818c07d4b3f2ff7eb008e30b5ab",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_7.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/4817f99f0d8d3c140625e9c6b8288769a605fd47d3d167661854329b8ae36639",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_55.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/dd0023c43a765dc2c80102d74dbdae9494e62748e946b5558e737818dcfe8b06",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_41.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/9d80d2c2f30285300ba24b554cffcbd0697a91e0a1e215a7635c1a281284068c",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_27.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/9e6400eb21d7d3a3c8c694a8f27ff32b19a5fb3885e071877866bdbce3393626",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_8.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/bdf9a135a11cd1c421fec9e0833ab10ab6a3e6fbe5ccab7f345ccfe690b74580",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_56.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/2bf8a7b34a6598829232acf986722195fe877c44f76941dd7afcc16e26b9666f",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_9.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/c9d7463be6fd2aeb4ad328f1924454b238a9e2c0803164608bddbf8b5cf471e6",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_57.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/a2c30de69d1f4793f84cd361ebf0b5c2696ac51b0a9da1b57707463c6e7ecd30",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_10.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/59625a76fa1c1584fda4442be6c5150abc3d3ca89351e78ddd719d450ad3b954",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_11.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/8cd790212bf66eb5ea08657e7c14bd4b3756cd7ba5a1c8a6a64908152545cbc9",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_12.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/3d60bf4c23e5502efc36d939e9fb4dd3260be4522ddf67724fad919c1f9a59d0",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/params_shard_13.bin",
+          "method": "GET"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6aaf0285d46359e24f4778d4/025c2aa7e28af143c4a4f9b39acccdeec03027a0e5fa2e180327457e4727b21a",
+          "method": "GET"
+        }
+      ],
+      "responses": 130,
+      "serviceWorkerResponses": 4,
+      "failures": []
+    },
+    "cached-reopen-after-harness-fix": {
+      "requests": [
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-BCqTJ6oC.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-CYS-thMw.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/MedicalModelTrial-CEKjveCD.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/fonts/nunito-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllmService-ERyo-Zhn.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllm-worker-DWhKXDWk.js",
+          "method": "GET"
+        }
+      ],
+      "responses": 11,
+      "serviceWorkerResponses": 11,
+      "failures": []
+    },
+    "online-local-generation": {
+      "requests": [],
+      "responses": 0,
+      "serviceWorkerResponses": 0,
+      "failures": []
+    },
+    "offline-browser-restart": {
+      "requests": [
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-BCqTJ6oC.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-CYS-thMw.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/MedicalModelTrial-CEKjveCD.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/fonts/nunito-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllmService-ERyo-Zhn.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllm-worker-DWhKXDWk.js",
+          "method": "GET"
+        }
+      ],
+      "responses": 11,
+      "serviceWorkerResponses": 11,
+      "failures": []
+    },
+    "cached-reopen-after-harness-fix-retry-2": {
+      "requests": [
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-BCqTJ6oC.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-CYS-thMw.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/MedicalModelTrial-CEKjveCD.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/fonts/nunito-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllmService-ERyo-Zhn.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllm-worker-DWhKXDWk.js",
+          "method": "GET"
+        }
+      ],
+      "responses": 11,
+      "serviceWorkerResponses": 11,
+      "failures": []
+    },
+    "online-local-generation-retry-2": {
+      "requests": [],
+      "responses": 0,
+      "serviceWorkerResponses": 0,
+      "failures": []
+    },
+    "offline-browser-restart-retry-2": {
+      "requests": [
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-BCqTJ6oC.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-CYS-thMw.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/MedicalModelTrial-CEKjveCD.js",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/README.md",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/fonts/nunito-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllmService-ERyo-Zhn.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllm-worker-DWhKXDWk.js",
+          "method": "GET"
+        }
+      ],
+      "responses": 11,
+      "serviceWorkerResponses": 11,
+      "failures": [
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/README.md",
+          "error": "net::ERR_INTERNET_DISCONNECTED"
+        }
+      ]
+    }
+  },
+  "pageErrors": [],
+  "consoleErrors": [
+    {
+      "phase": "offline-browser-restart-retry-2",
+      "message": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+    }
+  ],
+  "browserLaunches": [
+    {
+      "phase": "pre-consent",
+      "offline": false,
+      "version": "153.0.8010.48",
+      "sandbox": true,
+      "unsafeGpuArguments": false
+    },
+    {
+      "phase": "cached-reopen-after-harness-fix",
+      "offline": false,
+      "version": "153.0.8010.48",
+      "sandbox": true,
+      "unsafeGpuArguments": false
+    },
+    {
+      "phase": "offline-browser-restart",
+      "offline": true,
+      "version": "153.0.8010.48",
+      "sandbox": true,
+      "unsafeGpuArguments": false
+    },
+    {
+      "phase": "cached-reopen-after-harness-fix-retry-2",
+      "offline": false,
+      "version": "153.0.8010.48",
+      "sandbox": true,
+      "unsafeGpuArguments": false
+    },
+    {
+      "phase": "offline-browser-restart-retry-2",
+      "offline": true,
+      "version": "153.0.8010.48",
+      "sandbox": true,
+      "unsafeGpuArguments": false
+    }
+  ],
+  "browserCloses": [
+    {
+      "phase": "hosted-download",
+      "confirmedExited": true,
+      "closeWarning": null
+    },
+    {
+      "phase": "online-local-generation",
+      "confirmedExited": true,
+      "closeWarning": null
+    },
+    {
+      "phase": "offline-browser-restart",
+      "confirmedExited": true,
+      "closeWarning": null
+    },
+    {
+      "phase": "online-local-generation-retry-2",
+      "confirmedExited": true,
+      "closeWarning": null
+    },
+    {
+      "phase": "offline-browser-restart-retry-2",
+      "confirmedExited": true,
+      "closeWarning": null
+    }
+  ],
+  "outputs": [
+    {
+      "phase": "online-local-generation",
+      "question": "How do I care for a small cut?",
+      "answer": "To care for a small cut, follow these steps:\n\n1. **Stop the bleeding**: Press a clean folded cloth or dressing firmly on the cut for a few minutes to stop the bleeding. If the bleeding doesn't stop, get help.\n2. **Clean the cut**: Rinse the cut with clean tap or bottled water. \n3. **Apply antibiotic ointment**: Apply a thin layer of antibiotic ointment to the cut to help prevent infection.\n4. **Cover the cut**: Cover the cut with a sterile dressing. Keep it clean and dry; replace it when needed.\n5. **Monitor and maintain**: Keep an eye on the cut and make sure it's healing properly. If it's not healing, or if you notice signs of infection (such as increased redness, swelling, pain, pus or fever), get help.\n\nSources: NHS: Cuts and grazes (https://www.nhs.uk/conditions/cuts-and-grazes/)",
+      "elapsedMs": 2927,
+      "browserOnline": true,
+      "report": {
+        "schema": "kit-ai-medical-trial-v1",
+        "exportedAt": "2026-09-19T22:00:42.309Z",
+        "configuredModel": "kit-medical-3b-df5aa311-q4f16_1-34f6aa7d8fb5608dc2585e6660b982610ca4bc28",
+        "note": "Local learning trial. No questions or generated answers are included. Browser network flags do not independently verify airplane mode. Successful generation does not establish medical accuracy.",
+        "offlineApp": {
+          "status": "ready",
+          "runtimeSaved": true,
+          "reason": null,
+          "support": {
+            "secureContext": true,
+            "serviceWorkerAvailable": true,
+            "cacheStorageAvailable": true
+          }
+        },
+        "status": "ready",
+        "offlineSaved": true,
+        "lastFailureStage": null,
+        "compatibility": {
+          "supported": true,
+          "reason": null,
+          "shaderF16": true,
+          "modelCached": true,
+          "limits": {
+            "maxBufferSize": 4294967292,
+            "maxStorageBufferBindingSize": 4294967292,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxStorageBuffersPerShaderStage": 10
+          },
+          "requestedLimits": {
+            "maxBufferSize": 1073741824,
+            "maxStorageBufferBindingSize": 1073741824,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxStorageBuffersPerShaderStage": 10
+          },
+          "storage": {
+            "usageBytes": 1824915793,
+            "quotaBytes": 12562334033,
+            "availableBytes": 10737418240
+          }
+        },
+        "runs": [
+          {
+            "startedAt": "2026-09-19T22:00:39.392Z",
+            "elapsedMs": 2878,
+            "language": "en",
+            "example": "minor-cut",
+            "status": "answered",
+            "browserReportsOnlineAtStart": true,
+            "browserReportsOnlineAtEnd": true,
+            "browserReportedOfflineThroughout": false
+          }
+        ]
+      }
+    },
+    {
+      "phase": "offline-browser-restart",
+      "question": "Can I put butter on a small burn?",
+      "answer": "No, you should not put butter on a burn. According to the first-aid references, do not use butter, oils, creams, or sticky dressings on a burn.",
+      "elapsedMs": 958,
+      "browserOnline": true,
+      "report": {
+        "schema": "kit-ai-medical-trial-v1",
+        "exportedAt": "2026-09-19T22:01:44.865Z",
+        "configuredModel": "kit-medical-3b-df5aa311-q4f16_1-34f6aa7d8fb5608dc2585e6660b982610ca4bc28",
+        "note": "Local learning trial. No questions or generated answers are included. Browser network flags do not independently verify airplane mode. Successful generation does not establish medical accuracy.",
+        "offlineApp": {
+          "status": "ready",
+          "runtimeSaved": true,
+          "reason": null,
+          "support": {
+            "secureContext": true,
+            "serviceWorkerAvailable": true,
+            "cacheStorageAvailable": true
+          }
+        },
+        "status": "ready",
+        "offlineSaved": true,
+        "lastFailureStage": null,
+        "compatibility": {
+          "supported": true,
+          "reason": null,
+          "shaderF16": true,
+          "modelCached": true,
+          "limits": {
+            "maxBufferSize": 4294967292,
+            "maxStorageBufferBindingSize": 4294967292,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxStorageBuffersPerShaderStage": 10
+          },
+          "requestedLimits": {
+            "maxBufferSize": 1073741824,
+            "maxStorageBufferBindingSize": 1073741824,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxStorageBuffersPerShaderStage": 10
+          },
+          "storage": {
+            "usageBytes": 1824915855,
+            "quotaBytes": 12562334095,
+            "availableBytes": 10737418240
+          }
+        },
+        "runs": [
+          {
+            "startedAt": "2026-09-19T22:01:43.882Z",
+            "elapsedMs": 896,
+            "language": "en",
+            "example": "butter-on-burn",
+            "status": "answered",
+            "browserReportsOnlineAtStart": true,
+            "browserReportsOnlineAtEnd": true,
+            "browserReportedOfflineThroughout": false
+          }
+        ]
+      }
+    },
+    {
+      "phase": "online-local-generation-retry-2",
+      "question": "How do I care for a small cut?",
+      "answer": "To care for a small cut, follow these steps:\n\n1. **Stop the bleeding**: Press a clean folded cloth or dressing firmly on the cut for a few minutes to stop the bleeding. If the bleeding doesn't stop, get help.\n2. **Clean the cut**: Rinse the cut with clean tap or bottled water. \n3. **Remove any debris**: Gently remove any dirt or debris from the cut using clean water.\n4. **Apply antibiotic ointment**: Apply a thin layer of antibiotic ointment to the cut to help prevent infection.\n5. **Cover the cut**: Cover the cut with a sterile dressing or bandage.",
+      "elapsedMs": 2595,
+      "browserOnline": true,
+      "report": {
+        "schema": "kit-ai-medical-trial-v1",
+        "exportedAt": "2026-09-19T22:03:53.507Z",
+        "configuredModel": "kit-medical-3b-df5aa311-q4f16_1-34f6aa7d8fb5608dc2585e6660b982610ca4bc28",
+        "note": "Local learning trial. No questions or generated answers are included. Browser network flags do not independently verify airplane mode. Successful generation does not establish medical accuracy.",
+        "offlineApp": {
+          "status": "ready",
+          "runtimeSaved": true,
+          "reason": null,
+          "support": {
+            "secureContext": true,
+            "serviceWorkerAvailable": true,
+            "cacheStorageAvailable": true
+          }
+        },
+        "status": "ready",
+        "offlineSaved": true,
+        "lastFailureStage": null,
+        "compatibility": {
+          "supported": true,
+          "reason": null,
+          "shaderF16": true,
+          "modelCached": true,
+          "limits": {
+            "maxBufferSize": 4294967292,
+            "maxStorageBufferBindingSize": 4294967292,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxStorageBuffersPerShaderStage": 10
+          },
+          "requestedLimits": {
+            "maxBufferSize": 1073741824,
+            "maxStorageBufferBindingSize": 1073741824,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxStorageBuffersPerShaderStage": 10
+          },
+          "storage": {
+            "usageBytes": 1824915874,
+            "quotaBytes": 12562334114,
+            "availableBytes": 10737418240
+          }
+        },
+        "runs": [
+          {
+            "startedAt": "2026-09-19T22:03:50.907Z",
+            "elapsedMs": 2562,
+            "language": "en",
+            "example": "minor-cut",
+            "status": "answered",
+            "browserReportsOnlineAtStart": true,
+            "browserReportsOnlineAtEnd": true,
+            "browserReportedOfflineThroughout": false
+          }
+        ]
+      }
+    },
+    {
+      "phase": "offline-browser-restart-retry-2",
+      "question": "Can I put butter on a small burn?",
+      "answer": "No, you should not put butter on a burn. \n\nSources: Guide: Burns and scalds\nButter is not recommended for cooling or treating burns.",
+      "elapsedMs": 824,
+      "browserOnline": true,
+      "report": {
+        "schema": "kit-ai-medical-trial-v1",
+        "exportedAt": "2026-09-19T22:04:01.157Z",
+        "configuredModel": "kit-medical-3b-df5aa311-q4f16_1-34f6aa7d8fb5608dc2585e6660b982610ca4bc28",
+        "note": "Local learning trial. No questions or generated answers are included. Browser network flags do not independently verify airplane mode. Successful generation does not establish medical accuracy.",
+        "offlineApp": {
+          "status": "ready",
+          "runtimeSaved": true,
+          "reason": null,
+          "support": {
+            "secureContext": true,
+            "serviceWorkerAvailable": true,
+            "cacheStorageAvailable": true
+          }
+        },
+        "status": "ready",
+        "offlineSaved": true,
+        "lastFailureStage": null,
+        "compatibility": {
+          "supported": true,
+          "reason": null,
+          "shaderF16": true,
+          "modelCached": true,
+          "limits": {
+            "maxBufferSize": 4294967292,
+            "maxStorageBufferBindingSize": 4294967292,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxStorageBuffersPerShaderStage": 10
+          },
+          "requestedLimits": {
+            "maxBufferSize": 1073741824,
+            "maxStorageBufferBindingSize": 1073741824,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxStorageBuffersPerShaderStage": 10
+          },
+          "storage": {
+            "usageBytes": 1824915893,
+            "quotaBytes": 12562334133,
+            "availableBytes": 10737418240
+          }
+        },
+        "runs": [
+          {
+            "startedAt": "2026-09-19T22:04:00.307Z",
+            "elapsedMs": 778,
+            "language": "en",
+            "example": "butter-on-burn",
+            "status": "answered",
+            "browserReportsOnlineAtStart": true,
+            "browserReportsOnlineAtEnd": true,
+            "browserReportedOfflineThroughout": false
+          }
+        ]
+      }
+    }
+  ],
+  "complete": true,
+  "consent": {
+    "distinctDownloadDisplayed": true,
+    "externalRequestsBeforeApproval": 0,
+    "freshProfile": true,
+    "productionDownloadPreviouslyApproved": true
+  },
+  "gpu": {
+    "info": {
+      "vendor": "apple",
+      "architecture": "metal-3",
+      "device": "",
+      "description": ""
+    },
+    "isFallbackAdapter": false,
+    "shaderF16": true
+  },
+  "initializationMs": 192602,
+  "finishedAt": "2026-09-19T22:04:01.460Z",
+  "harnessInterruptions": [
+    {
+      "phase": "hosted-download",
+      "message": "Mutable or unexpected Hugging Face artifact path",
+      "explanation": "The original assertion rejected Hugging Face API cache redirects even though their paths contained the same immutable model SHA. Corrected to accept both resolve and resolve-cache paths, then resumed the same profile and app origin without redownloading.",
+      "resumedAt": "2026-09-19T21:59:38.131Z"
+    },
+    {
+      "phase": "offline-browser-restart",
+      "message": "Offline run unexpectedly reported connectivity",
+      "explanation": "The persistent-context launch offline option did not change the page network flag. The server-stopped reopen and fresh local answer succeeded, but were not counted as verified network-offline. Repeated with explicit context.setOffline(true) and a failed uncached external fetch as additional evidence.",
+      "resumedAt": "2026-09-19T22:03:43.525Z"
+    },
+    {
+      "phase": "offline-browser-restart-retry-2",
+      "message": "Offline run unexpectedly reported connectivity",
+      "explanation": "After explicit context.setOffline(true), an actual uncached HF fetch failed with net::ERR_INTERNET_DISCONNECTED while navigator.onLine still returned true. The final assertion was corrected to require actual transport blocking and preserve the browser flag unchanged. The stopped-server reopen, cache loading, fresh generation, zero model/inference requests, and no page errors were verified from the already recorded run; no generation was fabricated or rerun for this finalization."
+    }
+  ],
+  "hostedDownload": {
+    "immutableRevision": true,
+    "distinctShardRequests": 58,
+    "support": {
+      "schema": "kit-ai-medical-trial-v1",
+      "exportedAt": "2026-09-19T22:03:50.857Z",
+      "configuredModel": "kit-medical-3b-df5aa311-q4f16_1-34f6aa7d8fb5608dc2585e6660b982610ca4bc28",
+      "note": "Local learning trial. No questions or generated answers are included. Browser network flags do not independently verify airplane mode. Successful generation does not establish medical accuracy.",
+      "offlineApp": {
+        "status": "ready",
+        "runtimeSaved": true,
+        "reason": null,
+        "support": {
+          "secureContext": true,
+          "serviceWorkerAvailable": true,
+          "cacheStorageAvailable": true
+        }
+      },
+      "status": "ready",
+      "offlineSaved": true,
+      "lastFailureStage": null,
+      "compatibility": {
+        "supported": true,
+        "reason": null,
+        "shaderF16": true,
+        "modelCached": true,
+        "limits": {
+          "maxBufferSize": 4294967292,
+          "maxStorageBufferBindingSize": 4294967292,
+          "maxComputeWorkgroupStorageSize": 32768,
+          "maxStorageBuffersPerShaderStage": 10
+        },
+        "requestedLimits": {
+          "maxBufferSize": 1073741824,
+          "maxStorageBufferBindingSize": 1073741824,
+          "maxComputeWorkgroupStorageSize": 32768,
+          "maxStorageBuffersPerShaderStage": 10
+        },
+        "storage": {
+          "usageBytes": 1824915874,
+          "quotaBytes": 12562334114,
+          "availableBytes": 10737418240
+        }
+      },
+      "runs": []
+    }
+  },
+  "offlineRestart": {
+    "ownedAppServerStopped": true,
+    "browserNetworkOffline": true,
+    "uncachedExternalFetchBlocked": true,
+    "previousBrowserFullyExited": true,
+    "readyMs": 6386,
+    "serviceWorkerControlsPage": true,
+    "browserReportsOnline": true,
+    "browserFlagMatchesNetworkBlock": false
+  },
+  "priorOfflineAttempts": [
+    {
+      "ownedAppServerStopped": true,
+      "browserNetworkOffline": true,
+      "previousBrowserFullyExited": true,
+      "readyMs": 61070,
+      "serviceWorkerControlsPage": true,
+      "networkBlockIndependentlyVerified": false
+    }
+  ],
+  "finalizedAt": "2026-09-19T22:05:15.886Z"
+}

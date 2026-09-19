@@ -1,0 +1,144 @@
+{
+  "checkedAt": "2026-09-19T22:06:13.581Z",
+  "url": "https://kit-ai-pablopupo.vercel.app/?trial=medical3b",
+  "scope": "Fresh desktop hardware Chrome profile with a 390×844 viewport. Production-origin consent and language UI only. No model download approval, inference, offline operation, or physical phone support is tested here.",
+  "requests": [
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/assets/index-BCqTJ6oC.js"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/assets/index-CYS-thMw.css"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/manifest.webmanifest"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/assets/MedicalModelTrial-CEKjveCD.js"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/favicon.svg"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/fonts/nunito-latin.woff2"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/sw.js"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/favicon.svg"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/assets/model-trial-check-worker-LR3wsjmH.js"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/pwa-maskable-512x512.png"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/pwa-512x512.png"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/pwa-192x192.png"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/index.html"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/favicon.svg"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/apple-touch-icon.png"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/fonts/varela-round-latin.woff2"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/fonts/varela-round-latin-ext.woff2"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/fonts/nunito-latin.woff2"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/fonts/nunito-latin-ext.woff2"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/assets/webgpu-check-worker-CsNPHstF.js"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/assets/model-trial-check-worker-LR3wsjmH.js"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/assets/index-CYS-thMw.css"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/assets/index-BCqTJ6oC.js"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/assets/browser-DoY_DcCg.js"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/assets/__vite-browser-external-Cgmn0awE-DZczvuwA.js"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/assets/MedicalModelTrial-CEKjveCD.js"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/robots.txt"
+    },
+    {
+      "host": "kit-ai-pablopupo.vercel.app",
+      "path": "/manifest.webmanifest"
+    }
+  ],
+  "pageErrors": [],
+  "languages": [
+    {
+      "language": "en",
+      "title": true,
+      "separate183GBApproval": true,
+      "horizontalOverflow": false,
+      "normalAppLink": true
+    },
+    {
+      "language": "es",
+      "title": true,
+      "separate183GBApproval": true,
+      "horizontalOverflow": false,
+      "normalAppLink": true
+    }
+  ],
+  "complete": true,
+  "entryScript": "/assets/index-BCqTJ6oC.js",
+  "noExternalModelRequests": true,
+  "downloadApprovalClicked": false
+}
