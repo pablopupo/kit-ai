@@ -38,6 +38,26 @@ async function loadService(t, createEngine) {
 
 const delta = (content, finish_reason = null) => ({ choices: [{ delta: { content }, finish_reason }] })
 
+test('explicit trial record loads only that model and never falls back to the default', async t => {
+  const calls = []
+  const { service } = await loadService(t, async (...args) => {
+    calls.push(args)
+    return { chat: { completions: { create: async () => (async function* () { yield delta('Trial answer', 'stop') })() } } }
+  })
+  const record = { model_id: 'trial-pinned', model: 'https://example.test/immutable/', model_lib: 'https://example.test/immutable/model.wasm' }
+  await assert.rejects(service.generateReply([], { expectedModelId: record.model_id }), /not loaded/)
+  assert.equal(calls.length, 0)
+  await service.initEngine(record.model_id, undefined, undefined, record)
+  assert.equal(calls[0][1], record.model_id)
+  assert.deepEqual(calls[0][2].appConfig.model_list, [record])
+  assert.equal(calls[0][2].appConfig.useIndexedDBCache, true)
+  assert.equal(await service.generateReply([], { expectedModelId: record.model_id }), 'Trial answer')
+  await assert.rejects(service.initEngine('other-model'), /Unload/)
+  service.invalidateEngine()
+  await assert.rejects(service.generateReply([], { expectedModelId: record.model_id }), /not loaded/)
+  assert.equal(calls.length, 1)
+})
+
 test('Stop drains the worker response, hides later chunks, and releases the next request', async t => {
   let locked = false
   let interrupted = false

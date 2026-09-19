@@ -167,3 +167,18 @@ The owner explicitly chose generated answers for the product. Keep the fine-tune
 HF model as the connected assistant. The next experiment should evaluate that
 specific checkpoint against the original base and then test a browser conversion,
 before deciding to resume training or start fresh.
+
+## Follow-up comparison (2026-09-19)
+
+The owner checkpoint has since been converted and tested in a desktop browser.
+`run-browser-follow-up.mjs` reproduces a four-answer EN/ES comparison using the
+same converted weights and decoding settings. The new prompt path retains a
+whole burn guide for a follow-up such as “Can I put butter on it?” instead of
+retrieving only against the latest pronoun-based question.
+
+The Spanish baseline incorrectly suggested butter could help. With the reference,
+it rejected butter. English rejected butter in both cases. Both new answers
+remained too short to provide a useful next step, and the English answer echoed
+the source's review date. Full prompts, outputs, hashes, timings and primary-source
+review are in `results/medical-3b-follow-up-2026-09-19.json`. This is a small,
+targeted improvement, not a clinical validation or a physical phone result.

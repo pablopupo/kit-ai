@@ -137,8 +137,8 @@ const CHILD_TERMS = [
   'bebe', 'bebes', 'nino', 'nina', 'ninos', 'ninas', 'infante', 'infantes', 'lactante', 'lactantes', 'recien nacido', 'recien nacida', 'menor', 'menores', 'pediatrico', 'pediatrica', 'hijo', 'hija', 'hijos', 'hijas',
 ];
 const ADULT_ONLY_IDS = new Set(['adult-choking', 'adult-cpr']);
-const ENGLISH_CHILD_AGES = /\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen) years? old\b/u;
-const SPANISH_CHILD_AGES = /\b(?:cero|un|una|uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieciseis|diecisiete) anos?\b/u;
+const ENGLISH_CHILD_AGES = /\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen) (?:years?|months?|weeks?) old\b/u;
+const SPANISH_CHILD_AGES = /\b(?:cero|un|una|uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieciseis|diecisiete) (?:anos?|mes(?:es)?|semanas?)\b/u;
 
 /** Same canonical IDs and source metadata in every supported display language. */
 export function getGuides(language = 'en') {
@@ -231,11 +231,20 @@ function formatGuide(guide, language) {
 }
 
 /** Whole guides only: never truncate steps, escalation advice, or attribution. */
-export function getGuideContext(query, maxChars = 6000, language = 'en') {
+export function getGuideContext(query, maxChars = 6000, language = 'en', { contextQuery = '' } = {}) {
   if (!Number.isFinite(maxChars) || maxChars < 1) return '';
   const limit = Math.floor(maxChars);
+  let guides = searchGuides(query, language);
+  if (contextQuery) {
+    const contextualGuides = searchGuides(`${contextQuery}\n${query}`, language);
+    // A named current topic wins. Prior user details still apply scope exclusions
+    // (for example, "still choking" must not turn an infant into an adult).
+    guides = guides.length
+      ? guides.filter(guide => contextualGuides.some(candidate => candidate.id === guide.id))
+      : contextualGuides;
+  }
   let context = '';
-  for (const guide of searchGuides(query, language)) {
+  for (const guide of guides) {
     const next = `${context ? '\n\n' : ''}${formatGuide(guide, language)}`;
     if (context.length + next.length > limit) break;
     context += next;

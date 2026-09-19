@@ -157,3 +157,17 @@ test('unsupported online language submits an English prompt without losing the o
   assert.ok(!prompt.includes('Respond in unsupported'));
   assert.ok(prompt.endsWith(`user:\n${question}`));
 });
+
+test('a Spanish follow-up sends the inherited burn guide to the hosted model', async t => {
+  const { askMedicalModel, calls } = await loadService(t, {
+    events: async function* () { yield { type: 'data', data: ['Respuesta de prueba.'] }; },
+  });
+  const history = [{ role: 'user', content: 'Me quemé la mano al cocinar.' }];
+  await askMedicalModel('¿Puedo ponerle mantequilla?', history, { language: 'es' });
+  const [prompt] = calls.submitted.args;
+  const guide = getGuides('es').find(item => item.id === 'burns');
+  assert.match(prompt, /Guía: Quemaduras/);
+  for (const text of [...guide.steps, ...guide.redFlags]) assert.ok(prompt.includes(text));
+  assert.ok(prompt.includes(history[0].content));
+  assert.ok(prompt.endsWith('user:\n¿Puedo ponerle mantequilla?'));
+});

@@ -14,7 +14,7 @@ import { useSettings } from '../contexts/SettingsContext'
 import { useChatHistory } from '../contexts/ChatHistoryContext'
 import { askMedicalModel, MEDICAL_MODEL } from '../services/onlineMedicalService'
 import { searchGuides } from '../services/firstAidGuides'
-import { getPromptGuideContext } from '../services/chatPrompt'
+import { getPromptGuideSources } from '../services/chatPrompt'
 import { chooseAnswerSource } from '../services/offlinePolicy'
 import { LOCAL_MODEL_LABEL } from '../services/localModelConfig'
 
@@ -105,8 +105,7 @@ export default function Home() {
         answer = requestSource === 'online'
           ? await askMedicalModel(content, priorMessages.filter(message => message.source === 'online'), { language, signal: controller.signal, onStatus: () => setRequestStatus(t('waiting')) })
           : await local.sendMessage(content, priorMessages, setStreaming, controller.signal)
-        const reference = getPromptGuideContext(content, language)
-        sources = searchGuides(content, language).flatMap(guide => guide.sources).filter(item => reference.includes(item.url))
+        sources = getPromptGuideSources(content, requestSource === 'online' ? priorMessages.filter(message => message.source === 'online') : priorMessages, { language })
       }
       if (!controller.signal.aborted) updateMessages({ role: 'assistant', content: answer, source: requestSource, model: requestSource === 'online' ? MEDICAL_MODEL : requestSource === 'device' ? LOCAL_MODEL_LABEL : null, sources }, convId)
     } catch (err) {

@@ -23,13 +23,18 @@ const customModelRecord = CUSTOM_MODEL_URL
 const DEFAULT_MODEL = LOCAL_MODEL_ID
 const appConfig = { ...prebuiltAppConfig, useIndexedDBCache: true, model_list: customModelRecord ? [...prebuiltAppConfig.model_list, customModelRecord] : prebuiltAppConfig.model_list }
 
-export function isModelCached() { return hasModelInCache(DEFAULT_MODEL, appConfig) }
+function configFor(record) {
+  return record ? { ...appConfig, model_list: [...appConfig.model_list.filter(item => item.model_id !== record.model_id), record] } : appConfig
+}
+
+export function isModelCached(modelId = DEFAULT_MODEL, record) { return hasModelInCache(modelId, configFor(record)) }
 
 let engine = null
+let activeModelId = null
 let worker = null
 let initPromise = null // Guards against concurrent init calls (e.g. StrictMode)
 
-export async function initEngine(modelId = DEFAULT_MODEL, onProgress, signal) {
+export async function initEngine(modelId = DEFAULT_MODEL, onProgress, signal, record) {
   if (signal?.aborted) throw new DOMException('Paused', 'AbortError')
   if (CUSTOM_MODEL_URL && !CUSTOM_MODEL_LIB) {
     throw new Error('A custom local model needs MLC-format weights and a matching VITE_WEBLLM_MODEL_LIB. A bitsandbytes Hugging Face repository cannot run in WebLLM.')
@@ -38,16 +43,19 @@ export async function initEngine(modelId = DEFAULT_MODEL, onProgress, signal) {
 
   // If already initialized, return the existing engine
   if (engine) {
+    if (activeModelId !== modelId) throw new Error('Unload the current assistant before selecting another model.')
     devLog('[WebLLM] Engine already exists, returning existing engine')
     return engine
   }
 
   // If init is already in progress, return the same promise to avoid duplicates
   if (initPromise) {
+    if (activeModelId !== modelId) throw new Error('Another assistant is still loading.')
     devLog('[WebLLM] Init already in progress, waiting for existing promise')
     return initPromise
   }
 
+  activeModelId = modelId
   initPromise = (async () => {
     devLog('[WebLLM] Creating new worker...')
     worker = new Worker(
@@ -56,7 +64,7 @@ export async function initEngine(modelId = DEFAULT_MODEL, onProgress, signal) {
     )
 
     const engineConfig = {
-      appConfig,
+      appConfig: configFor(record),
       initProgressCallback: (report) => {
         if (onProgress && report) {
           const progress = report.progress ?? 0
@@ -79,6 +87,7 @@ export async function initEngine(modelId = DEFAULT_MODEL, onProgress, signal) {
     } catch (error) {
       // Clean up on failure so a retry can start fresh
       engine = null
+      activeModelId = null
       if (worker) {
         worker.terminate()
         worker = null
@@ -150,6 +159,7 @@ export async function unloadEngine() {
     worker.terminate()
     worker = null
   }
+  activeModelId = null
 }
 
 // A failed worker may never acknowledge unload(). Terminating it is also what
@@ -157,6 +167,7 @@ export async function unloadEngine() {
 export function invalidateEngine() {
   const failedWorker = worker
   engine = null
+  activeModelId = null
   worker = null
   failedWorker?.terminate()
 }
@@ -187,8 +198,10 @@ export async function collectResponse(chunks, { signal, onStream, language = 'en
   return response
 }
 
-export async function generateReply(messages, { signal, onStream, language = 'en' } = {}) {
+export async function generateReply(messages, { signal, onStream, language = 'en', expectedModelId } = {}) {
   if (signal?.aborted) throw new DOMException('Stopped', 'AbortError')
+  // Trials must fail visibly, never auto-reinitialize the production default.
+  if (expectedModelId && (!engine || activeModelId !== expectedModelId)) throw new Error('The selected assistant is not loaded.')
   const stop = () => interruptGeneration()
   signal?.addEventListener('abort', stop, { once: true })
   try {
