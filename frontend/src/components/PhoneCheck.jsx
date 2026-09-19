@@ -100,7 +100,7 @@ export default function PhoneCheck({ local, chatBusy, onBusyChange, onBack, onOp
       if (mounted.current) { setRunning(false); setStopping(false) }
     }
   }
-  const serializeReport = () => JSON.stringify(makePhoneReport({ capabilities, result, configuredModel: LOCAL_MODEL_ID, includeBrowser, userAgent: navigator.userAgent }), null, 2)
+  const serializeReport = () => JSON.stringify(makePhoneReport({ capabilities, offlineApp: local.offlineApp, result, configuredModel: LOCAL_MODEL_ID, includeBrowser, userAgent: navigator.userAgent }), null, 2)
   const copyReport = async () => {
     const text = serializeReport()
     const copied = await copyPhoneReport(text)
@@ -122,13 +122,16 @@ export default function PhoneCheck({ local, chatBusy, onBusyChange, onBack, onOp
   }
   const readyToTry = local.offlineSaved && local.status === 'ready'
   const appIsSaved = local.offlineApp?.status === 'ready'
+  const savingUnavailable = local.offlineApp?.status === 'unsupported'
   const resultText = result?.status === 'passed'
     ? result.browserOfflineThroughout ? result.userConfirmedOfflineReopen ? c.passedReopen : c.passedOffline : c.passedOnline
     : result?.status === 'cancelled' ? c.cancelled : result?.status === 'empty-response' ? c.empty : c.failed
 
   return <section className="max-w-xl space-y-7">
     <button onClick={onBack} className="kit-text-button"><ArrowLeft size={18} />{c.back}</button>
-    <div><h1 className="text-3xl font-extrabold flex gap-3 items-start"><Smartphone className="shrink-0 mt-1 text-rose-500" />{phoneCheckTitle(language)}</h1><p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">{c.intro}</p></div>
+    <div><h1 className="text-3xl font-extrabold flex gap-3 items-start"><Smartphone className="shrink-0 mt-1 text-rose-500" />{phoneCheckTitle(language)}</h1><p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">{savingUnavailable ? t('appUnsupportedDetail') : c.intro}</p></div>
+    {savingUnavailable && <OfflineSetup local={local} />}
+    {!savingUnavailable && <>
     <section><h2 className="font-bold text-lg">{c.setup}</h2><p className="text-sm leading-relaxed my-3 text-slate-600 dark:text-slate-300">{c.setupDetail}</p><OfflineSetup local={local} /><details className="text-sm"><summary className="font-bold cursor-pointer py-3">{c.install}</summary><p className="leading-relaxed mb-3">{c.installDetail}</p><p className="leading-relaxed text-slate-600 dark:text-slate-300">{c.separate}</p></details></section>
     <section><h2 className="font-bold text-lg">{c.airplane}</h2><p className="text-sm leading-relaxed mt-3 text-slate-600 dark:text-slate-300">{c.airplaneDetail}</p>{!appIsSaved && <p role="status" className="text-sm font-semibold mt-3 text-rose-700 dark:text-rose-200">{c.waitForSave}</p>}<label className="flex gap-3 items-start text-sm mt-4"><input type="checkbox" checked={reopenedOffline} disabled={running || !appIsSaved} onChange={event => setReopenedOffline(event.target.checked)} className="w-5 h-5 shrink-0 accent-teal-700" /><span>{c.confirmed}</span></label></section>
     <section><h2 className="font-bold text-lg">{language === 'es' ? '3. Abre una guía' : '3. Open a guide'}</h2><p className="text-sm leading-relaxed my-3 text-slate-600 dark:text-slate-300">{language === 'es' ? 'Las guías guardadas se pueden leer sin internet. No necesitas descargar las respuestas para usarlas.' : 'Saved guides can be read without internet. You do not need the large answers download to use them.'}</p><button onClick={onOpenGuides} className="kit-primary">{t('openGuides')}</button></section>
@@ -137,7 +140,8 @@ export default function PhoneCheck({ local, chatBusy, onBusyChange, onBack, onOp
       {!running && (chatBusy || !readyToTry) && <p className="text-sm mt-3 text-slate-500">{chatBusy ? c.chatBusy : c.notReady}</p>}
       {result && <div className="mt-4 rounded-xl border border-rose-200 dark:border-rose-900 p-4"><p role="status" className="font-bold">{resultText}</p><p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mt-3">{c.caveat}</p></div>}
     </section>
-    <details className="border-t border-slate-200 dark:border-slate-700 pt-2">
+    </>}
+    <details open={savingUnavailable || undefined} className="border-t border-slate-200 dark:border-slate-700 pt-2">
       <summary className="font-bold cursor-pointer min-h-12 flex items-center">{c.support}</summary>
       <div className="flex flex-wrap items-center justify-between gap-2 my-3"><p className="text-sm">{c.connection}: {online ? c.connected : c.disconnected}</p><button onClick={refresh} disabled={checking} className="kit-text-button text-sm"><RefreshCw size={15} />{checking ? c.checking : c.refresh}</button></div>
       {result && <div className="mb-4 text-sm"><p>{c.elapsed}: {(result.elapsedMs / 1000).toLocaleString(language, { maximumFractionDigits: 1 })} {c.seconds}</p>{result.response && <details><summary className="cursor-pointer py-2">{c.response}</summary><p className="whitespace-pre-wrap break-words">{result.response}</p></details>}</div>}

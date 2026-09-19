@@ -142,10 +142,10 @@ export default function Home() {
             <div className="max-w-3xl mx-auto">
             <p className="mb-6 rounded-2xl px-4 py-3 bg-[#FFF0F1] dark:bg-rose-950/20 text-[#87343B] dark:text-rose-200 text-xs sm:text-sm leading-relaxed">{t('emergencyBanner')}</p>
             {storageError && <p role="status" className="mb-5 rounded-2xl px-4 py-3 text-amber-800 bg-amber-50 text-sm">{storageError}</p>}
-            {tab === 'guides' && <>{(!offlineReady || (!local.needsDownloadConsent && !['ready', 'unsupported', 'paused'].includes(local.status))) && <OfflineSetup local={local} compact />}<GuideLibrary /></>}
+            {tab === 'guides' && <>{(!offlineReady || (!local.needsDownloadConsent && !['ready', 'unsupported', 'paused'].includes(local.status))) && <OfflineSetup local={local} compact onSupport={() => setTab('device-check')} />}<GuideLibrary /></>}
             {tab === 'chat' && <>
               <div className="flex flex-wrap items-center justify-between gap-3 mb-4"><h1 className="text-2xl font-extrabold">{t('chat')}</h1><button onClick={newChat} className="kit-text-button"><Plus size={17} />{t('newChat')}</button></div>
-              {(!offlineReady || (!local.needsDownloadConsent && local.status !== 'ready')) && <OfflineSetup local={local} compact />}
+              {(!offlineReady || (!local.needsDownloadConsent && local.status !== 'ready')) && <OfflineSetup local={local} compact onSupport={() => setTab('device-check')} />}
               <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400 mb-6">{t(source === 'online' ? 'onlineNotice' : source === 'device' ? 'deviceNotice' : 'guideNotice')}</p>
               {currentMessages.length === 0 && <div className="p-5 sm:p-7 rounded-[2rem] bg-[#F0FAF8] dark:bg-kit-dark-bg-light"><h2 className="text-xl font-bold mb-3">{t('welcomeTitle')}</h2><p className="text-slate-600 dark:text-slate-300 mb-5">{t('welcomeDetail')}</p><div className="flex flex-wrap gap-2">{['starterCut', 'starterBurn'].map(key => <button key={key} disabled={busy || diagnosticBusy} onClick={() => handleSend(t(key))} className="kit-mode text-left">{t(key)}</button>)}</div></div>}
               {diagnosticBusy && <p role="status" className="text-sm py-3">{language === 'es' ? 'Terminando la comprobación…' : 'Finishing the check…'}</p>}

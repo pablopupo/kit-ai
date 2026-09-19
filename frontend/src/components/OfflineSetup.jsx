@@ -1,15 +1,44 @@
+import { useRef, useState } from 'react'
 import { Download, CheckCircle2, Pause } from 'lucide-react'
 import { useSettings } from '../contexts/SettingsContext'
 
-export default function OfflineSetup({ local, compact = false }) {
+export default function OfflineSetup({ local, compact = false, onSupport }) {
   const { t, autoPrepare } = useSettings()
+  const [copyState, setCopyState] = useState('')
+  const helpRef = useRef(null)
   const appStatus = local.offlineApp?.status || 'checking'
+  // This identifies only the help text; actual feature checks determine support.
+  const googleAppWindow = /\bGSA\//.test(navigator.userAgent)
+  const website = 'https://kit-ai-pablopupo.vercel.app/'
+  const copyLink = async () => {
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable')
+      await navigator.clipboard.writeText(website)
+      setCopyState('appLinkCopied')
+    } catch {
+      setCopyState('appLinkCopyFailed')
+      if (helpRef.current) helpRef.current.open = true
+    }
+  }
   if (appStatus !== 'ready') {
     const failed = ['error', 'unsupported', 'waiting'].includes(appStatus)
-    const title = { error: 'appSaveFailed', unsupported: 'appUnsupported', waiting: 'appWaiting' }[appStatus] || 'appSaving'
-    return <section aria-label={t('offlineSettings')} className="mb-5 rounded-xl bg-slate-50 dark:bg-slate-800 p-4">
-      <div className="flex items-center justify-between gap-3"><p role="status" className="text-sm font-bold">{t(title)}</p>{failed && appStatus !== 'unsupported' && <button onClick={local.retryOfflineSave} className="kit-text-button text-sm shrink-0">{t('appRetry')}</button>}</div>
-      <p className="mt-2 text-xs leading-relaxed text-slate-500 dark:text-slate-400">{t('appSaveDetail')}</p>
+    const title = { error: 'appSaveFailed', unsupported: googleAppWindow ? 'appGoogleWindowTitle' : 'appUnsupported', waiting: 'appWaiting' }[appStatus] || 'appSaving'
+    const detail = { unsupported: googleAppWindow ? 'appGoogleWindowDetail' : 'appUnsupportedDetail', error: 'appSaveFailedDetail', waiting: 'appWaitingDetail' }[appStatus] || 'appSaveDetail'
+    return <section aria-label={t('offlineSettings')} className="mb-5 rounded-2xl bg-slate-50 dark:bg-slate-800 p-4">
+      <p role="status" className="text-sm font-bold">{t(title)}</p>
+      <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">{t(detail)}</p>
+      {appStatus === 'unsupported' && googleAppWindow && <><button onClick={copyLink} className="kit-primary mt-3 text-sm">{t('appCopyLink')}</button>{copyState && <p role="status" className="mt-2 text-sm">{t(copyState)}</p>}</>}
+      {failed && <button onClick={local.retryOfflineSave} className="kit-text-button mt-2 text-sm">{t(appStatus === 'unsupported' ? 'appCheckAgain' : 'appRetry')}</button>}
+      {appStatus === 'unsupported' && <details ref={helpRef} className="mt-2 text-sm">
+        <summary className="min-h-11 content-center font-bold cursor-pointer text-teal-800 dark:text-teal-200">{t('appSavingHelp')}</summary>
+        <p className="mt-2 leading-relaxed">{t(local.offlineApp?.reason === 'insecure-context' ? 'appSecureDetail' : 'appOpenBrowserDetail')}</p>
+        <p className="mt-3 leading-relaxed">{t('appHomeScreenDetail')}</p>
+        <p className="mt-3 leading-relaxed">{t('appSeparateDownload')}</p>
+        <label className="block mt-4 font-bold">{t('appWebsite')}<input readOnly value={website} onFocus={event => event.target.select()} className="block w-full min-h-11 mt-2 px-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-kit-dark-bg font-normal text-base" /></label>
+        {!googleAppWindow && <button onClick={copyLink} className="kit-text-button mt-2">{t('appCopyLink')}</button>}
+        {!googleAppWindow && copyState && <p role="status" className="mt-1 text-sm">{t(copyState)}</p>}
+        {onSupport && <button onClick={onSupport} className="kit-text-button mt-2">{t('appCheckBrowser')}</button>}
+      </details>}
     </section>
   }
   if (local.needsDownloadConsent) return <section aria-label={t('offlineSettings')} className="mb-5 rounded-xl border border-slate-200 dark:border-slate-700 p-4">

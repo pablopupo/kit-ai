@@ -16,7 +16,7 @@ export default function SettingsPanel({ local, onCheckDevice }) {
       <Toggle title={t('darkMode')} description={t('darkModeDesc')} checked={darkMode} onChange={setDarkMode} />
       <Toggle title={t('readAloud')} description={t('readAloudDetail')} checked={ttsEnabled} onChange={setTtsEnabled} />
       <label className={`block ${panelClass}`}><span className="font-bold">{t('voiceSpeed')}: {speed}×</span><input aria-label={t('voiceSpeed')} type="range" min="0.5" max="2" step="0.1" value={speed} onChange={e => setSpeed(Number(e.target.value))} className="block w-full min-h-11 mt-2 accent-teal-700" /></label>
-      <div className={panelClass}><h2 className="font-bold mb-3">{t('offlineSettings')}</h2><OfflineSetup local={local} /><p className="text-sm text-slate-600 dark:text-slate-400">{t('storageDetail')}</p></div>
+      <div className={panelClass}><h2 className="font-bold mb-3">{t('offlineSettings')}</h2><OfflineSetup local={local} onSupport={onCheckDevice} /><p className="text-sm text-slate-600 dark:text-slate-400">{t('storageDetail')}</p></div>
       <div className="px-2 py-1"><button onClick={onCheckDevice} className="kit-text-button">{phoneCheckTitle(language)} <ArrowUpRight size={16} /></button></div>
       {!local.needsDownloadConsent && <Toggle title={t('autoSetup')} description={t('autoSetupDetail')} checked={autoPrepare} onChange={value => value ? local.resume() : local.pause()} />}
       <Toggle title={t('onlineHelp')} description={t('onlineHelpDetail')} checked={allowOnline} onChange={setAllowOnline} />

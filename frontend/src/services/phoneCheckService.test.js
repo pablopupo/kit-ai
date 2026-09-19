@@ -15,6 +15,8 @@ test('capability checks use read-only metadata, tolerate denied storage, and nev
   })
   assert.equal(writes, 0)
   assert.equal(capabilities.workerWebGPU, true)
+  assert.equal(capabilities.serviceWorkerAvailable, true)
+  assert.equal(capabilities.cacheStorageAvailable, true)
   assert.deepEqual(capabilities.storage, { usageBytes: null, quotaBytes: null, persistent: false })
   assert.deepEqual(capabilities.caches, { appCacheContainers: 1, modelContainers: 2 })
   const report = makePhoneReport({ capabilities })
@@ -26,11 +28,32 @@ test('capability checks use read-only metadata, tolerate denied storage, and nev
 test('unsupported browser and failed probes remain unavailable rather than passing', async () => {
   const capabilities = await inspectPhone({ nav: {}, cacheStorage: {}, db: {}, secureContext: false, checkGPU: async () => { throw new Error('Worker blocked') } })
   assert.equal(capabilities.workerWebGPU, null)
+  assert.equal(capabilities.serviceWorkerAvailable, false)
+  assert.equal(capabilities.offlineSupportReason, 'insecure-context')
   assert.equal(capabilities.serviceWorkerControlsPage, false)
   assert.equal(capabilities.serviceWorkerRegistered, false)
   assert.equal(capabilities.storage.persistent, null)
   assert.deepEqual(capabilities.caches, { appCacheContainers: null, modelContainers: null })
   assert.equal(makePhoneReport({ capabilities }).localTest, null)
+})
+
+test('capability inspection tolerates blocked service-worker and default storage getters', async t => {
+  const savedGlobals = Object.fromEntries(['caches', 'indexedDB'].map(key => [key, Object.getOwnPropertyDescriptor(globalThis, key)]))
+  t.after(() => {
+    for (const [key, descriptor] of Object.entries(savedGlobals)) descriptor ? Object.defineProperty(globalThis, key, descriptor) : delete globalThis[key]
+  })
+  for (const key of ['caches', 'indexedDB']) Object.defineProperty(globalThis, key, { configurable: true, get() { throw new DOMException('Private storage information', 'SecurityError') } })
+  const capabilities = await inspectPhone({
+    nav: { onLine: true, get serviceWorker() { throw new DOMException('Private browser information', 'SecurityError') } },
+    secureContext: true, checkGPU: async () => ({ supported: true }),
+  })
+  assert.equal(capabilities.serviceWorkerAvailable, false)
+  assert.equal(capabilities.cacheStorageAvailable, false)
+  assert.equal(capabilities.serviceWorkerRegistered, false)
+  assert.equal(capabilities.offlineSupportReason, 'service-worker-blocked')
+  assert.equal(capabilities.caches.appCacheContainers, null)
+  assert.equal(capabilities.caches.modelContainers, null)
+  assert.equal(JSON.stringify(makePhoneReport({ capabilities })).includes('Private'), false)
 })
 
 test('fresh local tests use only the fixed selected-language prompt and empty history', async () => {
@@ -103,13 +126,17 @@ test('network changes during generation invalidate offline evidence, even when o
 test('diagnostic exports explicitly exclude conversations, arbitrary state, and browser identity unless chosen', () => {
   const result = { status: 'passed', language: 'es', prompt: 'A private question', response: 'PRUEBA LOCAL DE KIT.', elapsedMs: 500, conversations: ['Private history'], error: 'Private failure' }
   const capabilities = { workerWebGPU: true, storage: { usageBytes: 12, token: 'Private key' }, chats: ['Private conversation'] }
-  const report = makePhoneReport({ result, capabilities, configuredModel: 'Configured test model', userAgent: 'Browser identity', chats: ['Private chat'] })
+  const offlineApp = { status: 'unsupported', runtimeSaved: false, reason: 'service-worker-unavailable', support: { secureContext: true, serviceWorkerAvailable: false, cacheStorageAvailable: false, url: 'Private origin' }, error: 'Private exception', conversations: ['Private history'] }
+  const report = makePhoneReport({ result, capabilities, offlineApp, configuredModel: 'Configured test model', userAgent: 'Browser identity', chats: ['Private chat'] })
   const json = JSON.stringify(report)
   assert.equal(json.includes('Private'), false)
   assert.equal(json.includes('private'), false)
   assert.equal(json.includes('Browser identity'), false)
   assert.equal(report.localTest.prompt, PHONE_TEST_PROMPTS.es)
   assert.equal(report.localTest.response, 'PRUEBA LOCAL DE KIT.')
+  assert.deepEqual(report.offlineApp, { status: 'unsupported', runtimeSaved: false, reason: 'service-worker-unavailable', support: { secureContext: true, serviceWorkerAvailable: false, cacheStorageAvailable: false } })
+  const arbitrary = makePhoneReport({ offlineApp: { status: 'Private', reason: 'Private', runtimeSaved: 'Private' }, capabilities: { offlineSupportReason: 'Private' } })
+  assert.equal(JSON.stringify(arbitrary).includes('Private'), false)
   const withBrowser = makePhoneReport({ result, includeBrowser: true, userAgent: 'Browser identity' })
   assert.equal(withBrowser.browserUserAgent, 'Browser identity')
   assert.equal(makePhoneReport({ result: { ...result, status: 'failed' } }).localTest.response, null)
