@@ -1,12 +1,15 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import { webllmGpuLimitsPatch } from './build/webllmGpuLimitsPatch.js'
 
 export default defineConfig({
+  worker: { plugins: () => [webllmGpuLimitsPatch()] },
   optimizeDeps: {
     exclude: ['@mlc-ai/web-llm']
   },
   plugins: [
+    webllmGpuLimitsPatch(),
     react(),
     VitePWA({
       strategies: 'injectManifest',

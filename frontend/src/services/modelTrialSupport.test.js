@@ -20,15 +20,29 @@ function fakeGPU({ limits = LIMITS, features = FEATURES, deviceLimits = medicalT
   }
 }
 
-test('rejects 256/512 MiB binding adapters because the runtime requests only 128 MiB', async () => {
-  for (const maxStorageBufferBindingSize of [2 ** 27, 2 ** 28, 2 ** 29]) {
+test('rejects adapters that cannot bind the actual largest model tensor', async () => {
+  for (const maxStorageBufferBindingSize of [2 ** 27, MEDICAL_TRIAL_REQUIREMENTS.largestTensorBytes - 4]) {
     const { gpu, state } = fakeGPU({ limits: { ...LIMITS, maxStorageBufferBindingSize } })
     const result = await probeMedicalModelGPU(gpu)
     assert.equal(result.supported, false)
     assert.equal(result.reason, 'storage-binding-limit')
-    assert.equal(result.requestedLimits.maxStorageBufferBindingSize, 2 ** 27)
+    assert.equal(result.requestedLimits.maxStorageBufferBindingSize, maxStorageBufferBindingSize)
     assert.ok(result.requestedLimits.maxStorageBufferBindingSize < MEDICAL_TRIAL_REQUIREMENTS.largestTensorBytes)
     assert.equal(state.deviceRequests.length, 0)
+  }
+})
+
+test('reported iPhone and 256/512 MiB adapters request and validate a usable device', async () => {
+  for (const maximum of [2 ** 28, 429496728, 2 ** 29]) {
+    const { gpu, state } = fakeGPU({ limits: { ...LIMITS, maxBufferSize: maximum, maxStorageBufferBindingSize: maximum } })
+    const result = await probeMedicalModelGPU(gpu)
+    assert.equal(result.supported, true)
+    assert.equal(result.deviceChecked, true)
+    assert.equal(result.requestedLimits.maxBufferSize, 2 ** 28)
+    assert.equal(result.requestedLimits.maxStorageBufferBindingSize, 2 ** 28)
+    assert.equal(state.deviceRequests.length, 1)
+    assert.equal(state.destroys, 1)
+    assert.equal(assessModelTrialSupport({ gpu: result }).supported, true)
   }
 })
 

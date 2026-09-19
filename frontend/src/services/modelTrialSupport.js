@@ -1,7 +1,8 @@
 // Specific to the owner's medical 3B q4f16_1 conversion and WebLLM 0.2.80.
-// Revisit these limits when changing either artifact or runtime. In particular,
-// this runtime requests only 128 MiB storage bindings on adapters below 1 GiB,
-// even when the adapter advertises 256/512 MiB. The 188 MiB embedding cannot fit.
+// Revisit these limits when changing either artifact or runtime. The guarded
+// Vite patch raises the smaller-device binding request to at most 256 MiB so
+// the 188 MiB embedding fits when the adapter actually supports it.
+import { webllmFallbackStorageBindingLimit } from './webllmGpuLimits.js'
 export const MEDICAL_TRIAL_REQUIREMENTS = Object.freeze({
   artifactBytesApprox: 1_830_000_000,
   minimumFreeStorageBytes: 2_100_000_000,
@@ -28,11 +29,11 @@ export function modelTrialReason(value) {
   return REASONS.has(value) ? value : 'invalid-check-result'
 }
 
-/** Mirrors the actual WebLLM 0.2.80 request, not the adapter's maximum values. */
+/** Mirrors Kit's patched WebLLM 0.2.80 request, not the adapter maximum. */
 export function medicalTrialRequestedLimits(limits = {}) {
   return {
     maxBufferSize: limits.maxBufferSize >= GIB ? GIB : 2 ** 28,
-    maxStorageBufferBindingSize: limits.maxStorageBufferBindingSize >= GIB ? GIB : 2 ** 27,
+    maxStorageBufferBindingSize: limits.maxStorageBufferBindingSize >= GIB ? GIB : webllmFallbackStorageBindingLimit(limits),
     maxComputeWorkgroupStorageSize: 32768,
     maxStorageBuffersPerShaderStage: 10,
   }

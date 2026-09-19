@@ -1,6 +1,7 @@
 # Reproduce the local medical-model conversion
 
-This is an **evaluation-only** conversion of the user's existing trained model.
+This records the conversion of the user's existing trained model for evaluation
+and its later integration into the experimental main chat.
 The conversion scripts do not train or replace the source model. The separate
 publication step below first enabled an opt-in browser trial. That same pinned
 checkpoint now powers the experimental main chat; existing trial downloads are
@@ -104,8 +105,10 @@ Without the case arguments, it compares one short, non-clinical forward pass.
 
 The converted artifacts were published on 2026-09-19 as
 [`Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC`](https://huggingface.co/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC),
-revision `34f6aa7d8fb5608dc2585e6660b982610ca4bc28`, for the explicit
-`/?trial=medical3b` route. All 67 files match their local hashes and sizes;
+revision `34f6aa7d8fb5608dc2585e6660b982610ca4bc28`, initially for the explicit
+`/?trial=medical3b` route. Release `abcef5b` moved the same pinned checkpoint into
+the main chat; the old URL opens that same chat and existing model downloads are
+reused. All 67 files match their local hashes and sizes;
 all browser assets permit cross-origin delivery. See the
 [publication report](results/phone-trial-publication.json) and
 [trial verification scope](../verification/medical-trial.md). Historical conversion
@@ -131,10 +134,21 @@ controlled comparison. Its matching stock library URL is:
 
 `https://raw.githubusercontent.com/mlc-ai/binary-mlc-llm-libs/main/web-llm-models/v0_2_80/Llama-3.2-3B-Instruct-q4f16_1-ctx4k_cs1k-webgpu.wasm`
 
-Require `shader-f16`; use context 4096 and prefill 128. Tensor-schema compatibility
-supports trying this existing library but does not replace actual inference
-testing. No new WASM library was compiled in this experiment. No phone performance
-claim follows from conversion on a desktop Mac.
+Require `shader-f16`; the matching runtime uses context 4096 and a compiled
+prefill chunk size of 1024. The earlier JavaScript `prefill_chunk_size: 128`
+override did not change that compiled runtime setting and must not be claimed as
+a phone-memory optimization. Tensor-schema compatibility supports trying this
+existing library but does not replace actual inference testing. No new WASM
+library was compiled in this experiment. No phone performance claim follows from
+conversion on a desktop Mac.
+
+The owner's later iPhone report failed the storage-binding preflight despite
+successful app saving. The reported adapter limit is 429,496,728 bytes, while
+unmodified WebLLM 0.2.80 selects only 134,217,728 bytes. Kit now applies a
+guarded fallback correction that requests up to 256 MiB, within the adapter
+limits. The saved model passes real desktop inference and offline reopening with
+those native device limits. See [phone GPU-limit verification](../verification/phone-gpu-limits.md)
+for release status; physical phone memory stability remains unverified.
 
 ## Feasibility failures and corrections
 
