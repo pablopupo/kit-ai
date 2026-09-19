@@ -1,115 +1,107 @@
 import { useState, useRef, useEffect, useLayoutEffect } from 'react'
-import { BookOpen, MessageCircle, History, Settings, Plus, WifiOff, Square, Trash2, ShieldCheck } from 'lucide-react'
+import { ArrowLeft, BookOpen, History, Settings, MoreHorizontal, Square, Trash2, Check } from 'lucide-react'
 import ChatInput from './ChatInput'
 import ChatMessage from './ChatMessage'
 import GuideLibrary from './GuideLibrary'
 import KitLogo from './KitLogo'
-import OfflineSetup from './OfflineSetup'
-import SettingsPanel from './SettingsPanel'
-import PhoneCheck, { phoneCheckTitle } from './PhoneCheck'
+import AssistantSetup from './AssistantSetup'
+import SimpleSettings from './SimpleSettings'
 import { useChatScroll } from '../hooks/useChatScroll'
 import { useChatViewport } from '../hooks/useChatViewport'
-import { useWebLLM } from '../hooks/useWebLLM'
+import { useOfflineAssistant } from '../hooks/useOfflineAssistant'
 import { useSettings } from '../contexts/SettingsContext'
 import { useChatHistory } from '../contexts/ChatHistoryContext'
 import { askMedicalModel, MEDICAL_MODEL } from '../services/onlineMedicalService'
-import { searchGuides } from '../services/firstAidGuides'
 import { getPromptGuideSources } from '../services/chatPrompt'
-import { chooseAnswerSource } from '../services/offlinePolicy'
-import { LOCAL_MODEL_LABEL } from '../services/localModelConfig'
-
-const tabs = [
-  { id: 'guides', icon: BookOpen }, { id: 'chat', icon: MessageCircle },
-  { id: 'history', icon: History }, { id: 'settings', icon: Settings },
-]
-
-function referenceAnswer(question, language, t) {
-  const guides = searchGuides(question, language).slice(0, 1)
-  if (!guides.length) return { answer: t('noGuide'), sources: [] }
-  const guide = guides[0]
-  return {
-    answer: [t('guideAnswerIntro'), guide.title, `${t('scope')}: ${guide.scope}`, guide.summary,
-      ...guide.steps.map((step, index) => `${index + 1}. ${step}`),
-      `${t('whenToGetHelp')}:`, ...guide.redFlags.map(flag => `• ${flag}`),
-    ].join('\n\n'),
-    sources: guide.sources,
-  }
-}
+import { chooseAssistantSource } from '../services/assistantPolicy'
+import { simpleChatCopy } from '../utils/simpleChatCopy'
 
 export default function Home() {
-  const [tab, setTab] = useState(() => window.location.hash === '#device-check' ? 'device-check' : 'guides')
+  const [page, setPage] = useState('chat')
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [setupDismissed, setSetupDismissed] = useState(false)
   const [online, setOnline] = useState(navigator.onLine)
   const [busy, setBusy] = useState(false)
-  const [diagnosticBusy, setDiagnosticBusy] = useState(false)
   const [streaming, setStreaming] = useState('')
-  const [requestStatus, setRequestStatus] = useState('')
   const [requestError, setRequestError] = useState('')
+  const [failedRequest, setFailedRequest] = useState(null)
   const [pendingConversation, setPendingConversation] = useState(null)
+  const [drafts, setDrafts] = useState({})
   const abortRef = useRef(null)
   const shellRef = useRef(null)
   const contentRef = useRef(null)
   const mainRef = useRef(null)
-  const local = useWebLLM()
-  const offlineReady = local.offlineApp.status === 'ready'
+  const menuRef = useRef(null)
+  const menuButtonRef = useRef(null)
+  const local = useOfflineAssistant()
   const { t, language, allowOnline } = useSettings()
+  const c = simpleChatCopy[language] || simpleChatCopy.en
   const { currentMessages, conversationsList, createNewConversation, loadConversation, deleteConversation, updateMessages, currentConversationId, storageError } = useChatHistory()
-  const scrollToLatest = useChatScroll(mainRef, contentRef, tab === 'chat', currentConversationId, currentMessages.length > 0)
-  useChatViewport(shellRef, tab === 'chat')
-  const source = chooseAnswerSource({ localReady: local.status === 'ready', online, allowOnline })
+  const scrollToLatest = useChatScroll(mainRef, contentRef, page === 'chat', currentConversationId, currentMessages.length > 0)
+  useChatViewport(shellRef, page === 'chat')
+  const source = chooseAssistantSource({ localReady: local.status === 'ready', online, allowOnline })
+  const activeSetup = ['checking', 'saving', 'loading', 'downloading'].includes(local.status)
+  const showSetup = !local.offlineSaved && (!setupDismissed || !source || local.status !== 'consent')
+  const statusLabel = local.offlineSaved ? c.ready : local.status === 'ready' ? c.readyHere : activeSetup ? c.preparing : online ? c.internetNeeded : c.notReady
 
   useEffect(() => {
-    const updateNetwork = () => setOnline(navigator.onLine)
-    window.addEventListener('online', updateNetwork)
-    window.addEventListener('offline', updateNetwork)
+    const update = () => setOnline(navigator.onLine)
+    window.addEventListener('online', update)
+    window.addEventListener('offline', update)
     return () => {
-      window.removeEventListener('online', updateNetwork)
-      window.removeEventListener('offline', updateNetwork)
+      window.removeEventListener('online', update)
+      window.removeEventListener('offline', update)
       abortRef.current?.abort()
     }
   }, [])
+  useEffect(() => {
+    if (!menuOpen) return
+    const closeOutside = event => { if (!menuRef.current?.contains(event.target)) setMenuOpen(false) }
+    const escape = event => { if (event.key === 'Escape') { setMenuOpen(false); menuButtonRef.current?.focus() } }
+    document.addEventListener('pointerdown', closeOutside)
+    document.addEventListener('keydown', escape)
+    return () => { document.removeEventListener('pointerdown', closeOutside); document.removeEventListener('keydown', escape) }
+  }, [menuOpen])
   useLayoutEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' })
-    if (tab !== 'chat') mainRef.current?.scrollTo({ top: 0, behavior: 'instant' })
-    const url = `${window.location.pathname}${window.location.search}${tab === 'device-check' ? '#device-check' : ''}`
-    window.history.replaceState(null, '', url)
-  }, [tab])
+    if (page !== 'chat') mainRef.current?.scrollTo({ top: 0, behavior: 'instant' })
+  }, [page])
 
+  const navigate = next => { setMenuOpen(false); setPage(next) }
   const stop = () => abortRef.current?.abort()
   const newChat = () => {
     stop()
     createNewConversation()
     setStreaming('')
     setRequestError('')
-    setTab('chat')
+    setFailedRequest(null)
+    navigate('chat')
   }
-  const handleSend = async content => {
-    if (abortRef.current || diagnosticBusy) return
-    scrollToLatest()
+  const runAnswer = async request => {
     const controller = new AbortController()
     abortRef.current = controller
-    // Select once for this request; never move an in-flight private question to a server.
-    const requestSource = source
-    const convId = currentConversationId || createNewConversation()
-    const priorMessages = currentMessages
-    updateMessages({ role: 'user', content, source: requestSource }, convId)
-    setPendingConversation(convId)
+    setPendingConversation(request.convId)
     setBusy(true)
     setStreaming('')
     setRequestError('')
-    setRequestStatus(t(requestSource === 'online' ? 'connecting' : 'thinking'))
+    setFailedRequest(null)
     try {
-      let answer, sources
-      if (requestSource === 'guides') {
-        ;({ answer, sources } = referenceAnswer(content, language, t))
-      } else {
-        answer = requestSource === 'online'
-          ? await askMedicalModel(content, priorMessages.filter(message => message.source === 'online'), { language, signal: controller.signal, onStatus: () => setRequestStatus(t('waiting')) })
-          : await local.sendMessage(content, priorMessages, setStreaming, controller.signal)
-        sources = getPromptGuideSources(content, requestSource === 'online' ? priorMessages.filter(message => message.source === 'online') : priorMessages, { language })
+      // A failed local question stays local on retry, even if Wi-Fi returns.
+      if (request.source === 'device' && local.status !== 'ready') await local.retry()
+      if (controller.signal.aborted) return
+      const history = request.history.filter(message => message.source !== 'guides' || message.role === 'user')
+      const promptHistory = request.source === 'online' ? history.filter(message => message.source === 'online') : history
+      const sources = getPromptGuideSources(request.content, promptHistory, { language })
+      const answer = request.source === 'device'
+        ? await local.sendMessage(request.content, promptHistory, text => { if (!controller.signal.aborted) setStreaming(text) }, controller.signal)
+        : await askMedicalModel(request.content, promptHistory, { language, signal: controller.signal })
+      if (typeof answer !== 'string' || !answer.trim()) throw new Error('Empty answer')
+      if (!controller.signal.aborted) updateMessages({ role: 'assistant', content: answer, source: request.source, model: request.source === 'device' ? local.modelId : MEDICAL_MODEL, sources }, request.convId)
+    } catch (error) {
+      if (!controller.signal.aborted && error.name !== 'AbortError') {
+        setFailedRequest(request)
+        setRequestError(error.name === 'PromptValidationError' ? error.message : c.answerFailed)
       }
-      if (!controller.signal.aborted) updateMessages({ role: 'assistant', content: answer, source: requestSource, model: requestSource === 'online' ? MEDICAL_MODEL : requestSource === 'device' ? LOCAL_MODEL_LABEL : null, sources }, convId)
-    } catch (err) {
-      if (!controller.signal.aborted && err.name !== 'AbortError') setRequestError(err.name === 'PromptValidationError' ? err.message : t('answerUnavailable'))
     } finally {
       if (abortRef.current === controller) {
         abortRef.current = null
@@ -119,49 +111,71 @@ export default function Home() {
       }
     }
   }
+  const handleSend = content => {
+    if (abortRef.current || !source) return false
+    scrollToLatest()
+    const convId = currentConversationId || createNewConversation()
+    updateMessages({ role: 'user', content, source }, convId)
+    void runAnswer({ content, convId, history: currentMessages, source })
+    return true
+  }
+  const retryAnswer = () => {
+    if (!failedRequest || abortRef.current) return
+    // A ready local model may take over a failed online question. A question
+    // originally kept on the device must never be promoted to an online call.
+    const nextSource = failedRequest.source === 'device' ? 'device' : source
+    if (!nextSource) return
+    scrollToLatest()
+    void runAnswer({ ...failedRequest, source: nextSource })
+  }
   const sameConversation = pendingConversation === currentConversationId
+  const retryVisible = failedRequest?.convId === currentConversationId
 
   return (
-    <div ref={shellRef} className={`app-shell flex text-slate-800 dark:text-kit-dark-text ${tab === 'chat' ? 'is-chat' : ''}`}>
-      <aside className="hidden md:flex kit-sidebar w-60 shrink-0 flex-col p-6">
-        <div className="mb-10"><KitLogo onNewConversation={newChat} /></div>
-        <nav aria-label={t('mainNavigation')} className="space-y-2">
-          {tabs.map(({ id, icon: Icon }) => <button key={id} onClick={() => setTab(id)} aria-current={tab === id ? 'page' : undefined} className={`flex w-full gap-3 items-center min-h-12 px-4 rounded-full font-bold ${tab === id ? 'bg-white dark:bg-kit-dark-bg text-teal-900 dark:text-teal-200' : 'text-slate-600 dark:text-slate-300 hover:bg-white/60'}`}><Icon size={20} className="text-[#B54F61] dark:text-kit-red" />{t(id)}</button>)}
-        </nav>
-        <div className="mt-auto text-sm text-teal-900 dark:text-teal-200 pt-8"><ShieldCheck size={21} className="mb-2" /><p className="font-bold">{t(offlineReady ? 'guidesSaved' : 'guidesIncluded')}</p><p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">{t('shortDisclaimer')}</p></div>
-      </aside>
+    <div ref={shellRef} className={`app-shell simple-kit flex text-slate-800 dark:text-kit-dark-text ${page === 'chat' ? 'is-chat' : ''}`}>
       <div className="kit-panel flex-1 min-w-0 min-h-0 flex flex-col">
-        <header style={{ paddingTop: 'max(1rem, env(safe-area-inset-top, 0px))' }} className="kit-header flex shrink-0 items-center justify-between px-5 md:px-10 py-4 gap-3">
-          <div className="md:hidden"><KitLogo onNewConversation={newChat} small /></div>
-          <span className="hidden md:block font-bold">{tab === 'device-check' ? phoneCheckTitle(language) : t(tab)}</span>
-          <span className="max-w-[13rem] text-right text-xs text-slate-600 dark:text-slate-300 flex gap-2 items-center">{!online && <WifiOff size={15} />}{t(!online ? 'offline' : offlineReady ? 'guidesSaved' : 'companion')}</span>
+        <header className="kit-header simple-header relative flex shrink-0 items-center justify-between gap-3 px-5 py-3 sm:px-8">
+          <KitLogo onNewConversation={newChat} small />
+          <div className="flex min-w-0 items-center gap-1 sm:gap-3">
+            {page === 'chat' && <button type="button" onClick={() => { setSetupDismissed(false); mainRef.current?.scrollTo({ top: 0, behavior: 'smooth' }) }} aria-label={statusLabel} className="flex min-h-11 min-w-0 items-center gap-1.5 rounded-full px-2 text-right text-xs font-bold text-[#286B60] dark:text-teal-200">
+              {local.offlineSaved && <Check aria-hidden="true" size={15} className="shrink-0" />}<span role="status" className="max-w-[8.5rem]">{statusLabel}</span>
+            </button>}
+            <div ref={menuRef} className="relative">
+              <button ref={menuButtonRef} aria-label={c.menu} aria-expanded={menuOpen} aria-controls="kit-options" onClick={() => setMenuOpen(value => !value)} className="flex h-11 w-11 items-center justify-center rounded-full bg-white/70 text-[#286B60] dark:bg-slate-800 dark:text-teal-200"><MoreHorizontal aria-hidden="true" size={23} /></button>
+              {menuOpen && <nav id="kit-options" aria-label={c.menu} className="absolute right-0 top-14 z-30 w-56 rounded-3xl border border-[#DCEDE9] bg-white p-2 shadow-lg dark:border-slate-600 dark:bg-kit-dark-bg-light">
+                {[[History, 'history'], [BookOpen, 'guides'], [Settings, 'settings']].map(([Icon, id]) => <button key={id} onClick={() => navigate(id)} className="flex min-h-12 w-full items-center gap-3 rounded-2xl px-4 text-left text-sm font-bold hover:bg-[#EFF9F6] dark:hover:bg-slate-700"><Icon size={18} aria-hidden="true" />{c[id]}</button>)}
+              </nav>}
+            </div>
+          </div>
         </header>
         <main ref={mainRef} id="main-content" className="kit-main flex-1 min-h-0">
-          <div ref={contentRef} className="kit-content px-5 md:px-10 pb-7 md:pb-10">
-            <div className="max-w-3xl mx-auto">
-            <p className="mb-6 rounded-2xl px-4 py-3 bg-[#FFF0F1] dark:bg-rose-950/20 text-[#87343B] dark:text-rose-200 text-xs sm:text-sm leading-relaxed">{t('emergencyBanner')}</p>
-            {storageError && <p role="status" className="mb-5 rounded-2xl px-4 py-3 text-amber-800 bg-amber-50 text-sm">{storageError}</p>}
-            {tab === 'guides' && <>{(!offlineReady || (!local.needsDownloadConsent && !['ready', 'unsupported', 'paused'].includes(local.status))) && <OfflineSetup local={local} compact onSupport={() => setTab('device-check')} />}<GuideLibrary /></>}
-            {tab === 'chat' && <>
-              <div className="flex flex-wrap items-center justify-between gap-3 mb-4"><h1 className="text-2xl font-extrabold">{t('chat')}</h1><button onClick={newChat} className="kit-text-button"><Plus size={17} />{t('newChat')}</button></div>
-              {(!offlineReady || (!local.needsDownloadConsent && local.status !== 'ready')) && <OfflineSetup local={local} compact onSupport={() => setTab('device-check')} />}
-              <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400 mb-6">{t(source === 'online' ? 'onlineNotice' : source === 'device' ? 'deviceNotice' : 'guideNotice')}</p>
-              {currentMessages.length === 0 && <div className="p-5 sm:p-7 rounded-[2rem] bg-[#F0FAF8] dark:bg-kit-dark-bg-light"><h2 className="text-xl font-bold mb-3">{t('welcomeTitle')}</h2><p className="text-slate-600 dark:text-slate-300 mb-5">{t('welcomeDetail')}</p><div className="flex flex-wrap gap-2">{['starterCut', 'starterBurn'].map(key => <button key={key} disabled={busy || diagnosticBusy} onClick={() => handleSend(t(key))} className="kit-mode text-left">{t(key)}</button>)}</div></div>}
-              {diagnosticBusy && <p role="status" className="text-sm py-3">{language === 'es' ? 'Terminando la comprobación…' : 'Finishing the check…'}</p>}
-              <div role="log" aria-label={t('conversation')} aria-live="polite">
-                {currentMessages.map((message, index) => <div key={`${message.timestamp}-${index}`}><ChatMessage role={message.role} content={message.content} />{message.role === 'assistant' && (message.source === 'guides' || message.sources?.length > 0) && <p className="text-xs text-slate-500 mb-5 ml-12">{t(message.source === 'guides' ? 'savedReference' : 'sources')}{message.sources?.length > 0 && <>: {[...new Map(message.sources.map(item => [item.url, item])).values()].map(item => <a key={item.url} href={item.url} target="_blank" rel="noreferrer" className="underline mr-2">{item.title}</a>)}</>}</p>}</div>)}
-                {busy && sameConversation && (streaming ? <ChatMessage role="assistant" content={streaming} /> : <p role="status" className="py-5 text-sm text-teal-800 dark:text-teal-200">{requestStatus}</p>)}
-              </div>
-              {requestError && <div role="alert" className="my-4 border-l-4 border-rose-400 p-4 bg-rose-50 dark:bg-rose-950/20 text-sm"><p>{requestError}</p><button onClick={() => setTab('guides')} className="kit-text-button mt-3">{t('openGuides')}</button></div>}
-            </>}
-            {tab === 'history' && <section><h1 className="text-3xl font-extrabold mb-3">{t('historyTitle')}</h1><p className="text-slate-600 dark:text-slate-400 mb-7">{t('historyDetail')}</p>{conversationsList.length === 0 ? <p>{t('noConversations')} <button onClick={() => setTab('chat')} className="underline text-teal-800 dark:text-teal-300">{t('askQuestion')}</button></p> : <div className="space-y-3">{conversationsList.map(conversation => <div key={conversation.id} className="flex gap-3 items-center p-3 rounded-3xl border border-[#DCEDE9] dark:border-slate-700 bg-[#F8FCFB] dark:bg-kit-dark-bg-light"><button disabled={busy} onClick={() => { loadConversation(conversation.id); setRequestError(''); setTab('chat') }} className="flex-1 text-left p-2 min-w-0"><span className="block font-bold truncate">{conversation.title || t('conversation')}</span><span className="text-xs text-slate-500">{new Date(conversation.updatedAt).toLocaleDateString(language)}</span></button><button disabled={busy} aria-label={t('deleteConversation', { title: conversation.title || t('conversation') })} onClick={() => deleteConversation(conversation.id)} className="p-3 rounded-full text-slate-500 hover:text-rose-700"><Trash2 size={19} /></button></div>)}</div>}</section>}
-            {tab === 'settings' && <SettingsPanel local={local} onCheckDevice={() => setTab('device-check')} />}
-            {tab === 'device-check' && <PhoneCheck local={local} chatBusy={busy || diagnosticBusy} onBusyChange={setDiagnosticBusy} onBack={() => setTab('settings')} onOpenGuides={() => setTab('guides')} />}
+          <div ref={contentRef} className="kit-content px-5 pb-6 pt-2 sm:px-8">
+            <div className="mx-auto max-w-2xl">
+              {page !== 'chat' && <button onClick={() => navigate('chat')} className="kit-text-button mb-4 text-sm"><ArrowLeft size={17} aria-hidden="true" />{c.back}</button>}
+              {storageError && <p role="status" className="mb-4 rounded-2xl bg-amber-50 p-3 text-sm text-amber-900">{storageError}</p>}
+              {page === 'chat' && <>
+                {currentMessages.length === 0 && <div className="pb-6 pt-6 sm:pt-12"><h1 className="text-[1.8rem] font-extrabold leading-tight sm:text-4xl">{c.welcome}</h1><p className="mt-2 text-base text-slate-500 dark:text-slate-300">{c.welcomeDetail}</p></div>}
+                {showSetup && <AssistantSetup local={local} online={online} onDismiss={source === 'online' ? () => setSetupDismissed(true) : null} onHelp={() => navigate('settings')} />}
+                <div role="log" aria-label={t('conversation')} aria-live="polite" aria-busy={busy && sameConversation}>
+                  {currentMessages.map((message, index) => message.role === 'assistant' && message.source === 'guides'
+                    ? <details key={`${message.timestamp}-${index}`} className="mb-5 rounded-2xl border border-slate-200 px-4 text-sm dark:border-slate-600"><summary className="min-h-11 cursor-pointer content-center text-slate-500">{c.oldGuide}</summary><p className="whitespace-pre-wrap pb-4 leading-relaxed">{message.content}</p></details>
+                    : <div key={`${message.timestamp}-${index}`}><ChatMessage role={message.role} content={message.content} />{message.role === 'assistant' && message.sources?.length > 0 && <details className="mb-5 -mt-3 ml-10 text-xs text-slate-500 dark:text-slate-400"><summary className="min-h-11 cursor-pointer content-center">{c.sources}</summary><div className="flex flex-col items-start">{[...new Map(message.sources.map(item => [item.url, item])).values()].map(item => <a key={item.url} href={item.url} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center underline underline-offset-2">{item.title}</a>)}</div></details>}</div>)}
+                  {busy && sameConversation && (streaming ? <ChatMessage role="assistant" content={streaming} /> : <p role="status" className="py-5 text-sm text-teal-800 dark:text-teal-200">{c.writing}</p>)}
+                </div>
+                {requestError && retryVisible && <div role="alert" className="my-4 rounded-2xl bg-[#FFF4F2] p-4 text-sm dark:bg-rose-950/20"><p>{requestError}</p><button disabled={busy || (failedRequest.source === 'online' && !source)} onClick={retryAnswer} className="kit-text-button mt-2">{c.retryAnswer}</button></div>}
+              </>}
+              {page === 'history' && <section><h1 className="mb-5 text-2xl font-extrabold">{c.history}</h1>{conversationsList.length === 0 ? <p className="text-slate-500">{c.historyEmpty}</p> : <div className="space-y-3">{conversationsList.map(conversation => <div key={conversation.id} className="flex items-center gap-2 rounded-3xl border border-[#DCEDE9] bg-[#F8FCFB] p-3 dark:border-slate-700 dark:bg-kit-dark-bg-light"><button disabled={busy} onClick={() => { loadConversation(conversation.id); setRequestError(''); setFailedRequest(null); navigate('chat') }} className="min-w-0 flex-1 p-2 text-left"><span className="block truncate font-bold">{conversation.title || t('conversation')}</span><span className="text-xs text-slate-500">{new Date(conversation.updatedAt).toLocaleDateString(language)}</span></button><button disabled={busy} aria-label={t('deleteConversation', { title: conversation.title || t('conversation') })} onClick={() => deleteConversation(conversation.id)} className="rounded-full p-3 text-slate-500 hover:text-rose-700"><Trash2 size={19} aria-hidden="true" /></button></div>)}</div>}</section>}
+              {page === 'guides' && <GuideLibrary />}
+              {page === 'settings' && <SimpleSettings local={local} />}
             </div>
           </div>
         </main>
-        {tab === 'chat' && <div className="kit-composer shrink-0">{busy && <button onClick={stop} className="kit-text-button mx-auto mt-2 text-sm"><Square size={14} />{t('stopResponse')}</button>}<ChatInput key={currentConversationId || 'new'} onSend={handleSend} disabled={busy || diagnosticBusy} placeholder={t('inputPlaceholder')} /></div>}
-        <nav aria-label={t('mobileNavigation')} className="kit-mobile-nav md:hidden shrink-0 flex gap-1 px-2 pt-2">{tabs.map(({ id, icon: Icon }) => <button key={id} onClick={() => setTab(id)} aria-current={tab === id ? 'page' : undefined} className={`min-w-0 flex-1 min-h-14 rounded-2xl px-1 py-2 flex flex-col items-center justify-center gap-1 text-xs font-bold ${tab === id ? 'text-teal-800 dark:text-teal-200 bg-[#E0F5F3] dark:bg-teal-950/30' : 'text-slate-500 dark:text-slate-400'}`}><Icon size={21} />{t(id)}</button>)}</nav>
+        {page === 'chat' && <div className="kit-composer simple-composer shrink-0">
+          {busy && <button onClick={stop} className="kit-text-button mx-auto text-sm"><Square size={14} aria-hidden="true" />{c.stop}</button>}
+          <ChatInput key={currentConversationId || 'new'} value={drafts[currentConversationId || 'new'] || ''} onChange={value => setDrafts(previous => ({ ...previous, [currentConversationId || 'new']: value }))} onSend={handleSend} disabled={busy} sendDisabled={!source} placeholder={c.placeholder} />
+          {source === 'online' && <p className="px-5 text-center text-xs text-slate-500 dark:text-slate-400">{c.onlinePrivacy}</p>}
+          <p className="mx-auto max-w-xl px-5 pb-2 pt-1 text-center text-[11px] leading-relaxed text-slate-500 dark:text-slate-400">{c.disclaimer}</p>
+        </div>}
       </div>
     </div>
   )

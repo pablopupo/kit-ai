@@ -2,8 +2,9 @@
 
 This is an **evaluation-only** conversion of the user's existing trained model.
 The conversion scripts do not train or replace the source model. The separate
-publication step below enables an opt-in browser trial; normal KIT-AI model
-defaults remain unchanged.
+publication step below first enabled an opt-in browser trial. That same pinned
+checkpoint now powers the experimental main chat; existing trial downloads are
+reused. This integration does not establish medical reliability.
 
 Source: `Pablo305/llama3-medical-3b-4bit`, pinned revision
 `df5aa311d5b017bdd4d1719c50c5d7a1dd1fa37b`.

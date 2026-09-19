@@ -1,8 +1,10 @@
 import { useState, useRef, useLayoutEffect } from 'react'
 import { useSettings } from '../contexts/SettingsContext'
 
-function ChatInput({ onSend, disabled, placeholder }) {
-  const [message, setMessage] = useState('')
+function ChatInput({ onSend, disabled, sendDisabled = false, placeholder, value, onChange }) {
+  const [draft, setDraft] = useState('')
+  const message = value ?? draft
+  const setMessage = onChange || setDraft
   const inputRef = useRef(null)
   const { t } = useSettings()
 
@@ -15,9 +17,8 @@ function ChatInput({ onSend, disabled, placeholder }) {
 
   const send = () => {
     const trimmed = message.trim()
-    if (!trimmed || disabled) return
-    onSend(trimmed)
-    setMessage('')
+    if (!trimmed || disabled || sendDisabled) return
+    if (onSend(trimmed) !== false) setMessage('')
   }
 
   const handleKeyDown = event => {
@@ -50,7 +51,7 @@ function ChatInput({ onSend, disabled, placeholder }) {
           <button
             type="submit"
             aria-label={t('sendMessage')}
-            disabled={disabled || !message.trim()}
+            disabled={disabled || sendDisabled || !message.trim()}
             className="shrink-0 w-11 h-11 flex items-center justify-center bg-[#17695F] dark:bg-kit-teal-dark text-white rounded-full hover:bg-[#2E8E82] dark:hover:bg-kit-teal disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-150"
           >
             <svg aria-hidden="true" className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import AudioPlayer from './AudioPlayer'
 
-function ChatMessage({ role, content }) {
+function ChatMessage({ role, content, showAudio = false }) {
   const isUser = role === 'user'
 
   return (
@@ -32,7 +32,7 @@ function ChatMessage({ role, content }) {
           <p className="text-[15px] leading-relaxed whitespace-pre-wrap break-words [overflow-wrap:anywhere]">{content}</p>
 
           {/* Audio Player - only for assistant messages */}
-          {!isUser && (
+          {!isUser && showAudio && (
             <AudioPlayer
               messageContent={content}
               messageId={`msg-${content.substring(0, 40)}`}

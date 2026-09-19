@@ -1,0 +1,797 @@
+{
+  "schema": "kit-ai-simple-chat-verification-v1",
+  "checkedAt": "2026-09-19T22:53:18.034Z",
+  "complete": true,
+  "scope": "Real App/Home components with a deterministic useOfflineAssistant fixture in desktop Chromium and WebKit at phone viewports. This tests UI behavior, not device compatibility, model downloading, or medical accuracy. Real cached-model mechanics, when explicitly enabled, are recorded separately.",
+  "cases": [
+    {
+      "engine": "chromium",
+      "language": "en",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "assertions": [
+        "single-consented-setup",
+        "question-editable-before-ready",
+        "send-disabled-before-ready",
+        "secondary-navigation-hidden",
+        "ready-chat-hides-setup",
+        "draft-survives-setup",
+        "streamed-generated-answer",
+        "two-turn-context",
+        "collapsed-references",
+        "scroll-earlier-and-latest",
+        "composer-visible",
+        "no-horizontal-overflow",
+        "failed-question-retained",
+        "no-guide-as-answer",
+        "compact-failure",
+        "retry-recovers-local-without-duplicate",
+        "stop-aborts-and-drains",
+        "menu-destinations",
+        "escape-closes-menu",
+        "logo-new-chat",
+        "draft-survives-settings-navigation",
+        "offline-unavailable-honest",
+        "paused-can-resume-offline",
+        "online-failed-retry-uses-ready-local",
+        "legacy-guide-note-collapsed-preserved"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "assertions": [
+        "single-consented-setup",
+        "question-editable-before-ready",
+        "send-disabled-before-ready",
+        "secondary-navigation-hidden",
+        "ready-chat-hides-setup",
+        "draft-survives-setup",
+        "streamed-generated-answer",
+        "two-turn-context",
+        "collapsed-references",
+        "scroll-earlier-and-latest",
+        "composer-visible",
+        "no-horizontal-overflow",
+        "failed-question-retained",
+        "no-guide-as-answer",
+        "compact-failure",
+        "retry-recovers-local-without-duplicate",
+        "stop-aborts-and-drains",
+        "menu-destinations",
+        "escape-closes-menu",
+        "logo-new-chat",
+        "draft-survives-settings-navigation",
+        "offline-unavailable-honest",
+        "paused-can-resume-offline",
+        "online-failed-retry-uses-ready-local",
+        "legacy-guide-note-collapsed-preserved"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "assertions": [
+        "single-consented-setup",
+        "question-editable-before-ready",
+        "send-disabled-before-ready",
+        "secondary-navigation-hidden",
+        "ready-chat-hides-setup",
+        "draft-survives-setup",
+        "streamed-generated-answer",
+        "two-turn-context",
+        "collapsed-references",
+        "scroll-earlier-and-latest",
+        "composer-visible",
+        "no-horizontal-overflow",
+        "failed-question-retained",
+        "no-guide-as-answer",
+        "compact-failure",
+        "retry-recovers-local-without-duplicate",
+        "stop-aborts-and-drains",
+        "menu-destinations",
+        "escape-closes-menu",
+        "logo-new-chat",
+        "draft-survives-settings-navigation",
+        "offline-unavailable-honest",
+        "paused-can-resume-offline",
+        "online-failed-retry-uses-ready-local",
+        "legacy-guide-note-collapsed-preserved"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "assertions": [
+        "single-consented-setup",
+        "question-editable-before-ready",
+        "send-disabled-before-ready",
+        "secondary-navigation-hidden",
+        "ready-chat-hides-setup",
+        "draft-survives-setup",
+        "streamed-generated-answer",
+        "two-turn-context",
+        "collapsed-references",
+        "scroll-earlier-and-latest",
+        "composer-visible",
+        "no-horizontal-overflow",
+        "failed-question-retained",
+        "no-guide-as-answer",
+        "compact-failure",
+        "retry-recovers-local-without-duplicate",
+        "stop-aborts-and-drains",
+        "menu-destinations",
+        "escape-closes-menu",
+        "logo-new-chat",
+        "draft-survives-settings-navigation",
+        "offline-unavailable-honest",
+        "paused-can-resume-offline",
+        "online-failed-retry-uses-ready-local",
+        "legacy-guide-note-collapsed-preserved"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "assertions": [
+        "single-consented-setup",
+        "question-editable-before-ready",
+        "send-disabled-before-ready",
+        "secondary-navigation-hidden",
+        "ready-chat-hides-setup",
+        "draft-survives-setup",
+        "streamed-generated-answer",
+        "two-turn-context",
+        "collapsed-references",
+        "scroll-earlier-and-latest",
+        "composer-visible",
+        "no-horizontal-overflow",
+        "failed-question-retained",
+        "no-guide-as-answer",
+        "compact-failure",
+        "retry-recovers-local-without-duplicate",
+        "stop-aborts-and-drains",
+        "menu-destinations",
+        "escape-closes-menu",
+        "logo-new-chat",
+        "draft-survives-settings-navigation",
+        "offline-unavailable-honest",
+        "paused-can-resume-offline",
+        "online-failed-retry-uses-ready-local",
+        "legacy-guide-note-collapsed-preserved"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "assertions": [
+        "single-consented-setup",
+        "question-editable-before-ready",
+        "send-disabled-before-ready",
+        "secondary-navigation-hidden",
+        "ready-chat-hides-setup",
+        "draft-survives-setup",
+        "streamed-generated-answer",
+        "two-turn-context",
+        "collapsed-references",
+        "scroll-earlier-and-latest",
+        "composer-visible",
+        "no-horizontal-overflow",
+        "failed-question-retained",
+        "no-guide-as-answer",
+        "compact-failure",
+        "retry-recovers-local-without-duplicate",
+        "stop-aborts-and-drains",
+        "menu-destinations",
+        "escape-closes-menu",
+        "logo-new-chat",
+        "draft-survives-settings-navigation",
+        "offline-unavailable-honest",
+        "paused-can-resume-offline",
+        "online-failed-retry-uses-ready-local",
+        "legacy-guide-note-collapsed-preserved"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "assertions": [
+        "single-consented-setup",
+        "question-editable-before-ready",
+        "send-disabled-before-ready",
+        "secondary-navigation-hidden",
+        "ready-chat-hides-setup",
+        "draft-survives-setup",
+        "streamed-generated-answer",
+        "two-turn-context",
+        "collapsed-references",
+        "scroll-earlier-and-latest",
+        "composer-visible",
+        "no-horizontal-overflow",
+        "failed-question-retained",
+        "no-guide-as-answer",
+        "compact-failure",
+        "retry-recovers-local-without-duplicate",
+        "stop-aborts-and-drains",
+        "menu-destinations",
+        "escape-closes-menu",
+        "logo-new-chat",
+        "draft-survives-settings-navigation",
+        "offline-unavailable-honest",
+        "paused-can-resume-offline",
+        "online-failed-retry-uses-ready-local",
+        "legacy-guide-note-collapsed-preserved"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "assertions": [
+        "single-consented-setup",
+        "question-editable-before-ready",
+        "send-disabled-before-ready",
+        "secondary-navigation-hidden",
+        "ready-chat-hides-setup",
+        "draft-survives-setup",
+        "streamed-generated-answer",
+        "two-turn-context",
+        "collapsed-references",
+        "scroll-earlier-and-latest",
+        "composer-visible",
+        "no-horizontal-overflow",
+        "failed-question-retained",
+        "no-guide-as-answer",
+        "compact-failure",
+        "retry-recovers-local-without-duplicate",
+        "stop-aborts-and-drains",
+        "menu-destinations",
+        "escape-closes-menu",
+        "logo-new-chat",
+        "draft-survives-settings-navigation",
+        "offline-unavailable-honest",
+        "paused-can-resume-offline",
+        "online-failed-retry-uses-ready-local",
+        "legacy-guide-note-collapsed-preserved"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    }
+  ],
+  "finishedAt": "2026-09-19T23:00:22.509Z",
+  "cachedModel": {
+    "scope": "Real main chat using the previously verified immutable hosted 3B weights and approval in an isolated desktop Chrome profile. The new shell is loaded normally from the updated service worker after a recorded prior-shell upgrade interruption. All attempted weight shard requests are blocked and treated as failures; no replacement model or inference mock is supplied. Browser and owned app server are fully stopped before reopening with network transport blocked. This is not a physical phone, airplane-mode, or medical accuracy test.",
+    "modelRevision": "34f6aa7d8fb5608dc2585e6660b982610ca4bc28",
+    "initialDownloadedModelReused": true,
+    "buildIndexSha256": "34d2b6f63d31ba1c5c6fb3b86ea3b28b6f7b5357cef3d6dc8b96e275ae51bbac",
+    "network": {
+      "new-build-cached-load": {
+        "requests": [
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/",
+            "method": "GET"
+          },
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/assets/index-T_Et6BPE.css",
+            "method": "GET"
+          },
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/assets/index-aFo-3uUA.js",
+            "method": "GET"
+          },
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/fonts/nunito-latin.woff2",
+            "method": "GET"
+          },
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/manifest.webmanifest",
+            "method": "GET"
+          },
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+            "method": "GET"
+          },
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/favicon.svg",
+            "method": "GET"
+          },
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/assets/webllmService-Dbd4hvKj.js",
+            "method": "GET"
+          },
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+            "method": "GET"
+          },
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/assets/webllm-worker-DWhKXDWk.js",
+            "method": "GET"
+          }
+        ],
+        "failures": []
+      },
+      "online-cached-local-answer": {
+        "requests": [],
+        "failures": []
+      },
+      "offline-full-browser-restart": {
+        "requests": [
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/",
+            "method": "GET"
+          },
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/assets/index-T_Et6BPE.css",
+            "method": "GET"
+          },
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/assets/index-aFo-3uUA.js",
+            "method": "GET"
+          },
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/manifest.webmanifest",
+            "method": "GET"
+          },
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/fonts/nunito-latin.woff2",
+            "method": "GET"
+          },
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/favicon.svg",
+            "method": "GET"
+          },
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+            "method": "GET"
+          },
+          {
+            "host": "huggingface.co",
+            "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/README.md",
+            "method": "GET"
+          },
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/assets/webllmService-Dbd4hvKj.js",
+            "method": "GET"
+          },
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+            "method": "GET"
+          },
+          {
+            "host": "127.0.0.1:51240",
+            "path": "/assets/webllm-worker-DWhKXDWk.js",
+            "method": "GET"
+          }
+        ],
+        "failures": [
+          {
+            "host": "huggingface.co",
+            "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/README.md",
+            "error": "net::ERR_INTERNET_DISCONNECTED"
+          }
+        ]
+      }
+    },
+    "pageErrors": [],
+    "browserCloses": [
+      {
+        "phase": "online-cached-local-answer",
+        "confirmedExited": true,
+        "closeWarning": null
+      },
+      {
+        "phase": "offline-full-browser-restart",
+        "confirmedExited": true,
+        "closeWarning": null
+      }
+    ],
+    "outputs": [
+      {
+        "phase": "online-cached-local-answer",
+        "question": "How do I care for a small cut?",
+        "renderedConversation": "How do I care for a small cut?\n\nTo care for a small cut, follow these steps:\n\n1. **Stop the bleeding**: Press a clean folded cloth or dressing firmly on the cut to stop the bleeding. If the bleeding doesn't stop after a few minutes, get medical help.\n2. **Clean the cut**: Rinse the cut with clean tap or bottled water. \n3. **Apply antibiotic ointment**: Apply a thin layer of antibiotic ointment to the cut to help prevent infection.\n4. **Cover the cut**: Cover the cut with a sterile dressing or bandage.\n\nReferences",
+        "elapsedMs": 1768,
+        "browserReportsOnline": true
+      },
+      {
+        "phase": "offline-full-browser-restart",
+        "question": "Can I put butter on a small burn?",
+        "renderedConversation": "Can I put butter on a small burn?\n\nNo, you should not put butter on a burn. According to the first-aid references, do not use ice, butter, oils, creams or sticky dressings on a burn.\n\nReferences",
+        "elapsedMs": 835,
+        "browserReportsOnline": true
+      }
+    ],
+    "complete": true,
+    "navigations": [
+      {
+        "phase": "new-build-cached-load",
+        "language": "en",
+        "body": "Kit AI\nki\n.ai\nGetting ready…\nHow can I help?\n\nAsk Kit a health question.\n\nGetting Kit ready…\n\nChecking whether this phone can save Kit.\n\nAsk a general health question…\n\nUsing internet for this answer. Avoid personal details.\n\nKit is experimental and can make mistakes. For urgent help, contact local emergency services.",
+        "scripts": [
+          "/assets/index-aFo-3uUA.js"
+        ]
+      },
+      {
+        "phase": "offline-full-browser-restart",
+        "language": "en",
+        "body": "Kit AI\nki\n.ai\nGetting ready…\nGetting Kit ready…\n\nChecking whether this phone can save Kit.\n\nHow do I care for a small cut?\n\nTo care for a small cut, follow these steps:\n\n1. **Stop the bleeding**: Press a clean folded cloth or dressing firmly on the cut to stop the bleeding. If the bleeding doesn't stop after a few minutes, get medical help.\n2. **Clean the cut**: Rinse the cut with clean tap or bottled water. \n3. **Apply antibiotic ointment**: Apply a thin layer of antibiotic ointment to the cut to help prevent infection.\n4. **Cover the cut**: Cover the cut with a sterile dressing or bandage.\n\nReferences\nAsk a general health question…\n\nUsing internet for this answer. Avoid personal details.\n\nKit is experimental and can make mistakes. For urgent help, contact local emergency services.",
+        "scripts": [
+          "/assets/index-aFo-3uUA.js"
+        ]
+      }
+    ],
+    "initialReadyMs": 5680,
+    "gpu": {
+      "vendor": "apple",
+      "architecture": "metal-3",
+      "device": "",
+      "description": "",
+      "isFallbackAdapter": false,
+      "shaderF16": true
+    },
+    "offlineReadyMs": 4592,
+    "offlineEvidence": {
+      "appServerStopped": true,
+      "browserNetworkBlocked": true,
+      "uncachedExternalFetchBlocked": true,
+      "previousBrowserFullyExited": true,
+      "serviceWorkerControlsPage": true
+    }
+  },
+  "cachedModelAttempts": [
+    {
+      "scope": "Real main chat using the previously verified immutable hosted 3B weights and approval in an isolated desktop Chrome profile. Initial document navigation bypasses the previous service worker only to load this new build; ordinary app saving then stores the new build. Browser and owned app server are fully stopped before reopening with network transport blocked. This is not a physical phone, airplane-mode, or medical accuracy test.",
+      "modelRevision": "34f6aa7d8fb5608dc2585e6660b982610ca4bc28",
+      "initialDownloadedModelReused": true,
+      "buildIndexSha256": "34d2b6f63d31ba1c5c6fb3b86ea3b28b6f7b5357cef3d6dc8b96e275ae51bbac",
+      "network": {
+        "new-build-cached-load": {
+          "requests": [
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/assets/index-BCqTJ6oC.js",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/assets/index-CYS-thMw.css",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/fonts/nunito-latin.woff2",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/manifest.webmanifest",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/favicon.svg",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/assets/webgpu-check-worker-CsNPHstF.js",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/assets/webllmService-ERyo-Zhn.js",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/assets/webllm-worker-DWhKXDWk.js",
+              "method": "GET"
+            },
+            {
+              "host": "huggingface.co",
+              "path": "/mlc-ai/Llama-3.2-1B-Instruct-q4f32_1-MLC/resolve/main/mlc-chat-config.json",
+              "method": "GET"
+            },
+            {
+              "host": "huggingface.co",
+              "path": "/api/resolve-cache/models/mlc-ai/Llama-3.2-1B-Instruct-q4f32_1-MLC/a949835e0f9a65335bd834db02a44cf8fae34020/mlc-chat-config.json",
+              "method": "GET"
+            },
+            {
+              "host": "raw.githubusercontent.com",
+              "path": "/mlc-ai/binary-mlc-llm-libs/main/web-llm-models/v0_2_80/Llama-3.2-1B-Instruct-q4f32_1-ctx4k_cs1k-webgpu.wasm",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/sw.js",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/index.html",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/assets/index-aFo-3uUA.js",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/assets/index-T_Et6BPE.css",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/assets/browser-DyWm-8Gv.js",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/assets/__vite-browser-external-Cgmn0awE-IVL27Xsu.js",
+              "method": "GET"
+            },
+            {
+              "host": "huggingface.co",
+              "path": "/mlc-ai/Llama-3.2-1B-Instruct-q4f32_1-MLC/resolve/main/tokenizer.json",
+              "method": "GET"
+            },
+            {
+              "host": "huggingface.co",
+              "path": "/api/resolve-cache/models/mlc-ai/Llama-3.2-1B-Instruct-q4f32_1-MLC/a949835e0f9a65335bd834db02a44cf8fae34020/tokenizer.json",
+              "method": "GET"
+            },
+            {
+              "host": "huggingface.co",
+              "path": "/mlc-ai/Llama-3.2-1B-Instruct-q4f32_1-MLC/resolve/main/tensor-cache.json",
+              "method": "GET"
+            },
+            {
+              "host": "huggingface.co",
+              "path": "/api/resolve-cache/models/mlc-ai/Llama-3.2-1B-Instruct-q4f32_1-MLC/a949835e0f9a65335bd834db02a44cf8fae34020/tensor-cache.json",
+              "method": "GET"
+            },
+            {
+              "host": "huggingface.co",
+              "path": "/mlc-ai/Llama-3.2-1B-Instruct-q4f32_1-MLC/resolve/main/params_shard_0.bin",
+              "method": "GET"
+            },
+            {
+              "host": "huggingface.co",
+              "path": "/mlc-ai/Llama-3.2-1B-Instruct-q4f32_1-MLC/resolve/main/params_shard_5.bin",
+              "method": "GET"
+            },
+            {
+              "host": "huggingface.co",
+              "path": "/mlc-ai/Llama-3.2-1B-Instruct-q4f32_1-MLC/resolve/main/params_shard_10.bin",
+              "method": "GET"
+            },
+            {
+              "host": "huggingface.co",
+              "path": "/mlc-ai/Llama-3.2-1B-Instruct-q4f32_1-MLC/resolve/main/params_shard_15.bin",
+              "method": "GET"
+            },
+            {
+              "host": "us.aws.cdn.hf.co",
+              "path": "/xet-bridge-us/66f45fd5d8487f70b009a889/afc48af95ff434ee1e45511879ce833f5e0c2bee1e3197f00ef1f0739dc4b99d",
+              "method": "GET"
+            },
+            {
+              "host": "us.aws.cdn.hf.co",
+              "path": "/xet-bridge-us/66f45fd5d8487f70b009a889/77099b25e6ec6cc94034dde28815c76b75b2390bba060426608dff1d7ea4af6b",
+              "method": "GET"
+            },
+            {
+              "host": "us.aws.cdn.hf.co",
+              "path": "/xet-bridge-us/66f45fd5d8487f70b009a889/d12bcf995f78d6b68cd217e418b125865894a1cec9b9c60915be927e208c8045",
+              "method": "GET"
+            },
+            {
+              "host": "us.aws.cdn.hf.co",
+              "path": "/xet-bridge-us/66f45fd5d8487f70b009a889/648a012b5f7a27ce8a036648a081a76794eeef27ff109cb484cf53808fa3d747",
+              "method": "GET"
+            }
+          ],
+          "failures": []
+        }
+      },
+      "pageErrors": [],
+      "browserCloses": [
+        {
+          "phase": "new-build-cached-load",
+          "confirmedExited": true,
+          "closeWarning": null
+        }
+      ],
+      "outputs": [],
+      "complete": false,
+      "failure": {
+        "phase": "new-build-cached-load",
+        "message": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'More options', exact: true }) to be visible\u001b[22m\n"
+      },
+      "explanation": "Initial upgrade navigation loaded the prior app bundle despite a CDP bypass command. That older bundle started its already-approved legacy 1B load. The new service worker cached the new app during this attempt; browser was fully closed. The final passing attempt uses an ordinary navigation with the updated worker and denies any attempted shard transfer. The interrupted attempt is not counted as passing no-download or cached-model evidence."
+    },
+    {
+      "scope": "Real main chat using the previously verified immutable hosted 3B weights and approval in an isolated desktop Chrome profile. Initial document navigation bypasses the previous service worker only to load this new build; ordinary app saving then stores the new build. Browser and owned app server are fully stopped before reopening with network transport blocked. This is not a physical phone, airplane-mode, or medical accuracy test.",
+      "modelRevision": "34f6aa7d8fb5608dc2585e6660b982610ca4bc28",
+      "initialDownloadedModelReused": true,
+      "buildIndexSha256": "34d2b6f63d31ba1c5c6fb3b86ea3b28b6f7b5357cef3d6dc8b96e275ae51bbac",
+      "network": {
+        "new-build-cached-load": {
+          "requests": [
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/assets/index-aFo-3uUA.js",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/assets/index-T_Et6BPE.css",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/fonts/nunito-latin.woff2",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/manifest.webmanifest",
+              "method": "GET"
+            },
+            {
+              "host": "127.0.0.1:51240",
+              "path": "/favicon.svg",
+              "method": "GET"
+            }
+          ],
+          "failures": []
+        }
+      },
+      "pageErrors": [],
+      "browserCloses": [
+        {
+          "phase": "new-build-cached-load",
+          "confirmedExited": true,
+          "closeWarning": null
+        }
+      ],
+      "outputs": [],
+      "complete": false,
+      "failure": {
+        "phase": "new-build-cached-load",
+        "message": "page.evaluate: Target page, context or browser has been closed"
+      },
+      "explanation": "Initial upgrade navigation loaded the prior app bundle despite a CDP bypass command. That older bundle started its already-approved legacy 1B load. The new service worker cached the new app during this attempt; browser was fully closed. The final passing attempt uses an ordinary navigation with the updated worker and denies any attempted shard transfer. The interrupted attempt is not counted as passing no-download or cached-model evidence."
+    }
+  ],
+  "harnessNotes": [
+    "An intermediate explicit service-worker update/activation wait was canceled before inference because the harness waited indefinitely. Only the isolated test processes were stopped. The final passing run uses ordinary app loading and does not depend on that extra wait."
+  ],
+  "live": {
+    "checkedAt": "2026-09-19T23:00:22.509Z",
+    "origin": "https://kit-ai-pablopupo.vercel.app",
+    "scope": "Fresh desktop Chromium profiles at a phone viewport, no model consent or download. Verifies both URLs show the same simplified bilingual app; not a physical phone or inference test.",
+    "complete": true,
+    "checks": [
+      {
+        "language": "en",
+        "path": "/",
+        "scripts": [
+          "/assets/index-aFo-3uUA.js"
+        ],
+        "modelRequestsBeforeConsent": 0,
+        "pageErrors": [],
+        "requestCount": 6
+      },
+      {
+        "language": "en",
+        "path": "/?trial=medical3b",
+        "scripts": [
+          "/assets/index-aFo-3uUA.js"
+        ],
+        "modelRequestsBeforeConsent": 0,
+        "pageErrors": [],
+        "requestCount": 6
+      },
+      {
+        "language": "es",
+        "path": "/",
+        "scripts": [
+          "/assets/index-aFo-3uUA.js"
+        ],
+        "modelRequestsBeforeConsent": 0,
+        "pageErrors": [],
+        "requestCount": 6
+      },
+      {
+        "language": "es",
+        "path": "/?trial=medical3b",
+        "scripts": [
+          "/assets/index-aFo-3uUA.js"
+        ],
+        "modelRequestsBeforeConsent": 0,
+        "pageErrors": [],
+        "requestCount": 6
+      }
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 # KIT AI
 
-A mobile-friendly first-aid reference and experimental health assistant.
+A simple, experimental health chat that can generate answers without internet after download on a compatible device.
 
 **Personal deployment:** https://kit-ai-pablopupo.vercel.app
 
@@ -8,30 +8,31 @@ KIT AI provides general information. It cannot diagnose a condition or replace p
 
 ## One Ask Kit experience
 
-Ask Kit chooses the available assistant automatically. It prefers the owner's
-fine-tuned Hugging Face model when connected, uses the prepared browser model
-when offline (or when online answers are disabled), and can show matching saved
-guides if the device cannot run AI. There is no model-mode selector in chat.
-Generated answers remain enabled; reference excerpts are clearly identified.
+Kit opens directly into one chat. A single setup card offers a one-time download,
+then disappears when the assistant is ready. The owner's converted medical model
+answers on the device whenever loaded, even with Wi-Fi on. Before it is ready,
+online answers are available if enabled. When neither is available, Kit explains
+what is missing and keeps the question; it never substitutes a guide as an AI reply.
+Conversations, first-aid notes and settings live behind one header menu. There is
+no separate trial flow, model selector, bottom navigation or diagnostic dashboard.
 
 | Capability | What is available |
 | --- | --- |
-| English and Spanish | Interface, complete guides, bilingual search, requested AI answer language and browser speech language |
-| Offline preparation | Saves the small app/guides automatically; asks once before the roughly 750 MB assistant download, then reopens saved files automatically unless paused |
+| English and Spanish | Interface, complete guides, bilingual search and requested AI answer language |
+| Offline preparation | Saves the small app automatically; asks once for the roughly 1.83 GB medical assistant, then loads saved files automatically unless paused |
 | Online assistant | `Pablo305/llama3-medical-3b-4bit` through the owner's existing Space |
-| Browser assistant | Experimental general-purpose Llama 3.2 1B; **not the same weights as the fine-tuned medical model** |
+| Browser assistant | Owner's converted medical 3B checkpoint, pinned with its runtime to `34f6aa7d8fb5608dc2585e6660b982610ca4bc28` |
 | Offline retrieval | Bilingual keyword matching over six whole source-linked guides; relevant complete guidance is included in model prompts |
 | Web search | Not implemented; online model inference does not browse the internet |
-| Offline check | Settings → Try without internet, or `/#device-check`; guided offline reopen, guide access, an optional sample answer, and a collapsed support report |
+| Help | Menu → Settings → Help; optional report excludes conversations and browser identity |
 
-The first browser-model cache measured about 718 MB on the test machine. The
-app now precaches its small shell independently of the large assistant JavaScript.
+The current download contains approximately 1.83 GB of model/runtime files. The
+app precaches its small shell independently of the large assistant JavaScript.
 Assistant preparation begins only after the user agrees to the download and the
 app cache/control check passes. A ready engine alone no longer means offline
-files are saved. Known cellular/Data Saver connections defer automatic downloads;
-network type is not available everywhere. A new consent setting also asks existing
-users once; already saved model files are reused. Pause and online-answer
-preferences live in Settings. Browser storage may be evicted or cleared.
+files are saved. Existing consent and cached files from the medical trial are
+reused; an earlier 750 MB approval never authorizes this larger download. A deliberate
+pause survives reload and reconnect. Browser storage may be evicted or cleared.
 
 The previous coupled precache could fail when one assistant file failed, leaving
 the online page usable but offline refresh broken. This was reproduced and fixed;
@@ -58,7 +59,8 @@ float export. An infant-choking failure was independently reproduced on the
 original NF4 checkpoint and matched the float export token for token on CPU.
 Other findings include missing steps, source contradictions and a Spanish refusal.
 The recovered historical prompt also produced serious errors. The conversion is
-an evaluation artifact, not a production model selection or medical-quality pass.
+not a medical-quality pass. The converted checkpoint now powers the experimental
+main chat with those limitations disclosed; clinical review remains outstanding.
 It generated in desktop Chrome on Apple Metal and after a full offline browser
 restart, using about 1.86 GB of browser storage. Real phone testing remains open.
 See [evaluation results](evaluations/README.md) and [conversion tooling](model-tools/README.md).
@@ -71,7 +73,7 @@ npm ci
 npm run dev
 ```
 
-The app starts with bundled guides. Use the production preview below to test saving and assistant preparation; those depend on the built service worker. No keys, backend, or database are needed. An internet connection and an operational public HF Space are needed for online chat.
+The app starts in chat. Use the production preview below to test saving and assistant preparation; those depend on the built service worker. No keys, backend, or database are needed. An internet connection and an operational public HF Space are needed for online answers before local preparation finishes.
 
 ```sh
 npm test
@@ -88,10 +90,8 @@ Copy `frontend/.env.example` only when overriding defaults.
 | Variable | Purpose |
 | --- | --- |
 | `VITE_MEDICAL_SPACE` | Public Gradio Space, default `Pablo305/offline-medical-assistant`; `/ask(question, n, max_tokens)` |
-| `VITE_WEBLLM_MODEL_URL` | Optional **MLC** model repository; never a raw bitsandbytes checkpoint |
-| `VITE_WEBLLM_MODEL_ID` | Identifier for the custom browser model |
-| `VITE_WEBLLM_MODEL_LIB` | Required with a custom model: architecture/quantization-compatible WebGPU WASM URL |
-| `VITE_BACKEND_URL` | Optional legacy TTS backend; unset uses browser speech |
+| `VITE_WEBLLM_MODEL_URL`, `VITE_WEBLLM_MODEL_ID`, `VITE_WEBLLM_MODEL_LIB` | Legacy engine defaults only; the main chat passes its explicit pinned record from `medicalTrialConfig.js` |
+| `VITE_BACKEND_URL` | Legacy speech backend; not mounted by the main chat |
 
 `VITE_` settings are public client configuration. Never put API keys or HF tokens in them. A private Space needs a separate authenticated server integration; the default browser client deliberately has no token.
 
@@ -107,7 +107,10 @@ vercel link --project kit-ai-pablopupo
 vercel --prod
 ```
 
-This deploys the web app, not the GPU model. The medical model runs on Hugging Face; Vercel does not host its weights or GPU inference. ZeroGPU can sleep, queue requests, or exhaust quota. The UI provides a stop action, bounded wait, and access to guides when this happens.
+This deploys the web app. Downloaded weights are hosted on Hugging Face and run
+inside the browser; the optional online fallback uses the owner's Hugging Face
+Space. Vercel does not run model inference. Online requests have a bounded wait
+and stop action; failures preserve the question for retry.
 
 ## Mobile and offline
 
@@ -116,12 +119,14 @@ This deploys the web app, not the GPU model. The medical model runs on Hugging F
 - Offline app shell and source-linked guide text after a successful initial cache; linked source websites still require internet.
 - Offline generated answers need working WebGPU in a worker and substantial device memory. Safari 26 and some Android browsers support it; support and memory differ by device. Firefox, older phones and unsupported GPUs retain guides and online access. A successful API probe alone does not guarantee the model fits.
 - Browser storage can be cleared or evicted. Test offline access before relying on saved content.
-- The device-check page uses a fixed harmless prompt, empty chat history, and the existing local engine with no cloud fallback. A nonempty generated answer passes only the runtime check. Offline claims distinguish the browser's network flag from the user's confirmation of closing/reopening; neither establishes universal device support.
+- Readiness requires the exact loaded model plus complete app/runtime/model caches. The optional Help report describes compatibility and failure stages, not clinical accuracy or proof of airplane mode.
 - Conversation history is stored in the current browser; only online turns are eligible for later online request context. Errors saving history are visible, and deleting another conversation does not change the open conversation.
 
 ## Source structure
 
-- `frontend/src/components/`: guides, chat, history, settings, speech controls.
+- `frontend/src/components/Home.jsx`: the main conversation and secondary menu pages.
+- `frontend/src/hooks/useOfflineAssistant.js`: pinned local model, consent, cache reuse, pause/reconnect and recovery.
+- `frontend/src/services/assistantPolicy.js`: prefer the ready local model; optional online answer only before local readiness.
 - `frontend/src/services/firstAidGuides.js`: active guide library with scope, source links, and check dates.
 - `frontend/src/services/chatPrompt.js`: bounded recent history and relevant complete reference blocks.
 - `frontend/src/services/onlineMedicalService.js`: lazy Gradio client, timeout/cancellation, explicit errors.
@@ -140,11 +145,14 @@ Automated checks cover guide matching, excluding adult instructions for explicit
 
 Real hardware checks on Apple Metal verified automatic loading, cached offline
 reload (about five seconds), and generation without model-network requests. This
-is not a physical iPhone/Android certification. The current browser Llama refused
+is not a physical iPhone/Android certification. The earlier stock 1B browser Llama refused
 basic cut/burn questions during evaluation. Qwen 0.6B and 1.7B comparisons answered
 but omitted or contradicted source guidance, so they were not silently substituted
 for the owner's model. Functional offline AI is established; reliable offline
 medical answer quality remains work to do.
+
+See [simplified chat verification](verification/simple-chat.md) for the current
+main-chat checks. Earlier trial reports remain historical evidence.
 
 See [IMPROVEMENTS.md](IMPROVEMENTS.md) and the [learning plan](evaluations/README.md)
 for next steps. The historical Space prompt is preserved in

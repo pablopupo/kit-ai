@@ -1,5 +1,5 @@
-// A separate opt-in experiment. Never substitute these weights in normal chats.
-// Set only after the full artifact upload is verified; keep the revision immutable.
+// The main chat's experimental medical assistant, pinned to verified artifacts.
+// Keep the legacy identifiers so previous trial downloads and approval are reused.
 export const MEDICAL_TRIAL_REVISION = '34f6aa7d8fb5608dc2585e6660b982610ca4bc28'
 const base = MEDICAL_TRIAL_REVISION
   ? `https://huggingface.co/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/${MEDICAL_TRIAL_REVISION}/`

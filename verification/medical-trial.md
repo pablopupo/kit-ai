@@ -1,5 +1,10 @@
 # Medical model phone trial
 
+**Historical trial verification.** The main app now uses the same pinned model
+and consent/cache identifiers through one chat. The old trial URL also opens
+that chat. See [current verification](simple-chat.md); the results below describe
+the earlier separate trial build.
+
 The normal app's online/offline model defaults are unchanged. The explicit
 `/?trial=medical3b` route mounts a separate assistant: it never calls the hosted
 answer service or falls back to the general 1B model. Trial conversations exist
