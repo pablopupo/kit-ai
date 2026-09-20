@@ -1,6 +1,6 @@
 # KIT AI: learning and evaluation plan
 
-**Latest phone report:** the GPU check now passes, but Safari stops while opening the cached AI. The loading feedback, interrupted-startup guard and bounded memory reductions are documented in [startup recovery](../verification/startup-recovery.md). Physical offline generation on that phone remains unverified.
+**Latest phone report:** the owner reports another crash after the startup-recovery release, probably at “Opening Kit…”. Physical offline generation on that phone remains unsuccessful in the reported attempts. Memory pressure is a hypothesis, not an OS-confirmed diagnosis. See the [smaller-model comparison proposal and measured artifact sizes](../verification/phone-model-next-experiment.md); no replacement or training has started. The preceding [startup recovery](../verification/startup-recovery.md) changes improve feedback and interruption handling but did not establish a phone fix.
 
 ## Current release and next validation — 2026-09-19
 
@@ -18,7 +18,7 @@ current main chat. The owner's physical iPhone subsequently reported
 while the pinned SDK requests only 134,217,728 bytes. Offline AI is **not working
 on that phone** in the reported build. The correction passes real desktop
 generation with native 256 MiB buffer limits and an offline restart; physical
-retesting remains pending. Follow [the GPU-limit verification](../verification/phone-gpu-limits.md).
+reports then passed the GPU check but crashed during opening. Follow [the GPU-limit verification](../verification/phone-gpu-limits.md) and latest report above.
 
 First establish actual phone inference, then evaluate the current main-chat
 answers in English and Spanish. Keep runtime success separate from answer
