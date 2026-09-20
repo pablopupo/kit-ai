@@ -9,7 +9,7 @@ import { MEDICAL_TRIAL_CONSENT_KEY, MEDICAL_TRIAL_MODEL_ID } from '../frontend/s
 import { isolatedChromePids, closeBrowserAndConfirmExit } from '../model-tools/browser-eval/lifecycle.mjs'
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright')
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
-const output = path.join(root, 'verification/cache-presence-live-results.json')
+const output = process.env.KIT_CACHE_LIVE_OUTPUT || path.join(root, 'verification/cache-presence-live-results.json')
 const origin = 'https://kit-ai-pablopupo.vercel.app'
 const executablePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 const prepare = process.argv.includes('--prepare')

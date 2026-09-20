@@ -1,0 +1,4572 @@
+{
+  "schema": "kit-ai-direct-gpu-loading-verification-v1",
+  "checkedAt": "2026-09-20T10:42:16.689Z",
+  "complete": true,
+  "scope": "Real saved pinned Qwen model, independent closed-profile clones, hardware Chrome and native 256 MiB GPU devices. Baseline already includes getKey cache presence fix. Samples exported/imported WASM linear-memory buffer lengths during initialization and at readiness, not peak RSS or total RAM. Does not establish physical iPhone compatibility or medical accuracy.",
+  "instrumentation": "A recorded prefix precedes unchanged built workers. WebAssembly instantiate/instantiateStreaming wrappers pass native arguments and return the original native promise; fulfillment observers discover memories without changing results. Memory handles use WeakRef and buffer.byteLength is read without copying. Worker postMessage arguments/return are preserved; progress messages trigger samples. Native adapter limits are advertised as the recorded phone limits via proxy, but requestDevice and all allocations/writes execute on real hardware unchanged. Native GPU queue.writeBuffer arguments/return are preserved; cumulative bytes include every initialization write, not only weights. Cloned assistant runtime cache alone is cleared while paused to install the observer; original profile and stored weights are untouched.",
+  "modelId": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
+  "sourceProfile": "/var/folders/l6/m4hsd79x1q11bsvd52jvt02m0000gn/T/kit-ai-phone-candidate-14Yewu/candidate-profile",
+  "artifacts": "/var/folders/l6/m4hsd79x1q11bsvd52jvt02m0000gn/T/kit-ai-direct-gpu-WyetdH",
+  "arms": {
+    "baseline": {
+      "dist": "/var/folders/l6/m4hsd79x1q11bsvd52jvt02m0000gn/T/kit-direct-gpu-verification-DWIbzp/baseline-dist",
+      "profile": "/var/folders/l6/m4hsd79x1q11bsvd52jvt02m0000gn/T/kit-ai-direct-gpu-WyetdH/baseline-profile",
+      "sourceUntouched": true,
+      "cloneMode": "COPYFILE_FICLONE",
+      "indexSha256": "433008ad798c02fc9585f8be1e6e782fe4bd8031235cffd9f975dcb8d01a74f0",
+      "mainScript": "/assets/index-Bp_fGlG_.js",
+      "mainSha256": "81deacd839d867f2cecf72d63782fa5060ce31bfd4faa8315b9605ff21745c25",
+      "instrumentedWorkers": {
+        "/assets/webllm-worker-DW6ehUvA.js": {
+          "originalSha256": "329f8147c5f6db2803033e81d9e83977195d4a229e472d6cab0117133e7a3e56",
+          "prefixSha256": "b9771e0e7db43e95ebe18f9a11f62dad27ac00e6eae0a10b78b5347bd47c2780",
+          "bytesAdded": 5960
+        }
+      },
+      "setupNavigations": [
+        {
+          "attempt": 0,
+          "scripts": [
+            "/assets/index-BszvVSgc.js"
+          ]
+        },
+        {
+          "attempt": 1,
+          "scripts": [
+            "/assets/index-Bp_fGlG_.js"
+          ]
+        }
+      ],
+      "setup": {
+        "deletedRuntimeOnly": true,
+        "existingApproval": "true"
+      },
+      "readyMs": 1589,
+      "cachedLoad": {
+        "samples": 36,
+        "largestObservedTotalWasmBytes": 419954688,
+        "largestObservedModelWasmBytes": 353370112,
+        "readyMemories": [
+          {
+            "id": 1,
+            "bytes": 353370112,
+            "sources": [
+              "1:export:memory"
+            ],
+            "modelRuntime": true
+          },
+          {
+            "id": 2,
+            "bytes": 66584576,
+            "sources": [
+              "2:export:ya"
+            ],
+            "modelRuntime": false
+          }
+        ],
+        "readyTotalWasmBytes": 419954688,
+        "readyModelWasmBytes": 353370112,
+        "initializationGPUWriteCalls": 313,
+        "initializationGPUWriteBytes": 868547592
+      }
+    },
+    "patched": {
+      "dist": "/var/folders/l6/m4hsd79x1q11bsvd52jvt02m0000gn/T/kit-ai-direct-gpu-WyetdH/patched-dist",
+      "profile": "/var/folders/l6/m4hsd79x1q11bsvd52jvt02m0000gn/T/kit-ai-direct-gpu-WyetdH/patched-profile",
+      "sourceUntouched": true,
+      "cloneMode": "COPYFILE_FICLONE",
+      "indexSha256": "1836bfd025ef65ae42ad624f4c4c16fb04f713c11674d50cbcb20878b3a81f20",
+      "mainScript": "/assets/index-DV2S2Ij_.js",
+      "mainSha256": "674b08d2f6df28d1bab12f795c93ac8df17d9e2ddcd1bf967fca9a2ecb9b7612",
+      "instrumentedWorkers": {
+        "/assets/webllm-worker-DdXcQXqL.js": {
+          "originalSha256": "6dd0b0304b50a4048228bfb10df7e8d79b934c12d0a9e8d0ed02a988fb6d0488",
+          "prefixSha256": "b9771e0e7db43e95ebe18f9a11f62dad27ac00e6eae0a10b78b5347bd47c2780",
+          "bytesAdded": 5960
+        }
+      },
+      "setupNavigations": [
+        {
+          "attempt": 0,
+          "scripts": [
+            "/assets/index-BszvVSgc.js"
+          ]
+        },
+        {
+          "attempt": 1,
+          "scripts": [
+            "/assets/index-DV2S2Ij_.js"
+          ]
+        }
+      ],
+      "setup": {
+        "deletedRuntimeOnly": true,
+        "existingApproval": "true"
+      },
+      "readyMs": 1332,
+      "cachedLoad": {
+        "samples": 36,
+        "largestObservedTotalWasmBytes": 234356736,
+        "largestObservedModelWasmBytes": 167772160,
+        "readyMemories": [
+          {
+            "id": 1,
+            "bytes": 167772160,
+            "sources": [
+              "1:export:memory"
+            ],
+            "modelRuntime": true
+          },
+          {
+            "id": 2,
+            "bytes": 66584576,
+            "sources": [
+              "2:export:ya"
+            ],
+            "modelRuntime": false
+          }
+        ],
+        "readyTotalWasmBytes": 234356736,
+        "readyModelWasmBytes": 167772160,
+        "initializationGPUWriteCalls": 313,
+        "initializationGPUWriteBytes": 868547592
+      },
+      "offlineReadyMs": 1096,
+      "offline": {
+        "serverStopped": true,
+        "previousBrowserExitConfirmed": true,
+        "serviceWorkerControlsPage": true,
+        "browserReportsOnline": true,
+        "uncachedRequestFailure": "net::ERR_INTERNET_DISCONNECTED",
+        "memory": {
+          "samples": 36,
+          "largestObservedTotalWasmBytes": 234356736,
+          "largestObservedModelWasmBytes": 167772160,
+          "readyMemories": [
+            {
+              "id": 1,
+              "bytes": 167772160,
+              "sources": [
+                "1:export:memory"
+              ],
+              "modelRuntime": true
+            },
+            {
+              "id": 2,
+              "bytes": 66584576,
+              "sources": [
+                "2:export:ya"
+              ],
+              "modelRuntime": false
+            }
+          ],
+          "readyTotalWasmBytes": 234356736,
+          "readyModelWasmBytes": 167772160,
+          "initializationGPUWriteCalls": 313,
+          "initializationGPUWriteBytes": 868547592
+        }
+      }
+    }
+  },
+  "wasm": [
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "installed"
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "instantiate-resolved",
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        }
+      ],
+      "totalObservedBytes": 167772160,
+      "gpuWrites": []
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "instantiate-resolved",
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 17891328,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 185663488,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 0,
+          "bytes": 0
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Start to fetch params",
+        "fraction": 0
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 0,
+          "bytes": 0
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[1/30]: 112MB loaded. 13% completed, 1 secs elapsed.",
+        "fraction": 0.13434709870772032
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 1,
+          "bytes": 116686848
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[2/30]: 133MB loaded. 16% completed, 1 secs elapsed.",
+        "fraction": 0.16005710977834
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 5,
+          "bytes": 139017216
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[3/30]: 158MB loaded. 19% completed, 1 secs elapsed.",
+        "fraction": 0.190373394671719
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 16,
+          "bytes": 165348352
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[4/30]: 183MB loaded. 22% completed, 1 secs elapsed.",
+        "fraction": 0.22068967956509797
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 27,
+          "bytes": 191679488
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[5/30]: 208MB loaded. 25% completed, 1 secs elapsed.",
+        "fraction": 0.25100596445847695
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 38,
+          "bytes": 218010624
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[6/30]: 234MB loaded. 28% completed, 1 secs elapsed.",
+        "fraction": 0.2813222493518559
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 49,
+          "bytes": 244341760
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[7/30]: 259MB loaded. 31% completed, 1 secs elapsed.",
+        "fraction": 0.31163853424523486
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 60,
+          "bytes": 270672896
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[8/30]: 284MB loaded. 34% completed, 1 secs elapsed.",
+        "fraction": 0.3419548191386138
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 71,
+          "bytes": 297004032
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[9/30]: 309MB loaded. 37% completed, 1 secs elapsed.",
+        "fraction": 0.3722711040319928
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 82,
+          "bytes": 323335168
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[10/30]: 334MB loaded. 40% completed, 1 secs elapsed.",
+        "fraction": 0.40258738892537177
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 93,
+          "bytes": 349666304
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[11/30]: 359MB loaded. 43% completed, 1 secs elapsed.",
+        "fraction": 0.4329036738187507
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 104,
+          "bytes": 375997440
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[12/30]: 384MB loaded. 46% completed, 1 secs elapsed.",
+        "fraction": 0.4632199587121297
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 115,
+          "bytes": 402328576
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[13/30]: 409MB loaded. 49% completed, 1 secs elapsed.",
+        "fraction": 0.4935362436055087
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 126,
+          "bytes": 428659712
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[14/30]: 434MB loaded. 52% completed, 1 secs elapsed.",
+        "fraction": 0.5238525284988876
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 137,
+          "bytes": 454990848
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[15/30]: 460MB loaded. 55% completed, 1 secs elapsed.",
+        "fraction": 0.5541688133922666
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 148,
+          "bytes": 481321984
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[16/30]: 485MB loaded. 58% completed, 1 secs elapsed.",
+        "fraction": 0.5844850982856455
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 159,
+          "bytes": 507653120
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[17/30]: 510MB loaded. 61% completed, 1 secs elapsed.",
+        "fraction": 0.6148013831790246
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 170,
+          "bytes": 533984256
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[18/30]: 535MB loaded. 64% completed, 1 secs elapsed.",
+        "fraction": 0.6451176680724034
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 181,
+          "bytes": 560315392
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[19/30]: 560MB loaded. 67% completed, 1 secs elapsed.",
+        "fraction": 0.6754339529657825
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 192,
+          "bytes": 586646528
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[20/30]: 585MB loaded. 70% completed, 1 secs elapsed.",
+        "fraction": 0.7057502378591615
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 203,
+          "bytes": 612977664
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[21/30]: 610MB loaded. 73% completed, 1 secs elapsed.",
+        "fraction": 0.7360665227525404
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 214,
+          "bytes": 639308800
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[22/30]: 635MB loaded. 76% completed, 1 secs elapsed.",
+        "fraction": 0.7663828076459194
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 225,
+          "bytes": 665639936
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[23/30]: 660MB loaded. 79% completed, 1 secs elapsed.",
+        "fraction": 0.7966990925392984
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 236,
+          "bytes": 691971072
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[24/30]: 686MB loaded. 82% completed, 1 secs elapsed.",
+        "fraction": 0.8270153774326773
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 247,
+          "bytes": 718302208
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[25/30]: 711MB loaded. 85% completed, 1 secs elapsed.",
+        "fraction": 0.8573316623260563
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 258,
+          "bytes": 744633344
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[26/30]: 736MB loaded. 88% completed, 1 secs elapsed.",
+        "fraction": 0.8876479472194353
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 269,
+          "bytes": 770964480
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[27/30]: 761MB loaded. 91% completed, 1 secs elapsed.",
+        "fraction": 0.9179642321128142
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 280,
+          "bytes": 797295616
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[28/30]: 786MB loaded. 94% completed, 1 secs elapsed.",
+        "fraction": 0.9482805170061932
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 291,
+          "bytes": 823626752
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[29/30]: 811MB loaded. 97% completed, 2 secs elapsed.",
+        "fraction": 0.9785968018995721
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 302,
+          "bytes": 849957888
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[30/30]: 829MB loaded. 100% completed, 2 secs elapsed.",
+        "fraction": 1
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 311,
+          "bytes": 868547584
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading GPU shader modules[89/89]: 100% completed, 1 secs elapsed.",
+        "fraction": 1
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 313,
+          "bytes": 868547592
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Finish loading on WebGPU - apple",
+        "fraction": 1
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 313,
+          "bytes": 868547592
+        }
+      ]
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "sample",
+      "tag": "ready",
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 353370112,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 419954688,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 313,
+          "bytes": 868547592
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "installed"
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "instantiate-resolved",
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        }
+      ],
+      "totalObservedBytes": 167772160,
+      "gpuWrites": []
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "instantiate-resolved",
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 17891328,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 185663488,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 0,
+          "bytes": 0
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Start to fetch params",
+        "fraction": 0
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 0,
+          "bytes": 0
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[1/30]: 112MB loaded. 13% completed, 1 secs elapsed.",
+        "fraction": 0.13434709870772032
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 1,
+          "bytes": 116686848
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[2/30]: 133MB loaded. 16% completed, 1 secs elapsed.",
+        "fraction": 0.16005710977834
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 5,
+          "bytes": 139017216
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[3/30]: 158MB loaded. 19% completed, 1 secs elapsed.",
+        "fraction": 0.190373394671719
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 16,
+          "bytes": 165348352
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[4/30]: 183MB loaded. 22% completed, 1 secs elapsed.",
+        "fraction": 0.22068967956509797
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 27,
+          "bytes": 191679488
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[5/30]: 208MB loaded. 25% completed, 1 secs elapsed.",
+        "fraction": 0.25100596445847695
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 38,
+          "bytes": 218010624
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[6/30]: 234MB loaded. 28% completed, 1 secs elapsed.",
+        "fraction": 0.2813222493518559
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 49,
+          "bytes": 244341760
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[7/30]: 259MB loaded. 31% completed, 1 secs elapsed.",
+        "fraction": 0.31163853424523486
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 60,
+          "bytes": 270672896
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[8/30]: 284MB loaded. 34% completed, 1 secs elapsed.",
+        "fraction": 0.3419548191386138
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 71,
+          "bytes": 297004032
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[9/30]: 309MB loaded. 37% completed, 1 secs elapsed.",
+        "fraction": 0.3722711040319928
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 82,
+          "bytes": 323335168
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[10/30]: 334MB loaded. 40% completed, 1 secs elapsed.",
+        "fraction": 0.40258738892537177
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 93,
+          "bytes": 349666304
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[11/30]: 359MB loaded. 43% completed, 1 secs elapsed.",
+        "fraction": 0.4329036738187507
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 104,
+          "bytes": 375997440
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[12/30]: 384MB loaded. 46% completed, 1 secs elapsed.",
+        "fraction": 0.4632199587121297
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 115,
+          "bytes": 402328576
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[13/30]: 409MB loaded. 49% completed, 1 secs elapsed.",
+        "fraction": 0.4935362436055087
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 126,
+          "bytes": 428659712
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[14/30]: 434MB loaded. 52% completed, 1 secs elapsed.",
+        "fraction": 0.5238525284988876
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 137,
+          "bytes": 454990848
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[15/30]: 460MB loaded. 55% completed, 1 secs elapsed.",
+        "fraction": 0.5541688133922666
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 148,
+          "bytes": 481321984
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[16/30]: 485MB loaded. 58% completed, 1 secs elapsed.",
+        "fraction": 0.5844850982856455
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 159,
+          "bytes": 507653120
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[17/30]: 510MB loaded. 61% completed, 1 secs elapsed.",
+        "fraction": 0.6148013831790246
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 170,
+          "bytes": 533984256
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[18/30]: 535MB loaded. 64% completed, 1 secs elapsed.",
+        "fraction": 0.6451176680724034
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 181,
+          "bytes": 560315392
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[19/30]: 560MB loaded. 67% completed, 1 secs elapsed.",
+        "fraction": 0.6754339529657825
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 192,
+          "bytes": 586646528
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[20/30]: 585MB loaded. 70% completed, 1 secs elapsed.",
+        "fraction": 0.7057502378591615
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 203,
+          "bytes": 612977664
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[21/30]: 610MB loaded. 73% completed, 1 secs elapsed.",
+        "fraction": 0.7360665227525404
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 214,
+          "bytes": 639308800
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[22/30]: 635MB loaded. 76% completed, 1 secs elapsed.",
+        "fraction": 0.7663828076459194
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 225,
+          "bytes": 665639936
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[23/30]: 660MB loaded. 79% completed, 1 secs elapsed.",
+        "fraction": 0.7966990925392984
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 236,
+          "bytes": 691971072
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[24/30]: 686MB loaded. 82% completed, 1 secs elapsed.",
+        "fraction": 0.8270153774326773
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 247,
+          "bytes": 718302208
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[25/30]: 711MB loaded. 85% completed, 1 secs elapsed.",
+        "fraction": 0.8573316623260563
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 258,
+          "bytes": 744633344
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[26/30]: 736MB loaded. 88% completed, 1 secs elapsed.",
+        "fraction": 0.8876479472194353
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 269,
+          "bytes": 770964480
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[27/30]: 761MB loaded. 91% completed, 1 secs elapsed.",
+        "fraction": 0.9179642321128142
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 280,
+          "bytes": 797295616
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[28/30]: 786MB loaded. 94% completed, 1 secs elapsed.",
+        "fraction": 0.9482805170061932
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 291,
+          "bytes": 823626752
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[29/30]: 811MB loaded. 97% completed, 1 secs elapsed.",
+        "fraction": 0.9785968018995721
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 302,
+          "bytes": 849957888
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[30/30]: 829MB loaded. 100% completed, 1 secs elapsed.",
+        "fraction": 1
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 311,
+          "bytes": 868547584
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading GPU shader modules[89/89]: 100% completed, 1 secs elapsed.",
+        "fraction": 1
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 313,
+          "bytes": 868547592
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Finish loading on WebGPU - apple",
+        "fraction": 1
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 313,
+          "bytes": 868547592
+        }
+      ]
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "ready",
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 313,
+          "bytes": 868547592
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "installed"
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "instantiate-resolved",
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        }
+      ],
+      "totalObservedBytes": 167772160,
+      "gpuWrites": []
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "instantiate-resolved",
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 17891328,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 185663488,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 0,
+          "bytes": 0
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Start to fetch params",
+        "fraction": 0
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 0,
+          "bytes": 0
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[1/30]: 112MB loaded. 13% completed, 1 secs elapsed.",
+        "fraction": 0.13434709870772032
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 1,
+          "bytes": 116686848
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[2/30]: 133MB loaded. 16% completed, 1 secs elapsed.",
+        "fraction": 0.16005710977834
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 5,
+          "bytes": 139017216
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[3/30]: 158MB loaded. 19% completed, 1 secs elapsed.",
+        "fraction": 0.190373394671719
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 16,
+          "bytes": 165348352
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[4/30]: 183MB loaded. 22% completed, 1 secs elapsed.",
+        "fraction": 0.22068967956509797
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 27,
+          "bytes": 191679488
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[5/30]: 208MB loaded. 25% completed, 1 secs elapsed.",
+        "fraction": 0.25100596445847695
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 38,
+          "bytes": 218010624
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[6/30]: 234MB loaded. 28% completed, 1 secs elapsed.",
+        "fraction": 0.2813222493518559
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 49,
+          "bytes": 244341760
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[7/30]: 259MB loaded. 31% completed, 1 secs elapsed.",
+        "fraction": 0.31163853424523486
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 60,
+          "bytes": 270672896
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[8/30]: 284MB loaded. 34% completed, 1 secs elapsed.",
+        "fraction": 0.3419548191386138
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 71,
+          "bytes": 297004032
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[9/30]: 309MB loaded. 37% completed, 1 secs elapsed.",
+        "fraction": 0.3722711040319928
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 82,
+          "bytes": 323335168
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[10/30]: 334MB loaded. 40% completed, 1 secs elapsed.",
+        "fraction": 0.40258738892537177
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 93,
+          "bytes": 349666304
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[11/30]: 359MB loaded. 43% completed, 1 secs elapsed.",
+        "fraction": 0.4329036738187507
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 104,
+          "bytes": 375997440
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[12/30]: 384MB loaded. 46% completed, 1 secs elapsed.",
+        "fraction": 0.4632199587121297
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 115,
+          "bytes": 402328576
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[13/30]: 409MB loaded. 49% completed, 1 secs elapsed.",
+        "fraction": 0.4935362436055087
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 126,
+          "bytes": 428659712
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[14/30]: 434MB loaded. 52% completed, 1 secs elapsed.",
+        "fraction": 0.5238525284988876
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 137,
+          "bytes": 454990848
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[15/30]: 460MB loaded. 55% completed, 1 secs elapsed.",
+        "fraction": 0.5541688133922666
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 148,
+          "bytes": 481321984
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[16/30]: 485MB loaded. 58% completed, 1 secs elapsed.",
+        "fraction": 0.5844850982856455
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 159,
+          "bytes": 507653120
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[17/30]: 510MB loaded. 61% completed, 1 secs elapsed.",
+        "fraction": 0.6148013831790246
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 170,
+          "bytes": 533984256
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[18/30]: 535MB loaded. 64% completed, 1 secs elapsed.",
+        "fraction": 0.6451176680724034
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 181,
+          "bytes": 560315392
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[19/30]: 560MB loaded. 67% completed, 1 secs elapsed.",
+        "fraction": 0.6754339529657825
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 192,
+          "bytes": 586646528
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[20/30]: 585MB loaded. 70% completed, 1 secs elapsed.",
+        "fraction": 0.7057502378591615
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 203,
+          "bytes": 612977664
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[21/30]: 610MB loaded. 73% completed, 1 secs elapsed.",
+        "fraction": 0.7360665227525404
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 214,
+          "bytes": 639308800
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[22/30]: 635MB loaded. 76% completed, 1 secs elapsed.",
+        "fraction": 0.7663828076459194
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 225,
+          "bytes": 665639936
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[23/30]: 660MB loaded. 79% completed, 1 secs elapsed.",
+        "fraction": 0.7966990925392984
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 236,
+          "bytes": 691971072
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[24/30]: 686MB loaded. 82% completed, 1 secs elapsed.",
+        "fraction": 0.8270153774326773
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 247,
+          "bytes": 718302208
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[25/30]: 711MB loaded. 85% completed, 1 secs elapsed.",
+        "fraction": 0.8573316623260563
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 258,
+          "bytes": 744633344
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[26/30]: 736MB loaded. 88% completed, 1 secs elapsed.",
+        "fraction": 0.8876479472194353
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 269,
+          "bytes": 770964480
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[27/30]: 761MB loaded. 91% completed, 1 secs elapsed.",
+        "fraction": 0.9179642321128142
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 280,
+          "bytes": 797295616
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[28/30]: 786MB loaded. 94% completed, 1 secs elapsed.",
+        "fraction": 0.9482805170061932
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 291,
+          "bytes": 823626752
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[29/30]: 811MB loaded. 97% completed, 1 secs elapsed.",
+        "fraction": 0.9785968018995721
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 302,
+          "bytes": 849957888
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading model from cache[30/30]: 829MB loaded. 100% completed, 1 secs elapsed.",
+        "fraction": 1
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 311,
+          "bytes": 868547584
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Loading GPU shader modules[89/89]: 100% completed, 1 secs elapsed.",
+        "fraction": 1
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 313,
+          "bytes": 868547592
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "init-progress",
+      "progress": {
+        "text": "Finish loading on WebGPU - apple",
+        "fraction": 1
+      },
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 313,
+          "bytes": 868547592
+        }
+      ]
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "sample",
+      "tag": "ready",
+      "memories": [
+        {
+          "id": 1,
+          "bytes": 167772160,
+          "sources": [
+            "1:export:memory"
+          ],
+          "modelRuntime": true
+        },
+        {
+          "id": 2,
+          "bytes": 66584576,
+          "sources": [
+            "2:export:ya"
+          ],
+          "modelRuntime": false
+        }
+      ],
+      "totalObservedBytes": 234356736,
+      "gpuWrites": [
+        {
+          "deviceId": 1,
+          "calls": 313,
+          "bytes": 868547592
+        }
+      ]
+    }
+  ],
+  "gpu": [
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "adapter",
+      "advertisedLimits": {
+        "maxBufferSize": 429496728,
+        "maxStorageBufferBindingSize": 429496728,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "nativeLimits": {
+        "maxBufferSize": 4294967292,
+        "maxStorageBufferBindingSize": 4294967292,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "identity": {
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "description": "",
+        "isFallbackAdapter": false
+      }
+    },
+    {
+      "phase": "baseline-cached-load",
+      "workerPath": "/assets/webllm-worker-DW6ehUvA.js",
+      "kind": "device",
+      "deviceId": 1,
+      "requestedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "grantedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456
+      },
+      "shaderF16": true
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "adapter",
+      "advertisedLimits": {
+        "maxBufferSize": 429496728,
+        "maxStorageBufferBindingSize": 429496728,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "nativeLimits": {
+        "maxBufferSize": 4294967292,
+        "maxStorageBufferBindingSize": 4294967292,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "identity": {
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "description": "",
+        "isFallbackAdapter": false
+      }
+    },
+    {
+      "phase": "patched-cached-load",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "device",
+      "deviceId": 1,
+      "requestedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "grantedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456
+      },
+      "shaderF16": true
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "adapter",
+      "advertisedLimits": {
+        "maxBufferSize": 429496728,
+        "maxStorageBufferBindingSize": 429496728,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "nativeLimits": {
+        "maxBufferSize": 4294967292,
+        "maxStorageBufferBindingSize": 4294967292,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "identity": {
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "description": "",
+        "isFallbackAdapter": false
+      }
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "workerPath": "/assets/webllm-worker-DdXcQXqL.js",
+      "kind": "device",
+      "deviceId": 1,
+      "requestedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "grantedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456
+      },
+      "shaderF16": true
+    }
+  ],
+  "network": {
+    "baseline-setup": {
+      "requests": [
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/index-S2wIwo9W.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/index-BszvVSgc.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/fonts/nunito-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/index.html",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/index-CBdy2QrM.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/index-Bp_fGlG_.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/browser-Ul1Mn8qH.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/__vite-browser-external-Cgmn0awE-By8Pu7kV.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/index-CBdy2QrM.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/index-Bp_fGlG_.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/fonts/nunito-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/favicon.svg",
+          "method": "GET"
+        }
+      ],
+      "failures": [],
+      "blocked": []
+    },
+    "baseline-cached-load": {
+      "requests": [
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/index-CBdy2QrM.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/index-Bp_fGlG_.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/fonts/nunito-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/model-trial-check-worker-CQ60tYHJ.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/webllm-worker-DW6ehUvA.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/webllmService-CC0W396c.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/model-trial-check-worker-CQ60tYHJ.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/webllm-worker-DW6ehUvA.js",
+          "method": "GET"
+        }
+      ],
+      "failures": [],
+      "blocked": []
+    },
+    "patched-setup": {
+      "requests": [
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/index-S2wIwo9W.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/index-BszvVSgc.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/fonts/nunito-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/index.html",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/index-DV2S2Ij_.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/index-CBdy2QrM.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/browser-PMPPbHQ-.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/__vite-browser-external-Cgmn0awE-DlYTc8re.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/index-CBdy2QrM.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/index-DV2S2Ij_.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/fonts/nunito-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/favicon.svg",
+          "method": "GET"
+        }
+      ],
+      "failures": [],
+      "blocked": []
+    },
+    "patched-cached-load": {
+      "requests": [
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/index-CBdy2QrM.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/index-DV2S2Ij_.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/fonts/nunito-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/model-trial-check-worker-CQ60tYHJ.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/webllm-worker-DdXcQXqL.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/webllmService-DrZSBZMN.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/model-trial-check-worker-CQ60tYHJ.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/webllm-worker-DdXcQXqL.js",
+          "method": "GET"
+        }
+      ],
+      "failures": [],
+      "blocked": []
+    },
+    "patched-offline-reopen": {
+      "requests": [
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/index-CBdy2QrM.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/index-DV2S2Ij_.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/fonts/nunito-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/model-trial-check-worker-CQ60tYHJ.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/webllmService-DrZSBZMN.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/model-trial-check-worker-CQ60tYHJ.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51241",
+          "path": "/assets/webllm-worker-DdXcQXqL.js",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/README.md",
+          "method": "GET"
+        }
+      ],
+      "failures": [
+        {
+          "host": "huggingface.co",
+          "path": "/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/README.md",
+          "error": "net::ERR_INTERNET_DISCONNECTED"
+        }
+      ],
+      "blocked": []
+    }
+  },
+  "outputs": [
+    {
+      "phase": "baseline-cached-load",
+      "language": "en",
+      "question": "How do I care for a small cut?",
+      "answer": "To care for a small cut, follow these steps:\n\n1. Wash your hands: Before touching the wound, wash them with soap and water to keep germs away.\n2. Clean the area: Gently clean the surrounding skin with mild soap and water. Avoid scrubbing too hard as it may cause more damage.\n3. Apply gentle pressure: If there is any bleeding, apply gentle pressure using a clean cloth or bandage. This will help stop the bleeding.\n4. Cover the wound: Once the bleeding has stopped, cover the wound with a sterile, clean dressing. Ensure that the dressing fits snugly over the wound but does not press on it.\n5. Change dressings regularly: Replace the dressing every day if necessary. Make sure to remove it properly before putting new one on.\n\nIf you have any concerns about the size of the cut or its healing process, consult a healthcare professional.",
+      "elapsedMs": 2727
+    },
+    {
+      "phase": "patched-cached-load",
+      "language": "en",
+      "question": "How do I care for a small cut?",
+      "answer": "To care for a small cut, follow these steps:\n\n1. **Wash Your Hands**: Before touching the wound, wash your hands with soap and water to keep them clean.\n\n2. **Clean the Wound**: If possible, use a sterile cloth or gauze to gently wipe away any dirt from around the cut. Avoid rubbing the area as it may cause more bleeding.\n\n3. **Apply Pressure**: If there is any bleeding, apply gentle pressure using a clean bandage or cloth until it stops. Do not remove the dressing if you see blood under it; this means the bleeding has stopped.\n\n4. **Cover the Cut**: Once the bleeding has stopped, cover the wound with a sterile bandage. Ensure that the bandage fits snugly but does not cause discomfort when moving the limb.\n\n5. **Keep It Clean**: Regularly check the wound to make sure it hasn't become infected. Change the bandage every day or as needed if it gets wet or dirty.\n\n6. **Monitor**: Watch for signs of infection such as increased redness, swelling, pus, fever, or persistent pain. These could indicate an infection, which might require medical attention.\n\nRemember, minor cuts usually heal on their own within a few days. However, always consult a healthcare professional if the cut appears deep, is very large, or if you are unsure about its severity.",
+      "elapsedMs": 4323
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "language": "es",
+      "question": "¿Cómo cuido un corte pequeño?",
+      "answer": "Para un corte pequeño, sigue estos pasos:\n\n1. Lávese las manos con agua y jabón.\n2. Si hay algo incrustado (como una llanta), déjalo en su sitio.\n3. Presione firmemente la parte de la herida que está sangrando con una tela limpia doblada o un apósito.\n4. Cuando el corte se haya hundido, use agua tibia para limpiarlo.\n5. Luego, use un apósito limpio para cubrir la herida.\n\nSi el corte es profundo o si sale a chorros de sangre, llame al servicio de emergencia. Si hay algo incrustado, consulte a un profesional médico lo más pronto posible.",
+      "elapsedMs": 2844
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "language": "en",
+      "question": "Can I put butter on a small burn?",
+      "answer": "No, you should not put butter on a burn. It can cause further damage and may make the pain worse. Instead, follow these steps:\n\n1. Cool the affected skin under cool running water for 20 minutes as soon as possible.\n2. Remove nearby clothing and jewellery unless stuck to the skin.\n3. After cooling, loosely lay clean cling film over the burn. Do not wrap it around a limb.\n\nIf the burn is large or deep, burns to the face, genitals or buttocks, or any chemical or electrical burn, seek urgent medical advice. If the person is under 5 years old or if you are unsure how serious the burn is, get emergency care immediately.",
+      "elapsedMs": 2157
+    }
+  ],
+  "browserCloses": [
+    {
+      "phase": "baseline-setup",
+      "confirmedExited": true,
+      "closeWarning": null
+    },
+    {
+      "phase": "baseline-cached-load",
+      "confirmedExited": true,
+      "closeWarning": null
+    },
+    {
+      "phase": "patched-setup",
+      "confirmedExited": true,
+      "closeWarning": null
+    },
+    {
+      "phase": "patched-cached-load",
+      "confirmedExited": true,
+      "closeWarning": null
+    },
+    {
+      "phase": "patched-offline-reopen",
+      "confirmedExited": true,
+      "closeWarning": null
+    }
+  ],
+  "pageErrors": [],
+  "observerErrors": [],
+  "baselineComplete": true,
+  "finishedAt": "2026-09-20T10:44:22.088Z",
+  "comparison": {
+    "baselineReadyModelWasmBytes": 353370112,
+    "patchedReadyModelWasmBytes": 167772160,
+    "reducedObservedModelWasmBytes": 185597952,
+    "baselineInitializationGPUWriteBytes": 868547592,
+    "patchedInitializationGPUWriteBytes": 868547592,
+    "peakProcessMemoryMeasured": false
+  }
+}

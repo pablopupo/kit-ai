@@ -228,6 +228,168 @@ test('tensor loading passes exact shared views to the copying decoder without ch
   assert.match(original, /this\.storeRawBytes\(dataOffset, data\);/)
 })
 
+function tensorFixture(sourceCode, records, { deviceType = 15, failure, source = Uint8Array.from({ length: 48 }, (_, i) => i + 1), tensorOffset = 0, tensorOffsetHigh = 0, pointerBytes = 4, padding = 0 } = {}) {
+  const devices = { cpu: 1, webgpu: 15 }
+  const method = methodSource(sourceCode,
+    'fetchTensorCacheInternal(tensorCacheUrl, list, device, artifactCache, signal) {', 'scalar(value, dtype) {')
+  const object = new Function('__awaiter', 'getPerformance', 'DeviceStrToEnum', `return { ${method} }`)(
+    awaiter, () => ({ now: () => 0 }), devices,
+  )
+  const rawCopy = new Function('DeviceStrToEnum', `return { ${methodSource(original, 'copyFromRawBytes(data) {', 'toRawBytes() {')} }`)(devices).copyFromRawBytes
+  const allocated = [], decoded = [], uploads = [], loaded = [], events = [], reports = []
+  Object.assign(object, {
+    initProgressCallback: [value => reports.push(value)],
+    withNewScope: fn => fn(), detachFromCurrentScope: value => value, cpu: () => ({ deviceType: 1 }),
+    empty(shape, dtype, device) {
+      const bits = Number(dtype.match(/\d+/)[0])
+      const layout = new DataView(new ArrayBuffer(96))
+      // DLTensor begins at an aligned address. The wasm32 ABI has four bytes
+      // of padding before uint64 byte_offset; offsets are literal here so the
+      // test does not copy the implementation's alignment formula.
+      const dltensor = 16
+      const byteOffsetAddress = dltensor + (pointerBytes === 4 ? 32 : 40)
+      if (pointerBytes === 4) layout.setUint32(dltensor + 28, padding, true)
+      layout.setUint32(byteOffsetAddress, tensorOffset, true)
+      layout.setUint32(byteOffsetAddress + 4, tensorOffsetHigh, true)
+      const tensor = {
+        shape, dtype, device, dltensor, dlDataType: { bits, lanes: 1 }, disposed: 0,
+        // Model the installed SDK's incorrect unaligned, low-signed-word read.
+        byteOffset: layout.getInt32(dltensor + (pointerBytes === 4 ? 28 : 40), true),
+        getDataPtr() { return allocated.indexOf(this) + 1 },
+        dispose() { this.disposed++; events.push('dispose') },
+        copyFrom(other) { events.push('cpu-copy'); this.data = other.data.slice() },
+        copyFromRawBytes: rawCopy,
+        lib: { sizeofPtr: () => pointerBytes, memory: { loadU32: address => layout.getUint32(address, true) }, webGPUContext: { copyRawBytesToBuffer(bytes, ptr, offset, nbytes) {
+          assert.equal(ptr, allocated.indexOf(tensor) + 1)
+          assert.equal(offset, 0)
+          assert.equal(bytes.buffer, source.buffer, 'upload must borrow the saved shard')
+          assert.equal(nbytes, bytes.byteLength)
+          events.push('upload')
+          uploads.push({ offset: bytes.byteOffset, bytes: [...bytes] })
+          if (failure === 'upload') throw new Error('Synthetic upload failure')
+          tensor.data = bytes.slice() // models writeBuffer consuming data synchronously
+        } } },
+      }
+      allocated.push(tensor)
+      return tensor
+    },
+    ctx: { arrayDecodeStorage(target, bytes, format, dtype) {
+      decoded.push({ format, dtype, bytes: [...bytes] })
+      events.push('decode')
+      if (format === 'f32-to-bf16' && dtype === 'float32') {
+        // Match the real decoder's BF16 bit expansion, not numerical rounding.
+        target.data = new Uint8Array(bytes.length * 2)
+        for (let i = 0; i < bytes.length; i += 2) target.data.set(bytes.subarray(i, i + 2), i * 2 + 2)
+      } else if (format === 'future-format') {
+        // An unknown format must still reach the original decoder. Do not
+        // silently assume future format bytes are raw in the new fast path.
+        target.data = bytes.map(value => value ^ 255)
+      } else target.data = bytes.slice()
+    } },
+    tensorCacheUpdate(name, tensor) {
+      events.push('cache')
+      if (deviceType !== devices.cpu) assert.equal(events.at(-2), 'sync')
+      if (failure === 'cache') throw new Error('Synthetic cache failure')
+      loaded.push({ name, bytes: [...tensor.data] })
+    },
+    env: { logger() {} },
+  })
+  const device = { deviceType, async sync() {
+    events.push('sync')
+    if (failure === 'sync') throw new Error('Synthetic synchronization failure')
+  } }
+  const cache = { hasAllKeys: async () => true, fetchWithCache: async () => source.buffer }
+  return { allocated, decoded, uploads, loaded, events, reports, source,
+    run: () => object.fetchTensorCacheInternal('https://example.test/model/', [{ dataPath: 'one.bin', nbytes: source.length, records }], device, cache),
+  }
+}
+
+test('pass-through GPU uploads match the installed decoder byte-for-byte with no CPU tensors or FFI calls', async () => {
+  const records = [
+    { name: 'quantized-weight', byteOffset: 4, nbytes: 8, shape: [2], dtype: 'uint32', format: 'f32-to-bf16' },
+    { name: 'scale', byteOffset: 16, nbytes: 8, shape: [4], dtype: 'float16', format: 'f32-to-bf16' },
+    { name: 'raw-float', byteOffset: 32, nbytes: 4, shape: [1], dtype: 'float32', format: 'raw' },
+  ]
+  const before = tensorFixture(original, records), after = tensorFixture(patched, records)
+  const unchanged = after.source.slice()
+  await before.run()
+  await after.run()
+  assert.deepEqual(after.loaded, before.loaded)
+  assert.equal(after.decoded.length, 0)
+  assert.equal(after.allocated.length, records.length)
+  assert(after.allocated.every(tensor => tensor.device.deviceType === 15 && tensor.disposed === 1))
+  assert.deepEqual(after.uploads.map(value => value.offset), records.map(record => record.byteOffset))
+  assert.deepEqual(after.events, records.flatMap(() => ['upload', 'sync', 'cache', 'dispose']))
+  assert.deepEqual(after.source, unchanged)
+  assert.equal(after.reports.at(-1).progress, 1)
+})
+
+test('packed BF16, unaligned, CPU, other device, and unknown-format records retain decoding', async () => {
+  const examples = [
+    { record: { dtype: 'float32', format: 'f32-to-bf16', nbytes: 4, shape: [2] } },
+    { record: { dtype: 'float16', format: 'f32-to-bf16', nbytes: 2, shape: [1] } },
+    { record: { dtype: 'uint32', format: 'raw', nbytes: 4, shape: [1] }, deviceType: 1 },
+    { record: { dtype: 'uint32', format: 'raw', nbytes: 4, shape: [1] }, deviceType: 2 },
+    { record: { dtype: 'uint32', format: 'future-format', nbytes: 4, shape: [1] } },
+  ]
+  for (const { record, deviceType } of examples) {
+    const records = [{ name: 'fallback', byteOffset: 4, ...record }]
+    const before = tensorFixture(original, records, { deviceType }), after = tensorFixture(patched, records, { deviceType })
+    await before.run()
+    await after.run()
+    assert.deepEqual(after.loaded, before.loaded)
+    assert.equal(after.decoded.length, 1)
+    assert.equal(after.uploads.length, 0)
+    assert(after.allocated.some(tensor => tensor.device.deviceType === 1))
+  }
+})
+
+test('direct GPU loading releases temporary handles after upload, sync, or cache failure', async () => {
+  const records = [{ name: 'one', byteOffset: 4, nbytes: 8, shape: [2], dtype: 'uint32', format: 'raw' }]
+  for (const failure of ['upload', 'sync', 'cache']) {
+    const fixture = tensorFixture(patched, records, { failure })
+    await assert.rejects(fixture.run(), /Synthetic/)
+    assert.equal(fixture.allocated.length, 1)
+    assert.equal(fixture.allocated[0].disposed, 1)
+    assert.equal(fixture.loaded.length, 0)
+    assert.equal(fixture.decoded.length, 0)
+    assert.equal(fixture.reports.at(-1).progress, 0)
+  }
+})
+
+test('direct uploads reject invalid record bounds, shape, storage length, and destination offset', async () => {
+  const record = { name: 'one', byteOffset: 4, nbytes: 8, shape: [2], dtype: 'uint32', format: 'raw' }
+  for (const override of [{ byteOffset: -1 }, { byteOffset: 0.5 }, { byteOffset: 44 }, { nbytes: -4 }, { shape: [-2] }, { shape: [1.5] }, { shape: [3] }]) {
+    const fixture = tensorFixture(patched, [{ ...record, ...override }])
+    await assert.rejects(fixture.run(), /Invalid tensor-cache|Tensor-cache storage/)
+    assert.equal(fixture.uploads.length, 0)
+    assert(fixture.allocated.every(tensor => tensor.disposed === 1))
+  }
+  const offset = tensorFixture(patched, [record], { tensorOffset: 4 })
+  await assert.rejects(offset.run(), /destination offset mismatch/)
+  assert.equal(offset.uploads.length, 0)
+  assert.equal(offset.allocated[0].disposed, 1)
+})
+
+test('fresh GPU tensor offset check handles wasm32 ABI padding and both uint64 words', async () => {
+  const record = { name: 'one', byteOffset: 4, nbytes: 8, shape: [2], dtype: 'uint32', format: 'raw' }
+  const padded = tensorFixture(patched, [record], { padding: 0xffffffff })
+  await padded.run()
+  assert.equal(padded.allocated[0].byteOffset, -1, 'installed SDK property reads padding')
+  assert.equal(padded.uploads.length, 1, 'aligned actual offset is still zero')
+  for (const pointerBytes of [4, 8]) {
+    const zero = tensorFixture(patched, [record], { pointerBytes })
+    await zero.run()
+    assert.equal(zero.uploads.length, 1)
+    for (const offsetWords of [{ tensorOffset: 4 }, { tensorOffset: 0x80000000 }, { tensorOffsetHigh: 1 }, { tensorOffsetHigh: 0x80000000 }]) {
+      const fixture = tensorFixture(patched, [record], { pointerBytes, ...offsetWords })
+      await assert.rejects(fixture.run(), /destination offset mismatch/)
+      assert.equal(fixture.uploads.length, 0)
+      assert.equal(fixture.allocated[0].disposed, 1)
+    }
+  }
+})
+
 test('runtime drift fails closed and unrelated modules are untouched', () => {
   assert.throws(() => patchWebllmMemory(original, '0.2.81'), /Review/)
   assert.throws(() => patchWebllmMemory(original.replace('buffer.slice(rec.byteOffset, rec.byteOffset + rec.nbytes)', 'changed()'), '0.2.80'), /Review/)
