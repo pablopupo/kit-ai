@@ -1,0 +1,35 @@
+.kit-primary { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 44px; padding: .7rem 1.1rem; color: white; background: #17695f; border-radius: 999px; font-weight: 700; }
+.kit-primary:hover { background: #115249; }
+.kit-text-button { display: flex; align-items: center; gap: .5rem; min-height: 44px; color: #17695f; font-weight: 700; }
+.dark .kit-text-button { color: #9adbd2; }
+.kit-mode { min-height: 44px; padding: .65rem 1rem; border: 1px solid #cadfd9; border-radius: 999px; font-size: .875rem; font-weight: 700; }
+.kit-mode.selected { border-color: #17695f; background: #e0f5f3; color: #14594f; }
+.dark .kit-mode { border-color: #52616e; }
+.dark .kit-mode.selected { color: #bcf2e9; background: #153d38; border-color: #73b9ad; }
+button:disabled { opacity: .55; cursor: not-allowed; }
+button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
+
+/* One conversation surface. Secondary pages use ordinary document scrolling. */
+.simple-kit .simple-header { padding-top: max(.75rem, env(safe-area-inset-top, 0px)); }
+.simple-kit .simple-composer { padding-bottom: max(.5rem, env(safe-area-inset-bottom, 0px)); }
+.simple-kit:not(.is-chat) .kit-panel { padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px)); }
+.simple-kit .kit-main { border-radius: 1.75rem 1.75rem 0 0; }
+.simple-kit .kit-header { z-index: 30; }
+.simple-kit .kit-composer form { padding-top: .5rem; padding-bottom: .5rem; }
+@media (min-width: 768px) {
+  .simple-kit, .simple-kit.is-chat { padding: 1rem; }
+  .simple-kit .kit-panel { max-width: 1100px; margin-inline: auto; }
+  .simple-kit .simple-header { padding-top: 1rem; padding-bottom: 1rem; }
+}
+@media (max-height: 480px) {
+  .simple-kit .simple-header { padding-top: .25rem; padding-bottom: .25rem; }
+  .simple-kit .kit-main { padding-top: .5rem; }
+}
+
+.kit-primary, .kit-mode, .kit-text-button { transition: background-color 150ms ease, transform 120ms ease-out; }
+.kit-text-button { border-radius: 999px; }
+button:active:not(:disabled) { transform: scale(.98); }
+@media (prefers-reduced-motion: reduce) {
+  .kit-primary, .kit-mode, .kit-text-button { transition: none; }
+  button:active:not(:disabled) { transform: none; }
+}

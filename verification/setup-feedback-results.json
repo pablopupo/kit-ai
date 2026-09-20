@@ -1,0 +1,85 @@
+{
+  "schema": "kit-ai-setup-feedback-verification-v1",
+  "checkedAt": "2026-09-20T00:39:41.562Z",
+  "complete": true,
+  "scope": "Actual AssistantSetup component using synthetic hook state in desktop Chromium/WebKit phone-sized viewports. Verifies feedback and actions, not a physical iPhone, model loading, or medical accuracy.",
+  "artifacts": "/var/folders/l6/m4hsd79x1q11bsvd52jvt02m0000gn/T/kit-setup-feedback-i5I2Ej",
+  "cases": [
+    {
+      "engine": "chromium",
+      "language": "en",
+      "assertions": [
+        "consent-preserved",
+        "immediate-activity-all-active-stages",
+        "no-zero-or-fake-percent",
+        "only-measured-download-progress",
+        "opening-distinct-from-download",
+        "delayed-explanation-after-20s",
+        "pause-available",
+        "reduced-motion-respected",
+        "interrupted-requires-explicit-retry-offline",
+        "paused-opening-resume",
+        "opening-and-download-errors-distinguished"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "assertions": [
+        "consent-preserved",
+        "immediate-activity-all-active-stages",
+        "no-zero-or-fake-percent",
+        "only-measured-download-progress",
+        "opening-distinct-from-download",
+        "delayed-explanation-after-20s",
+        "pause-available",
+        "reduced-motion-respected",
+        "interrupted-requires-explicit-retry-offline",
+        "paused-opening-resume",
+        "opening-and-download-errors-distinguished"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "assertions": [
+        "consent-preserved",
+        "immediate-activity-all-active-stages",
+        "no-zero-or-fake-percent",
+        "only-measured-download-progress",
+        "opening-distinct-from-download",
+        "delayed-explanation-after-20s",
+        "pause-available",
+        "reduced-motion-respected",
+        "interrupted-requires-explicit-retry-offline",
+        "paused-opening-resume",
+        "opening-and-download-errors-distinguished"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "assertions": [
+        "consent-preserved",
+        "immediate-activity-all-active-stages",
+        "no-zero-or-fake-percent",
+        "only-measured-download-progress",
+        "opening-distinct-from-download",
+        "delayed-explanation-after-20s",
+        "pause-available",
+        "reduced-motion-respected",
+        "interrupted-requires-explicit-retry-offline",
+        "paused-opening-resume",
+        "opening-and-download-errors-distinguished"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    }
+  ]
+}

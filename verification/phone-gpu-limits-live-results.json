@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-09-19T23:32:32.286Z",
+  "deploymentId": "dpl_DuBgCwKJk7yKYzvkKXkjzuvMvXyw",
+  "origin": "https://kit-ai-pablopupo.vercel.app",
+  "cases": [
+    {
+      "language": "en",
+      "script": "/assets/index-vwvTw2c3.js",
+      "downloadOffered": true,
+      "modelRequestsBeforeApproval": 0,
+      "pageErrors": [],
+      "horizontalOverflow": false
+    },
+    {
+      "language": "es",
+      "script": "/assets/index-vwvTw2c3.js",
+      "downloadOffered": true,
+      "modelRequestsBeforeApproval": 0,
+      "pageErrors": [],
+      "horizontalOverflow": false
+    }
+  ],
+  "complete": true,
+  "modelWorker": {
+    "path": "/assets/webllm-worker-C6IcWrJa.js",
+    "sha256": "a3a5b763608d1b2c515bf250077c47d1108e5a1de828de24af3d521716040e27",
+    "matchesVerifiedWorker": true
+  }
+}

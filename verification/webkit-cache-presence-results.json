@@ -1,0 +1,713 @@
+{
+  "schema": "kit-native-webkit-cache-presence-v1",
+  "checkedAt": "2026-09-20T10:28:30.027Z",
+  "complete": true,
+  "scope": "Native IndexedDB and fetch in isolated headless desktop Playwright WebKit window and dedicated worker. Actual installed SDK cache class, before/after the guarded patch. Eight-byte synthetic binary plus small JSON only; no model download, GPU, user profile, physical iPhone or process-memory measurement.",
+  "sdkVersion": "0.2.80",
+  "classHashes": {
+    "before": "19c81e6fdbb15bf3ec87b8c7d9d36a05b6c0fc3df6b94048f4dae24acd266487",
+    "after": "601d08acae487c0d69cdfbbc0fe661bf703fad57a89c15140be73f561dd82bae"
+  },
+  "webkitExecutable": "/Users/owner/Library/Caches/ms-playwright/webkit-2336/pw_run.sh",
+  "results": [
+    {
+      "realm": "window",
+      "variant": "before",
+      "result": "pass",
+      "nativeIndexedDB": true,
+      "dbVersion": 1,
+      "keyPath": "url",
+      "getKeyAvailable": true,
+      "checks": [
+        "fresh JSON write/read",
+        "fresh ArrayBuffer write/read",
+        "all keys present",
+        "JSON presence",
+        "binary presence",
+        "duplicate keys",
+        "missing key list",
+        "missing URL",
+        "empty list",
+        "cached JSON read",
+        "cached ArrayBuffer read"
+      ],
+      "phases": {
+        "fresh-write-read": {
+          "get": 4,
+          "getKey": 0,
+          "returnedArrayBufferBytes": 8,
+          "reads": [
+            {
+              "phase": "fresh-write-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-before.json",
+              "found": false,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "fresh-write-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-before.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "fresh-write-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-before.bin",
+              "found": false,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "fresh-write-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-before.bin",
+              "found": true,
+              "arrayBufferBytes": 8
+            }
+          ]
+        },
+        "presence": {
+          "get": 10,
+          "getKey": 0,
+          "returnedArrayBufferBytes": 32,
+          "reads": [
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-before.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-before.bin",
+              "found": true,
+              "arrayBufferBytes": 8
+            },
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-before.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-before.bin",
+              "found": true,
+              "arrayBufferBytes": 8
+            },
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-before.bin",
+              "found": true,
+              "arrayBufferBytes": 8
+            },
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-before.bin",
+              "found": true,
+              "arrayBufferBytes": 8
+            },
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-before.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-before.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/never-fetched-missing.bin",
+              "found": false,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/never-fetched-missing.bin",
+              "found": false,
+              "arrayBufferBytes": 0
+            }
+          ]
+        },
+        "cached-read": {
+          "get": 4,
+          "getKey": 0,
+          "returnedArrayBufferBytes": 16,
+          "reads": [
+            {
+              "phase": "cached-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-before.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "cached-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-before.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "cached-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-before.bin",
+              "found": true,
+              "arrayBufferBytes": 8
+            },
+            {
+              "phase": "cached-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-before.bin",
+              "found": true,
+              "arrayBufferBytes": 8
+            }
+          ]
+        }
+      }
+    },
+    {
+      "realm": "window",
+      "variant": "after",
+      "result": "pass",
+      "nativeIndexedDB": true,
+      "dbVersion": 1,
+      "keyPath": "url",
+      "getKeyAvailable": true,
+      "checks": [
+        "fresh JSON write/read",
+        "fresh ArrayBuffer write/read",
+        "all keys present",
+        "JSON presence",
+        "binary presence",
+        "duplicate keys",
+        "missing key list",
+        "missing URL",
+        "empty list",
+        "cached JSON read",
+        "cached ArrayBuffer read"
+      ],
+      "phases": {
+        "fresh-write-read": {
+          "get": 2,
+          "getKey": 2,
+          "returnedArrayBufferBytes": 8,
+          "reads": [
+            {
+              "phase": "fresh-write-read",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/window-after.json",
+              "found": false,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "fresh-write-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-after.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "fresh-write-read",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/window-after.bin",
+              "found": false,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "fresh-write-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-after.bin",
+              "found": true,
+              "arrayBufferBytes": 8
+            }
+          ]
+        },
+        "presence": {
+          "get": 0,
+          "getKey": 10,
+          "returnedArrayBufferBytes": 0,
+          "reads": [
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/window-after.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/window-after.bin",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/window-after.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/window-after.bin",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/window-after.bin",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/window-after.bin",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/window-after.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/window-after.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/never-fetched-missing.bin",
+              "found": false,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/never-fetched-missing.bin",
+              "found": false,
+              "arrayBufferBytes": 0
+            }
+          ]
+        },
+        "cached-read": {
+          "get": 2,
+          "getKey": 2,
+          "returnedArrayBufferBytes": 8,
+          "reads": [
+            {
+              "phase": "cached-read",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/window-after.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "cached-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-after.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "cached-read",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/window-after.bin",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "cached-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/window-after.bin",
+              "found": true,
+              "arrayBufferBytes": 8
+            }
+          ]
+        }
+      }
+    },
+    {
+      "realm": "worker",
+      "variant": "before",
+      "result": "pass",
+      "nativeIndexedDB": true,
+      "dbVersion": 1,
+      "keyPath": "url",
+      "getKeyAvailable": true,
+      "checks": [
+        "fresh JSON write/read",
+        "fresh ArrayBuffer write/read",
+        "all keys present",
+        "JSON presence",
+        "binary presence",
+        "duplicate keys",
+        "missing key list",
+        "missing URL",
+        "empty list",
+        "cached JSON read",
+        "cached ArrayBuffer read"
+      ],
+      "phases": {
+        "fresh-write-read": {
+          "get": 4,
+          "getKey": 0,
+          "returnedArrayBufferBytes": 8,
+          "reads": [
+            {
+              "phase": "fresh-write-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-before.json",
+              "found": false,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "fresh-write-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-before.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "fresh-write-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-before.bin",
+              "found": false,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "fresh-write-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-before.bin",
+              "found": true,
+              "arrayBufferBytes": 8
+            }
+          ]
+        },
+        "presence": {
+          "get": 10,
+          "getKey": 0,
+          "returnedArrayBufferBytes": 32,
+          "reads": [
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-before.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-before.bin",
+              "found": true,
+              "arrayBufferBytes": 8
+            },
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-before.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-before.bin",
+              "found": true,
+              "arrayBufferBytes": 8
+            },
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-before.bin",
+              "found": true,
+              "arrayBufferBytes": 8
+            },
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-before.bin",
+              "found": true,
+              "arrayBufferBytes": 8
+            },
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-before.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-before.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/never-fetched-missing.bin",
+              "found": false,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/never-fetched-missing.bin",
+              "found": false,
+              "arrayBufferBytes": 0
+            }
+          ]
+        },
+        "cached-read": {
+          "get": 4,
+          "getKey": 0,
+          "returnedArrayBufferBytes": 16,
+          "reads": [
+            {
+              "phase": "cached-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-before.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "cached-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-before.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "cached-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-before.bin",
+              "found": true,
+              "arrayBufferBytes": 8
+            },
+            {
+              "phase": "cached-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-before.bin",
+              "found": true,
+              "arrayBufferBytes": 8
+            }
+          ]
+        }
+      }
+    },
+    {
+      "realm": "worker",
+      "variant": "after",
+      "result": "pass",
+      "nativeIndexedDB": true,
+      "dbVersion": 1,
+      "keyPath": "url",
+      "getKeyAvailable": true,
+      "checks": [
+        "fresh JSON write/read",
+        "fresh ArrayBuffer write/read",
+        "all keys present",
+        "JSON presence",
+        "binary presence",
+        "duplicate keys",
+        "missing key list",
+        "missing URL",
+        "empty list",
+        "cached JSON read",
+        "cached ArrayBuffer read"
+      ],
+      "phases": {
+        "fresh-write-read": {
+          "get": 2,
+          "getKey": 2,
+          "returnedArrayBufferBytes": 8,
+          "reads": [
+            {
+              "phase": "fresh-write-read",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/worker-after.json",
+              "found": false,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "fresh-write-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-after.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "fresh-write-read",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/worker-after.bin",
+              "found": false,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "fresh-write-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-after.bin",
+              "found": true,
+              "arrayBufferBytes": 8
+            }
+          ]
+        },
+        "presence": {
+          "get": 0,
+          "getKey": 10,
+          "returnedArrayBufferBytes": 0,
+          "reads": [
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/worker-after.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/worker-after.bin",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/worker-after.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/worker-after.bin",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/worker-after.bin",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/worker-after.bin",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/worker-after.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/worker-after.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/never-fetched-missing.bin",
+              "found": false,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "presence",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/never-fetched-missing.bin",
+              "found": false,
+              "arrayBufferBytes": 0
+            }
+          ]
+        },
+        "cached-read": {
+          "get": 2,
+          "getKey": 2,
+          "returnedArrayBufferBytes": 8,
+          "reads": [
+            {
+              "phase": "cached-read",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/worker-after.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "cached-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-after.json",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "cached-read",
+              "method": "getKey",
+              "key": "http://127.0.0.1:56590/fixtures/worker-after.bin",
+              "found": true,
+              "arrayBufferBytes": 0
+            },
+            {
+              "phase": "cached-read",
+              "method": "get",
+              "key": "http://127.0.0.1:56590/fixtures/worker-after.bin",
+              "found": true,
+              "arrayBufferBytes": 8
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "pageErrors": [],
+  "externalRequests": [],
+  "browserVersion": "26.5",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5 Safari/605.1.15",
+  "fixtureRequests": [
+    "/fixtures/window-before.json",
+    "/fixtures/window-before.bin",
+    "/fixtures/window-after.json",
+    "/fixtures/window-after.bin",
+    "/fixtures/worker-before.json",
+    "/fixtures/worker-before.bin",
+    "/fixtures/worker-after.json",
+    "/fixtures/worker-after.bin"
+  ],
+  "finishedAt": "2026-09-20T10:28:31.055Z"
+}

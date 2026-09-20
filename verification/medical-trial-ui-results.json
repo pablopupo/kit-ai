@@ -1,0 +1,199 @@
+{
+  "checkedAt": "2026-09-19T21:39:04.080Z",
+  "scope": "Real MedicalModelTrial component with mocked hook in desktop Chromium and WebKit. Small viewports do not prove physical phone compatibility. No real model, download, GPU inference, offline reopening, or medical accuracy tested.",
+  "cases": 8,
+  "results": [
+    {
+      "engine": "chromium",
+      "language": "en",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "assertions": [
+        "explicit-large-download-consent",
+        "two-turn-history",
+        "follow-up-reference-retained",
+        "stop-drain",
+        "question-retained",
+        "logo-reset",
+        "reference-links",
+        "clipboard-fallback",
+        "report-privacy",
+        "native-scroll",
+        "no-horizontal-overflow",
+        "no-external-requests"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "assertions": [
+        "explicit-large-download-consent",
+        "two-turn-history",
+        "follow-up-reference-retained",
+        "stop-drain",
+        "question-retained",
+        "logo-reset",
+        "reference-links",
+        "clipboard-fallback",
+        "report-privacy",
+        "native-scroll",
+        "no-horizontal-overflow",
+        "no-external-requests"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "assertions": [
+        "explicit-large-download-consent",
+        "two-turn-history",
+        "follow-up-reference-retained",
+        "stop-drain",
+        "question-retained",
+        "logo-reset",
+        "reference-links",
+        "clipboard-fallback",
+        "report-privacy",
+        "native-scroll",
+        "no-horizontal-overflow",
+        "no-external-requests"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "assertions": [
+        "explicit-large-download-consent",
+        "two-turn-history",
+        "follow-up-reference-retained",
+        "stop-drain",
+        "question-retained",
+        "logo-reset",
+        "reference-links",
+        "clipboard-fallback",
+        "report-privacy",
+        "native-scroll",
+        "no-horizontal-overflow",
+        "no-external-requests"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "assertions": [
+        "explicit-large-download-consent",
+        "two-turn-history",
+        "follow-up-reference-retained",
+        "stop-drain",
+        "question-retained",
+        "logo-reset",
+        "reference-links",
+        "clipboard-fallback",
+        "report-privacy",
+        "native-scroll",
+        "no-horizontal-overflow",
+        "no-external-requests"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "assertions": [
+        "explicit-large-download-consent",
+        "two-turn-history",
+        "follow-up-reference-retained",
+        "stop-drain",
+        "question-retained",
+        "logo-reset",
+        "reference-links",
+        "clipboard-fallback",
+        "report-privacy",
+        "native-scroll",
+        "no-horizontal-overflow",
+        "no-external-requests"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "assertions": [
+        "explicit-large-download-consent",
+        "two-turn-history",
+        "follow-up-reference-retained",
+        "stop-drain",
+        "question-retained",
+        "logo-reset",
+        "reference-links",
+        "clipboard-fallback",
+        "report-privacy",
+        "native-scroll",
+        "no-horizontal-overflow",
+        "no-external-requests"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "assertions": [
+        "explicit-large-download-consent",
+        "two-turn-history",
+        "follow-up-reference-retained",
+        "stop-drain",
+        "question-retained",
+        "logo-reset",
+        "reference-links",
+        "clipboard-fallback",
+        "report-privacy",
+        "native-scroll",
+        "no-horizontal-overflow",
+        "no-external-requests"
+      ],
+      "pageErrors": [],
+      "externalRequests": 0
+    }
+  ]
+}

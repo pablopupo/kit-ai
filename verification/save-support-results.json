@@ -1,0 +1,103 @@
+{
+  "url": "http://127.0.0.1:4184/",
+  "checkedAt": "2026-09-19T20:35:54.571Z",
+  "scope": "Missing API and blocked getters simulated in desktop browsers; not a physical iPhone test",
+  "results": [
+    {
+      "engine": "chromium",
+      "language": "en",
+      "failure": "missing",
+      "reason": "service-worker-unavailable",
+      "errors": [],
+      "heavyRequests": 0
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "failure": "blocked",
+      "reason": "service-worker-blocked",
+      "errors": [],
+      "heavyRequests": 0
+    },
+    {
+      "engine": "chromium",
+      "language": "en",
+      "failure": "insecure",
+      "reason": "insecure-context",
+      "errors": [],
+      "heavyRequests": 0
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "failure": "missing",
+      "reason": "service-worker-unavailable",
+      "errors": [],
+      "heavyRequests": 0
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "failure": "blocked",
+      "reason": "service-worker-blocked",
+      "errors": [],
+      "heavyRequests": 0
+    },
+    {
+      "engine": "chromium",
+      "language": "es",
+      "failure": "insecure",
+      "reason": "insecure-context",
+      "errors": [],
+      "heavyRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "failure": "missing",
+      "reason": "service-worker-unavailable",
+      "errors": [],
+      "heavyRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "failure": "blocked",
+      "reason": "service-worker-blocked",
+      "errors": [],
+      "heavyRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "language": "en",
+      "failure": "insecure",
+      "reason": "insecure-context",
+      "errors": [],
+      "heavyRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "failure": "missing",
+      "reason": "service-worker-unavailable",
+      "errors": [],
+      "heavyRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "failure": "blocked",
+      "reason": "service-worker-blocked",
+      "errors": [],
+      "heavyRequests": 0
+    },
+    {
+      "engine": "webkit",
+      "language": "es",
+      "failure": "insecure",
+      "reason": "insecure-context",
+      "errors": [],
+      "heavyRequests": 0
+    }
+  ]
+}

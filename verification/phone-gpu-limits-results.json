@@ -1,0 +1,1110 @@
+{
+  "schema": "kit-ai-phone-gpu-limits-verification-v1",
+  "checkedAt": "2026-09-19T23:29:25.980Z",
+  "complete": true,
+  "instrumentation": "Owned test server adds a recorded test-only prefix to built GPU-check/model worker responses. The app service worker caches those instrumented responses for the offline restart. Original worker bytes follow the prefix unchanged; original and prefix hashes are recorded. Other production assets are unchanged. Adapter buffer limits match the phone report; other adapter limits are min(host, phone). Real device grants and allocations are untouched.",
+  "scope": "Current production build, real immutable saved medical 3B weights, real hardware GPU inference with worker adapter limits constrained to the user-reported iPhone limits. No model or inference mocks and no weight downloads. Actual GPUDevice requested/granted limits are recorded. Full browser exit and stopped app server precede offline reopening with browser transport blocked. This is not a physical iPhone, WebKit, total-memory, airplane-mode, or medical accuracy test.",
+  "phoneLimits": {
+    "maxBufferSize": 429496728,
+    "maxStorageBufferBindingSize": 429496728,
+    "maxComputeWorkgroupStorageSize": 32768,
+    "maxStorageBuffersPerShaderStage": 44
+  },
+  "expectedBufferBytes": 268435456,
+  "artifacts": "/var/folders/l6/m4hsd79x1q11bsvd52jvt02m0000gn/T/kit-ai-phone-gpu-limits-XDGmFh",
+  "network": {
+    "fresh-before-consent": {
+      "requests": [
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-Dva7J7He.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-T_Et6BPE.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/fonts/nunito-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-B-Fdn6jw.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/sw.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/pwa-maskable-512x512.png",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/pwa-512x512.png",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/pwa-192x192.png",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/index.html",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/apple-touch-icon.png",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/fonts/varela-round-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/fonts/varela-round-latin-ext.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/fonts/nunito-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/fonts/nunito-latin-ext.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webgpu-check-worker-CsNPHstF.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-B-Fdn6jw.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-T_Et6BPE.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-Dva7J7He.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/browser-BguMd_WU.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/__vite-browser-external-Cgmn0awE-BemP7C7R.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/robots.txt",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        }
+      ],
+      "failures": []
+    },
+    "current-build-cached-load": {
+      "requests": [
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-T_Et6BPE.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-aFo-3uUA.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/fonts/nunito-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllmService-Dbd4hvKj.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/index.html",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-B-Fdn6jw.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-Dva7J7He.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/browser-BguMd_WU.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/__vite-browser-external-Cgmn0awE-BemP7C7R.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-LR3wsjmH.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-T_Et6BPE.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-aFo-3uUA.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-T_Et6BPE.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-Dva7J7He.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/fonts/nunito-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-B-Fdn6jw.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllmService-CwH5u8TH.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllm-worker-C6IcWrJa.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllmService-CwH5u8TH.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-B-Fdn6jw.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllm-worker-C6IcWrJa.js",
+          "method": "GET"
+        }
+      ],
+      "failures": [
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-aFo-3uUA.js",
+          "error": "net::ERR_ABORTED"
+        }
+      ]
+    },
+    "online-cached-english": {
+      "requests": [],
+      "failures": []
+    },
+    "online-cached-spanish": {
+      "requests": [],
+      "failures": []
+    },
+    "offline-full-browser-restart": {
+      "requests": [
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-T_Et6BPE.css",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/index-Dva7J7He.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/fonts/nunito-latin.woff2",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/manifest.webmanifest",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-B-Fdn6jw.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/favicon.svg",
+          "method": "GET"
+        },
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/README.md",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllmService-CwH5u8TH.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-B-Fdn6jw.js",
+          "method": "GET"
+        },
+        {
+          "host": "127.0.0.1:51240",
+          "path": "/assets/webllm-worker-C6IcWrJa.js",
+          "method": "GET"
+        }
+      ],
+      "failures": [
+        {
+          "host": "huggingface.co",
+          "path": "/Pablo305/Llama-3.2-3B-Kit-Medical-q4f16_1-MLC/resolve/34f6aa7d8fb5608dc2585e6660b982610ca4bc28/README.md",
+          "error": "net::ERR_INTERNET_DISCONNECTED"
+        }
+      ]
+    },
+    "offline-fresh-english": {
+      "requests": [],
+      "failures": []
+    }
+  },
+  "workerEvents": [
+    {
+      "phase": "fresh-before-consent",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "installed"
+    },
+    {
+      "phase": "fresh-before-consent",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "adapter",
+      "nativeLimits": {
+        "maxBufferSize": 4294967292,
+        "maxStorageBufferBindingSize": 4294967292,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "advertisedLimits": {
+        "maxBufferSize": 429496728,
+        "maxStorageBufferBindingSize": 429496728,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "identity": {
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallbackAdapter": false,
+        "shaderF16": true
+      }
+    },
+    {
+      "phase": "fresh-before-consent",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "request-device",
+      "requestedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "requiredFeatures": [
+        "shader-f16"
+      ]
+    },
+    {
+      "phase": "fresh-before-consent",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "granted-device",
+      "deviceId": 1,
+      "requestedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "grantedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "requiredFeatures": [
+        "shader-f16"
+      ],
+      "shaderF16": true
+    },
+    {
+      "phase": "current-build-cached-load",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "installed"
+    },
+    {
+      "phase": "current-build-cached-load",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "adapter",
+      "nativeLimits": {
+        "maxBufferSize": 4294967292,
+        "maxStorageBufferBindingSize": 4294967292,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "advertisedLimits": {
+        "maxBufferSize": 429496728,
+        "maxStorageBufferBindingSize": 429496728,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "identity": {
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallbackAdapter": false,
+        "shaderF16": true
+      }
+    },
+    {
+      "phase": "current-build-cached-load",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "request-device",
+      "requestedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "requiredFeatures": [
+        "shader-f16"
+      ]
+    },
+    {
+      "phase": "current-build-cached-load",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "granted-device",
+      "deviceId": 1,
+      "requestedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "grantedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "requiredFeatures": [
+        "shader-f16"
+      ],
+      "shaderF16": true
+    },
+    {
+      "phase": "current-build-cached-load",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "installed"
+    },
+    {
+      "phase": "current-build-cached-load",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "adapter",
+      "nativeLimits": {
+        "maxBufferSize": 4294967292,
+        "maxStorageBufferBindingSize": 4294967292,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "advertisedLimits": {
+        "maxBufferSize": 429496728,
+        "maxStorageBufferBindingSize": 429496728,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "identity": {
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallbackAdapter": false,
+        "shaderF16": true
+      }
+    },
+    {
+      "phase": "current-build-cached-load",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "request-device",
+      "requestedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "requiredFeatures": [
+        "shader-f16"
+      ]
+    },
+    {
+      "phase": "current-build-cached-load",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "granted-device",
+      "deviceId": 1,
+      "requestedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "grantedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "requiredFeatures": [
+        "shader-f16"
+      ],
+      "shaderF16": true
+    },
+    {
+      "phase": "current-build-cached-load",
+      "worker": {
+        "path": "/assets/webllm-worker-C6IcWrJa.js"
+      },
+      "kind": "installed"
+    },
+    {
+      "phase": "current-build-cached-load",
+      "worker": {
+        "path": "/assets/webllm-worker-C6IcWrJa.js"
+      },
+      "kind": "adapter",
+      "nativeLimits": {
+        "maxBufferSize": 4294967292,
+        "maxStorageBufferBindingSize": 4294967292,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "advertisedLimits": {
+        "maxBufferSize": 429496728,
+        "maxStorageBufferBindingSize": 429496728,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "identity": {
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallbackAdapter": false,
+        "shaderF16": true
+      }
+    },
+    {
+      "phase": "current-build-cached-load",
+      "worker": {
+        "path": "/assets/webllm-worker-C6IcWrJa.js"
+      },
+      "kind": "request-device",
+      "requestedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "requiredFeatures": [
+        "shader-f16"
+      ]
+    },
+    {
+      "phase": "current-build-cached-load",
+      "worker": {
+        "path": "/assets/webllm-worker-C6IcWrJa.js"
+      },
+      "kind": "granted-device",
+      "deviceId": 1,
+      "requestedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "grantedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "requiredFeatures": [
+        "shader-f16"
+      ],
+      "shaderF16": true
+    },
+    {
+      "phase": "current-build-cached-load",
+      "worker": {
+        "path": "/assets/webllm-worker-C6IcWrJa.js"
+      },
+      "kind": "largest-created-buffer",
+      "deviceId": 1,
+      "largestBufferBytes": 197001216,
+      "buffersCreated": 1
+    },
+    {
+      "phase": "offline-full-browser-restart",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "installed"
+    },
+    {
+      "phase": "offline-full-browser-restart",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "adapter",
+      "nativeLimits": {
+        "maxBufferSize": 4294967292,
+        "maxStorageBufferBindingSize": 4294967292,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "advertisedLimits": {
+        "maxBufferSize": 429496728,
+        "maxStorageBufferBindingSize": 429496728,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "identity": {
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallbackAdapter": false,
+        "shaderF16": true
+      }
+    },
+    {
+      "phase": "offline-full-browser-restart",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "request-device",
+      "requestedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "requiredFeatures": [
+        "shader-f16"
+      ]
+    },
+    {
+      "phase": "offline-full-browser-restart",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "granted-device",
+      "deviceId": 1,
+      "requestedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "grantedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "requiredFeatures": [
+        "shader-f16"
+      ],
+      "shaderF16": true
+    },
+    {
+      "phase": "offline-full-browser-restart",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "installed"
+    },
+    {
+      "phase": "offline-full-browser-restart",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "adapter",
+      "nativeLimits": {
+        "maxBufferSize": 4294967292,
+        "maxStorageBufferBindingSize": 4294967292,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "advertisedLimits": {
+        "maxBufferSize": 429496728,
+        "maxStorageBufferBindingSize": 429496728,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "identity": {
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallbackAdapter": false,
+        "shaderF16": true
+      }
+    },
+    {
+      "phase": "offline-full-browser-restart",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "request-device",
+      "requestedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "requiredFeatures": [
+        "shader-f16"
+      ]
+    },
+    {
+      "phase": "offline-full-browser-restart",
+      "worker": {
+        "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+      },
+      "kind": "granted-device",
+      "deviceId": 1,
+      "requestedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "grantedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "requiredFeatures": [
+        "shader-f16"
+      ],
+      "shaderF16": true
+    },
+    {
+      "phase": "offline-full-browser-restart",
+      "worker": {
+        "path": "/assets/webllm-worker-C6IcWrJa.js"
+      },
+      "kind": "installed"
+    },
+    {
+      "phase": "offline-full-browser-restart",
+      "worker": {
+        "path": "/assets/webllm-worker-C6IcWrJa.js"
+      },
+      "kind": "adapter",
+      "nativeLimits": {
+        "maxBufferSize": 4294967292,
+        "maxStorageBufferBindingSize": 4294967292,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "advertisedLimits": {
+        "maxBufferSize": 429496728,
+        "maxStorageBufferBindingSize": 429496728,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "identity": {
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallbackAdapter": false,
+        "shaderF16": true
+      }
+    },
+    {
+      "phase": "offline-full-browser-restart",
+      "worker": {
+        "path": "/assets/webllm-worker-C6IcWrJa.js"
+      },
+      "kind": "request-device",
+      "requestedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "requiredFeatures": [
+        "shader-f16"
+      ]
+    },
+    {
+      "phase": "offline-full-browser-restart",
+      "worker": {
+        "path": "/assets/webllm-worker-C6IcWrJa.js"
+      },
+      "kind": "granted-device",
+      "deviceId": 1,
+      "requestedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "grantedLimits": {
+        "maxBufferSize": 268435456,
+        "maxStorageBufferBindingSize": 268435456,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxStorageBuffersPerShaderStage": 10
+      },
+      "requiredFeatures": [
+        "shader-f16"
+      ],
+      "shaderF16": true
+    },
+    {
+      "phase": "offline-full-browser-restart",
+      "worker": {
+        "path": "/assets/webllm-worker-C6IcWrJa.js"
+      },
+      "kind": "largest-created-buffer",
+      "deviceId": 1,
+      "largestBufferBytes": 197001216,
+      "buffersCreated": 1
+    }
+  ],
+  "injectionErrors": [],
+  "pageErrors": [],
+  "browserCloses": [
+    {
+      "phase": "fresh-before-consent",
+      "confirmedExited": true,
+      "closeWarning": null
+    },
+    {
+      "phase": "online-cached-spanish",
+      "confirmedExited": true,
+      "closeWarning": null
+    },
+    {
+      "phase": "offline-fresh-english",
+      "confirmedExited": true,
+      "closeWarning": null
+    }
+  ],
+  "outputs": [
+    {
+      "phase": "online-cached-english",
+      "language": "en",
+      "question": "How do I care for a small cut?",
+      "renderedConversation": "How do I care for a small cut?\n\nTo care for a small cut, follow these steps:\n\n1. **Stop the bleeding**: Press a clean folded cloth or dressing firmly on the cut for a few minutes to stop the bleeding. If the bleeding doesn't stop, get help.\n2. **Clean the cut**: Rinse the cut with clean tap or bottled water. \n3. **Apply antibiotic ointment**: Apply a thin layer of antibiotic ointment to the cut to help prevent infection.\n4. **Cover the cut**: Cover the cut with a sterile dressing or bandage.\n\nReferences",
+      "elapsedMs": 2179,
+      "browserReportsOnline": true
+    },
+    {
+      "phase": "online-cached-spanish",
+      "language": "es",
+      "question": "¿Puedo poner mantequilla en una quemadura pequeña?",
+      "renderedConversation": "¿Puedo poner mantequilla en una quemadura pequeña?\n\nNo, no es recomendable poner mantequilla en una quemadura.\n\nReferencias",
+      "elapsedMs": 684,
+      "browserReportsOnline": true
+    },
+    {
+      "phase": "offline-full-browser-restart",
+      "language": "es",
+      "question": "¿Cómo cuido un corte pequeño?",
+      "renderedConversation": "¿Cómo cuido un corte pequeño?\n\nPara cuidar un corte pequeño, sigue estos pasos:\n\n1. **Detén el sangrado**: Aplica presión firme pero suave sobre la herida con una tela limpia doblada o un apósito durante unos minutos hasta que deje de sangrar.\n2. **Limpia la herida**: Enjuaga la herida pequeña con agua limpia del grifo o embotellada. Limpie la piel de alrededor con agua y jabón.\n3. **Seca y cubre la herida**: Seque la herida con suavidad y cubra con un apósito estéril. Manténgalo limpio y seco; cámbielo cuando sea necesario.\n\nRecuerda que si la herida es profunda, hay un objeto incrustado, entumecimiento o dificultad para mover la zona, busca ayuda de emergencia.\n\nReferencias",
+      "elapsedMs": 2977,
+      "browserReportsOnline": true
+    },
+    {
+      "phase": "offline-fresh-english",
+      "language": "en",
+      "question": "Can I put butter on a small burn?",
+      "renderedConversation": "Can I put butter on a small burn?\n\nNo, you should not put butter on a burn. \n\nSources: Guide: Burns and scalds (https://www.nhs.uk/conditions/burns-and-scalds/)\n\nReferences",
+      "elapsedMs": 882,
+      "browserReportsOnline": true
+    }
+  ],
+  "previousHarnessAttempt": {
+    "checkedAt": "2026-09-19T23:27:48.620Z",
+    "failure": {
+      "phase": "fresh-before-consent",
+      "message": "Real hardware worker GPU not verified",
+      "stack": "Error: Real hardware worker GPU not verified\n    at assert (file:///Users/owner/Documents/Codex/2026-09-18/f/work/kit-ai/verification/verify-phone-gpu-limits.mjs:27:64)\n    at verifyGrantedDevices (file:///Users/owner/Documents/Codex/2026-09-18/f/work/kit-ai/verification/verify-phone-gpu-limits.mjs:233:3)\n    at file:///Users/owner/Documents/Codex/2026-09-18/f/work/kit-ai/verification/verify-phone-gpu-limits.mjs:263:86",
+      "visiblePage": "Kit AI\nki\n.ai\nInternet needed\nHow can I help?\n\nAsk Kit a health question.\n\nTake Kit offline\n\nDownload Kit once on Wi-Fi. Then ask questions without internet. Keep this page open until it finishes.\n\nDownload Kit · 1.83 GB\nAsk a general health question…\n\nKit is experimental and can make mistakes. For urgent help, contact local emergency services."
+    },
+    "injectionErrors": [
+      {
+        "phase": "fresh-before-consent",
+        "worker": {
+          "type": "worker",
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+        },
+        "message": "Worker exited during CDP injection"
+      },
+      {
+        "phase": "fresh-before-consent",
+        "worker": {
+          "type": "worker",
+          "host": "127.0.0.1:51240",
+          "path": "/assets/model-trial-check-worker-B-Fdn6jw.js"
+        },
+        "message": "cdpSession.send: Protocol error (Target.sendMessageToTarget): No session with given id"
+      }
+    ],
+    "explanation": "CDP worker-start interception raced with Playwright’s worker handling. No inference or model compatibility result was obtained. Replaced by an explicitly recorded test-only prefix on the owned app server’s worker responses."
+  },
+  "isolatedProfile": {
+    "cloned": true,
+    "path": "/var/folders/l6/m4hsd79x1q11bsvd52jvt02m0000gn/T/kit-ai-phone-gpu-limits-XDGmFh/cached-profile",
+    "originalProfileUnchanged": true
+  },
+  "buildIndexSha256": "2559555e4badb3202eb34a6e1e119a7027601f94745adf2f7c34b00729e6ec9a",
+  "mainScript": "/assets/index-Dva7J7He.js",
+  "buildMainSha256": "9ede6d1edec7cf4fcb724a9cb51a23ce9f21fad2f152111e113490b431702c86",
+  "modelRevision": "34f6aa7d8fb5608dc2585e6660b982610ca4bc28",
+  "instrumentedWorkers": {
+    "/assets/model-trial-check-worker-B-Fdn6jw.js": {
+      "originalSha256": "2cfab1d02979168229a1115f0cf927e332ab2ca3893b67c21e19207772fa1e10",
+      "prefixSha256": "0bbe79173571b8d4ed93b95cabe16e0da19c4dec98414547692c23758aa67ce8",
+      "bytesAdded": 3408
+    },
+    "/assets/webllm-worker-C6IcWrJa.js": {
+      "originalSha256": "a3a5b763608d1b2c515bf250077c47d1108e5a1de828de24af3d521716040e27",
+      "prefixSha256": "0bbe79173571b8d4ed93b95cabe16e0da19c4dec98414547692c23758aa67ce8",
+      "bytesAdded": 3408
+    }
+  },
+  "navigations": [
+    {
+      "phase": "fresh-before-consent",
+      "scripts": [
+        "/assets/index-Dva7J7He.js"
+      ],
+      "attempt": 0
+    },
+    {
+      "phase": "current-build-cached-load",
+      "scripts": [
+        "/assets/index-aFo-3uUA.js"
+      ],
+      "attempt": 0
+    },
+    {
+      "phase": "current-build-cached-load",
+      "scripts": [
+        "/assets/index-aFo-3uUA.js"
+      ],
+      "attempt": 1
+    },
+    {
+      "phase": "current-build-cached-load",
+      "scripts": [
+        "/assets/index-Dva7J7He.js"
+      ],
+      "attempt": 2
+    },
+    {
+      "phase": "offline-full-browser-restart",
+      "scripts": [
+        "/assets/index-Dva7J7He.js"
+      ],
+      "attempt": 0
+    }
+  ],
+  "preConsent": {
+    "offeredDownload": true,
+    "modelRequests": 0,
+    "realDevicesGranted": 1
+  },
+  "initialReadyMs": 7954,
+  "initialRealDevicesGranted": 3,
+  "offlineReadyMs": 5281,
+  "offlineRealDevicesGranted": 3,
+  "offlineEvidence": {
+    "appServerStopped": true,
+    "browserNetworkBlocked": true,
+    "uncachedExternalFetchBlocked": true,
+    "previousBrowserFullyExited": true,
+    "serviceWorkerControlsPage": true,
+    "browserReportsOnline": true
+  },
+  "finishedAt": "2026-09-19T23:29:59.445Z"
+}

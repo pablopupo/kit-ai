@@ -1,0 +1,148 @@
+{
+  "schema": "kit-ai-physical-phone-observation-v1",
+  "observedDate": "2026-09-20",
+  "scope": "Manual observations from Safari Web Inspector attached by USB to the owner iPhone. No peak memory or OS termination cause established. Only synthetic test conversations are inspected.",
+  "os": "iOS 26.0",
+  "browser": "Safari",
+  "hardwareModel": "unknown",
+  "deploymentId": "dpl_FLcw1u9qizpXgJ3qjK163ysgH9c3",
+  "entryScript": "/assets/index-Bp_fGlG_.js",
+  "modelWorker": "/assets/webllm-worker-DW6ehUvA.js",
+  "beforeRetry": {
+    "status": "Kit had trouble staying open",
+    "serviceWorkerControlsPage": true,
+    "ready": false,
+    "journalState": "interrupted",
+    "journalStage": "model-loading"
+  },
+  "instrumentation": "In the inspected page only, a Worker constructor Proxy attaches listeners for SDK initProgressCallback and worker errors. It returns each original native Worker, changes no worker code or GPU requests, and does not log question or answer messages. Preserve Log was enabled in the Mac inspector.",
+  "retry": "Clicked the existing Try opening Kit button through its DOM from the inspector. Existing consent and caches were retained.",
+  "observedProgress": {
+    "start": "Start to fetch params",
+    "firstShard": {
+      "index": 1,
+      "total": 30,
+      "progress": 0.13434709870772032,
+      "elapsedSeconds": 7,
+      "reportedLoadedMB": 112
+    },
+    "lastShard": {
+      "index": 23,
+      "total": 30,
+      "progress": 0.7966990925392984,
+      "elapsedSeconds": 9,
+      "reportedLoadedMB": 660
+    }
+  },
+  "observedGPUWarnings": [
+    "maxBufferSize request fell back from1024MB to256MB; adapter limit410MB",
+    "maxStorageBufferBindingSize request fell back from1024MB to256MB; adapter limit410MB"
+  ],
+  "result": "The owner confirmed the phone returned to Kit had trouble staying open. The attached inspector stopped producing progress after shard23/30 and no console query result was received. This attempt did not reach readiness.",
+  "physicalOfflineGenerationVerified": false,
+  "osMemoryFailureConfirmed": false,
+  "userConfirmedRestartRecovery": true,
+  "osLogCapture": "Filtered iPhone Console capture began after the progress stopped, so it did not establish the termination cause. It was paused before further testing.",
+  "directGpuAttempt": {
+    "deploymentId": "dpl_58rbhNishzdhQ8Hwr9o7QeKeUo4i",
+    "codeCommit": "5027de9",
+    "entryScript": "/assets/index-DV2S2Ij_.js",
+    "modelWorker": "/assets/webllm-worker-DdXcQXqL.js",
+    "retryAt": "2026-09-20T10:47:04.791Z",
+    "instrumentation": "Main-page Worker Proxy observes only initialization messages and returns native Worker unchanged. No worker/GPU instrumentation on physical phone. Ordinary reload removes the observer.",
+    "savedShards": {
+      "loaded": 30,
+      "total": 30,
+      "reportedLoadedMB": 829,
+      "elapsedSeconds": 2
+    },
+    "shaderModules": {
+      "loaded": 89,
+      "total": 89,
+      "elapsedSeconds": 1
+    },
+    "sdkReady": {
+      "text": "Finish loading on WebGPU - apple",
+      "elapsedSeconds": 2.551
+    },
+    "uiReady": true,
+    "inputEnabled": true,
+    "offlineCheck": {
+      "at": "2026-09-20T11:00:43.707Z",
+      "userConfirmedAirplaneModeAndWifiOff": true,
+      "navigatorOnline": false,
+      "uiReady": true,
+      "uncachedRequest": "/__offline_probe?nonce=<fresh timestamp>",
+      "requestResult": "TypeError: Load failed; resource reported Internet connection appears offline",
+      "probeCaveat": "Safari console eager evaluation initiated multiple intermediate probes while typing; all observed attempts failed. Probe-generated errors are distinct from application errors."
+    },
+    "physicalOfflineGenerationVerified": true,
+    "offlineReloadVerified": true,
+    "fullSafariProcessExitVerified": false,
+    "medicalAccuracyEvaluated": false,
+    "osLogCapture": "Filtered Console capture began before successful initialization and was paused before inference testing. No browser termination cause established.",
+    "offlineReload": {
+      "action": "Mac Safari Web Inspector Reload page on the physical iPhone target, with user-confirmed airplane mode and Wi-Fi off",
+      "navigatedAt": "2026-09-20T11:02:50Z",
+      "checkedAt": "2026-09-20T11:03:19.105Z",
+      "url": "https://kit-ai-pablopupo.vercel.app/index.html",
+      "entryScript": "/assets/index-DV2S2Ij_.js",
+      "navigatorOnline": false,
+      "uiReady": true,
+      "serviceWorkerControlsPage": true,
+      "workerObserverRemovedByNavigation": true
+    },
+    "syntheticConversations": [
+      {
+        "checkedAt": "2026-09-20T11:02:17.297Z",
+        "language": "en",
+        "afterOfflineReload": false,
+        "navigatorOnline": false,
+        "uiReady": true,
+        "prompt": "Runtime test: explain in two short sentences what a thermometer measures.",
+        "answer": "A thermometer measures temperature."
+      },
+      {
+        "checkedAt": "2026-09-20T11:07:01.701Z",
+        "language": "es",
+        "afterOfflineReload": true,
+        "navigatorOnline": false,
+        "documentLanguage": "es",
+        "ariaBusy": "false",
+        "prompt": "En una frase, explica por favor lo que mide un termometro.",
+        "answer": "Un termometro mide la temperatura de un cuerpo. Es comúnmente usado para medir el calentamiento corporal, lo que puede ayudar a determinar si una persona está enferma o no.",
+        "qualityNote": "A runtime smoke test only. Temperature alone does not determine whether someone is ill; the generated phrasing is overbroad."
+      },
+      {
+        "checkedAt": "2026-09-20T11:23:57.510Z",
+        "language": "en",
+        "afterUserReportedSafariAppCloseReopen": true,
+        "navigatorOnline": false,
+        "documentLanguage": "en",
+        "uiReady": true,
+        "ariaBusy": "false",
+        "prompt": "Runtime test: in one short sentence, what does a pulse count measure?",
+        "answer": "A pulse count measures the number of times your heart beats per minute."
+      }
+    ],
+    "userReportedSafariAppCloseReopenVerified": true,
+    "safariAppCloseReopen": {
+      "userAction": "Owner was asked to close Safari from the iPhone app switcher, reopen it, and return to Kit while keeping Airplane Mode on and Wi-Fi off. Owner replied: just closed and reopened it.",
+      "inspectorObservation": "Previous remote inspector detached; Safari Apps and Devices Inspection showed the reopened Kit webpage. Reattached over USB, observed the pinned model worker startup warnings and inspected the page.",
+      "readyCheckedAt": "2026-09-20T11:21:19.518Z",
+      "navigatorOnline": false,
+      "uiReady": true,
+      "documentLanguageBeforeRestore": "es",
+      "entryScript": "/assets/index-DV2S2Ij_.js",
+      "serviceWorkerControlsPage": true,
+      "uncachedProbe": {
+        "url": "https://kit-ai-pablopupo.vercel.app/__offline_probe?nonce=1789903423331",
+        "result": "KIT_REOPEN_NETWORK_FAILED TypeError Load failed; Internet connection appears offline",
+        "scope": "Same-origin no-store GET; intermediate console eager-evaluation probes also failed. Diagnostic request errors are not application failures."
+      },
+      "freshGenerationVerified": true,
+      "interfaceRestoredToEnglish": true,
+      "limitation": "User-reported app-switcher closure with newly attached page and fresh offline generation. No independent OS PID-exit capture, device reboot or universal browser support claim."
+    }
+  }
+}

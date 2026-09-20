@@ -1,0 +1,61 @@
+{
+  "schema": "kit-ai-startup-recovery-live-v1",
+  "checkedAt": "2026-09-20T00:49:56.587Z",
+  "deploymentId": "dpl_12v9NViHYy4ZJbpNpvz4eHvYrnfc",
+  "codeCommit": "ac6c58d",
+  "origin": "https://kit-ai-pablopupo.vercel.app",
+  "scope": "Desktop hardware Chrome, fresh phone-sized contexts. Public build identity, consent UI and synthetic interrupted-startup recovery. No weights, inference, physical iPhone, or medical accuracy test.",
+  "artifacts": "/var/folders/l6/m4hsd79x1q11bsvd52jvt02m0000gn/T/kit-startup-live-tOAGlM",
+  "cases": [
+    {
+      "language": "en",
+      "scenario": "fresh",
+      "script": "/assets/index-CuuMYpLq.js",
+      "externalRequests": 0,
+      "inferenceRuntimeRequests": 0,
+      "posts": 0,
+      "pageErrors": [],
+      "horizontalOverflow": false,
+      "interruptedMarker": null
+    },
+    {
+      "language": "en",
+      "scenario": "interrupted",
+      "script": "/assets/index-CuuMYpLq.js",
+      "externalRequests": 0,
+      "inferenceRuntimeRequests": 0,
+      "posts": 0,
+      "pageErrors": [],
+      "horizontalOverflow": false,
+      "interruptedMarker": "interrupted"
+    },
+    {
+      "language": "es",
+      "scenario": "fresh",
+      "script": "/assets/index-CuuMYpLq.js",
+      "externalRequests": 0,
+      "inferenceRuntimeRequests": 0,
+      "posts": 0,
+      "pageErrors": [],
+      "horizontalOverflow": false,
+      "interruptedMarker": null
+    },
+    {
+      "language": "es",
+      "scenario": "interrupted",
+      "script": "/assets/index-CuuMYpLq.js",
+      "externalRequests": 0,
+      "inferenceRuntimeRequests": 0,
+      "posts": 0,
+      "pageErrors": [],
+      "horizontalOverflow": false,
+      "interruptedMarker": "interrupted"
+    }
+  ],
+  "complete": true,
+  "modelWorker": {
+    "path": "/assets/webllm-worker-fzQO_QBr.js",
+    "sha256": "a3ff8e69a272a2ed732c56f3ee34a32a08edd108250d001c0e8baafdb3f5103d",
+    "matchesVerifiedWorker": true
+  }
+}
