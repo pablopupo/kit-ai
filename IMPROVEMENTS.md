@@ -5,9 +5,10 @@ the owner's physical iPhone, Safari on iOS 26.0 loaded the saved Qwen model and
 reached “Ready without internet.” The owner confirmed airplane mode with Wi-Fi
 off; inspection showed `navigator.onLine: false` and an uncached same-origin
 request failed. Kit then generated fresh English and Spanish answers offline and reached
-readiness again after an offline page reload. Full Safari process exit and
-Android remain unverified. These are runtime observations, not medical accuracy
-results. See [phone observations](verification/iphone-startup-observations.json).
+readiness again after an offline page reload. After the owner closed Safari from
+the app switcher and reopened it, another fresh offline answer passed. Android
+remains unverified; OS process-exit telemetry was not captured. These are runtime
+observations, not medical accuracy results. See [phone observations](verification/iphone-startup-observations.json).
 
 ## Current product and evidence
 
@@ -55,21 +56,25 @@ Earlier [GPU-limit corrections](verification/phone-gpu-limits.md) and
 
 ## Next work, in order
 
-1. **Extend the physical offline checks.** Loading, fresh English/Spanish answers and
-   page reloading now succeed on the reported iPhone in airplane mode with Wi-Fi
-   off. Check a full Safari process exit and Android Chrome separately; do not
-   extend one phone's result to every phone or browser.
-2. **Evaluate the answers people actually receive.** Run the current main-chat
+1. **Evaluate the answers people actually receive.** Run the current main-chat
    prompts and runtime on the frozen English/Spanish cases. Review unsupported
    claims, missed warning signs, follow-ups, language and age scope against the
    sources. Keep raw outputs and exact model/runtime settings. The owner can
    review clarity; medical correctness needs qualified review.
-3. **Choose one measured model improvement together.** Address source coverage
-   and adherence first, then use remaining findings to decide whether a targeted
-   fine-tuning experiment addresses the gap.
-   Review examples and the proposed method with the owner before new training,
-   paid compute or replacing the checkpoint. Keep held-out cases separate from
-   training and repeat the browser evaluation after quantization.
+2. **Choose one measured model improvement together.** Address reference gaps
+   and source adherence first. Existing failures suggest three focused experiments:
+   reviewed infant-specific coverage and age-aware retrieval; preservation of
+   source prohibitions and urgent actions; and language-specific instructions to
+   reduce Spanish refusals. Change one factor at a time, retain every answer,
+   and rerun all 20 development cases. Keep a fresh holdout separate. Then decide
+   whether targeted fine-tuning addresses the remaining gap; review examples
+   and the method with the owner before training, paid compute or replacing the
+   checkpoint. Repeat browser evaluation after quantization.
+3. **Extend physical compatibility checks as devices become available.** Loading,
+   fresh English/Spanish answers, page reloading and generation after the owner
+   closed/reopened Safari succeed on the reported iPhone with no connection.
+   Test Android Chrome and iPhone Chrome separately; do not extend one phone's
+   Safari result to every phone or browser.
 
 ## Model work already completed
 

@@ -4,9 +4,9 @@ A simple, experimental health chat that can generate answers without internet af
 
 **Current phone status:** the saved Qwen model now loads on the owner's iPhone
 in Safari on iOS 26.0, generates fresh English and Spanish answers without internet, and
-reopens after an offline page reload. A full Safari process exit and Android
-testing remain unverified. This does not establish medical accuracy or support
-on every phone.
+reopens after an offline page reload and user-reported Safari app closure. A
+fresh offline answer after reopening also passed. Android testing remains
+unverified. This does not establish medical accuracy or support on every phone.
 
 **Personal deployment:** https://kit-ai-pablopupo.vercel.app
 
@@ -120,8 +120,13 @@ answer at `11:02:17.297Z` while `navigator.onLine` remained false. After the
 offline page reload at `11:02:50Z`, inspection at `11:03:19.105Z` again showed
 readiness, no connection and service-worker control. A new Spanish question then
 received a Spanish reply at `11:07:01.701Z`, still offline. This was a page reload, not
-a full Safari/OS process exit. The question tested generation, not medical
-correctness. See
+a full Safari/OS process exit. In a subsequent test the owner closed Safari from
+the app switcher and reopened Kit, still offline. The old inspector detached;
+a fresh attachment found Kit ready, and a new uncached request failed. A new
+English question generated an answer at `11:23:57.510Z`, with the interface
+restored to English. This confirms generation after the reported app closure;
+OS process IDs and device reboot were not checked. These questions tested
+generation, not medical correctness. See
 [phone observations](verification/iphone-startup-observations.json).
 
 ## Run locally
@@ -214,9 +219,9 @@ but omitted or contradicted source guidance, so they were not silently substitut
 for the owner's model. Functional offline generation is established on the
 tested desktop configurations. The current Qwen2.5 1.5B candidate now loads on
 the reported iPhone and has generated fresh English/Spanish answers offline and
-reached readiness again after an offline page reload. Full Safari process exit
-and Android remain unverified. Reliable medical answer quality also remains
-work to do.
+reached readiness again after an offline page reload. A subsequent user-reported
+Safari app closure and reopen also passed with a fresh offline answer. Android
+remains unverified. Reliable medical answer quality also remains work to do.
 
 See [simplified chat verification](verification/simple-chat.md) for the earlier
 3B main-chat checks and [candidate verification](verification/phone-candidate.md)

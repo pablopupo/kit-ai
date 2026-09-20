@@ -1,6 +1,17 @@
 # KIT AI: learning and evaluation plan
 
-**Latest phone report:** the owner reports another crash after the startup-recovery release, probably at “Opening Kit…”. Physical offline generation on that phone remains unsuccessful in the reported attempts. Memory pressure is a hypothesis, not an OS-confirmed diagnosis. See the [smaller-model comparison proposal and measured artifact sizes](../verification/phone-model-next-experiment.md). The owner has approved an isolated Qwen2.5 1.5B experiment; this approval does not establish its phone compatibility or medical quality, and no fine-tuning has started. The preceding [startup recovery](../verification/startup-recovery.md) changes improve feedback and interruption handling but did not establish a phone fix.
+**Latest physical phone result (2026-09-20):** the direct GPU loading fix in
+`5027de9` is live. On the owner's connected iPhone, Safari on iOS 26.0 now opens
+the saved Qwen model and generates new English/Spanish replies in user-confirmed
+Airplane Mode with Wi-Fi off. Offline page reload and fresh generation after the
+owner closed Safari from the app switcher and reopened it also passed. Uncached
+network requests failed. These are synthetic runtime checks, not medical-quality
+validation or evidence for every phone/browser. No independent OS process-exit
+or device-reboot capture was made, and Android remains untested. See
+[phone observations](../verification/iphone-startup-observations.json) and
+[direct GPU loading](../verification/direct-gpu-loading.md). Earlier failures
+below remain historical evidence; their OS-level termination cause was not
+established. No fine-tuning has started.
 
 ## Current candidate and next validation — 2026-09-20 UTC
 
@@ -35,14 +46,14 @@ for generated replies. See [main-chat verification](../verification/simple-chat.
 Desktop testing demonstrated an offline restart and fresh generation with the
 current main chat. The owner's physical iPhone subsequently reported
 `unsupported` / `storage-binding-limit`: its adapter exposes 429,496,728 bytes,
-while the pinned SDK requests only 134,217,728 bytes. Offline AI is **not working
-on that phone** in the reported build. The correction passes real desktop
+while the pinned SDK requests only 134,217,728 bytes. Offline AI **did not work
+on that phone** in that historical build. The correction passes real desktop
 generation with native 256 MiB buffer limits and an offline restart; physical
 reports then passed the GPU check but crashed during opening. Follow [the GPU-limit verification](../verification/phone-gpu-limits.md) and latest report above.
 
-First establish actual phone inference, then evaluate the current main-chat
-answers in English and Spanish. Keep runtime success separate from answer
-quality: the historical findings below include serious medical errors. No new
+Actual inference now works in the physical Safari test above. Next evaluate the
+current main-chat answers in English and Spanish. Keep runtime success separate
+from answer quality: the historical findings below include serious medical errors. No new
 training job has started. The owner should review the observed gap, examples and
 proposed experiment before deciding to train or replace the checkpoint.
 

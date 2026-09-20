@@ -112,7 +112,37 @@
         "prompt": "En una frase, explica por favor lo que mide un termometro.",
         "answer": "Un termometro mide la temperatura de un cuerpo. Es comúnmente usado para medir el calentamiento corporal, lo que puede ayudar a determinar si una persona está enferma o no.",
         "qualityNote": "A runtime smoke test only. Temperature alone does not determine whether someone is ill; the generated phrasing is overbroad."
+      },
+      {
+        "checkedAt": "2026-09-20T11:23:57.510Z",
+        "language": "en",
+        "afterUserReportedSafariAppCloseReopen": true,
+        "navigatorOnline": false,
+        "documentLanguage": "en",
+        "uiReady": true,
+        "ariaBusy": "false",
+        "prompt": "Runtime test: in one short sentence, what does a pulse count measure?",
+        "answer": "A pulse count measures the number of times your heart beats per minute."
       }
-    ]
+    ],
+    "userReportedSafariAppCloseReopenVerified": true,
+    "safariAppCloseReopen": {
+      "userAction": "Owner was asked to close Safari from the iPhone app switcher, reopen it, and return to Kit while keeping Airplane Mode on and Wi-Fi off. Owner replied: just closed and reopened it.",
+      "inspectorObservation": "Previous remote inspector detached; Safari Apps and Devices Inspection showed the reopened Kit webpage. Reattached over USB, observed the pinned model worker startup warnings and inspected the page.",
+      "readyCheckedAt": "2026-09-20T11:21:19.518Z",
+      "navigatorOnline": false,
+      "uiReady": true,
+      "documentLanguageBeforeRestore": "es",
+      "entryScript": "/assets/index-DV2S2Ij_.js",
+      "serviceWorkerControlsPage": true,
+      "uncachedProbe": {
+        "url": "https://kit-ai-pablopupo.vercel.app/__offline_probe?nonce=1789903423331",
+        "result": "KIT_REOPEN_NETWORK_FAILED TypeError Load failed; Internet connection appears offline",
+        "scope": "Same-origin no-store GET; intermediate console eager-evaluation probes also failed. Diagnostic request errors are not application failures."
+      },
+      "freshGenerationVerified": true,
+      "interfaceRestoredToEnglish": true,
+      "limitation": "User-reported app-switcher closure with newly attached page and fresh offline generation. No independent OS PID-exit capture, device reboot or universal browser support claim."
+    }
   }
 }

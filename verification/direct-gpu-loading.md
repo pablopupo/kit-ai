@@ -78,6 +78,11 @@ Spanish question then generated a Spanish reply with the interface language set
 to Spanish. These synthetic thermometer questions test generation only; the
 Spanish answer includes an overbroad statement about detecting illness. The
 reload removed the temporary main-page initialization observer. This verifies
-physical phone initialization and generation, not a full Safari process exit,
-all iPhone models, Android support or medical reliability. Only synthetic test
-conversations were read. Evidence: `iphone-startup-observations.json`.
+physical phone initialization and generation. A subsequent user-reported Safari
+app-switcher closure detached the inspector. After reopening Kit, a fresh USB
+attachment found readiness and no connection; an uncached request failed, and a
+new English question generated a reply at `2026-09-20T11:23:57.510Z`. The interface
+was restored to English. This verifies generation after that reported app closure,
+not independent OS process-exit telemetry, a device reboot, all iPhone models,
+Android support or medical reliability. Only synthetic test conversations were
+read. Evidence: `iphone-startup-observations.json`.
