@@ -68,3 +68,18 @@ off and ask a fresh question. Physical Android support remains to be tested.
 If that succeeds, compare source coverage/adherence and review errors before
 fine-tuning. The existing six-guide offline retrieval is retained; the staged
 accuracy plan is in `evaluations/README.md`.
+
+## Published check
+
+Code `fd21d7b` is live at https://kit-ai-pablopupo.vercel.app/ in deployment
+`dpl_C3c3ZwcA3bbyPQZkAW7bYNmyoCML`. Entry bundle:
+`/assets/index-BszvVSgc.js`. Public entry bytes match the verified build.
+
+Five live checks pass: upgrade from the preceding saved app with synthetic 3B
+approval/interruption, fresh English/Spanish consent screens, and interrupted
+candidate recovery in both languages. The old app updated on ordinary reload;
+its approval stayed separate, old preferences survived, and the new 0.9 GB offer
+appeared without starting inference. No external/model request, inference POST,
+page error or horizontal overflow occurred. The upgraded consent screen was
+visually inspected. This public check does not download weights or prove phone
+inference. See `phone-candidate-live-results.json` and its two-phase harness.

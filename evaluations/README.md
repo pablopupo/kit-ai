@@ -14,6 +14,14 @@ preceded 22 answers. This is not physical iPhone or medical-quality validation.
 See [candidate verification](../verification/phone-candidate.md) and the raw
 [runtime and answer record](../verification/phone-candidate-results.json).
 
+The [focused six-case review](results/qwen-phone-smoke-review.json) identifies
+serious infant guidance/refusal failures, a Spanish refusal despite a burn
+reference, and omitted warnings. Additional selective checks found source
+contradictions. These are exploratory AI review findings, with clinical/Spanish
+review pending; the candidate has no medical-quality release pass. Code
+`fd21d7b` publishes the user-approved phone compatibility experiment with the
+same experimental status. No fine-tuning has run.
+
 ## Prior medical 3B release — 2026-09-19
 
 Release `abcef5b` ran the owner's converted 3B medical checkpoint in the main

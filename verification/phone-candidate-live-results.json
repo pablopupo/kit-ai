@@ -1,0 +1,66 @@
+{
+  "schema": "kit-ai-phone-candidate-live-v1",
+  "startedAt": "2026-09-20T01:26:10.885Z",
+  "origin": "https://kit-ai-pablopupo.vercel.app",
+  "scope": "Fresh desktop Chrome contexts plus upgrade of a previously saved public app with synthetic 3B consent/interruption. No model download or inference, no physical phone proof.",
+  "artifacts": "/var/folders/l6/m4hsd79x1q11bsvd52jvt02m0000gn/T/kit-candidate-live-W4iGgB",
+  "complete": true,
+  "cases": [
+    {
+      "language": "en",
+      "state": "legacy",
+      "script": "/assets/index-BszvVSgc.js",
+      "externalRequests": 0,
+      "modelRequests": 0,
+      "pageErrors": [],
+      "horizontalOverflow": false
+    },
+    {
+      "language": "en",
+      "state": "fresh",
+      "script": "/assets/index-BszvVSgc.js",
+      "externalRequests": 0,
+      "modelRequests": 0,
+      "pageErrors": [],
+      "horizontalOverflow": false
+    },
+    {
+      "language": "en",
+      "state": "interrupted",
+      "script": "/assets/index-BszvVSgc.js",
+      "externalRequests": 0,
+      "modelRequests": 0,
+      "pageErrors": [],
+      "horizontalOverflow": false
+    },
+    {
+      "language": "es",
+      "state": "fresh",
+      "script": "/assets/index-BszvVSgc.js",
+      "externalRequests": 0,
+      "modelRequests": 0,
+      "pageErrors": [],
+      "horizontalOverflow": false
+    },
+    {
+      "language": "es",
+      "state": "interrupted",
+      "script": "/assets/index-BszvVSgc.js",
+      "externalRequests": 0,
+      "modelRequests": 0,
+      "pageErrors": [],
+      "horizontalOverflow": false
+    }
+  ],
+  "previousScript": "/assets/index-CuuMYpLq.js",
+  "prepared": true,
+  "expectedScript": "/assets/index-BszvVSgc.js",
+  "upgradeNavigations": [
+    "/assets/index-CuuMYpLq.js",
+    "/assets/index-BszvVSgc.js"
+  ],
+  "publicEntrySha256": "7071ae7e61ffb18beb24b0d372f551468ef9101b42024c7dee60dfb81509b263",
+  "finishedAt": "2026-09-20T01:30:35.934Z",
+  "deploymentId": "dpl_C3c3ZwcA3bbyPQZkAW7bYNmyoCML",
+  "deployedCodeCommit": "fd21d7b"
+}
