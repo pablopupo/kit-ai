@@ -1,5 +1,7 @@
 # KIT AI: next improvements
 
+**Latest phone report:** the GPU check now passes, but Safari stops while opening the cached AI. The loading feedback, interrupted-startup guard and bounded memory reductions are documented in [startup recovery](verification/startup-recovery.md). Physical offline generation on that phone remains unverified.
+
 ## Current product and evidence
 
 Kit's main purpose is one simple chat that can generate health answers without

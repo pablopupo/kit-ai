@@ -10,7 +10,10 @@ async function loadService(t, createEngine) {
   const workers = []
   const originalWorker = globalThis.Worker
   globalThis.Worker = class {
-    constructor() { this.terminated = false; workers.push(this) }
+    constructor() { this.terminated = false; this.listeners = new Map(); workers.push(this) }
+    addEventListener(type, callback) { this.listeners.set(type, callback) }
+    removeEventListener(type) { this.listeners.delete(type) }
+    emit(type) { this.listeners.get(type)?.({ preventDefault() {} }) }
     terminate() { this.terminated = true }
   }
   globalThis[key] = createEngine
@@ -56,6 +59,25 @@ test('explicit trial record loads only that model and never falls back to the de
   service.invalidateEngine()
   await assert.rejects(service.generateReply([], { expectedModelId: record.model_id }), /not loaded/)
   assert.equal(calls.length, 1)
+})
+
+test('a worker crash or unreadable response rejects loading and permits an explicit retry', async t => {
+  t.mock.method(console, 'error', () => {})
+  let starts = 0
+  const { service, workers } = await loadService(t, async () => {
+    if (++starts < 3) return new Promise(() => {})
+    return {}
+  })
+  for (const type of ['error', 'messageerror']) {
+    const loading = service.initEngine()
+    workers.at(-1).emit(type)
+    await assert.rejects(loading, /stopped while opening/)
+    assert.equal(workers.at(-1).terminated, true)
+    assert.equal(workers.at(-1).listeners.size, 0)
+  }
+  await service.initEngine()
+  assert.equal(starts, 3)
+  service.invalidateEngine()
 })
 
 test('Stop drains the worker response, hides later chunks, and releases the next request', async t => {

@@ -41,7 +41,7 @@ export default function Home() {
   useChatViewport(shellRef, page === 'chat')
   const source = chooseAssistantSource({ localReady: local.status === 'ready', online, allowOnline })
   const activeSetup = ['checking', 'saving', 'loading', 'downloading'].includes(local.status)
-  const showSetup = !local.offlineSaved && (!setupDismissed || !source || local.status !== 'consent')
+  const showSetup = !local.offlineSaved && (!setupDismissed || !source || !['consent', 'interrupted'].includes(local.status))
   const statusLabel = local.offlineSaved ? c.ready : local.status === 'ready' ? c.readyHere : activeSetup ? c.preparing : online ? c.internetNeeded : c.notReady
 
   useEffect(() => {

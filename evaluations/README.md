@@ -1,5 +1,7 @@
 # KIT AI: learning and evaluation plan
 
+**Latest phone report:** the GPU check now passes, but Safari stops while opening the cached AI. The loading feedback, interrupted-startup guard and bounded memory reductions are documented in [startup recovery](../verification/startup-recovery.md). Physical offline generation on that phone remains unverified.
+
 ## Current release and next validation — 2026-09-19
 
 Release `abcef5b` runs the owner's converted 3B medical checkpoint in the main

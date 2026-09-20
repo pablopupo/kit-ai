@@ -15,6 +15,7 @@ const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright')
 const modelId = 'kit-medical-3b-synthetic-published-revision'
 const consentKey = `kit-ai-trial-download-approved:${modelId}`
 const pauseKey = `${consentKey}:paused`
+const activeRunKey = `${consentKey}:active-run`
 const mocks = {
   SettingsContext: `export const useSettings = () => ({language: window.__scenario.language || 'en'})`,
   useOfflineApp: `export const useOfflineApp = () => window.__snapshot`,
@@ -31,8 +32,8 @@ const mocks = {
   offlineAppService: `
     export const getOfflineAppSnapshot = () => window.__snapshot;
     export const checkOfflineApp = async () => { window.__calls.appChecks++; return window.__snapshot; };
-    export const retryOfflineSave = async () => { window.__calls.appSaves++; window.__snapshot.status='ready'; };
-    export const ensureOfflineRuntime = async signal => { window.__calls.runtimeSaves++; if(signal.aborted) throw new DOMException('Stopped','AbortError'); window.__snapshot.runtimeSaved=true; };`,
+    export const retryOfflineSave = async () => { window.__calls.appSaves++; if(window.__scenario.failAppSave) throw new Error('Synthetic app save error'); window.__snapshot.status='ready'; };
+    export const ensureOfflineRuntime = async signal => { window.__calls.runtimeSaves++; if(window.__scenario.failRuntimeSave) throw new Error('Synthetic runtime save error'); if(signal.aborted) throw new DOMException('Stopped','AbortError'); window.__snapshot.runtimeSaved=true; };`,
   webllmService: `
     window.__calls.serviceImports++;
     export const isModelCached = async (id,record) => { window.__calls.cacheChecks.push({id,record}); return window.__cached; };
@@ -41,12 +42,13 @@ const mocks = {
       window.__calls.init.push({id,record});
       if(window.__engineLoaded) return;
       if(!window.__cached) window.__calls.modelDownloads++;
-      onProgress({progress:45});
+      window.__emitProgress=onProgress;
+      onProgress(window.__cached ? {preparationStage:'opening',progress:null} : {preparationStage:'downloading',progress:45});
       if(window.__scenario.initDeferred) await new Promise((resolve,reject) => window.__pendingInit.push({resolve,reject,signal}));
       if(signal.aborted) throw new DOMException('Stopped','AbortError');
       window.__cached=window.__scenario.cacheAfterLoad !== false;
       window.__engineLoaded=true;
-      onProgress({progress:100});
+      onProgress({preparationStage:'opening',progress:null});
     };
     export const generateReply = async (messages,options) => {
       window.__calls.generate.push({messages,expectedModelId:options.expectedModelId,language:options.language});
@@ -60,7 +62,7 @@ const mocks = {
 const bundle = await build({
   stdin: {
     contents: `import React,{useEffect} from 'react'; import {createRoot} from 'react-dom/client'; import {useOfflineAssistant} from './src/hooks/useOfflineAssistant.js';
-      function Harness(){const trial=useOfflineAssistant();window.__trial={...trial,send:trial.sendMessage};useEffect(()=>{window.__states.push(trial.status)},[trial.status]);return React.createElement('div',{'data-status':trial.status},trial.status)}
+      function Harness(){const trial=useOfflineAssistant();window.__trial={...trial,send:trial.sendMessage};useEffect(()=>{window.__states.push(trial.status)},[trial.status]);useEffect(()=>{window.__progressStates.push({status:trial.status,stage:trial.preparationStage,progress:trial.progress})},[trial.status,trial.preparationStage,trial.progress]);return React.createElement('div',{'data-status':trial.status},trial.status)}
       window.__mount=()=>{window.__root=createRoot(document.getElementById('app'));window.__root.render(React.createElement(React.StrictMode,null,React.createElement(Harness)))};window.__mount();`,
     resolveDir: path.join(repo, 'frontend'), loader: 'jsx',
   },
@@ -86,23 +88,28 @@ const results = []
 async function fixture(name, scenario, exercise) {
   const context = await browser.newContext()
   const errors = [], externalRequests = []
-  await context.addInitScript(({ scenario, consentKey, pauseKey }) => {
+  await context.addInitScript(({ scenario, consentKey, pauseKey, activeRunKey }) => {
     window.__scenario = scenario
     window.__cached = scenario.cached === true
     window.__engineLoaded = false
     window.__online = scenario.online !== false
-    window.__snapshot = { status: 'ready', runtimeSaved: true }
+    window.__snapshot = { status: scenario.failAppSave ? 'error' : 'ready', runtimeSaved: !scenario.failRuntimeSave }
     window.__states = []
+    window.__progressStates = []
     window.__pendingInit = []
     window.__pendingGeneration = []
     window.__calls = { preflight: [], serviceImports: 0, runtimeSaves: 0, appSaves: 0, appChecks: 0, init: [], cacheChecks: [], generate: [], persist: 0, invalidations: 0, modelDownloads: 0 }
     Object.defineProperty(navigator, 'onLine', { configurable: true, get: () => window.__online })
     Object.defineProperty(navigator, 'storage', { configurable: true, value: { persist: async () => { window.__calls.persist++; return false } } })
+    if (!sessionStorage.getItem('fixture-journal-seeded')) {
+      if (scenario.previousRun) localStorage.setItem(activeRunKey, JSON.stringify(scenario.previousRun))
+      sessionStorage.setItem('fixture-journal-seeded', 'true')
+    }
     if (scenario.approved) localStorage.setItem(consentKey, 'true')
     if (scenario.paused) localStorage.setItem(pauseKey, 'true')
     if (scenario.legacyApproved) localStorage.setItem('kit-ai-offline-download-approved', 'true')
     if (scenario.previousTrialApproved) localStorage.setItem('kit-ai-trial-download-approved:kit-medical-3b-previous-revision', 'true')
-  }, { scenario, consentKey, pauseKey })
+  }, { scenario, consentKey, pauseKey, activeRunKey })
   const page = await context.newPage()
   page.on('pageerror', error => errors.push(error.message))
   page.on('request', request => { if (!request.url().startsWith(url.split('?')[0])) externalRequests.push(request.url()) })
@@ -111,12 +118,14 @@ async function fixture(name, scenario, exercise) {
     await exercise(page)
     assert.deepEqual(errors, [], 'Unexpected browser errors')
     assert.deepEqual(externalRequests, [], 'The fixture must never download model assets')
-    const evidence = await page.evaluate(() => ({ states: window.__states, calls: window.__calls, offlineSaved: window.__trial.offlineSaved }))
+    const evidence = await page.evaluate(key => ({ states: window.__states, progressStates: window.__progressStates, calls: window.__calls, offlineSaved: window.__trial.offlineSaved, activeRun: JSON.parse(localStorage.getItem(key) || 'null') }), activeRunKey)
     results.push({ name, result: 'pass', evidence })
   } finally { await context.close() }
 }
 const status = (page, expected) => page.waitForFunction(value => window.__trial?.status === value, expected)
 const counts = page => page.evaluate(() => ({ runtime: window.__calls.runtimeSaves, imports: window.__calls.serviceImports, init: window.__calls.init.length }))
+const journal = page => page.evaluate(key => JSON.parse(localStorage.getItem(key) || 'null'), activeRunKey)
+const reconnect = page => page.evaluate(async () => { window.__online = true; window.dispatchEvent(new Event('online')); await new Promise(resolve => setTimeout(resolve, 50)) })
 try {
   await fixture('Legacy 750 MB approval does not approve the larger medical model', { legacyApproved: true }, async page => {
     await status(page, 'consent')
@@ -189,6 +198,7 @@ try {
     assert.equal(await page.evaluate(() => window.__trial.offlineSaved), false)
     assert.equal(await page.evaluate(key => localStorage.getItem(key), consentKey), 'true')
     assert.equal(await page.evaluate(key => localStorage.getItem(key), pauseKey), 'true')
+    assert.equal(await journal(page), null, 'An explicit pause must not look like a crash')
     await page.evaluate(() => { void window.__trial.retry() })
     await page.waitForFunction(() => window.__pendingInit.length === 2)
     await page.evaluate(() => window.__pendingInit[1].resolve())
@@ -297,6 +307,7 @@ try {
     assert.equal(await page.evaluate(() => window.__answerResult), 'AbortError')
     await page.waitForFunction(() => !window.__trial.isGenerating)
     await status(page, 'ready')
+    assert.equal(await journal(page), null, 'Stopping an answer must not look like a crash')
     await page.evaluate(() => { window.__scenario.generateDeferred = false; return window.__trial.send('Fresh question', []) })
     assert.equal(await page.evaluate(() => window.__calls.generate.length), 2)
   })
@@ -381,6 +392,206 @@ try {
     assert.equal(await page.evaluate(() => window.__pendingGeneration[0].signal.aborted), false)
     await page.evaluate(() => window.__pendingGeneration[0].resolve())
     await page.evaluate(() => window.__answerResult)
+    await status(page, 'ready')
+  })
+  await fixture('A prior interrupted model opening blocks automatic loading across reconnect and reload', {
+    approved: true, cached: true,
+    previousRun: { state: 'active', stage: 'model-loading', owner: 'previous-page' },
+  }, async page => {
+    await status(page, 'interrupted')
+    assert.equal(await page.evaluate(() => window.__trial.lastFailureStage), 'model-loading')
+    assert.deepEqual(await counts(page), { runtime: 0, imports: 0, init: 0 })
+    await reconnect(page)
+    await status(page, 'interrupted')
+    assert.deepEqual(await counts(page), { runtime: 0, imports: 0, init: 0 })
+    assert.equal((await journal(page)).stage, 'model-loading')
+    await page.reload()
+    await status(page, 'interrupted')
+    assert.deepEqual(await counts(page), { runtime: 0, imports: 0, init: 0 })
+    assert.equal(await page.evaluate(() => window.__calls.modelDownloads), 0)
+    assert.equal(await page.evaluate(() => window.__trial.offlineSaved), false)
+  })
+  await fixture('An explicit retry after interruption can open the cached model offline and clears the guard', {
+    approved: true, cached: true, online: false,
+    previousRun: { state: 'interrupted', stage: 'model-loading', owner: 'previous-page' },
+  }, async page => {
+    await status(page, 'interrupted')
+    await page.evaluate(() => window.__trial.retry())
+    await status(page, 'ready')
+    assert.equal(await journal(page), null)
+    assert.equal(await page.evaluate(() => window.__calls.modelDownloads), 0)
+    assert.equal(await page.evaluate(() => window.__calls.init.length), 1)
+    assert.equal(await page.evaluate(() => window.__trial.offlineSaved), true)
+    assert.equal(await page.evaluate(() => window.__states.includes('consent')), false)
+    await page.reload()
+    await status(page, 'ready')
+    assert.equal(await journal(page), null)
+    assert.equal(await page.evaluate(() => window.__states.includes('interrupted')), false)
+  })
+  await fixture('An interrupted download cannot restart itself after a page reopen', {
+    approved: true,
+    previousRun: { state: 'active', stage: 'model-download', owner: 'previous-page' },
+  }, async page => {
+    await status(page, 'interrupted')
+    await reconnect(page)
+    assert.deepEqual(await counts(page), { runtime: 0, imports: 0, init: 0 })
+    await page.evaluate(() => window.__trial.retry())
+    await status(page, 'ready')
+    assert.equal(await page.evaluate(() => window.__calls.modelDownloads), 1)
+    assert.equal(await journal(page), null)
+  })
+  await fixture('An interrupted run without model approval cannot authorize a new download', {
+    previousRun: { state: 'active', stage: 'model-loading', owner: 'previous-page' },
+  }, async page => {
+    await status(page, 'interrupted')
+    await page.evaluate(() => window.__trial.retry())
+    await status(page, 'consent')
+    assert.deepEqual(await counts(page), { runtime: 0, imports: 0, init: 0 })
+    assert.equal(await page.evaluate(key => localStorage.getItem(key), consentKey), null)
+  })
+  await fixture('A hard navigation while opening preserves the unfinished run and prevents a restart loop', {
+    approved: true, cached: true, initDeferred: true,
+  }, async page => {
+    await page.waitForFunction(() => window.__pendingInit.length === 1)
+    const active = await journal(page)
+    assert.equal(active.state, 'active')
+    assert.equal(active.stage, 'model-loading')
+    assert.ok(active.owner)
+    // A browser replacing a document cannot rely on React cleanup. Do not call
+    // __root.unmount(), pause(), or any graceful cancellation before reload.
+    await page.reload()
+    await status(page, 'interrupted')
+    assert.deepEqual(await counts(page), { runtime: 0, imports: 0, init: 0 })
+    await reconnect(page)
+    assert.equal(await page.evaluate(() => window.__calls.init.length), 0)
+    assert.equal((await journal(page)).stage, 'model-loading')
+  })
+  await fixture('A hard navigation during an answer prevents automatic engine reopening', {
+    approved: true, cached: true, generateDeferred: true,
+  }, async page => {
+    await status(page, 'ready')
+    await page.evaluate(() => { window.__answerResult = window.__trial.send('Synthetic interruption case', []) })
+    await page.waitForFunction(() => window.__pendingGeneration.length === 1)
+    assert.equal((await journal(page)).stage, 'generation')
+    await page.reload()
+    await status(page, 'interrupted')
+    assert.equal(await page.evaluate(() => window.__trial.lastFailureStage), 'generation')
+    await reconnect(page)
+    assert.deepEqual(await counts(page), { runtime: 0, imports: 0, init: 0 })
+    await page.evaluate(() => window.__trial.retry())
+    await status(page, 'ready')
+    assert.equal(await journal(page), null)
+    assert.equal(await page.evaluate(() => window.__calls.generate.length), 0, 'An interrupted question must never be resent automatically')
+  })
+  await fixture('A clean component unmount during preparation removes its own unfinished marker', {
+    approved: true, cached: true, initDeferred: true,
+  }, async page => {
+    await page.waitForFunction(() => window.__pendingInit.length === 1)
+    assert.equal((await journal(page)).state, 'active')
+    await page.evaluate(async () => {
+      window.__root.unmount()
+      window.__pendingInit[0].resolve()
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+    assert.equal(await journal(page), null)
+    await page.evaluate(() => { window.__scenario.initDeferred = false; window.__mount() })
+    await status(page, 'ready')
+    assert.equal(await journal(page), null)
+  })
+  await fixture('A caught model opening failure stays stopped on reconnect until the user retries', {
+    approved: true, cached: true, initDeferred: true,
+  }, async page => {
+    await page.waitForFunction(() => window.__pendingInit.length === 1)
+    await page.evaluate(() => window.__pendingInit[0].reject(new Error('Synthetic opening failure')))
+    await status(page, 'error')
+    assert.equal(await page.evaluate(() => window.__trial.lastFailureStage), 'model-loading')
+    await reconnect(page)
+    assert.equal(await page.evaluate(() => window.__calls.init.length), 1)
+    await page.evaluate(() => { void window.__trial.retry() })
+    await page.waitForFunction(() => window.__pendingInit.length === 2)
+    await page.evaluate(() => window.__pendingInit[1].resolve())
+    await status(page, 'ready')
+    assert.equal(await journal(page), null)
+  })
+  await fixture('A reconnect queued before an opening failure cannot restart the failed model', {
+    approved: true, cached: true, initDeferred: true,
+  }, async page => {
+    await page.waitForFunction(() => window.__pendingInit.length === 1)
+    await page.evaluate(async () => {
+      window.dispatchEvent(new Event('online'))
+      window.__pendingInit[0].reject(new Error('Synthetic opening failure after reconnect'))
+      await new Promise(resolve => setTimeout(resolve, 50))
+    })
+    assert.equal(await page.evaluate(() => window.__calls.init.length), 1)
+    await status(page, 'error')
+    assert.equal(await page.evaluate(() => window.__trial.lastFailureStage), 'model-loading')
+  })
+  await fixture('An explicit pause and retry still works after an earlier model opening failure', {
+    approved: true, cached: true, initDeferred: true,
+  }, async page => {
+    await page.waitForFunction(() => window.__pendingInit.length === 1)
+    await page.evaluate(() => window.__pendingInit[0].reject(new Error('Synthetic first opening failure')))
+    await status(page, 'error')
+    await page.evaluate(() => { void window.__trial.retry() })
+    await page.waitForFunction(() => window.__pendingInit.length === 2)
+    await page.evaluate(() => {
+      window.__trial.pause()
+      void window.__trial.retry()
+      window.__pendingInit[1].reject(new DOMException('Stopped', 'AbortError'))
+    })
+    await page.waitForFunction(() => window.__pendingInit.length === 3, null, { timeout: 2000 })
+    await page.evaluate(() => window.__pendingInit[2].resolve())
+    await status(page, 'ready')
+    assert.equal(await journal(page), null)
+  })
+  await fixture('A cached model opening error offline offers explicit retry without waiting for internet', {
+    approved: true, cached: true, online: false, initDeferred: true,
+  }, async page => {
+    await page.waitForFunction(() => window.__pendingInit.length === 1)
+    await page.evaluate(() => window.__pendingInit[0].reject(new Error('Synthetic offline opening failure')))
+    await status(page, 'error')
+    assert.equal(await page.evaluate(() => window.__trial.lastFailureStage), 'model-loading')
+    await page.evaluate(() => { void window.__trial.retry() })
+    await page.waitForFunction(() => window.__pendingInit.length === 2)
+    await page.evaluate(() => window.__pendingInit[1].resolve())
+    await status(page, 'ready')
+    assert.equal(await journal(page), null)
+    assert.equal(await page.evaluate(() => window.__calls.modelDownloads), 0)
+  })
+  for (const [name, scenario, stage] of [
+    ['App saving failure does not leave a model crash marker', { failAppSave: true }, 'app-saving'],
+    ['Runtime saving failure does not leave a model crash marker', { failRuntimeSave: true }, 'runtime-saving'],
+  ]) {
+    await fixture(name, { approved: true, ...scenario }, async page => {
+      await status(page, 'error')
+      assert.equal(await page.evaluate(() => window.__trial.lastFailureStage), stage)
+      assert.equal(await journal(page), null)
+      assert.equal(await page.evaluate(() => window.__calls.init.length), 0)
+      assert.equal(await page.evaluate(() => window.__calls.modelDownloads), 0)
+    })
+  }
+  await fixture('Measured transfer progress is replaced by an indeterminate opening phase', {
+    approved: true, initDeferred: true,
+  }, async page => {
+    await page.waitForFunction(() => window.__pendingInit.length === 1)
+    assert.equal(await page.evaluate(() => window.__trial.preparationStage), 'downloading')
+    assert.equal(await page.evaluate(() => window.__trial.progress), 45)
+    await page.evaluate(() => window.__emitProgress({ preparationStage: 'opening', progress: null }))
+    await page.waitForFunction(() => window.__trial.preparationStage === 'opening')
+    assert.equal(await page.evaluate(() => window.__trial.progress), null, 'Opening must not display a fabricated percentage')
+    assert.equal((await journal(page)).stage, 'model-loading')
+    await page.evaluate(() => window.__pendingInit[0].resolve())
+    await status(page, 'ready')
+    assert.equal(await journal(page), null)
+  })
+  await fixture('A cached model opens without a misleading zero-percent download', {
+    approved: true, cached: true, initDeferred: true,
+  }, async page => {
+    await page.waitForFunction(() => window.__pendingInit.length === 1)
+    assert.equal(await page.evaluate(() => window.__trial.preparationStage), 'opening')
+    assert.equal(await page.evaluate(() => window.__trial.progress), null)
+    assert.equal(await page.evaluate(() => window.__calls.modelDownloads), 0)
+    await page.evaluate(() => window.__pendingInit[0].resolve())
     await status(page, 'ready')
   })
   const output = process.env.KIT_ASSISTANT_LIFECYCLE_RESULTS || path.join(repo, 'verification/offline-assistant-lifecycle-results.json')

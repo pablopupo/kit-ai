@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-09-19T22:50:48.469Z",
+  "checkedAt": "2026-09-20T00:42:55.662Z",
   "scope": "Real React StrictMode hook with mocked GPU, SDK, and offline storage. No real inference or physical-phone validation.",
-  "checks": 25,
+  "checks": 40,
   "results": [
     {
       "name": "Legacy 750 MB approval does not approve the larger medical model",
@@ -11,6 +11,23 @@
           "checking",
           "checking",
           "consent"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "consent",
+            "stage": "preparing",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -29,7 +46,8 @@
           "invalidations": 0,
           "modelDownloads": 0
         },
-        "offlineSaved": false
+        "offlineSaved": false,
+        "activeRun": null
       }
     },
     {
@@ -41,6 +59,23 @@
           "checking",
           "consent"
         ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "consent",
+            "stage": "preparing",
+            "progress": null
+          }
+        ],
         "calls": {
           "preflight": [
             {
@@ -58,7 +93,8 @@
           "invalidations": 0,
           "modelDownloads": 0
         },
-        "offlineSaved": false
+        "offlineSaved": false,
+        "activeRun": null
       }
     },
     {
@@ -69,6 +105,23 @@
           "checking",
           "checking",
           "unsupported"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "unsupported",
+            "stage": "preparing",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -90,7 +143,8 @@
           "invalidations": 0,
           "modelDownloads": 0
         },
-        "offlineSaved": false
+        "offlineSaved": false,
+        "activeRun": null
       }
     },
     {
@@ -100,6 +154,18 @@
         "states": [
           "unavailable",
           "unavailable"
+        ],
+        "progressStates": [
+          {
+            "status": "unavailable",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "unavailable",
+            "stage": "preparing",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [],
@@ -114,7 +180,8 @@
           "invalidations": 0,
           "modelDownloads": 0
         },
-        "offlineSaved": false
+        "offlineSaved": false,
+        "activeRun": null
       }
     },
     {
@@ -126,6 +193,28 @@
           "checking",
           "consent",
           "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "consent",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -214,7 +303,8 @@
           "invalidations": 0,
           "modelDownloads": 1
         },
-        "offlineSaved": true
+        "offlineSaved": true,
+        "activeRun": null
       }
     },
     {
@@ -225,6 +315,23 @@
           "checking",
           "checking",
           "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -281,7 +388,8 @@
           "invalidations": 0,
           "modelDownloads": 0
         },
-        "offlineSaved": true
+        "offlineSaved": true,
+        "activeRun": null
       }
     },
     {
@@ -292,6 +400,23 @@
           "checking",
           "checking",
           "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -363,7 +488,8 @@
           "invalidations": 0,
           "modelDownloads": 0
         },
-        "offlineSaved": true
+        "offlineSaved": true,
+        "activeRun": null
       }
     },
     {
@@ -379,6 +505,43 @@
           "downloading",
           "ready"
         ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "consent",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "downloading",
+            "stage": "downloading",
+            "progress": 45
+          },
+          {
+            "status": "paused",
+            "stage": "downloading",
+            "progress": 45
+          },
+          {
+            "status": "downloading",
+            "stage": "downloading",
+            "progress": 45
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
+        ],
         "calls": {
           "preflight": [
             {
@@ -465,7 +628,8 @@
           "invalidations": 1,
           "modelDownloads": 2
         },
-        "offlineSaved": true
+        "offlineSaved": true,
+        "activeRun": null
       }
     },
     {
@@ -475,6 +639,18 @@
         "states": [
           "checking",
           "checking"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -493,7 +669,8 @@
           "invalidations": 0,
           "modelDownloads": 0
         },
-        "offlineSaved": false
+        "offlineSaved": false,
+        "activeRun": null
       }
     },
     {
@@ -504,6 +681,23 @@
           "checking",
           "checking",
           "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -563,7 +757,8 @@
           "invalidations": 1,
           "modelDownloads": 1
         },
-        "offlineSaved": true
+        "offlineSaved": true,
+        "activeRun": null
       }
     },
     {
@@ -575,6 +770,28 @@
           "checking",
           "downloading",
           "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "downloading",
+            "stage": "downloading",
+            "progress": 45
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -659,7 +876,8 @@
           "invalidations": 1,
           "modelDownloads": 2
         },
-        "offlineSaved": true
+        "offlineSaved": true,
+        "activeRun": null
       }
     },
     {
@@ -674,6 +892,38 @@
           "downloading",
           "ready"
         ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "downloading",
+            "stage": "downloading",
+            "progress": 45
+          },
+          {
+            "status": "error",
+            "stage": "downloading",
+            "progress": 45
+          },
+          {
+            "status": "downloading",
+            "stage": "downloading",
+            "progress": 45
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
+        ],
         "calls": {
           "preflight": [
             {
@@ -757,7 +1007,8 @@
           "invalidations": 1,
           "modelDownloads": 2
         },
-        "offlineSaved": true
+        "offlineSaved": true,
+        "activeRun": null
       }
     },
     {
@@ -768,6 +1019,23 @@
           "checking",
           "checking",
           "consent"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "consent",
+            "stage": "preparing",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -792,7 +1060,8 @@
           "invalidations": 0,
           "modelDownloads": 0
         },
-        "offlineSaved": false
+        "offlineSaved": false,
+        "activeRun": null
       }
     },
     {
@@ -803,6 +1072,23 @@
           "paused",
           "paused",
           "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "paused",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "paused",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -859,7 +1145,8 @@
           "invalidations": 0,
           "modelDownloads": 1
         },
-        "offlineSaved": true
+        "offlineSaved": true,
+        "activeRun": null
       }
     },
     {
@@ -871,6 +1158,28 @@
           "checking",
           "waiting",
           "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "waiting",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -944,7 +1253,8 @@
           "invalidations": 0,
           "modelDownloads": 1
         },
-        "offlineSaved": true
+        "offlineSaved": true,
+        "activeRun": null
       }
     },
     {
@@ -956,6 +1266,28 @@
           "checking",
           "downloading",
           "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "downloading",
+            "stage": "downloading",
+            "progress": 45
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -1040,7 +1372,8 @@
           "invalidations": 0,
           "modelDownloads": 2
         },
-        "offlineSaved": true
+        "offlineSaved": true,
+        "activeRun": null
       }
     },
     {
@@ -1052,6 +1385,28 @@
           "checking",
           "loading",
           "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "loading",
+            "stage": "opening",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -1108,7 +1463,8 @@
           "invalidations": 0,
           "modelDownloads": 0
         },
-        "offlineSaved": true
+        "offlineSaved": true,
+        "activeRun": null
       }
     },
     {
@@ -1119,6 +1475,23 @@
           "checking",
           "checking",
           "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -1175,7 +1548,8 @@
           "invalidations": 0,
           "modelDownloads": 1
         },
-        "offlineSaved": false
+        "offlineSaved": false,
+        "activeRun": null
       }
     },
     {
@@ -1186,6 +1560,23 @@
           "checking",
           "checking",
           "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -1271,7 +1662,8 @@
           "invalidations": 0,
           "modelDownloads": 0
         },
-        "offlineSaved": true
+        "offlineSaved": true,
+        "activeRun": null
       }
     },
     {
@@ -1284,6 +1676,33 @@
           "ready",
           "error",
           "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          },
+          {
+            "status": "error",
+            "stage": "opening",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -1408,7 +1827,8 @@
           "invalidations": 0,
           "modelDownloads": 0
         },
-        "offlineSaved": true
+        "offlineSaved": true,
+        "activeRun": null
       }
     },
     {
@@ -1419,6 +1839,23 @@
           "checking",
           "checking",
           "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -1490,7 +1927,8 @@
           "invalidations": 0,
           "modelDownloads": 0
         },
-        "offlineSaved": true
+        "offlineSaved": true,
+        "activeRun": null
       }
     },
     {
@@ -1501,6 +1939,23 @@
           "checking",
           "checking",
           "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -1596,7 +2051,8 @@
           "invalidations": 0,
           "modelDownloads": 0
         },
-        "offlineSaved": true
+        "offlineSaved": true,
+        "activeRun": null
       }
     },
     {
@@ -1607,6 +2063,23 @@
           "checking",
           "checking",
           "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -1702,7 +2175,8 @@
           "invalidations": 1,
           "modelDownloads": 2
         },
-        "offlineSaved": true
+        "offlineSaved": true,
+        "activeRun": null
       }
     },
     {
@@ -1715,6 +2189,33 @@
           "ready",
           "waiting",
           "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          },
+          {
+            "status": "waiting",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -1827,7 +2328,8 @@
           "invalidations": 1,
           "modelDownloads": 2
         },
-        "offlineSaved": true
+        "offlineSaved": true,
+        "activeRun": null
       }
     },
     {
@@ -1838,6 +2340,23 @@
           "checking",
           "checking",
           "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
         ],
         "calls": {
           "preflight": [
@@ -1909,7 +2428,1306 @@
           "invalidations": 0,
           "modelDownloads": 0
         },
-        "offlineSaved": true
+        "offlineSaved": true,
+        "activeRun": null
+      }
+    },
+    {
+      "name": "A prior interrupted model opening blocks automatic loading across reconnect and reload",
+      "result": "pass",
+      "evidence": {
+        "states": [
+          "interrupted",
+          "interrupted"
+        ],
+        "progressStates": [
+          {
+            "status": "interrupted",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "interrupted",
+            "stage": "preparing",
+            "progress": null
+          }
+        ],
+        "calls": {
+          "preflight": [],
+          "serviceImports": 0,
+          "runtimeSaves": 0,
+          "appSaves": 0,
+          "appChecks": 0,
+          "init": [],
+          "cacheChecks": [],
+          "generate": [],
+          "persist": 0,
+          "invalidations": 0,
+          "modelDownloads": 0
+        },
+        "offlineSaved": false,
+        "activeRun": {
+          "state": "interrupted",
+          "stage": "model-loading",
+          "owner": "previous-page"
+        }
+      }
+    },
+    {
+      "name": "An explicit retry after interruption can open the cached model offline and clears the guard",
+      "result": "pass",
+      "evidence": {
+        "states": [
+          "checking",
+          "checking",
+          "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
+        ],
+        "calls": {
+          "preflight": [
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            }
+          ],
+          "serviceImports": 1,
+          "runtimeSaves": 1,
+          "appSaves": 0,
+          "appChecks": 1,
+          "init": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "cacheChecks": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "generate": [],
+          "persist": 1,
+          "invalidations": 0,
+          "modelDownloads": 0
+        },
+        "offlineSaved": true,
+        "activeRun": null
+      }
+    },
+    {
+      "name": "An interrupted download cannot restart itself after a page reopen",
+      "result": "pass",
+      "evidence": {
+        "states": [
+          "interrupted",
+          "interrupted",
+          "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "interrupted",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "interrupted",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
+        ],
+        "calls": {
+          "preflight": [
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": false
+            }
+          ],
+          "serviceImports": 1,
+          "runtimeSaves": 1,
+          "appSaves": 0,
+          "appChecks": 1,
+          "init": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "cacheChecks": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "generate": [],
+          "persist": 1,
+          "invalidations": 1,
+          "modelDownloads": 1
+        },
+        "offlineSaved": true,
+        "activeRun": null
+      }
+    },
+    {
+      "name": "An interrupted run without model approval cannot authorize a new download",
+      "result": "pass",
+      "evidence": {
+        "states": [
+          "interrupted",
+          "interrupted",
+          "consent"
+        ],
+        "progressStates": [
+          {
+            "status": "interrupted",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "interrupted",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "consent",
+            "stage": "preparing",
+            "progress": null
+          }
+        ],
+        "calls": {
+          "preflight": [
+            {
+              "modelCached": false
+            }
+          ],
+          "serviceImports": 0,
+          "runtimeSaves": 0,
+          "appSaves": 0,
+          "appChecks": 0,
+          "init": [],
+          "cacheChecks": [],
+          "generate": [],
+          "persist": 0,
+          "invalidations": 0,
+          "modelDownloads": 0
+        },
+        "offlineSaved": false,
+        "activeRun": null
+      }
+    },
+    {
+      "name": "A hard navigation while opening preserves the unfinished run and prevents a restart loop",
+      "result": "pass",
+      "evidence": {
+        "states": [
+          "interrupted",
+          "interrupted"
+        ],
+        "progressStates": [
+          {
+            "status": "interrupted",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "interrupted",
+            "stage": "preparing",
+            "progress": null
+          }
+        ],
+        "calls": {
+          "preflight": [],
+          "serviceImports": 0,
+          "runtimeSaves": 0,
+          "appSaves": 0,
+          "appChecks": 0,
+          "init": [],
+          "cacheChecks": [],
+          "generate": [],
+          "persist": 0,
+          "invalidations": 0,
+          "modelDownloads": 0
+        },
+        "offlineSaved": false,
+        "activeRun": {
+          "state": "interrupted",
+          "stage": "model-loading",
+          "owner": "run-mu93e4kx-632y6cpn0p"
+        }
+      }
+    },
+    {
+      "name": "A hard navigation during an answer prevents automatic engine reopening",
+      "result": "pass",
+      "evidence": {
+        "states": [
+          "interrupted",
+          "interrupted",
+          "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "interrupted",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "interrupted",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
+        ],
+        "calls": {
+          "preflight": [
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            }
+          ],
+          "serviceImports": 1,
+          "runtimeSaves": 1,
+          "appSaves": 0,
+          "appChecks": 1,
+          "init": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "cacheChecks": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "generate": [],
+          "persist": 1,
+          "invalidations": 0,
+          "modelDownloads": 0
+        },
+        "offlineSaved": true,
+        "activeRun": null
+      }
+    },
+    {
+      "name": "A clean component unmount during preparation removes its own unfinished marker",
+      "result": "pass",
+      "evidence": {
+        "states": [
+          "checking",
+          "checking",
+          "loading",
+          "checking",
+          "checking",
+          "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "loading",
+            "stage": "opening",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
+        ],
+        "calls": {
+          "preflight": [
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            }
+          ],
+          "serviceImports": 1,
+          "runtimeSaves": 2,
+          "appSaves": 0,
+          "appChecks": 1,
+          "init": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "cacheChecks": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "generate": [],
+          "persist": 1,
+          "invalidations": 0,
+          "modelDownloads": 0
+        },
+        "offlineSaved": true,
+        "activeRun": null
+      }
+    },
+    {
+      "name": "A caught model opening failure stays stopped on reconnect until the user retries",
+      "result": "pass",
+      "evidence": {
+        "states": [
+          "checking",
+          "checking",
+          "loading",
+          "error",
+          "loading",
+          "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "loading",
+            "stage": "opening",
+            "progress": null
+          },
+          {
+            "status": "error",
+            "stage": "opening",
+            "progress": null
+          },
+          {
+            "status": "loading",
+            "stage": "opening",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
+        ],
+        "calls": {
+          "preflight": [
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            }
+          ],
+          "serviceImports": 1,
+          "runtimeSaves": 2,
+          "appSaves": 0,
+          "appChecks": 1,
+          "init": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "cacheChecks": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "generate": [],
+          "persist": 1,
+          "invalidations": 0,
+          "modelDownloads": 0
+        },
+        "offlineSaved": true,
+        "activeRun": null
+      }
+    },
+    {
+      "name": "A reconnect queued before an opening failure cannot restart the failed model",
+      "result": "pass",
+      "evidence": {
+        "states": [
+          "checking",
+          "checking",
+          "loading",
+          "error"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "loading",
+            "stage": "opening",
+            "progress": null
+          },
+          {
+            "status": "error",
+            "stage": "opening",
+            "progress": null
+          }
+        ],
+        "calls": {
+          "preflight": [
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            }
+          ],
+          "serviceImports": 1,
+          "runtimeSaves": 1,
+          "appSaves": 0,
+          "appChecks": 0,
+          "init": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "cacheChecks": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "generate": [],
+          "persist": 0,
+          "invalidations": 0,
+          "modelDownloads": 0
+        },
+        "offlineSaved": false,
+        "activeRun": null
+      }
+    },
+    {
+      "name": "An explicit pause and retry still works after an earlier model opening failure",
+      "result": "pass",
+      "evidence": {
+        "states": [
+          "checking",
+          "checking",
+          "loading",
+          "error",
+          "loading",
+          "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "loading",
+            "stage": "opening",
+            "progress": null
+          },
+          {
+            "status": "error",
+            "stage": "opening",
+            "progress": null
+          },
+          {
+            "status": "loading",
+            "stage": "opening",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
+        ],
+        "calls": {
+          "preflight": [
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            }
+          ],
+          "serviceImports": 1,
+          "runtimeSaves": 3,
+          "appSaves": 0,
+          "appChecks": 1,
+          "init": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "cacheChecks": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "generate": [],
+          "persist": 1,
+          "invalidations": 0,
+          "modelDownloads": 0
+        },
+        "offlineSaved": true,
+        "activeRun": null
+      }
+    },
+    {
+      "name": "A cached model opening error offline offers explicit retry without waiting for internet",
+      "result": "pass",
+      "evidence": {
+        "states": [
+          "checking",
+          "checking",
+          "loading",
+          "error",
+          "loading",
+          "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "loading",
+            "stage": "opening",
+            "progress": null
+          },
+          {
+            "status": "error",
+            "stage": "opening",
+            "progress": null
+          },
+          {
+            "status": "loading",
+            "stage": "opening",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
+        ],
+        "calls": {
+          "preflight": [
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            }
+          ],
+          "serviceImports": 1,
+          "runtimeSaves": 2,
+          "appSaves": 0,
+          "appChecks": 1,
+          "init": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "cacheChecks": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "generate": [],
+          "persist": 1,
+          "invalidations": 0,
+          "modelDownloads": 0
+        },
+        "offlineSaved": true,
+        "activeRun": null
+      }
+    },
+    {
+      "name": "App saving failure does not leave a model crash marker",
+      "result": "pass",
+      "evidence": {
+        "states": [
+          "checking",
+          "checking",
+          "error"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "error",
+            "stage": "preparing",
+            "progress": null
+          }
+        ],
+        "calls": {
+          "preflight": [
+            {
+              "modelCached": true
+            }
+          ],
+          "serviceImports": 0,
+          "runtimeSaves": 0,
+          "appSaves": 1,
+          "appChecks": 0,
+          "init": [],
+          "cacheChecks": [],
+          "generate": [],
+          "persist": 0,
+          "invalidations": 0,
+          "modelDownloads": 0
+        },
+        "offlineSaved": false,
+        "activeRun": null
+      }
+    },
+    {
+      "name": "Runtime saving failure does not leave a model crash marker",
+      "result": "pass",
+      "evidence": {
+        "states": [
+          "checking",
+          "checking",
+          "error"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "error",
+            "stage": "preparing",
+            "progress": null
+          }
+        ],
+        "calls": {
+          "preflight": [
+            {
+              "modelCached": true
+            }
+          ],
+          "serviceImports": 0,
+          "runtimeSaves": 1,
+          "appSaves": 0,
+          "appChecks": 0,
+          "init": [],
+          "cacheChecks": [],
+          "generate": [],
+          "persist": 0,
+          "invalidations": 0,
+          "modelDownloads": 0
+        },
+        "offlineSaved": false,
+        "activeRun": null
+      }
+    },
+    {
+      "name": "Measured transfer progress is replaced by an indeterminate opening phase",
+      "result": "pass",
+      "evidence": {
+        "states": [
+          "checking",
+          "checking",
+          "downloading",
+          "loading",
+          "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "downloading",
+            "stage": "downloading",
+            "progress": 45
+          },
+          {
+            "status": "loading",
+            "stage": "opening",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
+        ],
+        "calls": {
+          "preflight": [
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": false
+            }
+          ],
+          "serviceImports": 1,
+          "runtimeSaves": 1,
+          "appSaves": 0,
+          "appChecks": 1,
+          "init": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "cacheChecks": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "generate": [],
+          "persist": 1,
+          "invalidations": 0,
+          "modelDownloads": 1
+        },
+        "offlineSaved": true,
+        "activeRun": null
+      }
+    },
+    {
+      "name": "A cached model opens without a misleading zero-percent download",
+      "result": "pass",
+      "evidence": {
+        "states": [
+          "checking",
+          "checking",
+          "loading",
+          "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "loading",
+            "stage": "opening",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
+        ],
+        "calls": {
+          "preflight": [
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            }
+          ],
+          "serviceImports": 1,
+          "runtimeSaves": 1,
+          "appSaves": 0,
+          "appChecks": 1,
+          "init": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "cacheChecks": [
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-medical-3b-synthetic-published-revision",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "generate": [],
+          "persist": 1,
+          "invalidations": 0,
+          "modelDownloads": 0
+        },
+        "offlineSaved": true,
+        "activeRun": null
       }
     }
   ]

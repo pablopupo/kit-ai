@@ -31,7 +31,7 @@ const copy = {
   },
 }
 
-const statuses = ['checking', 'consent', 'paused', 'saving', 'downloading', 'loading', 'waiting', 'error', 'ready', 'unsupported', 'unavailable']
+const statuses = ['checking', 'consent', 'paused', 'saving', 'downloading', 'loading', 'waiting', 'error', 'ready', 'unsupported', 'unavailable', 'interrupted']
 const failureStages = ['compatibility', 'app-saving', 'runtime-saving', 'storage', 'model-loading', 'model-download', 'generation']
 const limitNames = ['maxBufferSize', 'maxStorageBufferBindingSize', 'maxComputeWorkgroupStorageSize', 'maxStorageBuffersPerShaderStage']
 const booleanOrNull = value => typeof value === 'boolean' ? value : null
@@ -62,6 +62,9 @@ function makeReport(local) {
       requestedLimits: limitsOnly(local.check.requestedLimits),
     } : null,
     lastFailureStage: failureStages.includes(local?.lastFailureStage) ? local.lastFailureStage : null,
+    preparationStage: ['preparing', 'downloading', 'opening'].includes(local?.preparationStage) ? local.preparationStage : null,
+    downloadProgress: numberOrNull(local?.progress),
+    startupGuardSaved: booleanOrNull(local?.startupGuardSaved),
   }
 }
 

@@ -2,14 +2,16 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 import { webllmGpuLimitsPatch } from './build/webllmGpuLimitsPatch.js'
+import { webllmMemoryPatch } from './build/webllmMemoryPatch.js'
 
 export default defineConfig({
-  worker: { plugins: () => [webllmGpuLimitsPatch()] },
+  worker: { plugins: () => [webllmGpuLimitsPatch(), webllmMemoryPatch()] },
   optimizeDeps: {
     exclude: ['@mlc-ai/web-llm']
   },
   plugins: [
     webllmGpuLimitsPatch(),
+    webllmMemoryPatch(),
     react(),
     VitePWA({
       strategies: 'injectManifest',

@@ -6,6 +6,7 @@ import {
 import { LOCAL_MODEL_ID } from './localModelConfig'
 import { MAX_RESPONSE_TOKENS } from './chatPrompt'
 import { devLog, devWarn } from '../utils/devLog'
+import { engineProgress } from './engineProgress.js'
 
 const CUSTOM_MODEL_URL = import.meta.env.VITE_WEBLLM_MODEL_URL
 const CUSTOM_MODEL_ID = import.meta.env.VITE_WEBLLM_MODEL_ID || 'kit-ai-medical-v1'
@@ -62,13 +63,22 @@ export async function initEngine(modelId = DEFAULT_MODEL, onProgress, signal, re
       new URL('../worker/webllm-worker.js', import.meta.url),
       { type: 'module' }
     )
+    const initializingWorker = worker
+    let workerFailed
+    const failure = new Promise((_, reject) => {
+      workerFailed = event => {
+        event?.preventDefault?.()
+        reject(new Error('The assistant stopped while opening.'))
+      }
+    })
+    initializingWorker.addEventListener('error', workerFailed)
+    initializingWorker.addEventListener('messageerror', workerFailed)
 
     const engineConfig = {
       appConfig: configFor(record),
       initProgressCallback: (report) => {
         if (onProgress && report) {
-          const progress = report.progress ?? 0
-          onProgress({ ...report, progress: progress * 100 })
+          onProgress(engineProgress(report))
         }
       },
       logLevel: 'WARN',
@@ -81,7 +91,8 @@ export async function initEngine(modelId = DEFAULT_MODEL, onProgress, signal, re
     })
     devLog('[WebLLM] Creating engine...')
     try {
-      engine = await Promise.race([CreateWebWorkerMLCEngine(worker, modelId, engineConfig, { context_window_size: 4096, prefill_chunk_size: 128 }), cancelled])
+      // Prefill size comes from compiled WASM metadata; a JS override is ignored.
+      engine = await Promise.race([CreateWebWorkerMLCEngine(worker, modelId, engineConfig, { context_window_size: 4096 }), cancelled, failure])
       devLog('[WebLLM] Engine created successfully!', { hasEngine: !!engine })
       return engine
     } catch (error) {
@@ -95,6 +106,8 @@ export async function initEngine(modelId = DEFAULT_MODEL, onProgress, signal, re
       if (error.name !== 'AbortError') console.error('[WebLLM] Failed to create engine:', error)
       throw error
     } finally {
+      initializingWorker.removeEventListener('error', workerFailed)
+      initializingWorker.removeEventListener('messageerror', workerFailed)
       signal?.removeEventListener('abort', abort)
       initPromise = null
     }

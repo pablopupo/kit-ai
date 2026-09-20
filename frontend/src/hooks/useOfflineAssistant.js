@@ -6,8 +6,10 @@ import { checkMedicalModelTrial } from '../services/modelTrialCheck'
 import { MEDICAL_TRIAL_RECORD, MEDICAL_TRIAL_MODEL_ID, MEDICAL_TRIAL_CONSENT_KEY, MEDICAL_TRIAL_DOWNLOAD_GB } from '../services/medicalTrialConfig'
 import { checkOfflineApp, ensureOfflineRuntime, getOfflineAppSnapshot, retryOfflineSave } from '../services/offlineAppService'
 import { readBoolean, writePreference } from '../utils/preferences'
+import { beginAssistantRun, finishAssistantRun, markAssistantRunInterrupted, readAssistantRun } from '../services/assistantRunGuard.js'
 
 const PAUSE_KEY = `${MEDICAL_TRIAL_CONSENT_KEY}:paused`
+const ACTIVE_RUN_KEY = `${MEDICAL_TRIAL_CONSENT_KEY}:active-run`
 
 function untilStopped(task, signal) {
   let abort
@@ -23,12 +25,16 @@ function untilStopped(task, signal) {
 export function useOfflineAssistant() {
   const { language } = useSettings()
   const offlineApp = useOfflineApp()
-  const [status, setStatus] = useState(() => !MEDICAL_TRIAL_RECORD ? 'unavailable' : readBoolean(PAUSE_KEY, false) ? 'paused' : 'checking')
-  const [progress, setProgress] = useState(0)
+  const [previousRun] = useState(() => readAssistantRun(ACTIVE_RUN_KEY))
+  const [status, setStatus] = useState(() => !MEDICAL_TRIAL_RECORD ? 'unavailable' : previousRun ? 'interrupted' : readBoolean(PAUSE_KEY, false) ? 'paused' : 'checking')
+  const [progress, setProgress] = useState(null)
+  const [preparationStage, setPreparationStage] = useState('preparing')
+  const [lastActivityAt, setLastActivityAt] = useState(null)
+  const [startupGuardSaved, setStartupGuardSaved] = useState(null)
   const [check, setCheck] = useState(null)
   const [saved, setSaved] = useState(false)
   const [isGenerating, setIsGenerating] = useState(false)
-  const [lastFailureStage, setLastFailureStage] = useState(null)
+  const [lastFailureStage, setLastFailureStage] = useState(previousRun?.stage || null)
   const operation = useRef(null)
   const generation = useRef(null)
   const mounted = useRef(false)
@@ -38,7 +44,9 @@ export function useOfflineAssistant() {
   const resumeQueued = useRef(false)
   const repairPending = useRef(false)
   const statusRef = useRef(status)
-  const failureStage = useRef(null)
+  const failureStage = useRef(previousRun?.stage || null)
+  const recoveryBlocked = useRef(Boolean(previousRun))
+  const owner = useRef(`run-${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`)
   const change = useCallback(value => {
     statusRef.current = value
     if (mounted.current) setStatus(value)
@@ -49,7 +57,7 @@ export function useOfflineAssistant() {
   }, [])
 
   const load = useCallback(async (consent = false, repair = false) => {
-    if (!mounted.current || !MEDICAL_TRIAL_RECORD || generation.current || (statusRef.current === 'ready' && !repair)) return
+    if (!mounted.current || recoveryBlocked.current || !MEDICAL_TRIAL_RECORD || generation.current || (statusRef.current === 'ready' && !repair)) return
     if (repair) repairPending.current = true
     if (operation.current) {
       if (operation.current.signal.aborted) resumeQueued.current = true
@@ -60,6 +68,10 @@ export function useOfflineAssistant() {
     const isCurrent = () => mounted.current && !current.signal.aborted
     let stage = 'compatibility'
     try {
+      failAt(null)
+      setProgress(null)
+      setPreparationStage('preparing')
+      setLastActivityAt(Date.now())
       change('checking')
       // No SDK or model import before the device check and explicit approval.
       // Existing approval skips only the provisional free-space check; the
@@ -100,9 +112,19 @@ export function useOfflineAssistant() {
       if (repairPending.current && !cached) service.invalidateEngine()
       stage = cached ? 'model-loading' : 'model-download'
       change(cached ? 'loading' : 'downloading')
-      setProgress(0)
+      setPreparationStage(cached ? 'opening' : 'preparing')
+      setStartupGuardSaved(beginAssistantRun(ACTIVE_RUN_KEY, owner.current, stage))
       await service.initEngine(MEDICAL_TRIAL_MODEL_ID, value => {
-        if (isCurrent()) setProgress(Math.max(0, Math.min(100, value.progress ?? 0)))
+        if (!isCurrent()) return
+        const next = cached ? 'opening' : ['preparing', 'downloading', 'opening'].includes(value.preparationStage) ? value.preparationStage : 'preparing'
+        setPreparationStage(next)
+        setProgress(next === 'downloading' && Number.isFinite(value.progress) && value.progress > 0 && value.progress < 100 ? value.progress : null)
+        setLastActivityAt(Date.now())
+        if (next === 'opening' && stage !== 'model-loading') {
+          stage = 'model-loading'
+          beginAssistantRun(ACTIVE_RUN_KEY, owner.current, stage)
+          change('loading')
+        }
       }, current.signal, MEDICAL_TRIAL_RECORD)
       if (!isCurrent()) return
       const modelCached = await untilStopped(service.isModelCached(MEDICAL_TRIAL_MODEL_ID, MEDICAL_TRIAL_RECORD).catch(() => false), current.signal)
@@ -117,13 +139,14 @@ export function useOfflineAssistant() {
       if (!isCurrent() || error.name === 'AbortError') return
       setSaved(false)
       failAt(stage)
-      change(navigator.onLine ? 'error' : 'waiting')
+      change(stage === 'model-loading' || navigator.onLine ? 'error' : 'waiting')
     } finally {
+      finishAssistantRun(ACTIVE_RUN_KEY, owner.current)
       if (operation.current === current) {
         operation.current = null
         const resume = resumeQueued.current
         resumeQueued.current = false
-        if (resume && mounted.current && !paused.current && !['ready', 'unsupported', 'consent'].includes(statusRef.current)) {
+        if (resume && mounted.current && !paused.current && !recoveryBlocked.current && !['generation', 'model-loading'].includes(failureStage.current) && !['ready', 'unsupported', 'consent', 'interrupted'].includes(statusRef.current)) {
           queueMicrotask(() => { if (mounted.current && !paused.current) load(false) })
         }
       }
@@ -137,7 +160,8 @@ export function useOfflineAssistant() {
     queueMicrotask(() => {
       if (mounted.current && !started.current) {
         started.current = true
-        if (!paused.current) load(false)
+        if (recoveryBlocked.current) markAssistantRunInterrupted(ACTIVE_RUN_KEY, previousRun?.owner)
+        else if (!paused.current) load(false)
       }
     })
     return () => {
@@ -150,8 +174,8 @@ export function useOfflineAssistant() {
 
   useEffect(() => {
     const reconnect = () => {
-      if (!approved.current || paused.current || ['ready', 'unsupported', 'consent', 'unavailable'].includes(statusRef.current)) return
-      if (failureStage.current === 'generation') return
+      if (!approved.current || paused.current || recoveryBlocked.current || ['ready', 'unsupported', 'consent', 'unavailable', 'interrupted'].includes(statusRef.current)) return
+      if (['generation', 'model-loading'].includes(failureStage.current)) return
       if (operation.current) resumeQueued.current = true
       else load(false)
     }
@@ -168,21 +192,29 @@ export function useOfflineAssistant() {
     }
   }, [offlineApp.status, lastFailureStage, load])
 
+  const acknowledgeInterruption = useCallback(() => {
+    if (!recoveryBlocked.current) return
+    finishAssistantRun(ACTIVE_RUN_KEY, previousRun?.owner)
+    recoveryBlocked.current = false
+  }, [previousRun])
   const prepare = useCallback(() => {
+    acknowledgeInterruption()
     paused.current = false
     writePreference(PAUSE_KEY, 'false')
     return load(true)
-  }, [load])
+  }, [load, acknowledgeInterruption])
   const resume = useCallback(() => {
+    acknowledgeInterruption()
     paused.current = false
     writePreference(PAUSE_KEY, 'false')
     return load(false)
-  }, [load])
+  }, [load, acknowledgeInterruption])
   const retry = useCallback(() => {
+    acknowledgeInterruption()
     paused.current = false
     writePreference(PAUSE_KEY, 'false')
     return load(false, true)
-  }, [load])
+  }, [load, acknowledgeInterruption])
   const pause = useCallback(() => {
     if (statusRef.current === 'ready') return
     paused.current = true
@@ -204,6 +236,7 @@ export function useOfflineAssistant() {
     setIsGenerating(true)
     const stop = () => current.abort()
     signal?.addEventListener('abort', stop, { once: true })
+    setStartupGuardSaved(beginAssistantRun(ACTIVE_RUN_KEY, owner.current, 'generation'))
     try {
       const service = await import('../services/webllmService')
       if (current.signal.aborted) throw new DOMException('Stopped', 'AbortError')
@@ -222,6 +255,7 @@ export function useOfflineAssistant() {
       }
       throw error
     } finally {
+      finishAssistantRun(ACTIVE_RUN_KEY, owner.current)
       signal?.removeEventListener('abort', stop)
       if (generation.current === current) generation.current = null
       if (mounted.current) setIsGenerating(false)
@@ -229,7 +263,7 @@ export function useOfflineAssistant() {
   }, [language, change, failAt])
 
   return {
-    status, progress, check, prepare, resume, pause, retry, sendMessage, isGenerating, offlineApp,
+    status, progress, preparationStage, lastActivityAt, startupGuardSaved, check, prepare, resume, pause, retry, sendMessage, isGenerating, offlineApp,
     offlineSaved: saved && status === 'ready' && offlineApp.status === 'ready' && offlineApp.runtimeSaved,
     modelId: MEDICAL_TRIAL_MODEL_ID, downloadGB: MEDICAL_TRIAL_DOWNLOAD_GB, lastFailureStage,
     needsDownloadConsent: !approved.current,
