@@ -61,3 +61,20 @@ clone of the isolated cached profile. It verifies real native limits/inference,
 not iOS process-memory limits or physical airplane mode. Earlier verification
 reports are retained. The physical phone still needs a fresh test; the 3B model
 may remain too large. Model-answer accuracy is a separate unresolved concern.
+
+## Published verification
+
+Code commit `ac6c58d` was deployed to
+https://kit-ai-pablopupo.vercel.app/ as
+`dpl_12v9NViHYy4ZJbpNpvz4eHvYrnfc`. The public entry bundle is
+`/assets/index-CuuMYpLq.js`. The published inference worker SHA-256 matches the
+worker used in the real saved-model test above:
+`a3ff8e69a272a2ed732c56f3ee34a32a08edd108250d001c0e8baafdb3f5103d`.
+
+Four fresh public-origin contexts passed English/Spanish consent and synthetic
+interrupted-startup checks at a 390 × 844 viewport. The interrupted visit stayed
+blocked after a reconnect event and offered an explicit retry. No model runtime,
+external request, inference POST, page error or horizontal overflow occurred.
+The English interruption screen was visually inspected. This check did not
+download weights or simulate a real iPhone crash. See
+`startup-recovery-live-results.json` and `verify-startup-recovery-live.mjs`.
