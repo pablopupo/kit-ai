@@ -1,0 +1,370 @@
+{
+  "schema": "kit-ai-phone-candidate-artifacts-v1",
+  "checkedAt": "2026-09-20T01:21:10.154671+00:00",
+  "repo": "mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
+  "revision": "9bd564b064631febf14deadcac492efb761d60c3",
+  "runtime": {
+    "repo": "mlc-ai/binary-mlc-llm-libs",
+    "revision": "6ed5b97c37f4cdc49d1a8044a339db5588176d7e",
+    "path": "web-llm-models/v0_2_80/Qwen2-1.5B-Instruct-q4f16_1-ctx4k_cs1k-webgpu.wasm",
+    "url": "https://raw.githubusercontent.com/mlc-ai/binary-mlc-llm-libs/6ed5b97c37f4cdc49d1a8044a339db5588176d7e/web-llm-models/v0_2_80/Qwen2-1.5B-Instruct-q4f16_1-ctx4k_cs1k-webgpu.wasm",
+    "sha256": "6cd9f132ad258d2017291bb62e955e337f8ae4af74650f4b1ea5a803a7cec538",
+    "webllmVersion": "0.2.80",
+    "compiledMetadata": {
+      "model_type": "qwen2",
+      "quantization": "q4f16_1",
+      "context_window_size": 4096,
+      "sliding_window_size": -1,
+      "attention_sink_size": -1,
+      "prefill_chunk_size": 1024,
+      "tensor_parallel_shards": 1,
+      "pipeline_parallel_stages": 1,
+      "disaggregation": false,
+      "kv_state_kind": "kv_cache",
+      "max_batch_size": 128,
+      "kv_cache": {
+        "num_hidden_layers": 28,
+        "num_attention_heads": 12,
+        "num_key_value_heads": 2,
+        "head_dim": 128
+      },
+      "memory_usage": {
+        "alloc_embedding_tensor": 3145728,
+        "argsort_probs": 0,
+        "batch_decode": 89653248,
+        "batch_prefill": 172687360,
+        "batch_verify": 717225984,
+        "create_tir_paged_kv_cache": 0,
+        "decode": 700416,
+        "embed": 3145728,
+        "prefill": 95506944,
+        "sample_with_top_p": 1024,
+        "softmax_with_temperature": 0
+      }
+    }
+  },
+  "scope": "Read-only pinned metadata/runtime inspection. Full weight payloads, browser loading, inference, iPhone memory, and medical answer quality were not tested. No model weights downloaded.",
+  "artifactDownloadBytes": 881089605,
+  "weightBytes": 868547584,
+  "largestTensorBytes": 116686848,
+  "tensorCount": 311,
+  "shardCount": 30,
+  "parameterCompatibility": {
+    "exactNamesShapesDtypes": true,
+    "runtimeParameters": 311
+  },
+  "tokenizerSelection": "WebLLM 0.2.80 loads tokenizer.json; tokenizer_config.json, merges.txt and vocab.json are not separately downloaded.",
+  "tokenizerFilesDeclared": [
+    "tokenizer.json",
+    "vocab.json",
+    "merges.txt",
+    "tokenizer_config.json"
+  ],
+  "files": [
+    {
+      "path": "mlc-chat-config.json",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/mlc-chat-config.json",
+      "bytes": 2043,
+      "sha256": "7da4954212d3f21a91cc3e693d179f63213fd57356796847f65d7f95478a1f9e",
+      "corsAllowOrigin": "https://kit-ai-pablopupo.vercel.app",
+      "downloadedAndHashed": true
+    },
+    {
+      "path": "tensor-cache.json",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/tensor-cache.json",
+      "bytes": 124489,
+      "sha256": "6d16a8936b1c9f372305064c4688eae17a609b62693f6782454d4fa2055c6e94",
+      "corsAllowOrigin": "https://kit-ai-pablopupo.vercel.app",
+      "downloadedAndHashed": true
+    },
+    {
+      "path": "tokenizer.json",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/tokenizer.json",
+      "bytes": 7031645,
+      "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "corsAllowOrigin": "https://kit-ai-pablopupo.vercel.app",
+      "downloadedAndHashed": true
+    },
+    {
+      "path": "model.wasm",
+      "url": "https://raw.githubusercontent.com/mlc-ai/binary-mlc-llm-libs/6ed5b97c37f4cdc49d1a8044a339db5588176d7e/web-llm-models/v0_2_80/Qwen2-1.5B-Instruct-q4f16_1-ctx4k_cs1k-webgpu.wasm",
+      "bytes": 5383844,
+      "sha256": "6cd9f132ad258d2017291bb62e955e337f8ae4af74650f4b1ea5a803a7cec538",
+      "corsAllowOrigin": "*",
+      "downloadedAndHashed": true
+    },
+    {
+      "path": "params_shard_0.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_0.bin",
+      "bytes": 116686848,
+      "sha256": "29e46841454786b2c36cbcfd1d9a0777f8cb2bb55fb7cdf9ebd3df6ea6aa61f6",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_1.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_1.bin",
+      "bytes": 22330368,
+      "sha256": "a99a03870f60127bdc3891f0bdc13a0f6e25efa984e9a5d6b188b5aae6f4fbae",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_2.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_2.bin",
+      "bytes": 26331136,
+      "sha256": "c67f6aff8524441396efaa09488ea4536437e35389e0843d87fda796be9d3412",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_3.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_3.bin",
+      "bytes": 26331136,
+      "sha256": "b14d44d720b45dbedd9c7786f1f9db1ce79392fcda0ecc8cbd6deddef6ca3ebd",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_4.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_4.bin",
+      "bytes": 26331136,
+      "sha256": "e96c7b30a24f581df1ee5758e1697a214187a89e9e9bc93529950e2f16beecbf",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_5.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_5.bin",
+      "bytes": 26331136,
+      "sha256": "8370ade73f96fe5cdb4a816da39703032ca5610699e9714790e6e9c49be5086e",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_6.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_6.bin",
+      "bytes": 26331136,
+      "sha256": "48e651ada394e162b0bb016d8b3e340a8d29b0b67e06121ecdc6c368eec1b96d",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_7.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_7.bin",
+      "bytes": 26331136,
+      "sha256": "9eb581bc89582d23c43f66197a63ca2e80291c32eefd66695f6b6eaedf3e24ab",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_8.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_8.bin",
+      "bytes": 26331136,
+      "sha256": "f8d5dfd8eaf86d361d20310d1d9aa7ba661156112d8524874aae78410cb3b663",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_9.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_9.bin",
+      "bytes": 26331136,
+      "sha256": "ace7a4a00e819481571e08ead14f031e3b014f6f8cef665142b6b6463045b493",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_10.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_10.bin",
+      "bytes": 26331136,
+      "sha256": "cbe9fa5eaff5463502bf9cc766b39081482e7df30ffc250d8f3e83c45d1700d1",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_11.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_11.bin",
+      "bytes": 26331136,
+      "sha256": "f99e7bfc14e17d88d905360dd1f0ecbaab98d5778acdd762e397254c293a2b42",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_12.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_12.bin",
+      "bytes": 26331136,
+      "sha256": "3ec7ea81f305fc10b5ed9958ae279486d113d2621029f5f4a4cb820bc803c2ca",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_13.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_13.bin",
+      "bytes": 26331136,
+      "sha256": "6eb032a6d30b5d2bbf4b0d16ecdfaf6fa295dffa676e828917d5f8fe4d4d7ef2",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_14.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_14.bin",
+      "bytes": 26331136,
+      "sha256": "e1a10d9e18641e9eab280e7c9cb4c7ee05b6dc3ab35b244ffe559da00b1fc950",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_15.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_15.bin",
+      "bytes": 26331136,
+      "sha256": "fe24b3ddc07e311556e6968bb62506ae8980ca1ec55393f12ae41de468d93067",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_16.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_16.bin",
+      "bytes": 26331136,
+      "sha256": "f86a010144bfae8748ac0abdd705d3d9c54bcb864bc51a4b7d3da8dab7d6c379",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_17.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_17.bin",
+      "bytes": 26331136,
+      "sha256": "b473e5c8b5c226c751a393d666066cb6e8b1bf7e61604691a31fea2f82abef66",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_18.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_18.bin",
+      "bytes": 26331136,
+      "sha256": "e36912a08ea82dfdcad4ebc288a6541d2112038e987d98f7f2f5cd8f8957cf2d",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_19.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_19.bin",
+      "bytes": 26331136,
+      "sha256": "795125e8c8eb20e28733df956ab32bb57ea2376ec99cd84b4d36f8f6f32b1f42",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_20.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_20.bin",
+      "bytes": 26331136,
+      "sha256": "ea919f0b2a79aa359eab6cc8003dfce9cf7c742fe254651211793eb56bfb3122",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_21.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_21.bin",
+      "bytes": 26331136,
+      "sha256": "221e4cef4c28ac298fd44678378e506188a537f2752e0aba2f45066fdee27a85",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_22.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_22.bin",
+      "bytes": 26331136,
+      "sha256": "13c31268f630b52a72c158f2b7d97a672d128e760540b318566cfd70fe5e62ee",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_23.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_23.bin",
+      "bytes": 26331136,
+      "sha256": "498c729548a5afbf07735b0183534867cad01dc57132ae1e8802041f193f6f23",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_24.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_24.bin",
+      "bytes": 26331136,
+      "sha256": "103fdc607fcb3dc31d0861999f1f692768a3e2edfa81ef2f53eefc6713caf8ae",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_25.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_25.bin",
+      "bytes": 26331136,
+      "sha256": "d60dffdf3c88f4990e04a18c343a0ce479b8f98960afb75154a1a835f29f6ea4",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_26.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_26.bin",
+      "bytes": 26331136,
+      "sha256": "086adb852f72e13c69f0cd06628375f4d5810d8fb8e00450fb1e1c964b510f77",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_27.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_27.bin",
+      "bytes": 26331136,
+      "sha256": "473be20481f3a4dcdb7128827edfe16e92c6d1b3019c330ff4dd05156a1f9a43",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_28.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_28.bin",
+      "bytes": 26331136,
+      "sha256": "a7f2c9235da81fce6230b160007449d8f000a1f8c57a68313dce91ca080f088f",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    },
+    {
+      "path": "params_shard_29.bin",
+      "url": "https://huggingface.co/mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC/resolve/9bd564b064631febf14deadcac492efb761d60c3/params_shard_29.bin",
+      "bytes": 18589696,
+      "sha256": "59a8497760bc9da56ce4619e082490c607b3f107bad7ec312fb33ce1a0d3dc71",
+      "downloadedAndHashed": false,
+      "hashEvidence": "Hugging Face LFS metadata at pinned revision; payload not downloaded"
+    }
+  ],
+  "tokenizerArchitecture": {
+    "modelType": "BPE",
+    "byteFallback": false,
+    "normalizer": {
+      "type": "NFC"
+    },
+    "preTokenizer": {
+      "type": "Sequence",
+      "pretokenizers": [
+        {
+          "type": "Split",
+          "pattern": {
+            "Regex": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?\\p{L}+|\\p{N}| ?[^\\s\\p{L}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+"
+          },
+          "behavior": "Isolated",
+          "invert": false
+        },
+        {
+          "type": "ByteLevel",
+          "add_prefix_space": false,
+          "trim_offsets": false,
+          "use_regex": false
+        }
+      ]
+    },
+    "decoder": {
+      "type": "ByteLevel",
+      "add_prefix_space": false,
+      "trim_offsets": false,
+      "use_regex": false
+    },
+    "addedSpecialTokens": 14
+  }
+}

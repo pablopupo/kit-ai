@@ -1,10 +1,15 @@
 {
-  "checkedAt": "2026-09-20T00:42:55.662Z",
-  "scope": "Real React StrictMode hook with mocked GPU, SDK, and offline storage. No real inference or physical-phone validation.",
-  "checks": 40,
+  "checkedAt": "2026-09-20T01:24:01.952Z",
+  "scope": "Real React StrictMode hook with mocked GPU, SDK, and offline storage. Selected model identity is from current configuration. No real inference or physical-phone validation.",
+  "selectedModel": {
+    "modelId": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
+    "consentKey": "kit-ai-trial-download-approved:kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
+    "downloadGB": 0.9
+  },
+  "checks": 42,
   "results": [
     {
-      "name": "Legacy 750 MB approval does not approve the larger medical model",
+      "name": "Legacy 750 MB approval does not approve the selected model",
       "result": "pass",
       "evidence": {
         "states": [
@@ -51,7 +56,7 @@
       }
     },
     {
-      "name": "Approval for a previous medical model revision does not approve this one",
+      "name": "Approval for a previous medical model revision does not approve the selected model",
       "result": "pass",
       "evidence": {
         "states": [
@@ -94,6 +99,188 @@
           "modelDownloads": 0
         },
         "offlineSaved": false,
+        "activeRun": null
+      }
+    },
+    {
+      "name": "Saved 3B approval, pause, journal and artifacts do not approve, block or start the new candidate",
+      "result": "pass",
+      "evidence": {
+        "states": [
+          "checking",
+          "checking",
+          "consent",
+          "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "consent",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
+        ],
+        "calls": {
+          "preflight": [
+            {
+              "modelCached": false
+            },
+            {
+              "modelCached": false
+            },
+            {
+              "modelCached": false
+            },
+            {
+              "modelCached": false
+            }
+          ],
+          "serviceImports": 1,
+          "runtimeSaves": 1,
+          "appSaves": 0,
+          "appChecks": 1,
+          "init": [
+            {
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "cacheChecks": [
+            {
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "generate": [],
+          "persist": 1,
+          "invalidations": 1,
+          "modelDownloads": 1
+        },
+        "offlineSaved": true,
+        "activeRun": null
+      }
+    },
+    {
+      "name": "Old 3B recovery state cannot pause or block an already-approved cached candidate offline",
+      "result": "pass",
+      "evidence": {
+        "states": [
+          "checking",
+          "checking",
+          "ready"
+        ],
+        "progressStates": [
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "checking",
+            "stage": "preparing",
+            "progress": null
+          },
+          {
+            "status": "ready",
+            "stage": "opening",
+            "progress": null
+          }
+        ],
+        "calls": {
+          "preflight": [
+            {
+              "modelCached": true
+            },
+            {
+              "modelCached": true
+            }
+          ],
+          "serviceImports": 1,
+          "runtimeSaves": 1,
+          "appSaves": 0,
+          "appChecks": 1,
+          "init": [
+            {
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "cacheChecks": [
+            {
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            },
+            {
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
+              "record": {
+                "model": "https://model.invalid/pinned-revision/",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
+                "model_lib": "https://model.invalid/pinned-revision/model.wasm",
+                "required_features": [
+                  "shader-f16"
+                ]
+              }
+            }
+          ],
+          "generate": [],
+          "persist": 1,
+          "invalidations": 0,
+          "modelDownloads": 0
+        },
+        "offlineSaved": true,
         "activeRun": null
       }
     },
@@ -185,7 +372,7 @@
       }
     },
     {
-      "name": "Explicit consent loads only the pinned owner model; generated replies always use it",
+      "name": "Explicit consent loads only the selected pinned model; generated replies always use it",
       "result": "pass",
       "evidence": {
         "states": [
@@ -234,10 +421,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -247,10 +434,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -258,10 +445,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -281,7 +468,7 @@
                   "content": "Synthetic English question"
                 }
               ],
-              "expectedModelId": "kit-medical-3b-synthetic-published-revision",
+              "expectedModelId": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "language": "en"
             },
             {
@@ -295,7 +482,7 @@
                   "content": "Synthetic second question"
                 }
               ],
-              "expectedModelId": "kit-medical-3b-synthetic-published-revision",
+              "expectedModelId": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "language": "en"
             }
           ],
@@ -308,7 +495,7 @@
       }
     },
     {
-      "name": "Approved cached owner model reopens offline without another consent request",
+      "name": "Approved cached selected model reopens offline without another consent request",
       "result": "pass",
       "evidence": {
         "states": [
@@ -348,10 +535,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -361,10 +548,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -372,10 +559,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -433,10 +620,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -446,10 +633,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -457,10 +644,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -480,7 +667,7 @@
                   "content": "Pregunta ficticia para una prueba"
                 }
               ],
-              "expectedModelId": "kit-medical-3b-synthetic-published-revision",
+              "expectedModelId": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "language": "es"
             }
           ],
@@ -566,10 +753,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -577,10 +764,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -590,10 +777,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -601,10 +788,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -612,10 +799,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -717,10 +904,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -730,10 +917,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -741,10 +928,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -814,10 +1001,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -825,10 +1012,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -838,10 +1025,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -849,10 +1036,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -860,10 +1047,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -945,10 +1132,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -956,10 +1143,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -969,10 +1156,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -980,10 +1167,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -991,10 +1178,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1105,10 +1292,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1118,10 +1305,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1129,10 +1316,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1202,10 +1389,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1215,10 +1402,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1226,10 +1413,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1237,10 +1424,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1310,10 +1497,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1321,10 +1508,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1334,10 +1521,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1345,10 +1532,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1356,10 +1543,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1423,10 +1610,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1436,10 +1623,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1447,10 +1634,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1508,10 +1695,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1521,10 +1708,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1532,10 +1719,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1593,10 +1780,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1606,10 +1793,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1617,10 +1804,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1640,7 +1827,7 @@
                   "content": "Synthetic question"
                 }
               ],
-              "expectedModelId": "kit-medical-3b-synthetic-published-revision",
+              "expectedModelId": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "language": "en"
             },
             {
@@ -1654,7 +1841,7 @@
                   "content": "Fresh question"
                 }
               ],
-              "expectedModelId": "kit-medical-3b-synthetic-published-revision",
+              "expectedModelId": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "language": "en"
             }
           ],
@@ -1725,10 +1912,10 @@
           "appChecks": 2,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1736,10 +1923,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1749,10 +1936,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1760,10 +1947,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1771,10 +1958,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1782,10 +1969,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1805,7 +1992,7 @@
                   "content": "Synthetic question"
                 }
               ],
-              "expectedModelId": "kit-medical-3b-synthetic-published-revision",
+              "expectedModelId": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "language": "en"
             },
             {
@@ -1819,7 +2006,7 @@
                   "content": "Retry question"
                 }
               ],
-              "expectedModelId": "kit-medical-3b-synthetic-published-revision",
+              "expectedModelId": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "language": "en"
             }
           ],
@@ -1872,10 +2059,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1885,10 +2072,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1896,10 +2083,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1919,7 +2106,7 @@
                   "content": "Synthetic question"
                 }
               ],
-              "expectedModelId": "kit-medical-3b-synthetic-published-revision",
+              "expectedModelId": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "language": "en"
             }
           ],
@@ -1978,10 +2165,10 @@
           "appChecks": 2,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -1989,10 +2176,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2002,10 +2189,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2013,10 +2200,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2024,10 +2211,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2035,10 +2222,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2102,10 +2289,10 @@
           "appChecks": 2,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2113,10 +2300,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2126,10 +2313,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2137,10 +2324,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2148,10 +2335,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2159,10 +2346,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2244,10 +2431,10 @@
           "appChecks": 2,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2255,10 +2442,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2268,10 +2455,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2279,10 +2466,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2290,10 +2477,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2301,10 +2488,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2312,10 +2499,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2373,10 +2560,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2386,10 +2573,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2397,10 +2584,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2420,7 +2607,7 @@
                   "content": "Synthetic question"
                 }
               ],
-              "expectedModelId": "kit-medical-3b-synthetic-published-revision",
+              "expectedModelId": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "language": "en"
             }
           ],
@@ -2514,10 +2701,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2527,10 +2714,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2538,10 +2725,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2599,10 +2786,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2612,10 +2799,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2623,10 +2810,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2727,7 +2914,7 @@
         "activeRun": {
           "state": "interrupted",
           "stage": "model-loading",
-          "owner": "run-mu93e4kx-632y6cpn0p"
+          "owner": "run-mu94uzod-hjq7956p9rp"
         }
       }
     },
@@ -2772,10 +2959,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2785,10 +2972,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2796,10 +2983,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2881,10 +3068,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2892,10 +3079,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2905,10 +3092,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2916,10 +3103,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -2927,10 +3114,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3012,10 +3199,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3023,10 +3210,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3036,10 +3223,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3047,10 +3234,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3058,10 +3245,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3125,10 +3312,10 @@
           "appChecks": 0,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3138,10 +3325,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3229,10 +3416,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3240,10 +3427,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3251,10 +3438,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3264,10 +3451,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3275,10 +3462,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3286,10 +3473,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3297,10 +3484,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3382,10 +3569,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3393,10 +3580,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3406,10 +3593,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3417,10 +3604,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3428,10 +3615,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3595,10 +3782,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3608,10 +3795,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3619,10 +3806,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3686,10 +3873,10 @@
           "appChecks": 1,
           "init": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3699,10 +3886,10 @@
           ],
           "cacheChecks": [
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"
@@ -3710,10 +3897,10 @@
               }
             },
             {
-              "id": "kit-medical-3b-synthetic-published-revision",
+              "id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
               "record": {
                 "model": "https://model.invalid/pinned-revision/",
-                "model_id": "kit-medical-3b-synthetic-published-revision",
+                "model_id": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
                 "model_lib": "https://model.invalid/pinned-revision/model.wasm",
                 "required_features": [
                   "shader-f16"

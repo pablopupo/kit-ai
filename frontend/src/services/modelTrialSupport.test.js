@@ -21,7 +21,7 @@ function fakeGPU({ limits = LIMITS, features = FEATURES, deviceLimits = medicalT
 }
 
 test('rejects adapters that cannot bind the actual largest model tensor', async () => {
-  for (const maxStorageBufferBindingSize of [2 ** 27, MEDICAL_TRIAL_REQUIREMENTS.largestTensorBytes - 4]) {
+  for (const maxStorageBufferBindingSize of [2 ** 26, MEDICAL_TRIAL_REQUIREMENTS.largestTensorBytes - 4]) {
     const { gpu, state } = fakeGPU({ limits: { ...LIMITS, maxStorageBufferBindingSize } })
     const result = await probeMedicalModelGPU(gpu)
     assert.equal(result.supported, false)
@@ -111,10 +111,10 @@ test('quota is best-effort: unknown can attempt loading, insufficient known spac
     assert.equal(result.memoryUnverified, true)
     assert.match(result.memoryCaveat, /does not prove/)
   }
-  const estimate = { usage: 8_000_000_000, quota: 10_000_000_000 }
+  const estimate = { usage: 8_000_000_000, quota: 8_000_000_000 + MEDICAL_TRIAL_REQUIREMENTS.minimumFreeStorageBytes - 1 }
   assert.equal(assessModelTrialSupport({ gpu, estimate }).reason, 'storage-space-low')
   assert.equal(assessModelTrialSupport({ gpu, estimate, modelCached: true }).supported, true)
-  assert.equal(assessModelTrialSupport({ gpu, estimate: { usage: 0, quota: 2_100_000_000 } }).supported, true)
+  assert.equal(assessModelTrialSupport({ gpu, estimate: { usage: 0, quota: MEDICAL_TRIAL_REQUIREMENTS.minimumFreeStorageBytes } }).supported, true)
 })
 
 test('pure assessment does not accept an incomplete success or copy arbitrary worker data', async () => {

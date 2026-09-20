@@ -1,14 +1,9 @@
-// Specific to the owner's medical 3B q4f16_1 conversion and WebLLM 0.2.80.
-// Revisit these limits when changing either artifact or runtime. The guarded
-// Vite patch raises the smaller-device binding request to at most 256 MiB so
-// the 188 MiB embedding fits when the adapter actually supports it.
+// Specific to the selected phone candidate and patched WebLLM 0.2.80.
+// The SDK still requests at most 256 MiB bindings on smaller adapters; the
+// candidate's 111.3 MiB largest tensor also fits a 128 MiB binding limit.
 import { webllmFallbackStorageBindingLimit } from './webllmGpuLimits.js'
-export const MEDICAL_TRIAL_REQUIREMENTS = Object.freeze({
-  artifactBytesApprox: 1_830_000_000,
-  minimumFreeStorageBytes: 2_100_000_000,
-  largestTensorBytes: 197_001_216,
-  runtimeVersion: '0.2.80',
-})
+import { PHONE_CANDIDATE } from './modelProfiles.js'
+export const MEDICAL_TRIAL_REQUIREMENTS = PHONE_CANDIDATE.requirements
 
 export const MODEL_TRIAL_MEMORY_CAVEAT = 'Passing this check does not prove there is enough working memory to load or run the model. A real generation test is still required.'
 

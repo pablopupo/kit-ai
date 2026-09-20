@@ -9,7 +9,7 @@ KIT AI provides general information. It cannot diagnose a condition or replace p
 ## One Ask Kit experience
 
 Kit opens directly into one chat. A single setup card offers a one-time download,
-then disappears when the assistant is ready. The owner's converted medical model
+then disappears when the assistant is ready. The approved smaller Qwen candidate
 answers on the device whenever loaded, even with Wi-Fi on. Before it is ready,
 online answers are available if enabled. When neither is available, Kit explains
 what is missing and keeps the question; it never substitutes a guide as an AI reply.
@@ -19,19 +19,21 @@ no separate trial flow, model selector, bottom navigation or diagnostic dashboar
 | Capability | What is available |
 | --- | --- |
 | English and Spanish | Interface, complete guides, bilingual search and requested AI answer language |
-| Offline preparation | Saves the small app automatically; asks once for the roughly 1.83 GB medical assistant, then loads saved files automatically unless paused |
+| Offline preparation | Saves the small app automatically; asks once for the roughly 0.9 GB phone candidate, then loads saved files automatically unless paused or interrupted |
 | Online assistant | `Pablo305/llama3-medical-3b-4bit` through the owner's existing Space |
-| Browser assistant | Owner's converted medical 3B checkpoint, pinned with its runtime to `34f6aa7d8fb5608dc2585e6660b982610ca4bc28` |
+| Browser assistant | Approved Qwen2.5 1.5B experiment, immutable weights/runtime in `modelProfiles.js`; original medical 3B retained as a baseline |
 | Offline retrieval | Bilingual keyword matching over six whole source-linked guides; relevant complete guidance is included in model prompts |
 | Web search | Not implemented; online model inference does not browse the internet |
 | Help | Menu → Settings → Help; optional report excludes conversations and browser identity |
 
-The current download contains approximately 1.83 GB of model/runtime files. The
+The current download contains 881,089,605 bytes of model/runtime files, rounded
+up to 0.9 GB in the download offer. The
 app precaches its small shell independently of the large assistant JavaScript.
 Assistant preparation begins only after the user agrees to the download and the
 app cache/control check passes. A ready engine alone no longer means offline
-files are saved. Existing consent and cached files from the medical trial are
-reused; an earlier 750 MB approval never authorizes this larger download. A deliberate
+files are saved. The Qwen candidate has its own approval and cache identity;
+earlier 750 MB or 1.83 GB approvals do not authorize it. Original 3B files and
+preferences are preserved. A deliberate
 pause survives reload and reconnect. Browser storage may be evicted or cleared.
 
 The previous coupled precache could fail when one assistant file failed, leaving
@@ -60,10 +62,20 @@ original NF4 checkpoint and matched the float export token for token on CPU.
 Other findings include missing steps, source contradictions and a Spanish refusal.
 The recovered historical prompt also produced serious errors. The conversion is
 not a medical-quality pass. The converted checkpoint now powers the experimental
-main chat with those limitations disclosed; clinical review remains outstanding.
+main chat at that time with those limitations disclosed; clinical review remains outstanding.
 It generated in desktop Chrome on Apple Metal and after a full offline browser
 restart, using about 1.86 GB of browser storage. Real phone testing remains open.
 See [evaluation results](evaluations/README.md) and [conversion tooling](model-tools/README.md).
+
+**Smaller phone experiment (2026-09-20 UTC):** after the owner reported repeated
+iPhone crashes while opening the 3B model, the owner approved testing Qwen2.5
+1.5B. The built app downloaded the pinned candidate after explicit approval and
+generated 24 answers on a hardware desktop GPU with native 256 MiB buffer limits.
+Twenty-two were generated after full browser exit, stopped app server and blocked
+network transport. Offline reopening took 2.42 seconds in that test. These are
+runtime observations, not iPhone or medical-quality certification. The 20 frozen
+EN/ES development cases are retained for review. No training has started.
+See [candidate verification](verification/phone-candidate.md).
 
 ## Run locally
 

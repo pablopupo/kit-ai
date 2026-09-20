@@ -1,10 +1,22 @@
 # KIT AI: learning and evaluation plan
 
-**Latest phone report:** the owner reports another crash after the startup-recovery release, probably at “Opening Kit…”. Physical offline generation on that phone remains unsuccessful in the reported attempts. Memory pressure is a hypothesis, not an OS-confirmed diagnosis. See the [smaller-model comparison proposal and measured artifact sizes](../verification/phone-model-next-experiment.md); no replacement or training has started. The preceding [startup recovery](../verification/startup-recovery.md) changes improve feedback and interruption handling but did not establish a phone fix.
+**Latest phone report:** the owner reports another crash after the startup-recovery release, probably at “Opening Kit…”. Physical offline generation on that phone remains unsuccessful in the reported attempts. Memory pressure is a hypothesis, not an OS-confirmed diagnosis. See the [smaller-model comparison proposal and measured artifact sizes](../verification/phone-model-next-experiment.md). The owner has approved an isolated Qwen2.5 1.5B experiment; this approval does not establish its phone compatibility or medical quality, and no fine-tuning has started. The preceding [startup recovery](../verification/startup-recovery.md) changes improve feedback and interruption handling but did not establish a phone fix.
 
-## Current release and next validation — 2026-09-19
+## Current candidate and next validation — 2026-09-20 UTC
 
-Release `abcef5b` runs the owner's converted 3B medical checkpoint in the main
+The owner approved the smaller Qwen2.5 1.5B runtime experiment after the repeated
+3B opening crash. The candidate now uses its own pinned weights/runtime, approval
+and cache identity; the original medical checkpoint and recorded results remain
+the comparison baseline. The built candidate generated 24 answers, including the
+20 frozen EN/ES development cases, on a real desktop GPU with 256 MiB device
+limits. A full browser exit, stopped app server and blocked network transport
+preceded 22 answers. This is not physical iPhone or medical-quality validation.
+See [candidate verification](../verification/phone-candidate.md) and the raw
+[runtime and answer record](../verification/phone-candidate-results.json).
+
+## Prior medical 3B release — 2026-09-19
+
+Release `abcef5b` ran the owner's converted 3B medical checkpoint in the main
 chat, pinned to published revision
 `34f6aa7d8fb5608dc2585e6660b982610ca4bc28`. Once the explicit 1.83 GB download and
 preparation finish, the saved model is preferred with or without internet. The
@@ -72,8 +84,8 @@ proposed experiment before deciding to train or replace the checkpoint.
 
 The large float and MLC artifacts live outside Git. Reproduction and hashes are in
 [`model-tools`](../model-tools/README.md). These records describe the local
-experiment before publication; the converted checkpoint is now used in the
-experimental main chat as described above. No training job has been started.
+experiment before publication; the converted checkpoint was subsequently used in
+the main chat and is now retained as the baseline. No training job has started.
 
 ### Reproduce and review
 
@@ -115,36 +127,68 @@ not necessarily more accurate than one that refuses.
 - Browser retrieval is currently a small bilingual keyword search over six
   source-linked guides. There is no embedding index or live web search.
 
-## Work together in small steps
+## Accuracy work after the smaller-model runtime experiment
 
-1. **Keep the goal clear.** Kit is a chat for generated health answers without
-   internet, in English and Spanish first. Define the medical topics and age
-   groups supported by the evaluation before claiming reliable coverage.
-2. **Write examples together.** Start with 20–30 realistic questions and follow-ups.
-   Include the source passage, expected important points, age/scope restrictions,
-   and situations where the sources do not support an answer. Keep a separate set
-   of scenarios out of training.
-3. **Run a fair comparison.** Give each model identical references and language
-   instructions. Compare the current medical 3B, original Llama, and a small Qwen
-   candidate. Record actual device/browser, download size, startup, first-token
-   latency, full response time, and an offline restart.
-4. **Score errors, not just style.** Record unnecessary refusals, omitted warning
-   signs, unsupported claims, invented citations, wrong-language answers, and
-   answers that exceed their source's scope. The owner can score clarity; medical
-   correctness needs qualified review. Do not use an LLM judge as the sole reviewer.
-5. **Improve the measured gap.** Test whether a reference or prompt change helps
-   before adding complexity. Keep complete source passages and inspect source
-   adherence, including follow-ups. Re-run held-out examples after each change;
-   additional retrieval alone does not establish accuracy.
-6. **Train only for a measured gap.** If repeated behavior problems remain, create
-   a small reviewed dataset and train a LoRA adapter from a reproducible original
-   checkpoint. Record base revision, dataset versions, parameters, compute cost,
-   and evaluation output. The owner should inspect the examples and run the first
-   notebook steps before a training job is launched.
-7. **Test every browser export.** The current checkpoint has already been
-   converted to MLC. For any future checkpoint, use a matching compiled runtime
-   and repeat evaluations after quantization. A bitsandbytes file cannot be used
-   in WebLLM directly, and a larger model cannot fit every phone.
+Offline retrieval and fine-tuning are both possible next improvements. They
+address different problems, and neither guarantees correct medical answers.
+The approved Qwen2.5 1.5B test first asks whether a smaller model can sustain
+offline generation; it does not select a medically validated replacement.
+
+1. **Establish a reproducible baseline.** Record exact weights, runtime, prompt,
+   decoding settings, retrieved passages and full outputs. Separate desktop
+   mechanics from physical-phone startup, repeated generation and offline
+   reopen. Then run all 20 existing EN/ES cases with the current app prompts;
+   keep failures and incomplete answers rather than choosing a better retry.
+2. **Improve source coverage.** Kit already does a small form of offline RAG:
+   bilingual lexical search supplies complete passages from six saved guides.
+   It also retains relevant user context for narrowly recognized follow-ups.
+   It has no embedding index or live web search. Add reviewed coverage for
+   chosen topics and age groups, with source URLs, dates and faithful Spanish
+   versions. Check retrieval separately on new paraphrases and follow-ups;
+   consider another search method only if measured misses justify it. Preserve
+   essential steps and age restrictions within the actual model's token budget.
+3. **Test whether answers follow the sources.** A missing infant reference and
+   a Spanish ankle answer contradicting an available guide are different
+   failures. Compare reference/prompt changes one at a time and inspect added
+   claims, missing warnings, inappropriate refusals, language and uncertainty.
+   The existing results already show that retrieving a guide does not ensure
+   the model follows it. More documents alone would not fix that behavior.
+4. **Create a fresh holdout before tuning.** The existing 20 cases have already
+   guided development; retain them as regression checks, not unseen evidence.
+   Write different scenarios, age contrasts and follow-ups that stay out of
+   training and prompt development. Obtain qualified medical and Spanish review
+   of the criteria and answers. The owner can evaluate clarity; an LLM judge or
+   a fluent answer is not a substitute for correctness review.
+5. **Fine-tune a specific measured gap, if needed.** Possible targets include
+   following supplied references, preserving emergency steps, answering useful
+   first-aid questions without blanket refusals, and recognizing insufficient
+   information. Keep the current checkpoint as a baseline. Together, inspect a
+   few reviewed input/reference/answer examples and the first notebook steps
+   before launching training. Record the selected base revision, data split,
+   parameters and compute budget. Supervised fine-tuning teaches example
+   responses; adapters provide a way to train a subset of parameters. Neither
+   makes unreviewed examples reliable. See the primary [SFT](https://huggingface.co/docs/trl/sft_trainer)
+   and [PEFT](https://huggingface.co/docs/transformers/main/en/peft) documentation.
+6. **Evaluate the actual shipped artifact again.** Compare against the unchanged
+   baseline on the regression and fresh holdout sets, then repeat after browser
+   conversion/quantization and on phones. Report error types and EN/ES differences
+   alongside runtime results; do not turn a small-case success into a general
+   medical-accuracy claim. Keep the simple generated-chat interface throughout.
+
+For the first bounded smoke run, these six existing cases give three paired
+checks. Use their full frozen prompts from `cases.json`, not the summaries here.
+
+| Case IDs | What the pair probes |
+| --- | --- |
+| `minor-cut-en`, `minor-cut-es` | Ordinary generated answers with an available complete guide; language, refusals and unsupported additions. |
+| `burn-unsafe-premise-en`, `burn-unsafe-premise-es` | Correction of the butter/ice premise and adherence to the supplied burn reference. |
+| `infant-choking-en`, `infant-choking-es` | An urgent age-specific question with no infant guide; unsafe adult instructions must not be mistaken for helpfulness. |
+
+The first four are enough for a brief generation check; adding the infant pair
+probes a known serious failure. This smoke set does not cover adult choking,
+CPR, severe bleeding, sprains or uncertainty comprehensively. Return to all 20
+cases before a quality comparison, and keep the planned holdout separate. A
+model can pass download/reopen checks while failing every relevant quality gate.
 
 ## Initial evaluation prompts
 

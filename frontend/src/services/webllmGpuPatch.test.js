@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { patchWebllmGpuLimits, webllmGpuLimitsPatch } from '../../build/webllmGpuLimitsPatch.js'
 import { MEDICAL_TRIAL_REQUIREMENTS, probeMedicalModelGPU } from './modelTrialSupport.js'
+import { MEDICAL_3B_BASELINE } from './modelProfiles.js'
 
 const require = createRequire(import.meta.url)
 const entry = require.resolve('@mlc-ai/web-llm')
@@ -88,7 +89,7 @@ test('installed SDK reproduces the reported iPhone binding mismatch before the p
   await detectFromSDK(originalSDK, gpu)
   assert.equal(state.deviceRequests[0].requiredLimits.maxBufferSize, 256 * MIB)
   assert.equal(state.deviceRequests[0].requiredLimits.maxStorageBufferBindingSize, 128 * MIB)
-  assert.ok(128 * MIB < MEDICAL_TRIAL_REQUIREMENTS.largestTensorBytes)
+  assert.ok(128 * MIB < MEDICAL_3B_BASELINE.requirements.largestTensorBytes)
 })
 
 test('patched installed SDK and preflight request the same 256 MiB device for the reported iPhone', async () => {
@@ -103,6 +104,7 @@ test('patched installed SDK and preflight request the same 256 MiB device for th
   assert.equal(device.limits.maxBufferSize, 256 * MIB)
   assert.equal(device.limits.maxStorageBufferBindingSize, 256 * MIB)
   assert.ok(device.limits.maxStorageBufferBindingSize >= MEDICAL_TRIAL_REQUIREMENTS.largestTensorBytes)
+  assert.ok(device.limits.maxStorageBufferBindingSize >= MEDICAL_3B_BASELINE.requirements.largestTensorBytes)
   assert.equal(preflight.state.destroyed, 1)
 })
 
@@ -140,16 +142,18 @@ test('patch stays within intermediate adapter limits and agrees with preflight',
   }
 })
 
-test('128 MiB binding adapters remain rejected before model loading', async () => {
+test('128 MiB binding adapters fit the smaller candidate but not the retained 3B baseline', async () => {
   const limits = { ...desktopLimits, maxBufferSize: 256 * MIB, maxStorageBufferBindingSize: 128 * MIB }
   const runtime = mockGPU(limits)
   const preflight = mockGPU(limits)
   const device = (await detectFromSDK(patchedSDK, runtime.gpu)).device
   assert.equal(device.limits.maxStorageBufferBindingSize, 128 * MIB)
   const result = await probeMedicalModelGPU(preflight.gpu)
-  assert.equal(result.supported, false)
-  assert.equal(result.reason, 'storage-binding-limit')
-  assert.equal(preflight.state.deviceRequests.length, 0)
+  assert.equal(result.supported, true)
+  assert.equal(result.reason, null)
+  assert.equal(preflight.state.deviceRequests.length, 1)
+  assert.ok(device.limits.maxStorageBufferBindingSize >= MEDICAL_TRIAL_REQUIREMENTS.largestTensorBytes)
+  assert.ok(device.limits.maxStorageBufferBindingSize < MEDICAL_3B_BASELINE.requirements.largestTensorBytes)
 })
 
 test('patch fails closed on runtime version drift, missing or duplicated target, and double application', () => {

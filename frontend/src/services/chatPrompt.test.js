@@ -3,6 +3,17 @@ import assert from 'node:assert/strict';
 import { buildMessages, SYSTEM_PROMPT, MAX_PROMPT_BYTES, promptByteLength } from './chatPrompt.js';
 import { FIRST_AID_GUIDES, getGuides } from './firstAidGuides.js';
 
+test('prompt budget accounts for Qwen NFC expansion without changing user text', () => {
+  const expanding = String.fromCodePoint(0x0344);
+  const encoder = new TextEncoder();
+  assert.equal(encoder.encode(expanding).length, 2);
+  assert.equal(promptByteLength(expanding), 4);
+  const question = `What does this character mean: ${expanding}?`;
+  assert.equal(buildMessages(question).at(-1).content, question);
+  assert.throws(() => buildMessages(expanding.repeat(800)));
+  assert.equal(promptByteLength('e' + String.fromCodePoint(0x0301)), 3, 'Retain the raw-byte bound for legacy Llama too');
+});
+
 test('relevant source context retains every step, scope and warning', () => {
   const guide = FIRST_AID_GUIDES.find(item => item.id === 'burns');
   const messages = buildMessages('What should I do for a burn?');

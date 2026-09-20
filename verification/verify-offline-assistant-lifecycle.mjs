@@ -6,14 +6,22 @@ import fs from 'node:fs/promises'
 import http from 'node:http'
 import path from 'node:path'
 import { createRequire } from 'node:module'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const require = createRequire(path.join(repo, 'frontend/package.json'))
 const { build } = require('esbuild')
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright')
-const modelId = 'kit-medical-3b-synthetic-published-revision'
-const consentKey = `kit-ai-trial-download-approved:${modelId}`
+// Test the selected model's real identity and permission boundary, with only
+// its runtime/weights replaced by deterministic fakes. No model is downloaded.
+const selectedModel = await import(pathToFileURL(path.join(repo, 'frontend/src/services/medicalTrialConfig.js')))
+const modelId = selectedModel.MEDICAL_TRIAL_MODEL_ID
+const consentKey = selectedModel.MEDICAL_TRIAL_CONSENT_KEY
+const downloadGB = selectedModel.MEDICAL_TRIAL_DOWNLOAD_GB
+const oldMedicalModelId = 'kit-medical-3b-df5aa311-q4f16_1-34f6aa7d8fb5608dc2585e6660b982610ca4bc28'
+const oldMedicalConsentKey = `kit-ai-trial-download-approved:${oldMedicalModelId}`
+const oldMedicalCacheName = `synthetic-saved-artifact:${oldMedicalModelId}`
+const oldMedicalArtifact = 'Synthetic old medical model artifact; not real model data.'
 const pauseKey = `${consentKey}:paused`
 const activeRunKey = `${consentKey}:active-run`
 const mocks = {
@@ -22,7 +30,7 @@ const mocks = {
   medicalTrialConfig: `
     export const MEDICAL_TRIAL_MODEL_ID = ${JSON.stringify(modelId)};
     export const MEDICAL_TRIAL_CONSENT_KEY = ${JSON.stringify(consentKey)};
-    export const MEDICAL_TRIAL_DOWNLOAD_GB = 1.83;
+    export const MEDICAL_TRIAL_DOWNLOAD_GB = ${JSON.stringify(downloadGB)};
     export const MEDICAL_TRIAL_RECORD = window.__scenario.published === false ? null : {model:'https://model.invalid/pinned-revision/',model_id:MEDICAL_TRIAL_MODEL_ID,model_lib:'https://model.invalid/pinned-revision/model.wasm',required_features:['shader-f16']};`,
   modelTrialCheck: `export const checkMedicalModelTrial = async options => {
     window.__calls.preflight.push(options);
@@ -79,7 +87,7 @@ const bundle = await build({
 })
 const server = http.createServer((request, response) => {
   response.setHeader('Content-Type', request.url === '/bundle.js' ? 'text/javascript' : 'text/html')
-  response.end(request.url === '/bundle.js' ? bundle.outputFiles[0].text : '<!doctype html><div id="app"></div><script src="/bundle.js"></script>')
+  response.end(request.url === '/bundle.js' ? bundle.outputFiles[0].text : request.url === '/seed' ? '<!doctype html><p>Synthetic fixture setup</p>' : '<!doctype html><div id="app"></div><script src="/bundle.js"></script>')
 })
 await new Promise(resolve => server.listen(0, '127.0.0.1', resolve))
 const url = `http://127.0.0.1:${server.address().port}/`
@@ -88,7 +96,7 @@ const results = []
 async function fixture(name, scenario, exercise) {
   const context = await browser.newContext()
   const errors = [], externalRequests = []
-  await context.addInitScript(({ scenario, consentKey, pauseKey, activeRunKey }) => {
+  await context.addInitScript(({ scenario, consentKey, pauseKey, activeRunKey, oldMedicalConsentKey }) => {
     window.__scenario = scenario
     window.__cached = scenario.cached === true
     window.__engineLoaded = false
@@ -103,17 +111,29 @@ async function fixture(name, scenario, exercise) {
     Object.defineProperty(navigator, 'storage', { configurable: true, value: { persist: async () => { window.__calls.persist++; return false } } })
     if (!sessionStorage.getItem('fixture-journal-seeded')) {
       if (scenario.previousRun) localStorage.setItem(activeRunKey, JSON.stringify(scenario.previousRun))
+      if (scenario.oldMedicalState) {
+        localStorage.setItem(oldMedicalConsentKey, 'true')
+        localStorage.setItem(`${oldMedicalConsentKey}:paused`, 'true')
+        localStorage.setItem(`${oldMedicalConsentKey}:active-run`, JSON.stringify({ state: 'active', stage: 'model-loading', owner: 'old-medical-page' }))
+      }
       sessionStorage.setItem('fixture-journal-seeded', 'true')
     }
     if (scenario.approved) localStorage.setItem(consentKey, 'true')
     if (scenario.paused) localStorage.setItem(pauseKey, 'true')
     if (scenario.legacyApproved) localStorage.setItem('kit-ai-offline-download-approved', 'true')
     if (scenario.previousTrialApproved) localStorage.setItem('kit-ai-trial-download-approved:kit-medical-3b-previous-revision', 'true')
-  }, { scenario, consentKey, pauseKey, activeRunKey })
+  }, { scenario, consentKey, pauseKey, activeRunKey, oldMedicalConsentKey })
   const page = await context.newPage()
   page.on('pageerror', error => errors.push(error.message))
   page.on('request', request => { if (!request.url().startsWith(url.split('?')[0])) externalRequests.push(request.url()) })
   try {
+    if (scenario.oldMedicalState) {
+      await page.goto(`${url}seed`)
+      await page.evaluate(async ({ cacheName, artifact }) => {
+        const cache = await caches.open(cacheName)
+        await cache.put('/synthetic-old-model-artifact', new Response(artifact))
+      }, { cacheName: oldMedicalCacheName, artifact: oldMedicalArtifact })
+    }
     await page.goto(url)
     await exercise(page)
     assert.deepEqual(errors, [], 'Unexpected browser errors')
@@ -126,16 +146,68 @@ const status = (page, expected) => page.waitForFunction(value => window.__trial?
 const counts = page => page.evaluate(() => ({ runtime: window.__calls.runtimeSaves, imports: window.__calls.serviceImports, init: window.__calls.init.length }))
 const journal = page => page.evaluate(key => JSON.parse(localStorage.getItem(key) || 'null'), activeRunKey)
 const reconnect = page => page.evaluate(async () => { window.__online = true; window.dispatchEvent(new Event('online')); await new Promise(resolve => setTimeout(resolve, 50)) })
+const oldMedicalState = page => page.evaluate(async ({ key, cacheName }) => {
+  const cache = await caches.open(cacheName)
+  return {
+    approval: localStorage.getItem(key), paused: localStorage.getItem(`${key}:paused`),
+    journal: localStorage.getItem(`${key}:active-run`),
+    artifact: await (await cache.match('/synthetic-old-model-artifact'))?.text(),
+  }
+}, { key: oldMedicalConsentKey, cacheName: oldMedicalCacheName })
 try {
-  await fixture('Legacy 750 MB approval does not approve the larger medical model', { legacyApproved: true }, async page => {
+  await fixture('Legacy 750 MB approval does not approve the selected model', { legacyApproved: true }, async page => {
     await status(page, 'consent')
     assert.deepEqual(await counts(page), { runtime: 0, imports: 0, init: 0 })
     assert.equal(await page.evaluate(key => localStorage.getItem(key), consentKey), null)
   })
-  await fixture('Approval for a previous medical model revision does not approve this one', { previousTrialApproved: true }, async page => {
+  await fixture('Approval for a previous medical model revision does not approve the selected model', { previousTrialApproved: true }, async page => {
     await status(page, 'consent')
     assert.deepEqual(await counts(page), { runtime: 0, imports: 0, init: 0 })
     assert.equal(await page.evaluate(key => localStorage.getItem(key), consentKey), null)
+  })
+  await fixture('Saved 3B approval, pause, journal and artifacts do not approve, block or start the new candidate', { oldMedicalState: true }, async page => {
+    assert.notEqual(modelId, oldMedicalModelId, 'This regression requires a separately selected candidate')
+    assert.notEqual(consentKey, oldMedicalConsentKey, 'The candidate must have its own approval key')
+    await status(page, 'consent')
+    const previous = await oldMedicalState(page)
+    assert.deepEqual(previous, {
+      approval: 'true', paused: 'true',
+      journal: JSON.stringify({ state: 'active', stage: 'model-loading', owner: 'old-medical-page' }),
+      artifact: oldMedicalArtifact,
+    })
+    assert.deepEqual(await counts(page), { runtime: 0, imports: 0, init: 0 })
+    assert.equal(await page.evaluate(key => localStorage.getItem(key), consentKey), null)
+    assert.equal(await page.evaluate(() => window.__trial.downloadGB), downloadGB)
+    assert.equal(await page.evaluate(() => window.__trial.needsDownloadConsent), true)
+    await reconnect(page)
+    await page.reload()
+    await status(page, 'consent')
+    await page.evaluate(() => window.__trial.retry())
+    await status(page, 'consent')
+    assert.deepEqual(await counts(page), { runtime: 0, imports: 0, init: 0 })
+    assert.deepEqual(await oldMedicalState(page), previous)
+    await page.evaluate(() => window.__trial.prepare())
+    await status(page, 'ready')
+    const calls = await page.evaluate(() => window.__calls)
+    assert.deepEqual(calls.init.map(call => call.id), [modelId])
+    assert.equal(calls.modelDownloads, 1)
+    assert.equal(await page.evaluate(key => localStorage.getItem(key), consentKey), 'true')
+    assert.deepEqual(await oldMedicalState(page), previous, 'Opting into the candidate must preserve the old model state and saved artifact')
+  })
+  await fixture('Old 3B recovery state cannot pause or block an already-approved cached candidate offline', {
+    oldMedicalState: true, approved: true, cached: true, online: false,
+  }, async page => {
+    await status(page, 'ready')
+    const previous = await oldMedicalState(page)
+    const calls = await page.evaluate(() => window.__calls)
+    assert.deepEqual(calls.init.map(call => call.id), [modelId])
+    assert.equal(calls.modelDownloads, 0)
+    assert.equal(await page.evaluate(() => window.__states.includes('paused') || window.__states.includes('interrupted')), false)
+    assert.equal(await journal(page), null)
+    await page.reload()
+    await status(page, 'ready')
+    assert.deepEqual(await oldMedicalState(page), previous)
+    assert.equal(await page.evaluate(() => window.__calls.modelDownloads), 0)
   })
   await fixture('Incompatible phone stops before runtime or model imports', { supported: false }, async page => {
     await status(page, 'unsupported')
@@ -148,7 +220,7 @@ try {
     assert.deepEqual(await counts(page), { runtime: 0, imports: 0, init: 0 })
     assert.equal(await page.evaluate(() => window.__calls.preflight.length), 0)
   })
-  await fixture('Explicit consent loads only the pinned owner model; generated replies always use it', {}, async page => {
+  await fixture('Explicit consent loads only the selected pinned model; generated replies always use it', {}, async page => {
     await status(page, 'consent')
     await page.evaluate(() => window.__trial.prepare())
     await status(page, 'ready')
@@ -165,7 +237,7 @@ try {
     assert.equal(calls.init[0].record.model_id, modelId)
     assert.deepEqual(calls.generate.map(call => call.expectedModelId), [modelId, modelId])
   })
-  await fixture('Approved cached owner model reopens offline without another consent request', { approved: true, cached: true, online: false }, async page => {
+  await fixture('Approved cached selected model reopens offline without another consent request', { approved: true, cached: true, online: false }, async page => {
     await status(page, 'ready')
     // A fresh JS realm reads the same model-specific preference after refresh.
     // Cached artifacts and the offline flag are still fixture inputs, not proof
@@ -595,7 +667,7 @@ try {
     await status(page, 'ready')
   })
   const output = process.env.KIT_ASSISTANT_LIFECYCLE_RESULTS || path.join(repo, 'verification/offline-assistant-lifecycle-results.json')
-  await fs.writeFile(output, JSON.stringify({ checkedAt: new Date().toISOString(), scope: 'Real React StrictMode hook with mocked GPU, SDK, and offline storage. No real inference or physical-phone validation.', checks: results.length, results }, null, 2) + '\n')
+  await fs.writeFile(output, JSON.stringify({ checkedAt: new Date().toISOString(), scope: 'Real React StrictMode hook with mocked GPU, SDK, and offline storage. Selected model identity is from current configuration. No real inference or physical-phone validation.', selectedModel: { modelId, consentKey, downloadGB }, checks: results.length, results }, null, 2) + '\n')
   console.log(JSON.stringify({ result: 'pass', checks: results.length, output }))
 } finally {
   await browser.close()
