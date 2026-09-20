@@ -1,0 +1,46 @@
+{
+  "schema": "kit-ai-physical-phone-observation-v1",
+  "observedDate": "2026-09-20",
+  "scope": "Manual observations from Safari Web Inspector attached by USB to the owner iPhone. No peak memory or OS termination cause established. No conversation content read.",
+  "os": "iOS 26.0",
+  "browser": "Safari",
+  "hardwareModel": "unknown",
+  "deploymentId": "dpl_FLcw1u9qizpXgJ3qjK163ysgH9c3",
+  "entryScript": "/assets/index-Bp_fGlG_.js",
+  "modelWorker": "/assets/webllm-worker-DW6ehUvA.js",
+  "beforeRetry": {
+    "status": "Kit had trouble staying open",
+    "serviceWorkerControlsPage": true,
+    "ready": false,
+    "journalState": "interrupted",
+    "journalStage": "model-loading"
+  },
+  "instrumentation": "In the inspected page only, a Worker constructor Proxy attaches listeners for SDK initProgressCallback and worker errors. It returns each original native Worker, changes no worker code or GPU requests, and does not log question or answer messages. Preserve Log was enabled in the Mac inspector.",
+  "retry": "Clicked the existing Try opening Kit button through its DOM from the inspector. Existing consent and caches were retained.",
+  "observedProgress": {
+    "start": "Start to fetch params",
+    "firstShard": {
+      "index": 1,
+      "total": 30,
+      "progress": 0.13434709870772032,
+      "elapsedSeconds": 7,
+      "reportedLoadedMB": 112
+    },
+    "lastShard": {
+      "index": 23,
+      "total": 30,
+      "progress": 0.7966990925392984,
+      "elapsedSeconds": 9,
+      "reportedLoadedMB": 660
+    }
+  },
+  "observedGPUWarnings": [
+    "maxBufferSize request fell back from1024MB to256MB; adapter limit410MB",
+    "maxStorageBufferBindingSize request fell back from1024MB to256MB; adapter limit410MB"
+  ],
+  "result": "The owner confirmed the phone returned to Kit had trouble staying open. The attached inspector stopped producing progress after shard23/30 and no console query result was received. This attempt did not reach readiness.",
+  "physicalOfflineGenerationVerified": false,
+  "osMemoryFailureConfirmed": false,
+  "userConfirmedRestartRecovery": true,
+  "osLogCapture": "Filtered iPhone Console capture began after the progress stopped, so it did not establish the termination cause. It was paused before further testing."
+}

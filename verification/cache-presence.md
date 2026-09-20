@@ -73,3 +73,25 @@ Evidence: `cache-presence-read-results.json`. Patched original worker SHA-256:
 Desktop WebKit storage behavior does not establish physical iPhone memory
 capacity. The next acceptance check is loading this same saved model on the
 connected phone, then generating a fresh answer after offline reopening.
+
+## Published check
+
+Code `a619664` is deployed to https://kit-ai-pablopupo.vercel.app/ as
+`dpl_FLcw1u9qizpXgJ3qjK163ysgH9c3`. The public main bundle
+(`/assets/index-Bp_fGlG_.js`), SDK and inference worker match the tested build.
+An isolated browser with the saved previous public app updated on ordinary
+reload. Its synthetic Qwen interruption and existing approval were preserved;
+reconnect did not start a model. No external/model request, inference POST,
+page error or horizontal overflow occurred. See `cache-presence-live-results.json`.
+This public update check did not run the model or certify physical phone use.
+
+## Connected iPhone follow-up
+
+The owner connected the iPhone over USB and enabled Safari Web Inspector. The
+phone was confirmed to run this deployed entry and inference worker. A retry
+reused cached weights, reporting files 1 through 23 of 30 (79%, displayed 660 MB,
+9 seconds elapsed), then no further progress. The owner confirmed that the page
+returned to “Kit had trouble staying open”. This cache-check fix alone therefore
+did not make the phone usable. No OS-level out-of-memory cause was established.
+Only model-opening progress/error messages were observed; no conversation was
+read. See `iphone-startup-observations.json`.

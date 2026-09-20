@@ -1,0 +1,242 @@
+{
+  "schema": "kit-ai-cache-presence-live-v1",
+  "startedAt": "2026-09-20T10:27:48.710Z",
+  "origin": "https://kit-ai-pablopupo.vercel.app",
+  "modelId": "kit-qwen2.5-1.5b-q4f16_1-9bd564b064631febf14deadcac492efb761d60c3",
+  "complete": true,
+  "scope": "Saved public app upgrade in isolated desktop Chrome with a synthetic interrupted Qwen startup. No weight download or inference. Published entry, SDK and worker bytes checked against the local build. This is not a physical-phone test.",
+  "artifacts": "/var/folders/l6/m4hsd79x1q11bsvd52jvt02m0000gn/T/kit-cache-live-38i2og",
+  "navigations": [
+    "/assets/index-BszvVSgc.js",
+    "/assets/index-Bp_fGlG_.js"
+  ],
+  "previousScript": "/assets/index-BszvVSgc.js",
+  "prepared": true,
+  "prepareEvidence": {
+    "modelRequests": 0,
+    "externalRequests": 0,
+    "pageErrors": [],
+    "requests": [
+      {
+        "path": "/",
+        "method": "GET"
+      },
+      {
+        "path": "/assets/index-BszvVSgc.js",
+        "method": "GET"
+      },
+      {
+        "path": "/manifest.webmanifest",
+        "method": "GET"
+      },
+      {
+        "path": "/assets/index-S2wIwo9W.css",
+        "method": "GET"
+      },
+      {
+        "path": "/fonts/nunito-latin.woff2",
+        "method": "GET"
+      },
+      {
+        "path": "/favicon.svg",
+        "method": "GET"
+      },
+      {
+        "path": "/sw.js",
+        "method": "GET"
+      },
+      {
+        "path": "/favicon.svg",
+        "method": "GET"
+      },
+      {
+        "path": "/pwa-maskable-512x512.png",
+        "method": "GET"
+      },
+      {
+        "path": "/pwa-512x512.png",
+        "method": "GET"
+      },
+      {
+        "path": "/pwa-192x192.png",
+        "method": "GET"
+      },
+      {
+        "path": "/index.html",
+        "method": "GET"
+      },
+      {
+        "path": "/favicon.svg",
+        "method": "GET"
+      },
+      {
+        "path": "/apple-touch-icon.png",
+        "method": "GET"
+      },
+      {
+        "path": "/fonts/varela-round-latin.woff2",
+        "method": "GET"
+      },
+      {
+        "path": "/fonts/varela-round-latin-ext.woff2",
+        "method": "GET"
+      },
+      {
+        "path": "/fonts/nunito-latin.woff2",
+        "method": "GET"
+      },
+      {
+        "path": "/fonts/nunito-latin-ext.woff2",
+        "method": "GET"
+      },
+      {
+        "path": "/assets/webgpu-check-worker-CsNPHstF.js",
+        "method": "GET"
+      },
+      {
+        "path": "/assets/model-trial-check-worker-CQ60tYHJ.js",
+        "method": "GET"
+      },
+      {
+        "path": "/assets/index-S2wIwo9W.css",
+        "method": "GET"
+      },
+      {
+        "path": "/assets/index-BszvVSgc.js",
+        "method": "GET"
+      },
+      {
+        "path": "/assets/browser-BcN2g_wR.js",
+        "method": "GET"
+      },
+      {
+        "path": "/assets/__vite-browser-external-Cgmn0awE-PPlNITrx.js",
+        "method": "GET"
+      },
+      {
+        "path": "/robots.txt",
+        "method": "GET"
+      },
+      {
+        "path": "/manifest.webmanifest",
+        "method": "GET"
+      }
+    ]
+  },
+  "prepareClose": {
+    "confirmedExited": true,
+    "closeWarning": null
+  },
+  "updatedAt": "2026-09-20T10:31:20.214Z",
+  "expectedScript": "/assets/index-Bp_fGlG_.js",
+  "savedState": {
+    "consent": "true",
+    "run": {
+      "state": "interrupted",
+      "stage": "model-loading",
+      "owner": "synthetic-cache-update"
+    }
+  },
+  "publicAssets": [
+    {
+      "path": "/assets/index-Bp_fGlG_.js",
+      "sha256": "81deacd839d867f2cecf72d63782fa5060ce31bfd4faa8315b9605ff21745c25",
+      "matchesLocalBuild": true
+    },
+    {
+      "path": "/assets/webllm-worker-DW6ehUvA.js",
+      "sha256": "329f8147c5f6db2803033e81d9e83977195d4a229e472d6cab0117133e7a3e56",
+      "matchesLocalBuild": true
+    },
+    {
+      "path": "/assets/webllmService-CC0W396c.js",
+      "sha256": "28527e8970037a218c683e5b0c775e204dff784893748463db0da0b0b4886e31",
+      "matchesLocalBuild": true
+    }
+  ],
+  "updateEvidence": {
+    "modelRequests": 0,
+    "externalRequests": 0,
+    "pageErrors": [],
+    "requests": [
+      {
+        "path": "/",
+        "method": "GET"
+      },
+      {
+        "path": "/assets/index-S2wIwo9W.css",
+        "method": "GET"
+      },
+      {
+        "path": "/assets/index-BszvVSgc.js",
+        "method": "GET"
+      },
+      {
+        "path": "/fonts/nunito-latin.woff2",
+        "method": "GET"
+      },
+      {
+        "path": "/manifest.webmanifest",
+        "method": "GET"
+      },
+      {
+        "path": "/favicon.svg",
+        "method": "GET"
+      },
+      {
+        "path": "/index.html",
+        "method": "GET"
+      },
+      {
+        "path": "/assets/index-CBdy2QrM.css",
+        "method": "GET"
+      },
+      {
+        "path": "/assets/index-Bp_fGlG_.js",
+        "method": "GET"
+      },
+      {
+        "path": "/assets/browser-Ul1Mn8qH.js",
+        "method": "GET"
+      },
+      {
+        "path": "/assets/__vite-browser-external-Cgmn0awE-By8Pu7kV.js",
+        "method": "GET"
+      },
+      {
+        "path": "/",
+        "method": "GET"
+      },
+      {
+        "path": "/assets/index-CBdy2QrM.css",
+        "method": "GET"
+      },
+      {
+        "path": "/assets/index-Bp_fGlG_.js",
+        "method": "GET"
+      },
+      {
+        "path": "/fonts/nunito-latin.woff2",
+        "method": "GET"
+      },
+      {
+        "path": "/manifest.webmanifest",
+        "method": "GET"
+      },
+      {
+        "path": "/favicon.svg",
+        "method": "GET"
+      },
+      {
+        "path": "/favicon.svg",
+        "method": "GET"
+      }
+    ]
+  },
+  "updateClose": {
+    "confirmedExited": true,
+    "closeWarning": null
+  },
+  "deploymentId": "dpl_FLcw1u9qizpXgJ3qjK163ysgH9c3",
+  "codeCommit": "a619664"
+}
