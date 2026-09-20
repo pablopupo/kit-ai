@@ -2,6 +2,10 @@
 
 A simple, experimental health chat that can generate answers without internet after download on a compatible device.
 
+**Current phone status:** offline AI still does not work on the owner's iPhone.
+The smaller Qwen model's latest attempt was interrupted while loading after
+download. Desktop offline tests pass, but they do not establish phone support.
+
 **Personal deployment:** https://kit-ai-pablopupo.vercel.app
 
 KIT AI provides general information. It cannot diagnose a condition or replace professional care. In an emergency, contact the local emergency number without waiting for an AI answer.
@@ -21,7 +25,7 @@ no separate trial flow, model selector, bottom navigation or diagnostic dashboar
 | English and Spanish | Interface, complete guides, bilingual search and requested AI answer language |
 | Offline preparation | Saves the small app automatically; asks once for the roughly 0.9 GB phone candidate, then loads saved files automatically unless paused or interrupted |
 | Online assistant | `Pablo305/llama3-medical-3b-4bit` through the owner's existing Space |
-| Browser assistant | Approved Qwen2.5 1.5B experiment, immutable weights/runtime in `modelProfiles.js`; original medical 3B retained as a baseline |
+| Browser assistant | Approved Qwen2.5 1.5B experiment, revision `9bd564b064631febf14deadcac492efb761d60c3`; immutable weights/runtime in `modelProfiles.js`; original medical 3B retained as a baseline |
 | Offline retrieval | Bilingual keyword matching over six whole source-linked guides; relevant complete guidance is included in model prompts |
 | Web search | Not implemented; online model inference does not browse the internet |
 | Help | Menu → Settings → Help; optional report excludes conversations and browser identity |
@@ -55,14 +59,15 @@ The existing Space also used a Hub dependency incompatible with its exported Tra
 
 Changing prompts does not establish medical reliability. The model has not had formal clinical evaluation; its model card still needs training-data and methodology details.
 
-**Latest model experiment (2026-09-18):** the original NF4 checkpoint was locally
+**Original medical-model experiment (2026-09-18):** the original NF4 checkpoint was locally
 dequantized and exported to MLC without retraining. Twenty EN/ES cases ran on the
 float export. An infant-choking failure was independently reproduced on the
 original NF4 checkpoint and matched the float export token for token on CPU.
 Other findings include missing steps, source contradictions and a Spanish refusal.
 The recovered historical prompt also produced serious errors. The conversion is
-not a medical-quality pass. The converted checkpoint now powers the experimental
-main chat at that time with those limitations disclosed; clinical review remains outstanding.
+not a medical-quality pass. The converted checkpoint subsequently powered the
+experimental main chat and is now retained as the medical baseline; clinical
+review remains outstanding.
 It generated in desktop Chrome on Apple Metal and after a full offline browser
 restart, using about 1.86 GB of browser storage. Real phone testing remains open.
 See [evaluation results](evaluations/README.md) and [conversion tooling](model-tools/README.md).
@@ -76,6 +81,22 @@ network transport. Offline reopening took 2.42 seconds in that test. These are
 runtime observations, not iPhone or medical-quality certification. The 20 frozen
 EN/ES development cases are retained for review. No training has started.
 See [candidate verification](verification/phone-candidate.md).
+
+**Latest iPhone failure:** the Qwen attempt was interrupted at `model-loading`
+after download. On reopening, the report showed `offlineApp.status: ready`,
+`runtimeSaved: true`, `offlineSaved: false` and `check: null`. Saved app/runtime
+files do not mean the model can initialize or answer offline. There is no
+OS-level evidence establishing an out-of-memory cause or a direct phone capture
+of this failure yet.
+
+Investigation found that WebLLM 0.2.80's cache-presence checks use IndexedDB
+`get()`, retrieving full model shards merely to check whether they exist. A
+bounded local patch uses `getKey()` for those checks, without changing the model,
+weights, cache identity or download approval. The saved-model comparison reduced cumulative weight-payload reads
+from 4.34 GB to 0.87 GB, and offline desktop inference still passed. This is not
+a peak-memory measurement or proof that the phone crash is resolved. Native
+desktop WebKit storage checks also pass. See [cache-presence verification](verification/cache-presence.md)
+and the earlier [startup recovery](verification/startup-recovery.md).
 
 ## Run locally
 
@@ -153,18 +174,28 @@ The historical `frontend/public/medical-knowledge.json` and `packs/learned.json`
 
 ## Validation and next work
 
-Automated checks cover guide matching, excluding adult instructions for explicitly pediatric requests, complete source/context bounds, conversation persistence and deletion, and Space prompt/output behavior. Browser checks cover phone layouts, unavailable WebGPU, navigation, and offline reload. Responsive emulation is not a physical-device certification.
+The current 113 frontend tests pass. Automated checks cover guide matching,
+excluding adult instructions for explicitly pediatric requests, complete
+source/context bounds, conversation persistence and deletion, and cache/runtime
+behavior. Space prompt/output checks and browser layout/offline checks provide
+separate evidence. Responsive emulation is not a physical-device certification.
 
 Real hardware checks on Apple Metal verified automatic loading, cached offline
 reload (about five seconds), and generation without model-network requests. This
 is not a physical iPhone/Android certification. The earlier stock 1B browser Llama refused
 basic cut/burn questions during evaluation. Qwen 0.6B and 1.7B comparisons answered
 but omitted or contradicted source guidance, so they were not silently substituted
-for the owner's model. Functional offline AI is established; reliable offline
-medical answer quality remains work to do.
+for the owner's model. Functional offline generation is established on the
+tested desktop configurations only. The current Qwen2.5 1.5B candidate still
+fails to load on the reported iPhone; reliable medical answer quality also
+remains work to do.
 
-See [simplified chat verification](verification/simple-chat.md) for the current
-main-chat checks. Earlier trial reports remain historical evidence.
+See [simplified chat verification](verification/simple-chat.md) for the earlier
+3B main-chat checks and [candidate verification](verification/phone-candidate.md)
+for the smaller model's desktop evidence. Neither proves a fix for the latest
+phone failure. Next, verify loading on that phone, review English/Spanish source
+coverage and adherence, then choose any targeted fine-tuning experiment with the
+owner. Historical trial reports remain evidence of their recorded configurations.
 
 See [IMPROVEMENTS.md](IMPROVEMENTS.md) and the [learning plan](evaluations/README.md)
 for next steps. The historical Space prompt is preserved in

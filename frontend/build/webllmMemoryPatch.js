@@ -26,6 +26,17 @@ export function patchWebllmMemory(code, runtimeVersion) {
   if (runtimeVersion !== '0.2.80') {
     throw new Error('Review the Kit WebLLM memory patch before changing the runtime.')
   }
+  // Presence checks must not deserialize model weights. The original SDK
+  // reads every shard concurrently in hasAllKeys(), including after the GPU
+  // model is already resident. Cache records use the inline `url` key, so
+  // getKey has the same existence semantics without retrieving their data.
+  // Keep asyncGetHelper's get(): that path actually needs the stored payload.
+  code = replaceInMethod(code,
+    'class ArtifactIndexedDBCache {',
+    'function hasTensorInCache(', [
+      ['const request = store.get(url);', 'const request = store.getKey(url);'],
+      ['const request = store.get(key);', 'const request = store.getKey(key);'],
+    ])
   // The packed-function bridge synchronously copies this view into its own
   // argument storage. Avoid a second whole-tensor JS buffer before that copy.
   code = replaceInMethod(code,

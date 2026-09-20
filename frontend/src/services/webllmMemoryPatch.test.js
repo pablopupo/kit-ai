@@ -30,6 +30,101 @@ function awaiter(_self, _args, _promise, generator) {
   })
 }
 
+function indexedDBFixture(source, { entries = [['one', { url: 'one', data: new Uint8Array([1, 2, 3]).buffer }]], errorKeys = [], failTransaction = false } = {}) {
+  const start = source.indexOf('class ArtifactIndexedDBCache {')
+  const next = source.indexOf('function hasTensorInCache(', start)
+  const classSource = source.slice(start, source.lastIndexOf('/**', next))
+  const Cache = new Function('__awaiter', `${classSource}; return ArtifactIndexedDBCache`)(awaiter)
+  const cache = new Cache('synthetic-model-cache')
+  const records = new Map(entries)
+  const calls = [], payloads = []
+  const requestError = new Error('Synthetic storage read failure')
+  cache.db = { transaction(stores, mode) {
+    assert.deepEqual(stores, ['urls'])
+    assert.equal(mode, 'readonly')
+    if (failTransaction) throw new Error('Synthetic transaction failure')
+    const tx = { objectStore(name) {
+      assert.equal(name, 'urls')
+      function read(method, key) {
+        calls.push([method, key])
+        const request = {}
+        queueMicrotask(() => {
+          if (errorKeys.includes(key)) {
+            request.error = requestError
+            request.onerror?.({ target: request })
+            tx.error = requestError
+            tx.onerror?.()
+            return
+          }
+          if (method === 'getKey') request.result = records.has(key) ? key : undefined
+          else {
+            request.result = records.has(key) ? structuredClone(records.get(key)) : undefined
+            if (request.result?.data instanceof ArrayBuffer) payloads.push(request.result.data.byteLength)
+          }
+          request.onsuccess?.({ target: request })
+          queueMicrotask(() => tx.oncomplete?.())
+        })
+        return request
+      }
+      return { get: key => read('get', key), getKey: key => read('getKey', key) }
+    } }
+    return tx
+  } }
+  return { cache, calls, payloads, requestError }
+}
+
+test('installed cache presence methods use keys without reading or cloning payloads', async () => {
+  const entries = [
+    ['one', { url: 'one', data: new Uint8Array([1, 2, 3]).buffer }],
+    ['two', { url: 'two', data: new Uint8Array([4, 5]).buffer }],
+  ]
+  const before = indexedDBFixture(original, { entries })
+  const after = indexedDBFixture(patched, { entries })
+  for (const fixture of [before, after]) {
+    assert.equal(await fixture.cache.hasAllKeys(['one', 'two']), true)
+    assert.equal(await fixture.cache.isUrlInDB('one'), true)
+  }
+  assert.deepEqual(before.calls, [['get', 'one'], ['get', 'two'], ['get', 'one']])
+  assert.deepEqual(before.payloads, [3, 2, 3])
+  assert.deepEqual(after.calls, [['getKey', 'one'], ['getKey', 'two'], ['getKey', 'one']])
+  assert.deepEqual(after.payloads, [])
+  // This inline key schema precludes storing an entirely undefined record.
+  // A record whose `data` is absent is still present under either method.
+  assert.match(original, /createObjectStore\('urls', \{ keyPath: 'url' \}\)/)
+  assert.match(original, /store\.add\(\{ data, url \}\)/)
+})
+
+test('cache key checks preserve missing, duplicate, empty-list, and incomplete-value behavior', async () => {
+  for (const source of [original, patched]) {
+    const fixture = indexedDBFixture(source, { entries: [['one', { url: 'one', data: undefined }], ['two', { url: 'two', data: null }]] })
+    assert.equal(await fixture.cache.hasAllKeys([]), true)
+    assert.deepEqual(fixture.calls, [])
+    assert.equal(await fixture.cache.hasAllKeys(['one', 'one', 'two']), true)
+    assert.equal(await fixture.cache.hasAllKeys(['one', 'missing']), false)
+    assert.equal(await fixture.cache.isUrlInDB('missing'), false)
+    assert.equal(await fixture.cache.isUrlInDB('one'), true)
+    assert.equal(await fixture.cache.isUrlInDB('two'), true)
+  }
+})
+
+test('cache key checks preserve request and transaction failure behavior', async () => {
+  for (const source of [original, patched]) {
+    const fixture = indexedDBFixture(source, { errorKeys: ['broken'] })
+    assert.equal(await fixture.cache.hasAllKeys(['one', 'broken']), false)
+    await assert.rejects(fixture.cache.isUrlInDB('broken'), error => error === fixture.requestError)
+    const failed = indexedDBFixture(source, { failTransaction: true })
+    await assert.rejects(failed.cache.hasAllKeys(['one']), /Synthetic transaction failure/)
+    await assert.rejects(failed.cache.isUrlInDB('one'), /Synthetic transaction failure/)
+  }
+})
+
+test('a real payload retrieval still reads stored bytes exactly once after its key check', async () => {
+  const fixture = indexedDBFixture(patched)
+  assert.deepEqual(new Uint8Array(await fixture.cache.fetchWithCache('one', 'arraybuffer')), new Uint8Array([1, 2, 3]))
+  assert.deepEqual(fixture.calls, [['getKey', 'one'], ['get', 'one']])
+  assert.deepEqual(fixture.payloads, [3])
+})
+
 function compileFixture(limit, failAt = -1) {
   let active = 0, peak = 0, clock = 0
   const started = [], completed = [], updated = [], reports = []
@@ -136,6 +231,9 @@ test('tensor loading passes exact shared views to the copying decoder without ch
 test('runtime drift fails closed and unrelated modules are untouched', () => {
   assert.throws(() => patchWebllmMemory(original, '0.2.81'), /Review/)
   assert.throws(() => patchWebllmMemory(original.replace('buffer.slice(rec.byteOffset, rec.byteOffset + rec.nbytes)', 'changed()'), '0.2.80'), /Review/)
+  for (const target of ['class ArtifactIndexedDBCache {', 'const request = store.get(url);', 'const request = store.get(key);']) {
+    assert.throws(() => patchWebllmMemory(original.replace(target, 'changed()'), '0.2.80'), /Review/)
+  }
   assert.throws(() => patchWebllmMemory(patched, '0.2.80'), /Review/)
   const plugin = webllmMemoryPatch()
   assert.equal(plugin.transform(original, '/unrelated.js'), null)
