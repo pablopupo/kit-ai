@@ -1,10 +1,13 @@
 # KIT AI: next improvements
 
-**Latest phone report:** the smaller Qwen model was interrupted at `model-loading`
-after download. On reopening, the app/runtime files were saved, but
-`offlineSaved` was false and `check` was null. Offline AI still does not work on
-the reported iPhone. The report does not prove an OS-level out-of-memory cause;
-direct capture of the phone failure remains pending.
+**Current phone status:** commit `5027de9` is live at the same personal site. On
+the owner's physical iPhone, Safari on iOS 26.0 loaded the saved Qwen model and
+reached “Ready without internet.” The owner confirmed airplane mode with Wi-Fi
+off; inspection showed `navigator.onLine: false` and an uncached same-origin
+request failed. Kit then generated fresh English and Spanish answers offline and reached
+readiness again after an offline page reload. Full Safari process exit and
+Android remain unverified. These are runtime observations, not medical accuracy
+results. See [phone observations](verification/iphone-startup-observations.json).
 
 ## Current product and evidence
 
@@ -26,7 +29,7 @@ offline browser reopening on tested desktop configurations. The candidate
 produced 24 desktop answers, including 22 with network transport blocked. See
 [candidate verification](verification/phone-candidate.md) and the historical
 [3B main-chat checks](verification/simple-chat.md). These results do not establish
-physical phone support or medical accuracy. The current 113 frontend tests pass.
+support across phones or medical accuracy. The current 118 frontend tests pass.
 
 The current investigation found that WebLLM 0.2.80's cache-presence checks retrieve
 full model shards with IndexedDB `get()`. A bounded local patch uses `getKey()` to
@@ -34,18 +37,28 @@ check existence without retrieving shard values. It changes no model, weights,
 cache identity or download approval. The real saved-model comparison reduced
 cumulative returned weight bytes from 4.34 GB to 0.87 GB; offline desktop answers
 and native WebKit storage checks pass. This is not a peak-memory measurement or
-a successful phone-fix claim. See [cache-presence verification](verification/cache-presence.md).
+a successful phone-fix claim. That build still stopped after 23 of 30 cached
+shards on the connected iPhone, followed by a restart; an OS-level memory failure
+was not established. See [cache-presence verification](verification/cache-presence.md).
+
+The subsequent direct GPU upload patch skips temporary CPU tensors and FFI
+staging for eligible records without changing weights or download approval. The
+desktop comparison measured model WASM linear memory at readiness of 353,370,112
+bytes before and 167,772,160 bytes after; this is not total or peak process RAM.
+The physical iPhone then completed all 30 shards and shader compilation, reaching
+readiness in one observed 2.551-second load, not a benchmark. Evidence:
+[direct-upload verification](verification/direct-gpu-loading.md),
+[raw comparison](verification/direct-gpu-loading-results.json), and
+[phone observations](verification/iphone-startup-observations.json).
 Earlier [GPU-limit corrections](verification/phone-gpu-limits.md) and
-[startup recovery](verification/startup-recovery.md) remain separate evidence.
+[startup recovery](verification/startup-recovery.md) remain historical evidence.
 
 ## Next work, in order
 
-1. **Make the saved model run on the reported iPhone.** Verify the cache-presence
-   change with the same candidate and capture the physical phone's loading
-   behavior. Then confirm a full close/reopen and a fresh answer with airplane
-   mode on and Wi-Fi off. A successful preflight or completed download alone does
-   not establish offline generation. Test Android Chrome separately; do not
-   promise every phone or browser.
+1. **Extend the physical offline checks.** Loading, fresh English/Spanish answers and
+   page reloading now succeed on the reported iPhone in airplane mode with Wi-Fi
+   off. Check a full Safari process exit and Android Chrome separately; do not
+   extend one phone's result to every phone or browser.
 2. **Evaluate the answers people actually receive.** Run the current main-chat
    prompts and runtime on the frozen English/Spanish cases. Review unsupported
    claims, missed warning signs, follow-ups, language and age scope against the
@@ -80,5 +93,5 @@ exist elsewhere. No new training job has been started.
 
 The existing Hugging Face Space has answered connected test questions on its
 ZeroGPU hardware. That is evidence of online inference only, and quota/cold-start
-constraints remain relevant. Clinical reliability and physical offline AI on
-iPhone and Android remain unestablished.
+constraints remain relevant. The physical iPhone runtime checks above do not
+establish clinical reliability or Android support.

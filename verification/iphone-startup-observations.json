@@ -1,7 +1,7 @@
 {
   "schema": "kit-ai-physical-phone-observation-v1",
   "observedDate": "2026-09-20",
-  "scope": "Manual observations from Safari Web Inspector attached by USB to the owner iPhone. No peak memory or OS termination cause established. No conversation content read.",
+  "scope": "Manual observations from Safari Web Inspector attached by USB to the owner iPhone. No peak memory or OS termination cause established. Only synthetic test conversations are inspected.",
   "os": "iOS 26.0",
   "browser": "Safari",
   "hardwareModel": "unknown",
@@ -42,5 +42,77 @@
   "physicalOfflineGenerationVerified": false,
   "osMemoryFailureConfirmed": false,
   "userConfirmedRestartRecovery": true,
-  "osLogCapture": "Filtered iPhone Console capture began after the progress stopped, so it did not establish the termination cause. It was paused before further testing."
+  "osLogCapture": "Filtered iPhone Console capture began after the progress stopped, so it did not establish the termination cause. It was paused before further testing.",
+  "directGpuAttempt": {
+    "deploymentId": "dpl_58rbhNishzdhQ8Hwr9o7QeKeUo4i",
+    "codeCommit": "5027de9",
+    "entryScript": "/assets/index-DV2S2Ij_.js",
+    "modelWorker": "/assets/webllm-worker-DdXcQXqL.js",
+    "retryAt": "2026-09-20T10:47:04.791Z",
+    "instrumentation": "Main-page Worker Proxy observes only initialization messages and returns native Worker unchanged. No worker/GPU instrumentation on physical phone. Ordinary reload removes the observer.",
+    "savedShards": {
+      "loaded": 30,
+      "total": 30,
+      "reportedLoadedMB": 829,
+      "elapsedSeconds": 2
+    },
+    "shaderModules": {
+      "loaded": 89,
+      "total": 89,
+      "elapsedSeconds": 1
+    },
+    "sdkReady": {
+      "text": "Finish loading on WebGPU - apple",
+      "elapsedSeconds": 2.551
+    },
+    "uiReady": true,
+    "inputEnabled": true,
+    "offlineCheck": {
+      "at": "2026-09-20T11:00:43.707Z",
+      "userConfirmedAirplaneModeAndWifiOff": true,
+      "navigatorOnline": false,
+      "uiReady": true,
+      "uncachedRequest": "/__offline_probe?nonce=<fresh timestamp>",
+      "requestResult": "TypeError: Load failed; resource reported Internet connection appears offline",
+      "probeCaveat": "Safari console eager evaluation initiated multiple intermediate probes while typing; all observed attempts failed. Probe-generated errors are distinct from application errors."
+    },
+    "physicalOfflineGenerationVerified": true,
+    "offlineReloadVerified": true,
+    "fullSafariProcessExitVerified": false,
+    "medicalAccuracyEvaluated": false,
+    "osLogCapture": "Filtered Console capture began before successful initialization and was paused before inference testing. No browser termination cause established.",
+    "offlineReload": {
+      "action": "Mac Safari Web Inspector Reload page on the physical iPhone target, with user-confirmed airplane mode and Wi-Fi off",
+      "navigatedAt": "2026-09-20T11:02:50Z",
+      "checkedAt": "2026-09-20T11:03:19.105Z",
+      "url": "https://kit-ai-pablopupo.vercel.app/index.html",
+      "entryScript": "/assets/index-DV2S2Ij_.js",
+      "navigatorOnline": false,
+      "uiReady": true,
+      "serviceWorkerControlsPage": true,
+      "workerObserverRemovedByNavigation": true
+    },
+    "syntheticConversations": [
+      {
+        "checkedAt": "2026-09-20T11:02:17.297Z",
+        "language": "en",
+        "afterOfflineReload": false,
+        "navigatorOnline": false,
+        "uiReady": true,
+        "prompt": "Runtime test: explain in two short sentences what a thermometer measures.",
+        "answer": "A thermometer measures temperature."
+      },
+      {
+        "checkedAt": "2026-09-20T11:07:01.701Z",
+        "language": "es",
+        "afterOfflineReload": true,
+        "navigatorOnline": false,
+        "documentLanguage": "es",
+        "ariaBusy": "false",
+        "prompt": "En una frase, explica por favor lo que mide un termometro.",
+        "answer": "Un termometro mide la temperatura de un cuerpo. Es comúnmente usado para medir el calentamiento corporal, lo que puede ayudar a determinar si una persona está enferma o no.",
+        "qualityNote": "A runtime smoke test only. Temperature alone does not determine whether someone is ill; the generated phrasing is overbroad."
+      }
+    ]
+  }
 }

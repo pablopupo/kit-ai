@@ -2,9 +2,11 @@
 
 A simple, experimental health chat that can generate answers without internet after download on a compatible device.
 
-**Current phone status:** offline AI still does not work on the owner's iPhone.
-The smaller Qwen model's latest attempt was interrupted while loading after
-download. Desktop offline tests pass, but they do not establish phone support.
+**Current phone status:** the saved Qwen model now loads on the owner's iPhone
+in Safari on iOS 26.0, generates fresh English and Spanish answers without internet, and
+reopens after an offline page reload. A full Safari process exit and Android
+testing remain unverified. This does not establish medical accuracy or support
+on every phone.
 
 **Personal deployment:** https://kit-ai-pablopupo.vercel.app
 
@@ -82,12 +84,13 @@ runtime observations, not iPhone or medical-quality certification. The 20 frozen
 EN/ES development cases are retained for review. No training has started.
 See [candidate verification](verification/phone-candidate.md).
 
-**Latest iPhone failure:** the Qwen attempt was interrupted at `model-loading`
+**Earlier iPhone failure:** the Qwen attempt was interrupted at `model-loading`
 after download. On reopening, the report showed `offlineApp.status: ready`,
 `runtimeSaved: true`, `offlineSaved: false` and `check: null`. Saved app/runtime
-files do not mean the model can initialize or answer offline. There is no
-OS-level evidence establishing an out-of-memory cause or a direct phone capture
-of this failure yet.
+files do not mean the model can initialize or answer offline. A later USB-connected Safari inspection confirmed the updated build and
+observed cached-weight loading stop at 23 of 30 files before the owner reported
+recovery after another restart. There is no OS-level evidence establishing an
+out-of-memory cause. See [phone observations](verification/iphone-startup-observations.json).
 
 Investigation found that WebLLM 0.2.80's cache-presence checks use IndexedDB
 `get()`, retrieving full model shards merely to check whether they exist. A
@@ -97,6 +100,29 @@ from 4.34 GB to 0.87 GB, and offline desktop inference still passed. This is not
 a peak-memory measurement or proof that the phone crash is resolved. Native
 desktop WebKit storage checks also pass. See [cache-presence verification](verification/cache-presence.md)
 and the earlier [startup recovery](verification/startup-recovery.md).
+
+**Direct GPU loading (commit `5027de9`):** the next patch uploads eligible saved
+weight bytes directly into their GPU tensors, avoiding temporary CPU tensors and
+FFI staging. It is live at the same personal deployment URL and reuses the same
+model and approved download. In the recorded desktop comparison, model WASM
+linear memory at readiness changed from 353,370,112 to 167,772,160 bytes. This is
+neither total device RAM nor a process-memory peak. Desktop offline generation
+still passed. See [direct-upload verification](verification/direct-gpu-loading.md)
+and its [raw results](verification/direct-gpu-loading-results.json).
+
+On the physical iPhone, this build completed all 30 cached shards and shader
+compilation, reaching readiness in one observed 2.551-second load; this is not a
+benchmark. The owner confirmed airplane mode with Wi-Fi off. At
+`2026-09-20T11:00:43.707Z`, inspection showed readiness, `navigator.onLine: false`
+and failure of an uncached same-origin request. A fresh generated answer and an
+offline reload subsequently passed: a new English runtime question received an
+answer at `11:02:17.297Z` while `navigator.onLine` remained false. After the
+offline page reload at `11:02:50Z`, inspection at `11:03:19.105Z` again showed
+readiness, no connection and service-worker control. A new Spanish question then
+received a Spanish reply at `11:07:01.701Z`, still offline. This was a page reload, not
+a full Safari/OS process exit. The question tested generation, not medical
+correctness. See
+[phone observations](verification/iphone-startup-observations.json).
 
 ## Run locally
 
@@ -174,7 +200,7 @@ The historical `frontend/public/medical-knowledge.json` and `packs/learned.json`
 
 ## Validation and next work
 
-The current 113 frontend tests pass. Automated checks cover guide matching,
+The current 118 frontend tests pass. Automated checks cover guide matching,
 excluding adult instructions for explicitly pediatric requests, complete
 source/context bounds, conversation persistence and deletion, and cache/runtime
 behavior. Space prompt/output checks and browser layout/offline checks provide
@@ -186,16 +212,19 @@ is not a physical iPhone/Android certification. The earlier stock 1B browser Lla
 basic cut/burn questions during evaluation. Qwen 0.6B and 1.7B comparisons answered
 but omitted or contradicted source guidance, so they were not silently substituted
 for the owner's model. Functional offline generation is established on the
-tested desktop configurations only. The current Qwen2.5 1.5B candidate still
-fails to load on the reported iPhone; reliable medical answer quality also
-remains work to do.
+tested desktop configurations. The current Qwen2.5 1.5B candidate now loads on
+the reported iPhone and has generated fresh English/Spanish answers offline and
+reached readiness again after an offline page reload. Full Safari process exit
+and Android remain unverified. Reliable medical answer quality also remains
+work to do.
 
 See [simplified chat verification](verification/simple-chat.md) for the earlier
 3B main-chat checks and [candidate verification](verification/phone-candidate.md)
-for the smaller model's desktop evidence. Neither proves a fix for the latest
-phone failure. Next, verify loading on that phone, review English/Spanish source
-coverage and adherence, then choose any targeted fine-tuning experiment with the
-owner. Historical trial reports remain evidence of their recorded configurations.
+for the smaller model's earlier desktop evidence. The latest runtime comparison
+is in [direct-upload verification](verification/direct-gpu-loading.md). Next,
+extend physical-device checks, review English/Spanish source coverage and
+adherence, then choose any targeted fine-tuning experiment with the owner.
+Historical trial reports remain evidence of their recorded configurations.
 
 See [IMPROVEMENTS.md](IMPROVEMENTS.md) and the [learning plan](evaluations/README.md)
 for next steps. The historical Space prompt is preserved in
